@@ -3,3 +3,10 @@ c'est bon depuis ronan
 c'est bon depuis gwen
 c'est bon depuis ronan 2
 
+le commit doit être fait dans origin/master
+pour récupérer un commit propre : 
+dépot distant > récupérer de > origin
+fusionner > fusion locale : branche de suivi doit être coché avec origin/master en choix.
+cliquer sur fusionner.
+
+
