@@ -1,6 +1,6 @@
 modif1
 c'est bon depuis ronan
-c'est bon depuis gwen
+c'est bon depuis gwen, mais non pas de conflit
 c'est bon depuis ronan 2
 
 le commit doit être fait dans origin/master
