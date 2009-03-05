@@ -9,6 +9,8 @@ Transfert avec le serveur (git@github.com:gtrepos/olivet.git) :
 	git clone git@github.com:gtrepos/olivet.git : initialiser d'un depot local (à ne faire qu'une fois)
 	git fetch                                   : récupération depuis depot de serveur git (ne fait pas le merge)
 	git push 				    : met à jour le depot du serveur avec le depot local 
+	git pull 				    : met à jour le dépôt local avec le dépôt du serveur
+
 
 Mis à jour du depot local :
 	git add <filename> 			    : ajout d'un fichier au dépôt local (necessite toutefois un commit)
@@ -17,4 +19,4 @@ Mis à jour du depot local :
 
 
 
-git status > donner ex
+git status > donner fro git 2
