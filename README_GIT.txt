@@ -1,4 +1,3 @@
-CONFLIT de git2
 
 GUide d'utilisation de git pour l'olivet.
 ----------------------------------------
@@ -19,7 +18,7 @@ GUide d'utilisation de git pour l'olivet.
 3. Mis à jour du depot local :
 
 	git add <filename> 			    : ajout d'un fichier au dépôt local (+ commit apres)
-	git rm <filename> 			    : effacement d'un fichier du dépôt local (+ commit apres) -- cf point 6
+	git rm <filename> 			    : effacement d'un fichier du dépôt local (+ commit apres)
 	git commit -a -m "commentaire" 	            : met à jour le depot local avec les modifs des fichiers locaux 
 
 
@@ -68,7 +67,7 @@ GUide d'utilisation de git pour l'olivet.
 	#       FAUX_FICHIER2.txt			       ==> fichier non présent dans le git (necessite git add peut être) 
 	#
 
-	Exemple trompeur (cela  veut dire qu'on est à jour localement mais le serveur peut être en avance, faire git log )
+	Exemple trompeur (cela  veut dire qu'on est à jour localement mais le serveur peut être en avance, faire git log) :
 
 	$ git status
 	# On branch master
@@ -80,14 +79,14 @@ GUide d'utilisation de git pour l'olivet.
 	Pour voir seulement les derniers commit : git log -n <nbs_logs_qu_on_veut_voir>
 	Peut être le moyen de plus simple pour voir si l'on est à jour par rapport au serveur : comparer les dates de commit
 
-5. Autres points (pas importants)
+5. Autres points (pas importants) :
 
 	voir "gitignore" si on utilise eclipse : eclipse crée un fichier .project qui ne doit pas faire partie du git.
 	toujours au sujet de git pull : git pull = git fetch + git merge : il parait que l'on peut remplacer le git merge par un git rebase,
 	permet de voir un seul arbre dans git-gui.. mais on verra plus tard. 
 
 
-6. Le Readme de Gwen : (que je ne vais pas ssupprimer tout de même) 
+6. Le Readme de Gwen : (que je ne vais pas supprimer tout de même) 
 
 	le commit doit être fait dans origin/master
 	pour récupérer un commit propre : 
