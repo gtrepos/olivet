@@ -1,7 +1,8 @@
-modif1
+﻿modif1
 c'est bon depuis ronan
 c'est bon depuis gwen avec un vieux conflit de la mort
 c'est bon depuis ronan 2
+Coucouc de git 1
 
 le commit doit être fait dans origin/master
 pour récupérer un commit propre : 
@@ -11,3 +12,5 @@ cliquer sur fusionner.
 
 Dans l'écran de visualisation de la fusion il faut sélectionner la derniere version pushé avec clic 
 droit puis faire un clic gauche sur la version en locale puis faire un Diff this -> selected ou un Diff selected -> this. Le résultat de la comparaison est en bas.
+
+
