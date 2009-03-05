@@ -32,5 +32,4 @@ GUide d'utilisation de git pour l'olivet.
 5. Autres points
 
 voir "gitignore" si on utilise eclipse : eclipse crée un fichier .project qui ne doit pas faire partie du git.
-  
-NOUVEAU conflit depuis dit2
+
