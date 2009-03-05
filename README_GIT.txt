@@ -33,4 +33,5 @@ GUide d'utilisation de git pour l'olivet.
 
 voir "gitignore" si on utilise eclipse : eclipse crée un fichier .project qui ne doit pas faire partie du git.
 
-coucouc$jc
+coucouccezce cezec 
+zeczec 
