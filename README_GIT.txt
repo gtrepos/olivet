@@ -17,4 +17,4 @@ Mis à jour du depot local :
 
 
 
-git status > donner ex
+git status > donner fro git 1
