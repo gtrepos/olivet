@@ -1,3 +1,5 @@
+CONFLIT de git2
+
 GUide d'utilisation de git pour l'olivet.
 ----------------------------------------
 
