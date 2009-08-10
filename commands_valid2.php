@@ -12,26 +12,38 @@ if (isset($_POST['nom'])){
 	echo "<br> Pas de nom donné (2) !!  <br>";
 }
 
-include('Mail.php');
 
-$recipients = 'rtrepos@gmail.com';
+$to      = 'ronan.trepos@neuf.fr';
+$subject = 'le sujet';
+$message = 'Bonjour !';
+$headers = 'From: rtrepos@gmail.com' . "\r\n" .
+     'X-Mailer: PHP/' . phpversion();
 
-$headers['From']    = 'rtrepos@gmail.com';
-$headers['To']      = 'rtrepos@gmail.com';
-$headers['Subject'] = 'Test message';
-
-$body = 'Test message';
-
-$params['sendmail_path'] = '/usr/lib/sendmail';
-
-// Create the mail object using the Mail::factory method
-$mail_object =& Mail::factory('sendmail', $params);
-
-$ret = $mail_object->send($recipients, $headers, $body);
-
-if (PEAR::isError($ret)) { print($ret->getMessage());} 
-echo "$ret";
-echo "CHIOTTE";
+mail($to, $subject, $message, $headers);
+ //Config mail
+// C:\Program Files\EasyPHP 3.0\conf_files\php.ini
+     
+//
+//include('Mail.php');
+//
+//$recipients = 'rtrepos@gmail.com';
+//
+//$headers['From']    = 'rtrepos@gmail.com';
+//$headers['To']      = 'rtrepos@gmail.com';
+//$headers['Subject'] = 'Test message';
+//
+//$body = 'Test message';
+//
+//$params['sendmail_path'] = '/usr/lib/sendmail';
+//
+//// Create the mail object using the Mail::factory method
+//$mail_object =& Mail::factory('sendmail', $params);
+//
+//$ret = $mail_object->send($recipients, $headers, $body);
+//
+//if (PEAR::isError($ret)) { print($ret->getMessage());} 
+//echo "$ret";
+//echo "CHIOTTE";
 
 
 //phpinfo();
