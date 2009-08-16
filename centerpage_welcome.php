@@ -7,11 +7,12 @@
   		<div style='margin-top:2em;'><img src='img/accueilillustration.gif' border=0></div>
   	</td>
   	<td  align=left width="70%">
-		   <p style="text-align:center; border-style: solid">
-               Actualites <br/>
-               Details <br/>
-               <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-			</p>
+		 
+		   <?php
+		   require_once('database_functions.php');
+		   affiche_nouveautes();
+		   ?>
+		 
   	</td>
   	</tr>
   <tr>
