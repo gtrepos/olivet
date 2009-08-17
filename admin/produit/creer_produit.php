@@ -6,6 +6,7 @@
 			<tr><td>Catégorie : </td><td><?php liste_categories('-1',false);?></td></tr> 
 			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
 			<tr><td valign="top">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
+			<tr><td>Conditionnement : </td><td><input type='text' id='conditionnement' name='conditionnement'/></td></tr>
 			<tr><td>Unité : </td><td><input type='text' id='unite' name='unite'/></td></tr>
 			<tr><td>Prix : </td><td><input type='text' id='prix' name='prix'/></td></tr>
 			<tr><td>Nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute'/></td></tr>

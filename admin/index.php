@@ -44,6 +44,7 @@ require ("fonctions.php");
      else {$page="accueil";}
 
 	 if ($page=="clients") {include ("client/clients.php");}
+	 if ($page=="commandes") {include ("commande/commandes.php");}
      if ($page=="actualites") {include ("actualite/actualites.php");}
      if ($page=="categories") {include ("categorie_produit/categories.php");}
      if ($page=="produits") {include ("produit/produits.php");}

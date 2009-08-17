@@ -1,22 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 3.1.1
+-- version 3.1.3.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- GÃ©nÃ©rÃ© le : Mar 04 AoÃ»t 2009 Ã  23:20
--- Version du serveur: 5.1.30
--- Version de PHP: 5.2.8
+-- Généré le : Lun 17 Août 2009 à 16:47
+-- Version du serveur: 5.1.33
+-- Version de PHP: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Base de donnÃ©es: `gaeca4voies`
+-- Base de données: `gaeca4voies`
 --
 
 -- --------------------------------------------------------
@@ -32,16 +26,21 @@ CREATE TABLE IF NOT EXISTS `actualite` (
   `actualite_etat` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'etat de l''actualite, 0 = inactif, 1 = actif ',
   `actualite_datecreation` datetime NOT NULL COMMENT 'date de creation de l''actualite',
   `actualite_datemodification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'date de modification de l''actualite',
+  `actualite_type` varchar(4) COLLATE latin1_general_ci NOT NULL DEFAULT 'GAEC' COMMENT 'type de l''actualite (GAEC pour gaec, LOMA pour local et/ou monde agricole',
+  `actualite_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''actualité est une nouveauté',
   PRIMARY KEY (`actualite_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des actualitÃƒÂ©s' AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des actualitÃ©s' AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `actualite`
 --
 
-INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`) VALUES
-(6, 'my actuality', 'c''est la premiere actu hÃ©hÃ© it works better and better', 1, '2009-07-09 12:13:38', '2009-07-09 12:29:37'),
-(7, 'DeuxiÃ¨me actu', '12345678910111213141516171819', 1, '2009-07-09 12:28:55', '2009-07-09 12:56:49');
+INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
+(6, 'my actuality', 'c''est la cote qui tue mon p''tit pote', 0, '2009-07-09 12:13:38', '2009-08-17 11:34:38', 'GAEC', 0),
+(7, 'Deuxième actu', '12345678910111213141516171819', 0, '2009-07-09 12:28:55', '2009-08-17 10:41:58', 'GAEC', 0),
+(9, 'new actu', 'description héhé', 0, '2009-08-17 10:32:40', '2009-08-17 10:48:50', 'LOMA', 0),
+(10, 'lib', 'sans apostrophe', 1, '2009-08-17 10:48:01', '2009-08-17 10:48:59', 'GAEC', 1),
+(11, 'libelle''coté', 'desc''coté''''''', 1, '2009-08-17 11:35:21', '2009-08-17 11:39:19', 'GAEC', 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `categorie_produit` (
 INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libelle`, `categorie_produit_etat`) VALUES
 (3, 'Viandes', 1),
 (4, 'Produits laitiers', 1),
-(6, 'LÃ©gumes', 1),
+(6, 'Légumes', 1),
 (7, 'Fruits', 1);
 
 -- --------------------------------------------------------
@@ -89,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 --
 
 INSERT INTO `client` (`client_reference`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`) VALUES
-(4, 'Trepos', 'Gwen', '18 avenue AndrÃ© Mussat', '35000', 'Rennes', '06 17 35 00 01', 'gwenael.trepos@gmail.com');
+(4, 'Trepos', 'Gwen', '18 avenue André Mussat', '35000', 'Rennes', '06 17 35 00 01', 'gwenael.trepos@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -167,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `parametrage` (
 --
 
 INSERT INTO `parametrage` (`parametre`, `valeur`) VALUES
-('condition_vente', 'Merci de passer vos commandes avant le mardi soir et de venir les chercher sur lÃ¢â‚¬â„¢exploitation ÃƒÂ  partir du vendredi midi jusquÃ¢â‚¬â„¢au samedi midi.\r\nMerci pour votre comprÃƒÂ©hension.');
+('condition_vente', 'Merci de passer vos commandes avant le mardi soir et de venir les chercher sur lâ€™exploitation Ã  partir du vendredi midi jusquâ€™au samedi midi.\r\nMerci pour votre comprÃ©hension.');
 
 -- --------------------------------------------------------
 
@@ -191,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
 --
 
 INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_img_logo`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`) VALUES
-(2, 'Partenaire 2', 'sa description est sommaire mais il fait du bon pÃ¢tÃ© ', 'pates.gif', 'www.pate.fr', 1, 0),
+(2, 'Partenaire 2', 'sa description est sommaire mais il fait du bon pâté ', 'pates.gif', 'www.pate.fr', 1, 0),
 (3, 'test 2', 'desc', 'qsd', 'qds', 2, 0);
 
 -- --------------------------------------------------------
@@ -210,23 +209,25 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
   `produit_unite` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'unite du produit (kg, litre etc...)',
   `produit_prix` int(11) NOT NULL DEFAULT '0' COMMENT 'prix a l''unite',
+  `produit_conditionnement` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'conditionnement du produit',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_lien_photo`, `produit_descriptif_production`, `produit_nouveaute`, `produit_etat`, `produit_unite`, `produit_prix`) VALUES
-(1, 6, 'Patates', 'lien_vide', 'En pleine terre avec des cailloux', 1, 0, 'kg', 0),
-(2, 4, 'Lait', 'lien_vide', 'Direct de la vache', 1, 0, 'litre', 0),
-(7, 3, 'Mouton', 'lien_vide', 'ElevÃ© avec soins par Clarisse', 1, 0, 'kg', 0),
-(8, 3, 'Viande de boeuf', 'lien_vide', 'ElevÃ© avec soins par GÃ©rard', 1, 0, 'kg', 0),
-(13, 6, 'Haricots', 'lien_vide', 'coco', 1, 0, 'kg', 12);
+INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_lien_photo`, `produit_descriptif_production`, `produit_nouveaute`, `produit_etat`, `produit_unite`, `produit_prix`, `produit_conditionnement`) VALUES
+(1, 6, 'Patates', 'lien_vide', 'En pleine terre avec des cailloux', 1, 0, 'kg', 2, '1 kg'),
+(2, 4, 'Lait', 'lien_vide', 'Direct de la vache', 1, 0, 'litre', 0, ''),
+(7, 3, 'Mouton', 'lien_vide', 'Elevé avec soins par Clarisse', 1, 0, 'kg', 0, ''),
+(8, 3, 'Viande de boeuf', 'lien_vide', 'Elevé avec soins par Gérard', 1, 0, 'kg', 0, ''),
+(13, 6, 'Haricots', 'lien_vide', 'coco', 0, 0, 'kg', 12, 'sac de 3 kg'),
+(14, 4, 'Fromage frais', 'lien_vide', 'En labo', 1, 0, 'kg', 3, 'pot de 500g');
 
 --
--- Contraintes pour les tables exportÃ©es
+-- Contraintes pour les tables exportées
 --
 
 --

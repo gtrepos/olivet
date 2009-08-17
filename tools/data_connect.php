@@ -1,6 +1,6 @@
 <?php
 $hostname="localhost";
-$database="gaeca4voies";
+$database="olivet";
 $login="root";
 $password="mysql";
 $lang="fr";

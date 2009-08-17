@@ -6,14 +6,15 @@
 		<td class=olivet2><?php echo ADMIN_PRODUIT_CATEGORIE; ?></td>
 		<td class=olivet2><?php echo ADMIN_PRODUIT_LIBELLE; ?></td>
 		<td class=olivet2><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=olivet2><?php echo ADMIN_PRODUIT_CONDITIONNEMENT; ?></td>
+		<td class=olivet2><?php echo ADMIN_PRODUIT_PRIX_UNITE; ?></td>
 		<td class=olivet2><?php echo ADMIN_PRODUIT_NOUVEAUTE; ?></td>
 		<td class=olivet2><?php echo ADMIN_PRODUIT_ETAT; ?></td>
-		<td class=olivet2><?php echo ADMIN_PRODUIT_UNITE; ?></td>
 		<td class=olivet2></td>
 	</tr>
 	<?php affich_produits(); ?>
 	<tr>
-		<td align="right" colspan="8"><a href="?page=produits&action=creer"><?php echo ADMIN_PRODUIT_CREER;?></a></td>
+		<td align="right" colspan="10"><a href="?page=produits&action=creer"><?php echo ADMIN_PRODUIT_CREER;?></a></td>
 	</tr>
 </table>
 
@@ -34,7 +35,7 @@ if ($action=='creer') {include("creer_produit.php");}
 if ($action=='modifier') {include("modifier_produit.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_produit($_GET['mode'], $_POST['id'], $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['nouveaute'], $_POST['unite'], $_POST['prix']);	
+	enregistrer_produit($_GET['mode'], $_POST['id'], $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['conditionnement'], $_POST['nouveaute'], $_POST['unite'], $_POST['prix']);	
 }
 
 if ($action=='activer') {

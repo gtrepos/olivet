@@ -4,5 +4,5 @@ $id = $_GET['id'];
 affich_modif_categorie($id);
 ?>
 <br>
-<input type="submit"  onclick="javascript:checkCategorie()">
+<input type="submit" onclick="javascript:checkCategorie()">
 </form>
