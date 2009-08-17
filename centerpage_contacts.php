@@ -23,9 +23,8 @@
 <div id="centerpage_contacts_rightID">
 <ul class="centerpage_contacts_menu1CL">	
 		<li>Plan d'accès</li>	
-		<!-- <small><a href="http://maps.google.com/maps?f=q&amp;q=rue+Herm%C3%A8s,+Ramonville-Saint-Agne,+31520,+FR&amp;ie=UTF8&amp;om=1&amp;ll=43.558314,1.488991&amp;spn=0.01866,0.049782&amp;z=14&amp;iwloc=addr&amp;source=embed" style="color:#696969;text-align:left">Agrandir le plan</a></small> -->
-		<small><a href="http://maps.google.com/maps?f=q&amp;q=rue+olivet,+servon-sur-vilaine,+35000,+FR&amp;ie=UTF8&amp;om=1&amp;ll=48.1068185,-1.4654957&amp;z=13" style="color:#696969;text-align:left">Agrandir le plan</a></small>	
-		<div id="googleMap" style="width:500px;height:300px"></div>
+		<!-- <small><a href="http://maps.google.com/maps?f=q&amp;q=rue+olivet,+servon-sur-vilaine,+35000,+FR&amp;ie=UTF8&amp;om=1&amp;ll=48.1068185,-1.4654957&amp;z=13" style="color:#696969;text-align:left">Agrandir le plan</a></small>	
+		<div id="googleMap" style="width:500px;height:300px"></div> -->
 
  </ul>
 </div>
