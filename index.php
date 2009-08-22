@@ -14,15 +14,30 @@
 		<meta name="rating" content="general" />
 		<link href="http://gaeca4voies.free.fr/favicon.ico" rel="SHORTCUT ICON" />
 		<link href="css/style.css" type="text/css" rel="stylesheet"> 
-		<!--  <script src="js/global_load.js" type="text/javascript"></script>  -->
+		<script src="js/global_load.js" type="text/javascript"></script>
 	</head>
 	<body leftmargin="0" topmargin="0" background="gimp_img/fond2.jpg" onload="loadGoogleMap()" onunload="GUnload()" onResize="location.reload();">		
 		<div>
-				<?php include('leftpage.php'); ?>
-				<?php include('banner.php'); ?>
-        		<?php include('header.php'); ?>
-				<?php include('centerpage.php'); ?>
-				<?php include('footpage.php'); ?>
+		<?php 
+		
+		require_once("tools/config.php") ;
+		ouverture();
+		require_once("tools/visitor_bdd_functions.php") ;
+		require_once('tools/visitor_panier_functions.php');
+		session_start();
+		
+		if (isset($_GET['page'])){
+			$page = $_GET['page'];
+		}else{
+			$page = 'accueil';
+		}
+		include('visitor/gauche.php');
+		include('visitor/banniere.php');
+		include('visitor/entete.php');
+		include('visitor/centre.php');
+		include('visitor/bas.php');
+	
+		?>
 		</div>
 	</body>
 </html>

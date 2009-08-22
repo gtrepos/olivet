@@ -1,3 +1,11 @@
+
+
+<div id = 'mon_panier'>
+<?php 
+include('mon_panier.php')
+?>
+</div>
+
 <form method="post" action="index.php?page=commander&page_comm=valid2">
 <table  border="1">
 <tr>
@@ -38,39 +46,8 @@ puis les autres se dérouleront autrement.. J'aurai
 tendance à penser que c'est mieux de récupérer la ref avant la 
 1ere commande. Evite qussi les malfrats qui emplissent n'importe quoi, non ?
 </div>
+<div align=center style="font-size: 15pt;">
+	<input type=submit id=continuer name=continuer value="Valider la commande">
+</div>
+</form>	
 
-<table border="1" align=center style="border-collapse: separate;  empty-cells: show;">
-<tr>
-	<td colspan="6" align=center>Récapitulatif commande</td>
-</tr>
-<tr>
-	<td>Catégorie Produit</td>
-	<td>Nom Produit</td>
-	<td> Quantité</td>
-	<td>Prix unitaire TTC</td>
-	<td>Unité</td>
-	<td>Prix total TTC</td>
-</tr>
-<tr>
-	<td>Lait</td>
-	<td>Crême fraîche</td>
-	<td>1Kg</td>
-	<td>pas cher</td>
-	<td>35</td>
-	<td>pas cher</td>
-</tr>
-<tr>
-	<td>TOTAL Commande</td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-</tr>
-</table>
-
-	<div align=center style="font-size: 15pt;">
-		<input type=submit id=continuer name=continuer value="Valider la commande">
-	</div>
-	
-</form>
