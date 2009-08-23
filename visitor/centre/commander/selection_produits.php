@@ -32,13 +32,21 @@
 		echo "
    		<td>$row[1]</td><td align=right>TODO</td><td></td><td>$row[2]</td>
    		<td>$row[3] -- TODO</td><td>euros</td><td style='border-left : 3px solid #000;'> </td>";
-
+		$nbarticles = panierNbArticles($row[0]);
 		echo"<td>
 		<form  onsubmit='return false;'>
-			<SELECT  id='nbarticles_$row[0]' onChange='javascript:setNbArticles($row[0]);'>
-				<OPTION VALUE='0' SELECTED>0</OPTION>
-				<OPTION VALUE='1'>1</OPTION>
-			</SELECT>	
+			<SELECT  id='nbarticles_$row[0]' onChange='javascript:setNbArticles($row[0]);'>";
+		for($i=0;$i<10;$i++){
+			if($nbarticles == $i){
+				$selected = " SELECTED";
+			}else{
+				$selected = "";
+			}
+			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+		}	
+		
+				
+		echo "</SELECT>	
 		</form></td>";
 	}
 	?>

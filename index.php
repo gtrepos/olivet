@@ -3,7 +3,6 @@
 <html>
 	<head>
 		<title>La ferme de l'Olivet</title>
-		<!-- <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'> -->
 		<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
 		<meta http-equiv='language' content='fr'>
 		<meta name='Description' content='La ferme de l''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>

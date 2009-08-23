@@ -14,7 +14,7 @@ foreach ($_POST as $key => $value) {
 <table>
 <tr>
 <td>
-Mon panier
+<a href="index.php?page=commander&page_comm=valid1">Mon panier</a>
 </td>
 </tr>
 <tr>

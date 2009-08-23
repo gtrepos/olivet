@@ -1,6 +1,6 @@
 <?php
 
-function creationPanier(){
+function panierCreation(){
 	$ret=false;
 
 	if (isset( $_SESSION['panier'])){
@@ -16,10 +16,9 @@ function creationPanier(){
 
 
 
-function setNbArticles($idproduit,$nbarticles){
-	if (creationPanier()){
+function panierSetNbArticles($idproduit,$nbarticles){
+	if (panierCreation()){
 		$indexProduit = array_search($idproduit,  $_SESSION['panier']['idproduit']);
-
 		if ($indexProduit !== false){
 			$_SESSION['panier']['nbarticles'][$indexProduit] = $nbarticles ;
 		}else{
@@ -31,31 +30,17 @@ function setNbArticles($idproduit,$nbarticles){
 	}
 }
 
-function getPanier(){
-	$resume = array();
-
-	if (creationPanier()){
-		for($i=0;$i<count($_SESSION['panier']['idproduit']);$i++){
-			$libelle = $_SESSION['panier']['idproduit'][$i];
-			$nb = $_SESSION['panier']['nbarticles'][$i];
-			$resume[$i]= array();
-			array_push($resume[$i],$libelle);
-			array_push($resume[$i],$nb);
-		}
-		return $resume;
-	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
-	}
-}
 
 function panierMontantTotal(){
 	$total = 0;
-	if (creationPanier()){
+	if (panierCreation()){
 		for($i=0;$i<count($_SESSION['panier']['idproduit']);$i++){
 			$nbarticles = $_SESSION['panier']['nbarticles'][$i];
-			$tmpres = bddLigneProduit($_SESSION['panier']['idproduit'][$i]);
-			while ($row = mysql_fetch_array($tmpres)){
-				$total  = $total +  $row[8] * $nbarticles ;
+			if($nbarticles>0){
+				$tmpres = bddLigneProduit($_SESSION['panier']['idproduit'][$i]);
+				while ($row = mysql_fetch_array($tmpres)){
+					$total  = $total +  $row[8] * $nbarticles ;
+				}
 			}
 		}
 		return $total;
@@ -64,28 +49,50 @@ function panierMontantTotal(){
 	}
 }
 
+function panierNbArticles($idproduit){
+	if (panierCreation()){
+		$indexProduit = array_search($idproduit, $_SESSION['panier']['idproduit']);
+		if ($indexProduit !== false){
+			return $_SESSION['panier']['nbarticles'][$indexProduit];
+		}else{
+			return 0;
+		}
+	}else{
+		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+	}
+}
 function panierNbProduits(){
-	if (creationPanier()){
-		return count($_SESSION['panier']['idproduit']);
+	if (panierCreation()){
+		$nbproduits = 0;
+		for($i=0;$i<count($_SESSION['panier']['idproduit']);$i++){
+			$nbarticles = $_SESSION['panier']['nbarticles'][$i];
+			if($nbarticles>0){
+				$nbproduits++;
+			}
+		}
+		return $nbproduits;
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}
 }
 function panierCommande(){
 	$recap = array();
-	if (creationPanier()){
-		
+	if (panierCreation()){
+		$nbproduit=-1;
 		for($i=0;$i<count($_SESSION['panier']['idproduit']);$i++){
-			$tmpres = bddLigneProduit($_SESSION['panier']['idproduit'][$i]);
-			$recap[$i] = array();
 			$nbarticles = $_SESSION['panier']['nbarticles'][$i];
-			while ($row = mysql_fetch_array($tmpres)){
-				array_push($recap[$i],$row[2]);
-				array_push($recap[$i],$nbarticles);
-				array_push($recap[$i],$row[7]);
-				array_push($recap[$i],$row[8]);
-				$soustot = $row[8] * $nbarticles ;
-				array_push($recap[$i],$soustot);	
+			if($nbarticles>0){
+				$nbproduit++;
+				$recap[$nbproduit] = array();
+				$tmpres = bddLigneProduit($_SESSION['panier']['idproduit'][$i]);
+				while ($row = mysql_fetch_array($tmpres)){
+					array_push($recap[$nbproduit],$row[2]);
+					array_push($recap[$nbproduit],$nbarticles);
+					array_push($recap[$nbproduit],$row[7]);
+					array_push($recap[$nbproduit],$row[8]);
+					$soustot = $row[8] * $nbarticles ;
+					array_push($recap[$nbproduit],$soustot);
+				}
 			}
 		}
 		return $recap;
@@ -96,7 +103,7 @@ function panierCommande(){
 }
 
 function panierVider(){
-	if (creationPanier()){
+	if (panierCreation()){
 		$_SESSION['panier']=array();
 		$_SESSION['panier']['idproduit'] = array();
 		$_SESSION['panier']['nbarticles'] = array();

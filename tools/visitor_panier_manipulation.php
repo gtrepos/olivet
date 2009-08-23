@@ -15,7 +15,7 @@ foreach ($_POST as $key => $value) {
 	}    
 }
 if($ajax_req == 'setNbArticles'){
-	setNbArticles($idproduit,$nbarticles);
+	panierSetNbArticles($idproduit,$nbarticles);
 }else if($ajax_req == 'panierVider'){
 	panierVider();
 }
