@@ -1,17 +1,19 @@
 <br><font class=olivet><?php echo ADMIN_PARTENAIRE_GESTION; ?></font><br><br>
 
-<table class=olivet cellspacing="0" width="90%">
+<table id=tableau cellspacing="0" cellspacing="0">
 	<tr>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_ID; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_LIBELLE; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_DESCRIPTIF; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_IMGLOGO; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_SITEWEB; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_RANG; ?></td>
-		<td class=olivet2><?php echo ADMIN_PARTENAIRE_ETAT; ?></td>
-		<td class=olivet2></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_ID; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_LIBELLE; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_IMGLOGO; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_SITEWEB; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_RANG; ?></td>
+		<td class=caption><?php echo ADMIN_PARTENAIRE_ETAT; ?></td>
+		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php affich_partenaires(); ?>
+</table>
+<table class=olivet width="90%" cellspacing="1" cellspacing="0">	
 	<tr>
 		<td align="right" colspan="8"><a href="?page=partenaires&action=creer"><?php echo ADMIN_PARTENAIRE_CREER;?></a></td>
 	</tr>

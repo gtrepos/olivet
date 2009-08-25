@@ -4,11 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>Administration</title>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="./javascript/commun.js"></script>
 <script type="text/javascript" src="./javascript/client.js"></script>
 <script type="text/javascript" src="./javascript/actualite.js"></script>
 <script type="text/javascript" src="./javascript/categorie.js"></script>
 <script type="text/javascript" src="./javascript/produit.js"></script>
 <script type="text/javascript" src="./javascript/partenaire.js"></script>
+<script type="text/javascript" src="./javascript/commande.js"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
 </head>
 
 <body topmargin="0" leftmargin="0" class="olivet">
@@ -24,17 +27,17 @@ require ("fonctions.php");
   <table cellspacing="0" width="100%" height="100%" cellpadding="0">
     <tr>
       <td colspan="1" align="center" height="100"  bgcolor="#C0C0C0"></td>
-      <td colspan="1" valign="middle" align="center" style="border-bottom-style: dashed;border-bottom-width : 1px; border-color:#3b487f" background="haut.gif"><font class="olivet">Administration</font></td>
+      <td colspan="1" valign="middle" align="center" style="border-bottom-style: dashed;border-bottom-width : 1px; border-color:#3b487f"><font class="olivet">Administration</font></td>
     </tr>
     <tr>
-      <td class="olivet3" width="17%" valign="top" style="border-right-style: dashed;border-right-width : 1px; border-color:#3b487f">
+      <td class="olivet" width="17%" valign="top" style="border-right-style: dashed;border-right-width : 1px; border-color:#3b487f">
       	<div><?php ouverture ();?></div>
-      	<a href="?page=clients"><?php echo "Clients"; ?></a><br><br>
-      	<a href="?page=commandes"><?php echo "Commandes"; ?></a><br><br>
-      	<a href="?page=actualites"><?php echo "Actualités"; ?></a><br><br>
-      	<a href="?page=categories"><?php echo "Catégories de produits"; ?></a><br><br>
-      	<a href="?page=produits"><?php echo "Liste des produits"; ?></a><br><br>
-      	<a href="?page=partenaires"><?php echo "Partenaires"; ?></a><br><br>
+      	<a href="?page=clients">Clients</a> | <a href="?page=clients&action=creer"><?php echo ADMIN_CLIENT_CREER;?></a><br><br>
+      	<a href="?page=commandes">Commandes</a> | <a href="?page=commandes&action=creer"><?php echo ADMIN_COMMANDE_CREER;?></a><br><br>
+      	<a href="?page=actualites">Actualités</a> | <a href="?page=actualites&action=creer"><?php echo ADMIN_ACTUALITE_CREER;?></a><br><br>
+      	<a href="?page=categories">Catégories de produits</a><br><br>
+      	<a href="?page=produits">Liste des produits</a><br><br>
+      	<a href="?page=partenaires">Partenaires</a><br><br>
       </td>
       <td valign="top" colspan="2"><div align="center">
 

@@ -1,8 +1,9 @@
-<form name="modifier_commande" action='index.php?page=commandes&action=enregistrer&mode=modification' method="post">
+<form name="modifier_client" action='index.php?page=clients&action=enregistrer&mode=modification' method="post">
 <?php
-$id = $_GET['id'];
-affich_modif_commande($id);
+$ref = $_GET['ref'];
+affich_modif_client($ref);
 ?>
 <br>
-<input type="submit" onclick="javascript:checkCommande()">
+<input type="button" name="annuler" title="Annuler" value="Annuler" onclick="window.location='index.php?page=clients'">
+<input type="submit" onclick="javascript:checkClient()">
 </form>

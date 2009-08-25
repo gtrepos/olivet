@@ -1,33 +1,20 @@
-<br><font class=olivet><?php echo ADMIN_CLIENT_GESTION; ?></font><br><br>
-
-<table class=olivet cellspacing="0" width="90%">
-	<tr>
-		<td class=olivet2><?php echo ADMIN_CLIENT_REFERENCE; ?></td>
-		<td class=olivet2><?php echo ADMIN_CLIENT_NOM; ?></td>
-		<td class=olivet2><?php echo ADMIN_CLIENT_PRENOM; ?></td>
-		<td class=olivet2><?php echo ADMIN_CLIENT_ADRESSE; ?></td>
-		<td class=olivet2><?php echo ADMIN_CLIENT_TEL; ?></td>
-		<td class=olivet2><?php echo ADMIN_CLIENT_MAIL; ?></td>
-		<td class=olivet2></td>
-	</tr>
-	<?php affich_clients (); ?>
-	<tr>
-		<td align="right" colspan="7"><a href="?page=clients&action=creer"><?php echo ADMIN_CLIENT_CREER;?></a></td>
-	</tr>
-</table>
+<br><font class=olivet><?php echo ADMIN_CLIENT_GESTION; ?></font>
 
 <?php 
 if (isset($_GET['action'])){
 	$action=$_GET['action'];
 }
 else {
-	$action='creer';
+	$action='lister';
 }
 ?>
 
 <br><br>
 
 <?php
+
+if ($action=='lister') {include("lister_clients.php");}
+
 if ($action=='creer') {include("creer_client.php");}
 
 if ($action=='modifier') {include("modifier_client.php");}

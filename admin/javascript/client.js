@@ -1,5 +1,5 @@
 function checkClient(){
-	alert('check');
+	alert('checkClient');
 }
 
 function alerteSuppressionClient(ref, nom, prenom){

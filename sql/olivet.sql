@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 17 Août 2009 à 16:47
+-- Généré le : Lun 24 Août 2009 à 18:09
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9
 
@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `actualite` (
 --
 
 INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
-(6, 'my actuality', 'c''est la cote qui tue mon p''tit pote', 0, '2009-07-09 12:13:38', '2009-08-17 11:34:38', 'GAEC', 0),
-(7, 'Deuxième actu', '12345678910111213141516171819', 0, '2009-07-09 12:28:55', '2009-08-17 10:41:58', 'GAEC', 0),
-(9, 'new actu', 'description héhé', 0, '2009-08-17 10:32:40', '2009-08-17 10:48:50', 'LOMA', 0),
-(10, 'lib', 'sans apostrophe', 1, '2009-08-17 10:48:01', '2009-08-17 10:48:59', 'GAEC', 1),
-(11, 'libelle''coté', 'desc''coté''''''', 1, '2009-08-17 11:35:21', '2009-08-17 11:39:19', 'GAEC', 1);
+(6, 'my actuality', 'c''est la cote qui tue mon p''tit pote', 0, '2009-07-09 12:13:38', '2009-08-21 16:00:07', 'GAEC', 0),
+(7, 'Deuxième actu', '12345678910111213141516171819', 0, '2009-07-09 12:28:55', '2009-08-21 16:00:08', 'GAEC', 0),
+(9, 'new actu', 'description héhé', 0, '2009-08-17 10:32:40', '2009-08-21 16:00:09', 'LOMA', 0),
+(10, 'lib', 'sans apostrophe', 0, '2009-08-17 10:48:01', '2009-08-21 16:00:09', 'GAEC', 1),
+(11, 'libelle''coté', 'desc''coté''''''', 0, '2009-08-17 11:35:21', '2009-08-21 16:00:10', 'GAEC', 1);
 
 -- --------------------------------------------------------
 
@@ -81,14 +81,16 @@ CREATE TABLE IF NOT EXISTS `client` (
   `client_numero_tel` varchar(20) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'numero de telephone du client',
   `client_email` varchar(100) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'email du client',
   PRIMARY KEY (`client_reference`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='liste des clients' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='liste des clients' AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`client_reference`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`) VALUES
-(4, 'Trepos', 'Gwen', '18 avenue André Mussat', '35000', 'Rennes', '06 17 35 00 01', 'gwenael.trepos@gmail.com');
+(4, 'Trepos', 'Gwen', '18 avenue André Mussat', '35000', 'Rennes', '06 17 35 00 01', 'gwenael.trepos@gmail.com'),
+(5, 'Guillemin', 'Sandra', '18 avenue andré mussat', '35000', 'Rennes', '', 's_guillemin@hotmail.com'),
+(6, 'Trepos', 'Ronan', 'toulouse', '34000', 'Toulouse', '', 'ronan.trepos@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -100,16 +102,21 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant de la commande',
   `commande_id_client` int(11) NOT NULL COMMENT 'identifiant du client',
   `commande_datecreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'date de creation de la commande',
-  `commande_dateannulation` datetime NOT NULL COMMENT 'date d''annulation eventuelle de la commande',
-  `commande_somme` int(11) NOT NULL COMMENT 'somme total de la commande',
+  `commande_dateannulation` datetime DEFAULT NULL COMMENT 'date d''annulation eventuelle de la commande',
+  `commande_etat` varchar(2) COLLATE latin1_general_ci NOT NULL DEFAULT 'EC' COMMENT 'etat de la commande : EC = en cours, AN = annule, FA = facturee',
+  `commande_somme` int(11) DEFAULT NULL COMMENT 'somme de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `commande`
 --
 
+INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_dateannulation`, `commande_etat`, `commande_somme`) VALUES
+(14, 5, '2009-08-24 17:34:32', NULL, 'EC', NULL),
+(15, 4, '2009-08-24 17:34:42', NULL, 'EC', NULL),
+(16, 6, '2009-08-24 17:56:52', NULL, 'EC', NULL);
 
 -- --------------------------------------------------------
 
@@ -148,6 +155,11 @@ CREATE TABLE IF NOT EXISTS `lien_commande_produit` (
 -- Contenu de la table `lien_commande_produit`
 --
 
+INSERT INTO `lien_commande_produit` (`lcp_id_commande`, `lcp_id_produit`, `lcp_quantite`) VALUES
+(14, 25, 1),
+(15, 26, 36),
+(16, 22, 1),
+(16, 25, 1);
 
 -- --------------------------------------------------------
 
@@ -208,23 +220,26 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le produit est une nouveaute ? 0 = non, 1 = oui',
   `produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
   `produit_unite` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'unite du produit (kg, litre etc...)',
-  `produit_prix` int(11) NOT NULL DEFAULT '0' COMMENT 'prix a l''unite',
-  `produit_conditionnement` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'conditionnement du produit',
+  `produit_prix_unite` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix du produit a l''unite',
+  `produit_conditionnement` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'y a t il un conditionnement pour ce produit',
+  `produit_conditionnement_nom` varchar(50) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'nom du conditionnemment',
+  `produit_conditionnement_taille_fixe` tinyint(1) DEFAULT NULL COMMENT 'Est-ce que le produit a un conditionnement de taille fixe (1=fixe, 0=variable)',
+  `produit_conditionnement_taille` int(11) DEFAULT NULL COMMENT 'taille du conditionnement (borne inférieure sur conditionnement de taille variable)',
+  `produit_conditionnement_taille_sup` int(11) DEFAULT NULL COMMENT 'borne supérieur de la taille du conditionnement',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=27 ;
 
 --
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_lien_photo`, `produit_descriptif_production`, `produit_nouveaute`, `produit_etat`, `produit_unite`, `produit_prix`, `produit_conditionnement`) VALUES
-(1, 6, 'Patates', 'lien_vide', 'En pleine terre avec des cailloux', 1, 0, 'kg', 2, '1 kg'),
-(2, 4, 'Lait', 'lien_vide', 'Direct de la vache', 1, 0, 'litre', 0, ''),
-(7, 3, 'Mouton', 'lien_vide', 'Elevé avec soins par Clarisse', 1, 0, 'kg', 0, ''),
-(8, 3, 'Viande de boeuf', 'lien_vide', 'Elevé avec soins par Gérard', 1, 0, 'kg', 0, ''),
-(13, 6, 'Haricots', 'lien_vide', 'coco', 0, 0, 'kg', 12, 'sac de 3 kg'),
-(14, 4, 'Fromage frais', 'lien_vide', 'En labo', 1, 0, 'kg', 3, 'pot de 500g');
+INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_lien_photo`, `produit_descriptif_production`, `produit_nouveaute`, `produit_etat`, `produit_unite`, `produit_prix_unite`, `produit_conditionnement`, `produit_conditionnement_nom`, `produit_conditionnement_taille_fixe`, `produit_conditionnement_taille`, `produit_conditionnement_taille_sup`) VALUES
+(22, 7, 'orange', 'lien_vide', 'dans les orangers', 1, 1, 'kg', 5.00, 1, 'sac', 1, 2, NULL),
+(23, 7, 'pommes', 'lien_vide', 'desc', 1, 1, 'kg', 2.00, 1, 'sachet', 0, 2, 3),
+(24, 6, 'patates', 'lien_vide', 'avec de la terre dedans', 1, 1, 'kg', 1.00, 1, 'sac à jutte', 1, 80, NULL),
+(25, 3, 'boeuf', 'lien_vide', '', 1, 1, 'kg', 12.00, 1, 'caissette', 0, 17, 18),
+(26, 4, 'lait', 'lien_vide', 'direct de la vache', 0, 1, 'litre', 1.50, 0, '', 0, NULL, NULL);
 
 --
 -- Contraintes pour les tables exportées

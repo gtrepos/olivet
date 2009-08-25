@@ -1,13 +1,15 @@
 <br><font class=olivet><?php echo ADMIN_CATEGORIE_GESTION; ?></font><br><br>
 
-<table class=olivet cellspacing="0" width="90%">
+<table id=tableau cellspacing="0" cellspacing="0">
 	<tr>
-		<td class=olivet2><?php echo ADMIN_CATEGORIE_ID; ?></td>
-		<td class=olivet2><?php echo ADMIN_CATEGORIE_LIBELLE; ?></td>
-		<td class=olivet2><?php echo ADMIN_CATEGORIE_ETAT; ?></td>
-		<td class=olivet2></td>
+		<td class=caption><?php echo ADMIN_CATEGORIE_ID; ?></td>
+		<td class=caption><?php echo ADMIN_CATEGORIE_LIBELLE; ?></td>
+		<td class=caption><?php echo ADMIN_CATEGORIE_ETAT; ?></td>
+		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php affich_categories(); ?>
+</table>
+<table class=olivet width="90%" cellspacing="1" cellspacing="0">	
 	<tr>
 		<td align="right" colspan="4"><a href="?page=categories&action=creer"><?php echo ADMIN_CATEGORIE_CREER;?></a></td>
 	</tr>

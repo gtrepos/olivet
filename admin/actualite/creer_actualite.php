@@ -10,6 +10,7 @@
 		</table>
 	</div>
 	<br>
+	<input type="button" name="annuler" title="Annuler" value="Annuler" onclick="window.location='index.php?page=actualites'">
 	<input type="reset">
 	<input type="submit" onclick="javascript:checkActu()">
 </form>
