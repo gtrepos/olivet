@@ -9,12 +9,27 @@ body, table, td {
 	font-family: arial, sans-serif; 
 	font-size: 8pt;
 }
-
 /*************************
-** leftpage for news menu
+** panier
 ***************************/
 
-#leftpageID {	
+#resume_panier{
+	position: absolute;
+	top: 0;
+	left: 700;
+	margin-top: 0px;
+	vertical-align: top;	
+	background-color: #D87093;
+	width:  161px;
+	height:  100px;
+	border-right: solid green;
+}
+
+/*************************
+** gauche for news menu
+***************************/
+
+#gaucheID {	
 	position: absolute;
 	left: 0;
 	width:  161px;
@@ -27,12 +42,12 @@ body, table, td {
 	border-right: solid green;
 	/*background-color: #D87093;*/ 
 }
-.leftpageCL_text {
+.gaucheCL_text {
 	font-weight: bold;
 	/*list-style-type: none;*/
 	text-align: left;  
 }
-.leftpageCL_img {
+.gaucheCL_img {
 	text-align: center;
 }
 
@@ -41,7 +56,7 @@ body, table, td {
 ** banner, nothing yet
 ***************************/
 
-#bannerID {
+#banniereID {
 	height: 80px;
 	margin-left: 180px;
 	/*margin-right:154px;*/
@@ -51,10 +66,10 @@ body, table, td {
 }
 
 /*************************
-** header, global menu
+** entete, global menu
 ***************************/
 
-#headerID {
+#enteteID {
 	height:  110px;
 	margin-left: 180px; 
 	/*margin-right: 154px;*/
@@ -63,7 +78,7 @@ body, table, td {
 	/*background-color: #00CED1;*/ 
 }
 
-table.header {
+table.entete {
 	border-collapse: separate;
 	border-spacing: 13px 10px;
 }
@@ -72,7 +87,7 @@ table.header {
 ** centerpage, contents 
 ***************************/
 
-#centerpageID {
+#centreID {
 	display: box;
 	margin-left:  180px; 
 	/*margin-right: 154px;*/
@@ -184,7 +199,7 @@ table.header {
 	border-right: solid green;
 }
 
-#centerpage_contacts_rightID{
+#contacts_rightID{
 	margin-left:  0px; 
 	/*margin-right: 154px;*/
 	width: 320px; 
@@ -194,7 +209,7 @@ table.header {
  
 }
 
-.centerpage_contacts_menu1CL {
+.contacts_menu1CL {
 	list-style-image: url('../gimp_img/gimp_puce1_low_size.gif');
 	/*list-style-type: none;*/
 	text-align: left;  
@@ -202,7 +217,7 @@ table.header {
 	 line-height: 25px;
 }
 
-.centerpage_contacts_menu2CL {
+.contacts_menu2CL {
 	list-style-image: url('../gimp_img/gimp_puce2_low_size.gif');
 	/*list-style-type: none;*/
 	text-align: left;  
@@ -219,23 +234,23 @@ table.header {
 ** centerpage_commands, contents 
 ***************************/
 
-.centerpage_contents_conditions{
+.conditions{
 	width:87%;
 	border:1px solid red; 
 	padding-left: 3px;
 }
 
 
-.centerpage_contents_conditions_subtitle{
+.conditions_sous_titre{
 	text-decoration: underline;
 }
-.centerpage_contents_conditions_title{
+.conditions_titre{
 	color: #FF0000;	
 }
 /*************************
-** footpage
+** bas de page
 ***************************/
-#footpageID {
+#basID {
 	margin-left: 0px; 
 	text-align: center;
 	clear: both;
@@ -247,69 +262,3 @@ table.header {
 }
 
 
-
-
-
-
-/** choses encore mysterieuses pour ronan**/ /*
-body, table, td {font-family: arial, sans-serif; font-size: 8pt;}
-body{color:#061922;text-align: center;}
-input, select , textarea {font-family: arial, sans-serif; font-size: 8pt; vertical-align:text-bottom;}
-p{margin-bottom:7px;margin-top:0px;}
-h1 {font-size: 13pt;}
-h2 {font-size: 11pt; color:#FE7800;}
-h3 {font-size: 10pt; margin-top:0px; margin-bottom:7px; border-bottom:1px #061922 solid;border-top:2px #061922 solid; background-color:#FFFF9E;}
-h4 {font-size: 10pt; color:#061922}
-
-.blanc{color:#FFFFFF;}
-.bgblanc{background-color:#FFFFFF;}
-
-.jaune{color:#FFFF1E;}
-.bgjaune{background-color:#FFFF1E;}
-
-.orange{color:#FFBB29;}
-
-.rouge{color:#FE7800;}
-.borderrouge{border:1px solid #FE7800;margin-bottom:14px;}
-.bgrouge{background-color:#FE7800;}
-
-.noir{color:#061922;}
-.bordernoir{border:1px solid #061922;margin-bottom:14px;}
-.bgnoir{background-color:#061922;}
-
-td.deca{font-size: 9pt; font-weight:bold;}
-td.deco{height:20px; font-size: 9pt; font-weight:bold; width:100%; background:#061922; border-top:solid 2px #FFBB29;}
-.deco1{color:#FFFF1E; background:#061922; height:20px;border-top:solid 2px #FFBB29; padding:3px; padding-bottom:4px; text-transform: uppercase;}
-.deco2{color:white; background:#061922; height:20px;border-top:solid 2px #FFBB29; padding:3px; padding-bottom:4px;}
-.deco3{color:#FFFF1E; padding:3px;}
-.deco4{color:white; padding:3px;}
-
-a img{margin-bottom:-3px}
-
-a{color:#FE7800; text-decoration:none;}
-a:hover{color:#061922;}
-
-a.nav{color:#061922; text-decoration:none;text-transform: uppercase;}
-a.nav:hover{color:#FE7800;text-transform: uppercase;}
-
-a.nav2{color:#FE7800; text-decoration:none;text-transform: uppercase;}
-a.nav2:hover{color:#061922;text-transform: uppercase;}
-
-a.nav3{color:#061922;text-decoration:none;}
-a.nav3:hover{color:#FE7800;}
-
-a.jaune{color:#FFFF1E;text-decoration:none;}
-a.jaune:hover{color:#061922;}
-
-td.gauche{text-align:right; padding-right:14px;}
-td.droite{text-align:left; padding-left:14px;}
-
-table.blanc{width:100%;border:1px #061922 solid;}
-table.noir{color:#FFFFFF; font-weight:bold; background-color:#061922; width:100%; border:1px #FFBB29 solid; padding:7px;}
-table.gris{background-color:#FFFFD1; width:100%; border:2px #FFBB29 solid; padding:7px;}
-table.rouge{font-weight:bold; background-color:#E1E1DC; width:100%; border:1px #FFBB29 solid; padding:7px;}
-
-.admintitre {font-size: 22px; color:#FFFFFF;}
-.adminaction {font-size: 12px; font-weight:bold; color:white;}
-
-*/

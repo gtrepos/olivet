@@ -29,6 +29,6 @@ function loadGoogleMap() {
 		map.addOverlay(marker);
 		
 	}else{
-		alert("loadGoogleMap : not GBrowserIsCompatible()");
+		//alert("loadGoogleMap : not GBrowserIsCompatible()");
 	}
 }

@@ -1,10 +1,10 @@
 <table cellspacing=0 cellpadding=0 border=0 width='100%'>
 <tr>
 <td>
-<div id="centerpage_products_leftID">
- <ul class="centerpage_products_menu1CL">	
+<div id="produits_gaucheID">
+ <ul class="produits_menu1CL">	
 		<li>Les produits laitiers bio</li>
-		<ul class="centerpage_products_menu2CL">	
+		<ul class="produits_menu2CL">	
 			<li>Le lait bio cru ou pasteurisé</li>
 			<br>Photo Produit
 			<br>Descriptif produit, moyen de production...
@@ -22,17 +22,17 @@
 </div>
 </td>
 <td>
-<div id="centerpage_products_rightID">
- <ul class="centerpage_products_menu1CL">	
+<div id="produits_droiteID">
+ <ul class="produits_menu1CL">	
 		<li>Les autres produits disponibles toute l'année</li>
-		<ul class="centerpage_products_menu2CL">	
+		<ul class="produits_menu2CL">	
 			<li>Légumes de saison</li>
 			<li>Fruits de saison</li>
 			<li>Les oeufs bio fermiers</li>
 			
 		</ul>
 		<li>Les produits disponibles à certaines périodes</li>
-		<ul class="centerpage_products_menu2CL">	
+		<ul class="produits_menu2CL">	
 			<li>Les volailles bio fermières</li>
 			<li>Le mouton bio en caissette ( 8 à 9 Kg), tout type de morceaux</li>
 			<li>Le boeuf bio en caissette (17 à 18 Kg), tout type de morceaux</li>

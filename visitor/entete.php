@@ -1,5 +1,5 @@
-<div id="headerID">
-<table class ="header">
+<div id="enteteID">
+<table class ="entete">
    <tr align=center>
     <td><a href="index.php"><img src="img/menuaccueil.gif" alt="menuaccueil" title="menuaccueil" border="0"></a></td>
     <td><a href="index.php?page=ferme"><img src="img/menuferme.gif" alt="menuferme" title="menuferme" border="0"></a></td>
