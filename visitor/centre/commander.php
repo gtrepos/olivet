@@ -33,6 +33,9 @@ switch($page_comm){
 	case 'valid2' :
 		include('commander/valid2.php');
 		break;
+	case 'valid3' :
+		include('commander/valid3.php');
+		break;
 	default:
 		include('commander/selection_produits.php');
 		break;
