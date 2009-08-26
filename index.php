@@ -1,5 +1,3 @@
-
-
 <html>
 	<head>
 		<title>La ferme de l'Olivet</title>

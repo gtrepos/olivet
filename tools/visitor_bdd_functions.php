@@ -43,7 +43,7 @@ function bddCategorieMenu(){
 }
 function bddProduits($cat_prod){
 	$requete=
-		"SELECT p.produit_id ,p.produit_libelle,p.produit_unite,p.produit_prix,p.produit_id,p.produit_id_categorie    ". 
+		"SELECT p.produit_id ,p.produit_libelle,p.produit_unite,p.produit_prix_unite,p.produit_id,p.produit_id_categorie    ". 
 		"FROM  produit p " .
     	"WHERE p.produit_id_categorie = $cat_prod ".
 		"ORDER by p.produit_id DESC";
