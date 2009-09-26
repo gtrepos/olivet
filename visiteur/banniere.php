@@ -6,10 +6,8 @@
 </div>
 </td>
 <td>
-<div id="resume_panier">
-<?php 
-include('banniere/resume_panier.php')
-?>
+<div id="banniere-resume_panier">
+<?php include('visiteur/banniere/resume_panier.php')?>
 </div>
 </td>
 </tr>

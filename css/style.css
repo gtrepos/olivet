@@ -1,5 +1,39 @@
 
 /*************************
+** panier
+***************************/
+
+#banniere-resume_panier{
+	position: absolute;
+	top: 0;
+	left: 700;
+	margin-top: 0px;
+	vertical-align: top;	
+	background-color: #D87093;
+	width:  161px;
+	height:  100px;
+	border-right: solid green;
+}
+
+/*************************
+** centerpage, contents 
+***************************/
+
+#centre {
+	display: box;
+	margin-left:  180px; 
+	/*margin-right: 154px;*/
+	width: 780px; 
+	min-height: 300px;
+	height: 540px;
+	/*background-color: #FFFFFF;*/ 
+}
+
+
+
+/******* OLD *********/
+
+/*************************
 ** WARNING : fonts are not 
 ** inherited in tables, we need 
 ** this declaration   

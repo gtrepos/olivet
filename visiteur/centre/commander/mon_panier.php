@@ -13,17 +13,11 @@ foreach ($_POST as $key => $value) {
 
 <table border="1" align=center style="border-collapse: separate;  empty-cells: show;">
 <tr>
-	<td colspan="4" align=center>Mon panier</td>
-	<td>
-	<div align=center style="font-size: 15pt;">
-	<input type=submit id=vidermonpanier 
-	value="Vider mon panier" onClick="javascript:panierVider()">
-	</div>
-	</td>
+	<td colspan="5" align=center>Mon panier</td>
 </tr>
 <tr>
 	<td>Nom Produit</td>
-	<td>Quantité</td>
+	<td>Quantit&eacute</td>
 	<td>Unité</td>
 	<td>Prix unitaire TTC</td>
 	<td>Prix TTC</td>
@@ -32,7 +26,6 @@ foreach ($_POST as $key => $value) {
 $recap = panierCommande();
 for($i=0;$i<count($recap);$i++){
 	echo "<tr>";
-	
 	for($j=0;$j<count($recap[$i]);$j++){
 		echo "<td>".$recap[$i][$j]."</td>";
 	}

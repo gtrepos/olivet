@@ -6,8 +6,9 @@
 	</tr>
 	<tr>
 		<td align=left width="30%">
-		<div style='margin-top: 2em;'><img src='img/accueilillustration.gif'
-			border=0></div>
+		<div style='margin-top: 2em;'>
+		<img src='img/accueilillustration.gif' border=0>
+		</div>
 		</td>
 		<td align=left width="70%">
 		<p style="text-align: left; border-style: solid">
@@ -23,7 +24,7 @@
 		<?php 
 		$tmpres = bddActusGaec();	
 		while ($row = mysql_fetch_array($tmpres)){
-			echo "=>$row[1]: $row[2]";
+			echo htmlentities("=>$row[1]: $row[2]");
 			echo "<br/>";
 		}
 		?>
@@ -31,11 +32,11 @@
 		<?php 
 		$tmpres = bddActusLoma();
 		while ($row = mysql_fetch_array($tmpres)){
-			echo "=>$row[1]: $row[2]";
+			echo htmlentities("=>$row[1]: $row[2]");
 			echo "<br/>";
 		}
 		?>
-</p>
+		</p>
 		</td>
 	</tr>
 	<tr>

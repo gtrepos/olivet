@@ -11,9 +11,9 @@
 <div>Quoi de neuf à l'Olivet ?</div>
 <div>
 	<ul>		
-		<li><a href='index.php?page=news'>Commandes spéciales</a></li>
-		<li><a href='index.php?page=actualites'>Evénements</a></li>
-		<li><a href='index.php?page=actualites'>Fermeture du magasin</a></li>
+		<li>Commandes spéciales</li>
+		<li>Evénements</li>
+		<li>Fermeture du magasin</li>
 	</ul>		
 </div>
 <br><br>
