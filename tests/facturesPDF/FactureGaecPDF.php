@@ -1,5 +1,5 @@
 <?php
-require('FPDF/fpdf.php');
+require('../../FPDF/fpdf.php');
 
 
 class FactureGaecPDF extends FPDF
@@ -12,7 +12,7 @@ class FactureGaecPDF extends FPDF
 		$hauteur = 30;
 		$dec_gauche_coord = 60;
 		//Logo
-		$this->Image('img/logoexploit.gif',10,10,0,$hauteur);
+		$this->Image('../../img/logoexploit.gif',10,10,0,$hauteur);
 		//Police Arial gras 15
 		$this->SetFont('Arial','B',12);
 		//Décalage à droite
