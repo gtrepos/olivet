@@ -1,4 +1,5 @@
-<form name="creer_actualite" action='index.php?page=actualites&action=enregistrer&mode=creation' method="post" return="false">
+<form name="form_actualite" action='index.php?page=actualites&action=enregistrer&mode=creation' method="post"
+	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkActu);">
 	<div style='border-size:1px;position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'une nouvelle actualité<td></tr>
@@ -12,7 +13,7 @@
 	<br>
 	<input type="button" name="annuler" title="Annuler" value="Annuler" onclick="window.location='index.php?page=actualites'">
 	<input type="reset">
-	<input type="submit" onclick="javascript:checkActu()">
+	<input type="button" name="Enregistrer" title="Enregistrer" value="Enregistrer" onclick="javascript:checkActu()">
 </form>
 
 

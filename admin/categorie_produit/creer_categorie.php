@@ -1,4 +1,5 @@
-<form name="creer_categorie" action='index.php?page=categories&action=enregistrer&mode=creation' method="post" return="false">
+<form name="form_categorie" action='index.php?page=categories&action=enregistrer&mode=creation' 
+	  method="post" onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkCategorie);">
 	<div style='border-size:1px;position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'une nouvelle catégorie de produits</tr>
@@ -8,7 +9,7 @@
 	</div>
 	<br>
 	<input type="reset">
-	<input type="submit" onclick="javascript:checkCategorie()">
+	<input type="button" name="Enregistrer" title="Enregistrer" value="Enregistrer" onclick="javascript:checkCategorie()">
 </form>
 
 

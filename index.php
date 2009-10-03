@@ -13,7 +13,8 @@
 		<link href="css/style.css" type="text/css" rel="stylesheet"> 
 		<script src="js/global_load.js" type="text/javascript"></script>
 	</head>
-	<body leftmargin="0" topmargin="0" background="gimp_img/fond2.jpg" onload="loadGoogleMap()" onunload="GUnload()" onResize="location.reload();">		
+	<!--body leftmargin="0" topmargin="0" background="gimp_img/fond2.jpg" onload="loadGoogleMap()" onunload="GUnload()" onResize="location.reload();"-->
+	<body leftmargin="0" topmargin="0" background="gimp_img/fond2.jpg">		
 		<div>
 		<?php 
 		

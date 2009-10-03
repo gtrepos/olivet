@@ -1,6 +1,6 @@
 function addProduitCommande()
 {
-  $('tableau').show();	
+  $('tableau').show();
 	
   var Cell;
   var idProduit = $('idProduit').value;
@@ -35,18 +35,7 @@ function addProduitCommande()
 
 function retraitProduitCommande(ligne)
 {
-  $('tableau').deleteRow(ligne.rowIndex);
-  /*
-  //Recomptage des lignes...
-  var tableau = $('tableau');
-  var trs = tableau.rows;
-  var n = trs.length;
-  var i;
-
-  for (i=1; i<n; i++) //on commence à 1 et non à 0 ;)
-  {
-    trs[i].cells[0].innerHTML = trs[i].rowIndex;
-  }*/
+  $('tableau').deleteRow(ligne.rowIndex);  
 }
 
 
@@ -57,11 +46,9 @@ function get_current_option_text(select_id) {
 }
 
 function checkCommande(){
-	
-	alert('checkCommande');
-	
-	if(true) {
+	if(valideCommande()) {
 		prepareEnvoie();
+		document.form_commande.submit();
 	}
 }
 
@@ -77,8 +64,61 @@ function prepareEnvoie(){
 	$('recapCommande').value = concatQte;
 }
 
+function valideCommande(){
+	
+	var refClient = $('refClient').value;
+	var quantites = $$('.listeQuantites input');
+	
+	if (refClient == -1) {
+		alert("Vous devez renseigner le client concerné par la commande.");
+		$('refClient').focus();
+		return false;
+	}
+	
+	if (quantites == ''){
+		alert("Vous devez ajouter au moins un produit à la commande.");
+		$('idProduit').focus();
+		return false;
+	}	
+	
+	if (quantites != '') {
+		var quantite = '';
+		for (var i = 0; i < quantites.length; i++) {
+			var id = quantites[i].id;
+			if (id!=null && id.startsWith("input_qte_prod_")){
+				quantite = quantites[i].value.trim();
+				if (quantite == '') {
+					alert("Vous avez oublié de renseigner la quantité pour au moins un des produits sélectionnés.");
+					$(quantites[i].id).focus();
+					return false;
+				}
+				else {
+					if (!verifieNombre($(quantites[i].id))){
+						alert("La quantité doit être un nombre.");
+						$(quantites[i].id).focus();
+						return false;
+					}					
+				}	
+			}
+		}
+	}
+	
+	return true;
+}
+
 function alerteSuppressionCommande(idCommande){
 	if (confirm('Êtes vous sûr de vouloir supprimer la commande '+idCommande+' ?')){
 		location.href = 'index.php?page=commandes&action=supprimer&idCommande='+idCommande;
 	}	
 }
+
+function checkRechercheCommande(){
+	if ($('refClient').value == -1 && $('datedeb').value.trim() == '' && $('datefin').value.trim() == '' 
+		&& $('idProduit').value == -1 && $('etat').value == -1){
+		alert('Vous devez renseigner un critère de recherche.');
+		return;
+	}
+	$('formRechercheCommande').submit();
+	
+}
+

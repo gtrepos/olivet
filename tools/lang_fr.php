@@ -40,6 +40,7 @@ define("ADMIN_CLIENT_MAIL","Mail");
 define("ADMIN_CLIENT_CREER","Créer un client");
 define("ADMIN_CLIENT_MODIFIER","Modifier");
 define("ADMIN_CLIENT_SUPPRIMER","Supprimer");
+define("ADMIN_CLIENT_RECHERCHER","Rechercher");
 
 //gestion des actualités
 define("ADMIN_ACTUALITE_GESTION","Gestion des actualités");
@@ -76,11 +77,13 @@ define("ADMIN_PRODUIT_ID","Identifiant");
 define("ADMIN_PRODUIT_CATEGORIE","Catégorie");
 define("ADMIN_PRODUIT_LIBELLE","Libellé");
 define("ADMIN_PRODUIT_DESCRIPTIF","Descriptif");
+define("ADMIN_PRODUIT_STOCK","Stock");
+define("ADMIN_PRODUIT_PRIX_UNITE","Prix à l'unité");
 define("ADMIN_PRODUIT_CONDITIONNEMENT","Conditionnement");
+define("ADMIN_PRODUIT_PRIX_CONDITIONNEMENT","Prix du produit conditionné");
 define("ADMIN_PRODUIT_NOUVEAUTE","Nouveaute");
 define("ADMIN_PRODUIT_ETAT","Etat");
 define("ADMIN_PRODUIT_UNITE","Unité");
-define("ADMIN_PRODUIT_PRIX_UNITE","Prix à l'unité");
 define("ADMIN_PRODUIT_CREER","Créer un produit");
 define("ADMIN_PRODUIT_ACTIVER","Activer");
 define("ADMIN_PRODUIT_DESACTIVER","Désactiver");
@@ -102,7 +105,7 @@ define("ADMIN_PARTENAIRE_DESACTIVER","Désactiver");
 define("ADMIN_PARTENAIRE_MODIFIER","Modifier");
 define("ADMIN_PARTENAIRE_SUPPRIMER","Supprimer");
 
-//gestion des partenaires
+//gestion des commandes
 define("ADMIN_COMMANDE_GESTION","Gestion des commandes");
 define("ADMIN_COMMANDE_ID","Identifiant");
 define("ADMIN_COMMANDE_CLIENT","Client");
@@ -112,6 +115,7 @@ define("ADMIN_COMMANDE_DATE_ANNULATION","Date d'annulation");
 define("ADMIN_COMMANDE_ETAT","Etat");
 define("ADMIN_COMMANDE_SOMME","Somme");
 define("ADMIN_COMMANDE_CREER","Créer une commande");
+define("ADMIN_COMMANDE_RECHERCHER","Rechercher");
 define("ADMIN_COMMANDE_ANNULER","Annuler");
 define("ADMIN_COMMANDE_REPRENDRE","Reprendre");
 define("ADMIN_COMMANDE_MODIFIER","Modifier");

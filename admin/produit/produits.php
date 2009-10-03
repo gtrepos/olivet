@@ -5,7 +5,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_ID; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_CATEGORIE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_LIBELLE; ?></td>
-		<td class=caption><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_STOCK; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_PRIX_UNITE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_CONDITIONNEMENT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_PRIX_CONDITIONNEMENT; ?></td>
@@ -38,8 +38,30 @@ if ($action=='creer') {include("creer_produit.php");}
 if ($action=='modifier') {include("modifier_produit.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_produit($_GET['mode'], $_POST['id'], $_POST['idCategorie'], $_POST['libelle'], $_POST['nouveaute'], $_POST['descriptif'], $_POST['unite'], $_POST['prix_unite'], 
-	$_POST['conditionnement'], $_POST['cond_nom'], $_POST['cond_fixe'], $_POST['cond_taille'], $_POST['cond_taille_inf'], $_POST['cond_taille_sup']);	
+	
+	$id = "";
+	$nouveaute = "";
+	$condFixe = "";
+	$conditionnement = "";
+	
+	if (isset($_POST['id'])) {
+		$id = $_POST['id'];
+	};
+	
+	if (isset($_POST['nouveaute'])) {
+		$nouveaute = $_POST['nouveaute'];
+	};
+	
+	if (isset($_POST['conditionnement'])) {
+		$conditionnement = $_POST['conditionnement'];
+	}
+	
+	if (isset($_POST['cond_fixe'])) {
+		$condFixe = $_POST['cond_fixe'];
+	}
+	
+	enregistrer_produit($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['nb_stock'], $nouveaute, $_POST['descriptif'], $_POST['unite'], $_POST['prix_unite'], 
+	$conditionnement, $_POST['cond_nom'], $condFixe, $_POST['cond_taille'], $_POST['cond_taille_inf'], $_POST['cond_taille_sup']);	
 }
 
 if ($action=='activer') {
@@ -55,6 +77,7 @@ if ($action=='supprimer') {
 }
 
 if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=produits';</script>";
+
 ?>
 
 

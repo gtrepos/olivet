@@ -1,7 +1,7 @@
 /**
-* Permet de retrouver le style appliqu? ? un ?l?ment
-* @param string Identifiant de l'?l?ment dont on recherche le style
-* @return object Style recherch?
+* Permet de retrouver le style appliqué à un élément
+* @param string Identifiant de l'élément dont on recherche le style
+* @return object Style recherché
 */
 function trouvestyle(idf) {
   if (document.getElementById) {
@@ -14,20 +14,20 @@ function trouvestyle(idf) {
 }
 
 /**
-* Change la couleur de fond appliqu?e ? un bloc
-* @param string Identifiant de l'?l?ment dont on recherche le style
+* Change la couleur de fond appliquée à un bloc
+* @param string Identifiant de l'élément dont on recherche le style
 * @return aucun
 */
 function survolLigne(idf) {
   var stylem=trouvestyle(idf);
   if(stylem) {
-  		stylem.backgroundColor='#EBEBEB';
+  		stylem.backgroundColor='#E2BAD9';
   }
 }
 
 /**
-* Restaure la couleur de fond appliqu?e ? un bloc
-* @param string Identifiant de l'?l?ment dont on recherche le style
+* Restaure la couleur de fond appliquée à un bloc
+* @param string Identifiant de l'élément dont on recherche le style
 * @return aucun
 */
 function restaureLigne(idf) {
@@ -37,9 +37,28 @@ function restaureLigne(idf) {
 	}
 }
 
+/*appelée sur l'évennement onKeyPress des formulaires*/
+function gestionToucheEntree(event,callBack){
+	if (!event) {event = window.event ;}  //cas IE
+	
+	if(event.keyCode == 13){
+		callBack();
+	}
+}
 
-String.prototype.trim = function(){return
-	(this.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""))}
+function verifieNombre(champ){
+	var verif = /^[0-9]+$/;
+	if (verif.exec(champ.value) == null){
+		champ.focus();
+		return false;
+	}
+	champ.value = parseInt(champ.value);
+	return true;
+}
+
+String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, "");
+}
 
 String.prototype.startsWith = function(str)
 {return (this.match("^"+str)==str)}

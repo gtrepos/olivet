@@ -23,8 +23,8 @@ foreach ($_POST as $key => $value) {
 </tr>
 <tr>
 	<td>Nom Produit</td>
-	<td>Quantité</td>
-	<td>Unité</td>
+	<td>Quantit&eacute;</td>
+	<td>Unit&eacute;</td>
 	<td>Prix unitaire TTC</td>
 	<td>Prix TTC</td>
 </tr>

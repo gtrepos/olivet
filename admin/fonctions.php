@@ -1,16 +1,30 @@
 <?php
 
-function affich_clients ()
+function affich_clients ($nom, $prenom, $commune)
 {
-  $requete="SELECT client_reference, client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email FROM client ORDER by client_reference DESC";
+  $select="SELECT client_reference, client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email ";
+  $from="FROM client ";
+  $order=" ORDER by client_reference DESC";
+  
+  $where = "WHERE 1=1";
+  
+  if ($nom!=null) $where = $where . " AND client_nom like '$nom%'";
+  if ($prenom!=null) $where = $where . " AND client_prenom like '$prenom%'";
+  if ($commune!=null) $where = $where . " AND client_commune like '%$commune%'";
+  
+  $requete = $select.$from.$where.$order;
+  
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
+  	
+  	$adresse = ($row[3]!=null || $row[4]!=null || $row[5]!=null)? $row[3]. ' ' .$row[4]. ' ' .$row[5]:'&nbsp;';
+  	
     echo "<tr id='client_$row[0]' onmouseout=\"restaureLigne('client_$row[0]');\" onmouseover=\"survolLigne('client_$row[0]');\">";
     echo "<td>$row[0]</td>";
     echo "<td>$row[1]</td>";
     echo "<td>$row[2]</td>";
-    echo "<td>$row[3] $row[4] $row[5]</td>";
+    echo "<td>$adresse</td>";
     echo "<td>$row[6]</td>";
     echo "<td>$row[7]</td>";
     echo "<td align=\"right\">";
@@ -30,13 +44,13 @@ function affich_modif_client ($ref)
 	echo "<tr><td colspan='2'>Modification du client <b>'$row[1] $row[2]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='ref' name='ref' value='$row[0]'/></tr>";
 	echo "<tr><td>Référence : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value='$row[1]'/></td></tr>";
-	echo "<tr><td>Prénom : </td><td><input type='text' id='prenom' name='prenom' value='$row[2]'/></td></tr>";
-	echo "<tr><td valign='top'>Adresse : </td><td><textarea id='adresse' name='adresse'>$row[3]</textarea></td></tr>";
-	echo "<tr><td>Code postal : </td><td><input type='text' id='cp' name='cp' value='$row[4]'/></td></tr>";
-	echo "<tr><td>Commune : </td><td><input type='text' id='commune' name='commune' value='$row[5]'/></td></tr>";
-	echo "<tr><td>N° Téléphone : </td><td><input type='text' id='tel' name='tel' value='$row[6]'/></td></tr>";
-	echo "<tr><td>Email : </td><td><input type='text' id='email' name='email' value='$row[7]'/></td></tr>";
+	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value='$row[1]' size='30'/></td></tr>";
+	echo "<tr><td>Prénom : </td><td><input type='text' id='prenom' name='prenom' value='$row[2]' size='30'/></td></tr>";
+	echo "<tr><td valign='top'>Adresse : </td><td><textarea id='adresse' name='adresse' cols='25'>$row[3]</textarea></td></tr>";
+	echo "<tr><td>Code postal : </td><td><input type='text' id='cp' name='cp' value='$row[4]' size='30'/></td></tr>";
+	echo "<tr><td>Commune : </td><td><input type='text' id='commune' name='commune' value='$row[5]' size='30'/></td></tr>";
+	echo "<tr><td>N° Téléphone : </td><td><input type='text' id='tel' name='tel' value='$row[6]' size='30'/></td></tr>";
+	echo "<tr><td>Email : </td><td><input type='text' id='email' name='email' value='$row[7]' size='30'/></td></tr>";
 	echo "</table>";
   }
 }
@@ -58,6 +72,7 @@ function supprimer_client($ref){
 }
 
 function liste_clients($select, $toDisabled){
+	
 	$requete="SELECT client_reference, client_nom, client_prenom FROM client ORDER by client_nom";
 	$resultats=mysql_query($requete) or die (mysql_error());
 	
@@ -256,20 +271,22 @@ function liste_categories($select){
 function affich_produits ()
 {
   $requete=
-		"SELECT p.produit_id, c.categorie_produit_libelle, p.produit_libelle, CONCAT(SUBSTRING(p.produit_descriptif_production, 1, 20),'...'), p.produit_unite, p.produit_prix_unite, p.produit_conditionnement,  " . 
+		"SELECT p.produit_id, c.categorie_produit_libelle, p.produit_libelle, p.produit_nb_stock, p.produit_unite, p.produit_prix_unite, p.produit_conditionnement,  " . 
 		"p.produit_conditionnement_nom, p.produit_conditionnement_taille_fixe, p.produit_conditionnement_taille, p.produit_conditionnement_taille_sup, p.produit_nouveaute, p.produit_etat " .
 		"FROM produit p, categorie_produit c " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id " .
-  		"ORDER by c.categorie_produit_id, p.produit_libelle DESC";
+  		"ORDER by p.produit_id DESC";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
+    
+    $stockLibelle = ($row[3]==-1) ? 'Aucun' : $row[3]; 
     $nouveauteLibelle = ($row[11]==0) ? 'Non' : 'Oui';
 	$etatLibelle = ($row[12]==0) ? 'Inactif' : 'Actif';
 	
 	if ($row[6]==0){
-		$conditionnement = 'Aucun : vendu à l\'unité';	
+		$conditionnement = 'vendu à l\'unité';	
 		$prixConditionnement = '&nbsp;';
 	}
 	else {
@@ -290,7 +307,7 @@ function affich_produits ()
     echo "<td>$row[0]</td>";
     echo "<td>$row[1]</td>";
     echo "<td>$row[2]</td>";
-    echo "<td>$row[3]</td>";
+    echo "<td>$stockLibelle</td>";
     echo "<td>$row[5] € / $row[4]</td>";
     echo "<td>$conditionnement</td>";
     echo "<td>$prixConditionnement</td>";
@@ -304,7 +321,14 @@ function affich_produits ()
     	echo " <a href=\"?page=produits&action=desactiver&id=$row[0]\">[".ADMIN_PRODUIT_DESACTIVER."]</a>";
     }
     echo " <a href=\"?page=produits&action=modifier&id=$row[0]\">[".ADMIN_PRODUIT_MODIFIER."]</a>";
-    echo " <a href=\"\" onclick=\"alerteSuppressionProduit('$row[0]','$row[1]')\">[".ADMIN_PRODUIT_SUPPRIMER."]</a>";
+    
+    if (checkProduitInCommande($row[0])) {
+    	echo " [Command]";
+    }
+    else {
+    	echo " <a href=\"\" onclick=\"alerteSuppressionProduit('$row[0]','$row[1]')\">[".ADMIN_PRODUIT_SUPPRIMER."]</a>";	
+    }
+    
     echo "</td>";
     echo "</tr>";
   }
@@ -314,7 +338,7 @@ function affich_modif_produit ($id)
 {
   $requete=
 		"SELECT produit_id, produit_id_categorie, produit_libelle, produit_nouveaute, produit_descriptif_production, produit_unite, produit_prix_unite, produit_conditionnement, " .
-  		"produit_conditionnement_nom, produit_conditionnement_taille_fixe, produit_conditionnement_taille, produit_conditionnement_taille_sup " .
+  		"produit_conditionnement_nom, produit_conditionnement_taille_fixe, produit_conditionnement_taille, produit_conditionnement_taille_sup, produit_nb_stock " .
 		"FROM produit " .
 		"WHERE produit_id = '$id' ";
   
@@ -337,16 +361,16 @@ function affich_modif_produit ($id)
 	//si conditionnement de taille fixe
 	if ($row[9]==1) {
 		$checkedFixe = 'checked';
-		$disableFixe = "";
+		$readonlyFixe = "";
 		$checkedVariable = '';	
-		$disableVariable = "disabled='disabled'";
+		$readonlyVariable = "readonly='readonly'";
 	}
 	//si conditionnement de taille variable
 	else {
 		$checkedFixe = '';
-		$disableFixe = "disabled='disabled'";
+		$readonlyFixe = "readonly='readonly'";
 		$checkedVariable = 'checked';			
-		$disableVariable = "";		
+		$readonlyVariable = "";		
 	}
 	
 	//détermine la taille du conditionnement
@@ -361,12 +385,23 @@ function affich_modif_produit ($id)
 		$tailleSup = $row[11];
 	}
 	
+	//si nbstock vide ou 0 
+	$stock = $row[12];
+	$stockChecked = '';
+	if ($stock>0) {
+		$stockChecked = 'checked';
+	}
+	else {
+		$stock = '';
+	}
+	
 	echo "<table>";
 	echo "<tr><td colspan='2'>Modification du produit <b>'$row[2]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$row[0]'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$row[0]</td></tr>";
 	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($row[1]);echo "</td></tr>";
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value='$row[2]'/></td></tr>";
+	echo "<tr><td>Stock : </td><td><input type='checkbox' id='is_stock' name='is_stock' value='is_stock' $stockChecked onclick=\"selectionneStock()\"/> : <input type='text' id='nb_stock' name='nb_stock' readonly='readonly' value='$stock'/></td></tr>";
 	echo "<tr><td>Nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $nouveauteChecked/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$row[4]</textarea></td></tr>";
 	echo "<tr><td>Unité (kg ? litre ?) : </td><td><input type='text' id='unite' name='unite' value='$row[5]'/></td></tr>";
@@ -375,17 +410,17 @@ function affich_modif_produit ($id)
 	echo "<tr id='tr_conditionnement_nom' $styleConditionnement><td>Nom du conditionnement : </td><td><input type='text' id='cond_nom' name='cond_nom' value='$row[8]'/></td></tr>";
 	echo "<tr id='tr_conditionnement_fixe' $styleConditionnement>";
 	echo "<td>Conditionnement de taille fixe : </td>";
-	echo "<td><input type='checkbox' id='cond_fixe' name='cond_fixe' $checkedFixe onclick='selectionneConditionnementFixe()'/> Précisez la taille : <input type='text' id='cond_taille' name='cond_taille' value='$taille' $disableFixe /> unités</td>";
+	echo "<td><input type='checkbox' id='cond_fixe' name='cond_fixe' $checkedFixe onclick='selectionneConditionnementFixe()'/> Précisez la taille : <input type='text' id='cond_taille' name='cond_taille' value='$taille' $readonlyFixe /> unités</td>";
 	echo "</tr>";
 	echo "<tr id='tr_conditionnement_variable' $styleConditionnement>";
 	echo "<td>Conditionnement de taille variable : </td>";
-	echo "<td><input type='checkbox' id='cond_variable' name='cond_variable' $checkedVariable onclick='selectionneConditionnementVariable()'/> Précisez la taille : de <input type='text' id='cond_taille_inf' name='cond_taille_inf' value='$tailleInf' $disableVariable /> unités à <input type='text' id='cond_taille_sup' name='cond_taille_sup' value='$tailleSup' $disableVariable/> unités</td>";
+	echo "<td><input type='checkbox' id='cond_variable' name='cond_variable' $checkedVariable onclick='selectionneConditionnementVariable()'/> Précisez la taille : de <input type='text' id='cond_taille_inf' name='cond_taille_inf' value='$tailleInf' $readonlyVariable /> unités à <input type='text' id='cond_taille_sup' name='cond_taille_sup' value='$tailleSup' $readonlyVariable/> unités</td>";
 	echo "</tr>";	
 	echo "</table>";
   }
 }
 
-function enregistrer_produit($mode, $id, $idCategorie, $libelle, $nouveaute, $descriptif, $unite, $prix_unite, $conditionnement, $condNom, $condFixe, $condTaille, $condTailleInf, $condTailleSup){
+function enregistrer_produit($mode, $id, $idCategorie, $libelle, $nb_stock, $nouveaute, $descriptif, $unite, $prix_unite, $conditionnement, $condNom, $condFixe, $condTaille, $condTailleInf, $condTailleSup){
 	$requete = "";
 	$nouveaute = ($nouveaute=='on') ? 1 : 0 ; 
 	$conditionnement = ($conditionnement=='on') ? 1 : 0 ;
@@ -404,19 +439,25 @@ function enregistrer_produit($mode, $id, $idCategorie, $libelle, $nouveaute, $de
 		$condFixe = 0;		
 	}	
 	
+	if ($nb_stock=='' || $nb_stock==null) {
+		$nb_stock = -1;
+	}
+	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO produit (produit_id_categorie, produit_lien_photo, produit_libelle, produit_nouveaute, produit_descriptif_production, produit_unite, produit_prix_unite, " . 
+		$requete = "INSERT INTO produit (produit_id_categorie, produit_lien_photo, produit_libelle, produit_nb_stock, produit_nouveaute, produit_descriptif_production, produit_unite, produit_prix_unite, " . 
 				   "produit_conditionnement, produit_conditionnement_nom, produit_conditionnement_taille_fixe, produit_conditionnement_taille, produit_conditionnement_taille_sup) " .
-				   "VALUES ($idCategorie, 'lien_vide', '$libelle', $nouveaute, '$descriptif', '$unite', '$prix_unite', " .  
+				   "VALUES ($idCategorie, 'lien_vide', '$libelle', $nb_stock, $nouveaute, '$descriptif', '$unite', '$prix_unite', " .  
 				   "$conditionnement, '$condNom', $condFixe, $condTailleInf, $condTailleSup)";
 	}
 	
 	else if ($mode == 'modification'){
-		$requete = "UPDATE produit SET produit_id_categorie = $idCategorie, produit_libelle = '$libelle', produit_nouveaute = $nouveaute, produit_descriptif_production = '$descriptif', produit_unite = '$unite', " . 
+		$requete = "UPDATE produit SET produit_id_categorie = $idCategorie, produit_libelle = '$libelle', produit_nb_stock = $nb_stock, produit_nouveaute = $nouveaute, produit_descriptif_production = '$descriptif', produit_unite = '$unite', " . 
 				   "produit_prix_unite = $prix_unite, produit_conditionnement = $conditionnement, produit_conditionnement_nom = '$condNom', produit_conditionnement_taille_fixe = $condFixe, " . 
 				   "produit_conditionnement_taille = $condTailleInf, produit_conditionnement_taille_sup = $condTailleSup " .
 				   "WHERE produit_id = '$id'";
 	}
+	
+	echo $requete;
 	
 	$result=mysql_query($requete) or die (mysql_error());
 }
@@ -432,8 +473,24 @@ function desactiver_produit($id) {
 }
 
 function supprimer_produit($id){
+	
+	checkProduitInCommande($id);
+	
 	$requete = "DELETE FROM produit where produit_id = '$id'";
 	$result=mysql_query($requete) or die (mysql_error());
+}
+
+function checkProduitInCommande($id) {
+	//on ne peut pas supprimer un produit qui a été référencé dans une commande.
+	$requeteCheckInCommande = "SELECT distinct p.produit_libelle, p.produit_id FROM lien_commande_produit lcp, commande c, produit p WHERE lcp.lcp_id_commande = c.commande_id AND lcp.lcp_id_produit = p.produit_id and p.produit_id = '$id'";
+	
+	$result=mysql_query($requeteCheckInCommande) or die (mysql_error());
+	
+	while ($row = mysql_fetch_array($result)){
+		return true;
+	}
+	
+	return false;
 }
 
 function affiche_produits_pour_commande($select, $remonteInactif){
@@ -475,6 +532,21 @@ function affiche_produits_pour_commande($select, $remonteInactif){
   	echo "<OPTION value='$row[0]' $selected>$row[1] - $conditionnement</OPTION>";
   }
   echo "</SELECT>";  
+}
+
+function affiche_etat_pour_commande($select){
+	echo "<SELECT id='etat' name='etat'>";
+	echo "<OPTION value='-1'>-- Sélectionner un état --</OPTION>";
+	$selected = "";
+	if ( "EC" == $select ) $selected = "selected";
+	echo "<OPTION value='EC' $selected>en cours</OPTION>";
+	$selected = "";
+	if ( "FA" == $select ) $selected = "selected";
+	echo "<OPTION value='FA' $selected>facturée</OPTION>";
+	$selected = "";
+	if ( "AN" == $select ) $selected = "selected";
+	echo "<OPTION value='AN' $selected>annulée</OPTION>";
+  	echo "</SELECT>";
 }
 
 function creer_commande ($recapCommande, $refClient){
@@ -561,9 +633,30 @@ function modifier_commande ($recapCommande, $idCommande, $refClient) {
 	}
 }
 
-function affich_commandes ()
+function affich_commandes ($idClient,  $dateInf, $dateSup, $idProduit, $etat)
 {
-  $requete="SELECT commande_id, client_nom, client_prenom, commande_datecreation, commande_dateannulation, commande_etat, commande_somme, client_reference FROM commande, client WHERE commande_id_client = client_reference ORDER by commande_id DESC";
+  $select = "SELECT commande_id, client_nom, client_prenom, commande_datecreation, commande_dateannulation, commande_etat, commande_somme, client_reference ";
+  $from = "FROM commande, client ";
+  $where = "WHERE commande_id_client = client_reference ";
+  
+  
+  if ($idClient==-1) $idClient = null;
+  if ($idProduit==-1) $idProduit = null;
+  if ($etat==-1) $etat = null;
+  
+  if ($idClient!=null) $where = $where . " AND client_reference='$idClient'"; 
+  if ($dateInf!=null) $where = $where . " AND commande_datecreation>='$dateInf. 00:00:00'";
+  if ($dateSup!=null) $where = $where . " AND commande_datecreation<'$dateSup. 23:59:59'";
+  if ($idProduit!=null) {
+  	$from = $from . ", lien_commande_produit, produit ";
+  	$where = $where . " AND lcp_id_commande = commande_id AND lcp_id_produit = produit_id AND produit_id = '$idProduit'";
+  }
+  if ($etat!=null) $where = $where . " AND commande_etat = '$etat'";
+  
+  $order = " ORDER by commande_id DESC";
+  
+  $requete = $select.$from.$where.$order;
+  
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
@@ -580,12 +673,14 @@ function affich_commandes ()
 	    break;
 	}
 
+	$dateAnnulation = ($row[4]!=null)? $row[4] : '&nbsp;';
+	
   	echo "<tr id='commande_$row[0]' onmouseout=\"restaureLigne('commande_$row[0]');\" onmouseover=\"survolLigne('commande_$row[0]');\">";
     echo "<td>$row[0]</td>";
     echo "<td>$row[1] $row[2]</td>";
     echo "<td>".affiche_resume_commande($row[0])."</td>";
     echo "<td>$row[3]</td>";
-    echo "<td>$row[4]</td>";
+    echo "<td>$dateAnnulation</td>";
     echo "<td>$libelleEtat</td>";
     echo "<td>".affiche_somme_commande($row[0])."</td>";
     echo "<td align=\"right\">";
@@ -722,7 +817,7 @@ function affich_partenaires ()
 {
   $requete=
 		"SELECT partenaire_id, partenaire_libelle, CONCAT(SUBSTRING(partenaire_descriptif, 1, 20),'...'), partenaire_img_logo, partenaire_siteweb, partenaire_rang, partenaire_etat " .
-		"FROM partenaire ORDER by partenaire_id DESC";
+		"FROM partenaire ORDER by partenaire_rang";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))

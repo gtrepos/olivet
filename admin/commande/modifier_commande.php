@@ -1,4 +1,5 @@
-<form name="modifier_commande" action='index.php?page=commandes&action=enregistrer&mode=modification' method="post" return="false">
+<form name="form_commande" action='index.php?page=commandes&action=enregistrer&mode=modification' method="post" 
+	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkCommande);">
 	<div style='border-size:1px;position:relative;'>
 		<table>
 			<tr>
@@ -27,6 +28,6 @@
 	<input type="hidden" name="recapCommande" id="recapCommande"/> 
 	<input type="button" name="annuler" title="Annuler" value="Annuler" onclick="window.location='index.php?page=commandes'">
 	<input type="reset">
-	<input type="submit" value="Enregistrer" onclick="javascript:checkCommande()">
+	<input type="button" name="Enregistrer" title="Enregistrer" value="Enregistrer" onclick="javascript:checkCommande()">
 	
 </form>

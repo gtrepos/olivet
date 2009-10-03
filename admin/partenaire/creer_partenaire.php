@@ -1,4 +1,5 @@
-<form name="creer_partenaire" action='index.php?page=partenaires&action=enregistrer&mode=creation' method="post" return="false">
+<form name="form_partenaire" action='index.php?page=partenaires&action=enregistrer&mode=creation' method="post"
+	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkPartenaire);">
 	<div style='border-size:1px;position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'un nouveau partenaire</tr>
@@ -12,7 +13,7 @@
 	</div>
 	<br>
 	<input type="reset">
-	<input type="submit" onclick="javascript:checkPartenaire()">
+	<input type="button" name="Enregistrer" value="Enregistrer" title="Enregistrer" onclick="javascript:checkPartenaire()">
 </form>
 
 

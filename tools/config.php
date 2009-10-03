@@ -15,9 +15,10 @@ function ouverture()
 	return($idconnect);
 }
 
+include("transaction.php");
 include("data_connect.php");
 include("lang_fr.php");
 
-$champmini=array(25,26,27,29);
-$offset_champ = 19;
+
+
 ?>
