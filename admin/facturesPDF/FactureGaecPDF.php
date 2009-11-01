@@ -26,7 +26,7 @@ class FactureGaecPDF extends FPDF
 		$this->Cell($dec_gauche_coord,$hauteur/6,"35530 SERVON-SUR-VILAINE",0,2,'L',false);
 		$this->Cell($dec_gauche_coord,$hauteur/6,"Tel",0,2,'L',false);
 		$this->Cell($dec_gauche_coord,$hauteur/6,"Mail",0,2,'L',false);
-		$this->Cell($dec_gauche_coord,$hauteur/6,"Site web",0,0,'L',false);
+		$this->Cell($dec_gauche_coord,$hauteur/6,"Site web : http://fermeolivet.free.fr",0,0,'L',false);
 		$this->Ln(15);//espace vertical
 	}
 	function BanniereFacture()
