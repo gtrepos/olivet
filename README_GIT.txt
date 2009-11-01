@@ -25,8 +25,8 @@ GUide d'utilisation de git pour l'olivet.
 4. Echo de la situation actuelle (pas de risque):
 
 	git status 			    	    : affiche la situation -- cf point 6
-	git log 	                            : affiche la liste des commit -- cf point 7
-
+	git log 	                    : affiche la liste des commit -- cf point 7
+	git log -n 5					: voir les 5 derniers commits
 
 5. Au sujet du git pull :
 
