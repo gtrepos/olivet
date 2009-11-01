@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 03 Octobre 2009 à 17:54
+-- Généré le : Dim 01 Novembre 2009 à 22:39
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 INSERT INTO `client` (`client_reference`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`) VALUES
 (4, 'Trepos', 'Gwen', '18 avenue André Mussat', '35000', 'Rennes', '06 17 35 00 01', 'gwenael.trepos@gmail.com'),
-(5, 'Guillemin', 'Sandra', '18 avenue andré mussat', '35000', 'Rennes', '02 15 45  45 48', 's_guillemin@hotmail.com'),
+(5, 'Guillemin', 'Sandra', '2 rue des vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com'),
 (6, 'Trepos', 'Ronan', 'toulouse', '34000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com'),
 (7, 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@free.fr');
 
@@ -106,7 +106,6 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_datecreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'date de creation de la commande',
   `commande_dateannulation` datetime DEFAULT NULL COMMENT 'date d''annulation eventuelle de la commande',
   `commande_etat` varchar(2) COLLATE latin1_general_ci NOT NULL DEFAULT 'EC' COMMENT 'etat de la commande : EC = en cours, AN = annule, FA = facturee',
-  `commande_somme` int(11) DEFAULT NULL COMMENT 'somme de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=20 ;
@@ -115,13 +114,13 @@ CREATE TABLE IF NOT EXISTS `commande` (
 -- Contenu de la table `commande`
 --
 
-INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_dateannulation`, `commande_etat`, `commande_somme`) VALUES
-(14, 5, '2009-08-24 17:34:32', NULL, 'EC', NULL),
-(15, 4, '2009-08-24 17:34:42', NULL, 'EC', NULL),
-(16, 6, '2009-08-24 17:56:52', NULL, 'EC', NULL),
-(17, 5, '2009-08-25 23:15:10', NULL, 'EC', NULL),
-(18, 5, '2009-08-25 23:16:32', NULL, 'EC', NULL),
-(19, 7, '2009-09-19 17:55:40', NULL, 'EC', NULL);
+INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_dateannulation`, `commande_etat`) VALUES
+(14, 5, '2009-08-24 17:34:32', NULL, 'EC'),
+(15, 4, '2009-08-24 17:34:42', NULL, 'EC'),
+(16, 6, '2009-08-24 17:56:52', NULL, 'EC'),
+(17, 5, '2009-08-25 23:15:10', NULL, 'EC'),
+(18, 5, '2009-08-25 23:16:32', NULL, 'EC'),
+(19, 7, '2009-09-19 17:55:40', NULL, 'EC');
 
 -- --------------------------------------------------------
 

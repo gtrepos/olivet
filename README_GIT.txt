@@ -30,8 +30,6 @@ GUide d'utilisation de git pour l'olivet.
 
 5. Au sujet du git pull :
 
-	ATTENTION : il faut faire un commit avant un git pull (sinon erreur)
-	
 	Lors d'un git pull un conflit peut être indiqué, le fichier en question est modifié avec un diff (cf exemple dessous) : 
 
 	<<<<<<< HEAD:README_GIT.txt
