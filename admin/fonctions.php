@@ -635,7 +635,7 @@ function modifier_commande ($recapCommande, $idCommande, $refClient) {
 
 function affich_commandes ($idClient,  $dateInf, $dateSup, $idProduit, $etat)
 {
-  $select = "SELECT commande_id, client_nom, client_prenom, commande_datecreation, commande_dateannulation, commande_etat, commande_somme, client_reference ";
+  $select = "SELECT commande_id, client_nom, client_prenom, commande_datecreation, commande_dateannulation, commande_etat, client_reference ";
   $from = "FROM commande, client ";
   $where = "WHERE commande_id_client = client_reference ";
   
@@ -676,7 +676,7 @@ function affich_commandes ($idClient,  $dateInf, $dateSup, $idProduit, $etat)
 	$dateAnnulation = ($row[4]!=null)? $row[4] : '&nbsp;';
 	
   	echo "<tr id='commande_$row[0]' onmouseout=\"restaureLigne('commande_$row[0]');\" onmouseover=\"survolLigne('commande_$row[0]');\">";
-    echo "<td>$row[0]</td>";
+    echo "<td><a href='javascript:genererFacture($row[0])'>pdf</a> $row[0]</td>";
     echo "<td>$row[1] $row[2]</td>";
     echo "<td>".affiche_resume_commande($row[0])."</td>";
     echo "<td>$row[3]</td>";
@@ -684,7 +684,7 @@ function affich_commandes ($idClient,  $dateInf, $dateSup, $idProduit, $etat)
     echo "<td>$libelleEtat</td>";
     echo "<td>".affiche_somme_commande($row[0])."</td>";
     echo "<td align=\"right\">";
-    echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[7]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
+    echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[6]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
     echo "<a href=\"\" onclick=\"alerteSuppressionCommande('$row[0]')\">[".ADMIN_COMMANDE_SUPPRIMER."]</a>";
     echo "</tr>";
   }

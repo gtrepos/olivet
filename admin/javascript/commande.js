@@ -122,3 +122,14 @@ function checkRechercheCommande(){
 	
 }
 
+function genererFacture(idCommande){
+	new Ajax.Request(
+            './facturesPDF/index.php?idCommande='+idCommande,
+            {
+                method: 'get',
+                onSuccess: function() { alert('Facture générée.');window.open('./facturesPDF/factures/facture'+idCommande+'.pdf');},
+                onFailure: function() { alert('Erreur à la génération de la facture.') }
+            }
+    );	
+}
+

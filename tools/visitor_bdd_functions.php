@@ -58,4 +58,15 @@ function bddLigneProduit($idproduit){
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
+
+function bddCheckClient($mail,$ref){
+	$requete=
+		"SELECT * ". 
+		"FROM  client c " .
+    	"WHERE c.client_reference = '$ref' ".
+		"AND c.client_email = '$mail' ";	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return (mysql_num_rows($resultats) == 1);
+}
+
 ?>
