@@ -6,13 +6,13 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Choix du client : </td><td><?php liste_clients('-1', false);?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit à ajouter :</td><td><?php affiche_produits_pour_commande('-1', false);?></td></tr>
+			<tr><td>Produit conditionné à ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', false, 'addCondCommande()');?></td></tr>
 		</table>
 		<br/>
 		<div class="listeQuantites">
 		<table id="tableau" cellspacing="0" style="display: none;" >
 			<tr>
-				<td class=caption>Produit</td>
+				<td class=caption>Produit conditionné</td>
 				<td class=caption>Quantité</td>
 				<td class=caption>&nbsp;</td>
 			</tr>

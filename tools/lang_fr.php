@@ -77,11 +77,7 @@ define("ADMIN_PRODUIT_ID","Identifiant");
 define("ADMIN_PRODUIT_CATEGORIE","Catégorie");
 define("ADMIN_PRODUIT_LIBELLE","Libellé");
 define("ADMIN_PRODUIT_DESCRIPTIF","Descriptif");
-define("ADMIN_PRODUIT_STOCK","Stock");
 define("ADMIN_PRODUIT_PRIX_UNITE","Prix à l'unité");
-define("ADMIN_PRODUIT_CONDITIONNEMENT","Conditionnement");
-define("ADMIN_PRODUIT_PRIX_CONDITIONNEMENT","Prix du produit conditionné");
-define("ADMIN_PRODUIT_NOUVEAUTE","Nouveaute");
 define("ADMIN_PRODUIT_ETAT","Etat");
 define("ADMIN_PRODUIT_UNITE","Unité");
 define("ADMIN_PRODUIT_CREER","Créer un produit");
@@ -89,6 +85,24 @@ define("ADMIN_PRODUIT_ACTIVER","Activer");
 define("ADMIN_PRODUIT_DESACTIVER","Désactiver");
 define("ADMIN_PRODUIT_MODIFIER","Modifier");
 define("ADMIN_PRODUIT_SUPPRIMER","Supprimer");
+
+//gestion des conditionnements
+define("ADMIN_CONDITIONNEMENT_GESTION","Gestion des conditionnements");
+define("ADMIN_CONDITIONNEMENT_ID","Identifiant");
+define("ADMIN_CONDITIONNEMENT_PRODUIT","Produit");
+define("ADMIN_CONDITIONNEMENT_NBSTOCK","Stock");
+define("ADMIN_CONDITIONNEMENT_NOUVEAUTE","Nouveauté");
+define("ADMIN_CONDITIONNEMENT_ETAT","Etat");
+define("ADMIN_CONDITIONNEMENT_PRIX_GLOBAL","Prix global");
+define("ADMIN_CONDITIONNEMENT_NOM","Nom du conditionnement");
+define("ADMIN_CONDITIONNEMENT_LIEN_PHOTO","Nom du conditionnement");
+define("ADMIN_CONDITIONNEMENT_QUANTITEPRODUIT","Quantité de produit");
+define("ADMIN_CONDITIONNEMENT_PRIX","Prix conditionnement");
+define("ADMIN_CONDITIONNEMENT_CREER","Créer un conditionnement");
+define("ADMIN_CONDITIONNEMENT_ACTIVER","Activer");
+define("ADMIN_CONDITIONNEMENT_DESACTIVER","Désactiver");
+define("ADMIN_CONDITIONNEMENT_MODIFIER","Modifier");
+define("ADMIN_CONDITIONNEMENT_SUPPRIMER","Supprimer");
 
 //gestion des partenaires
 define("ADMIN_PARTENAIRE_GESTION","Gestion des partenaires");

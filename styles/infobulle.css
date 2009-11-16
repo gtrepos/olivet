@@ -1,0 +1,36 @@
+
+    #infobulle ul {
+    	font:.75em "lucida grande", arial, sans-serif;
+    	overflow:auto;
+    	width:570px;
+    	list-style:none;
+    }
+    
+    #infobulle li {
+    	width:160px;
+    	height:160px;
+    	overflow:hidden;
+    	float:left;
+    	margin:20px 20px 0 0;
+    }
+    
+    #infobulle p {
+    	height:40px;
+    	padding:0 10px;
+    	opacity:.8;
+    	color:#fff;
+    	background:#000;
+    	-webkit-transition: margin-top .2s ease-out;
+    	-moz-transition: margin-top .2s ease-out;
+    	transition: margin-top .2s ease-out;
+    }
+    
+    #infobulle li:hover p {
+    	margin-top:-40px;
+    }
+    
+    #infobulle strong {
+    	display:block;
+    	padding-top:3px;
+    	font-weight:700;
+    }

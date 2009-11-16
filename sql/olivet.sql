@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Dim 01 Novembre 2009 à 22:39
+-- Généré le : Lun 16 Novembre 2009 à 21:19
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_etat` varchar(2) COLLATE latin1_general_ci NOT NULL DEFAULT 'EC' COMMENT 'etat de la commande : EC = en cours, AN = annule, FA = facturee',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=26 ;
 
 --
 -- Contenu de la table `commande`
@@ -120,7 +120,38 @@ INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreat
 (16, 6, '2009-08-24 17:56:52', NULL, 'EC'),
 (17, 5, '2009-08-25 23:15:10', NULL, 'EC'),
 (18, 5, '2009-08-25 23:16:32', NULL, 'EC'),
-(19, 7, '2009-09-19 17:55:40', NULL, 'EC');
+(19, 7, '2009-09-19 17:55:40', NULL, 'EC'),
+(25, 7, '2009-11-12 22:33:36', NULL, 'EC');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `conditionnement`
+--
+
+CREATE TABLE IF NOT EXISTS `conditionnement` (
+  `cond_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant du conditionnement',
+  `cond_id_produit` int(11) NOT NULL COMMENT 'identifiant du produit',
+  `cond_nb_stock` int(11) NOT NULL DEFAULT '-1' COMMENT 'nombre de ce conditionnement en stock',
+  `cond_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le conditionnement est une nouveaute ? 0 = non, 1 = oui',
+  `cond_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du conditionnement 0 = inactif 1 = actif ',
+  `cond_prix` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix a ajouter pour le conditionnement',
+  `cond_nom` varchar(50) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'nom du conditionnemment',
+  `cond_lien_photo` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'nom de la photo du conditionnement',
+  `cond_quantite_produit` decimal(5,3) NOT NULL COMMENT 'quantite de produit contenue dans le conditionnement',
+  PRIMARY KEY (`cond_id`),
+  KEY `cond_produit_fk` (`cond_id_produit`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=33 ;
+
+--
+-- Contenu de la table `conditionnement`
+--
+
+INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nb_stock`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_lien_photo`, `cond_quantite_produit`) VALUES
+(29, 29, 50, 1, 1, '0.20', 'pot de 25 cl', 'pot25cremefraiche.gif', '0.250'),
+(30, 29, 25, 1, 1, '0.40', 'pot de 50 cl', 'pot50cremefraiche.gif', '0.500'),
+(31, 25, 25, 1, 1, '0.20', 'barquette de 100g', 'pot50cremefraiche.gif', '0.100'),
+(32, 28, -1, 0, 1, '2.00', 'caissette', 'caissetteagneau.gif', '10.000');
 
 -- --------------------------------------------------------
 
@@ -140,6 +171,29 @@ CREATE TABLE IF NOT EXISTS `facture` (
 -- Contenu de la table `facture`
 --
 
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lien_commande_cond`
+--
+
+CREATE TABLE IF NOT EXISTS `lien_commande_cond` (
+  `lcc_id_commande` int(11) NOT NULL COMMENT 'identifiant de commande',
+  `lcc_id_cond` int(11) NOT NULL COMMENT 'identifiant de conditionnement',
+  `lcc_quantite` int(11) NOT NULL COMMENT 'quantite du conditionnement dans la commande',
+  PRIMARY KEY (`lcc_id_commande`,`lcc_id_cond`),
+  KEY `lcc_cond_fk` (`lcc_id_cond`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT;
+
+--
+-- Contenu de la table `lien_commande_cond`
+--
+
+INSERT INTO `lien_commande_cond` (`lcc_id_commande`, `lcc_id_cond`, `lcc_quantite`) VALUES
+(25, 29, 1),
+(25, 30, 1),
+(25, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -226,32 +280,27 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant du produit',
   `produit_id_categorie` int(11) NOT NULL COMMENT 'identifiant de la categorie',
   `produit_libelle` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'libelle du produit',
-  `produit_nb_stock` int(11) NOT NULL DEFAULT '-1' COMMENT 'nombre de ce produit en stock',
-  `produit_lien_photo` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'lien vers la photo du produit',
   `produit_descriptif_production` text COLLATE latin1_general_ci NOT NULL COMMENT 'descriptif de fabrication/production du produit',
-  `produit_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le produit est une nouveaute ? 0 = non, 1 = oui',
   `produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
   `produit_unite` varchar(100) COLLATE latin1_general_ci NOT NULL COMMENT 'unite du produit (kg, litre etc...)',
   `produit_prix_unite` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix du produit a l''unite',
-  `produit_conditionnement` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'y a t il un conditionnement pour ce produit',
-  `produit_conditionnement_nom` varchar(50) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'nom du conditionnemment',
-  `produit_conditionnement_taille_fixe` tinyint(1) DEFAULT NULL COMMENT 'Est-ce que le produit a un conditionnement de taille fixe (1=fixe, 0=variable)',
-  `produit_conditionnement_taille` int(11) DEFAULT NULL COMMENT 'taille du conditionnement (borne inférieure sur conditionnement de taille variable)',
-  `produit_conditionnement_taille_sup` int(11) DEFAULT NULL COMMENT 'borne supérieur de la taille du conditionnement',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=31 ;
 
 --
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_nb_stock`, `produit_lien_photo`, `produit_descriptif_production`, `produit_nouveaute`, `produit_etat`, `produit_unite`, `produit_prix_unite`, `produit_conditionnement`, `produit_conditionnement_nom`, `produit_conditionnement_taille_fixe`, `produit_conditionnement_taille`, `produit_conditionnement_taille_sup`) VALUES
-(22, 7, 'orange', -1, 'lien_vide', 'dans les orangers', 1, 1, 'kg', '5.00', 1, 'sac', 1, 2, NULL),
-(24, 6, 'sac de patates', -1, 'lien_vide', 'avec de la terre dedans', 1, 1, 'kg', '1.00', 1, 'sac à jutte', 1, 80, NULL),
-(25, 3, 'boeuf', 4, 'lien_vide', 'la vache', 1, 1, 'kg', '12.00', 1, 'caissette', 0, 17, 18),
-(26, 4, 'lait', -1, 'lien_vide', 'direct de la vache', 0, 1, 'litre', '1.50', 0, '', 0, NULL, NULL),
-(27, 6, 'pumps', -1, 'lien_vide', 'desc', 1, 1, 'litre', '2.33', 0, '', 0, NULL, NULL);
+INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_unite`, `produit_prix_unite`) VALUES
+(22, 7, 'orange', 'dans les orangers', 1, 'kg', '5.00'),
+(24, 6, 'sac de patates', 'avec de la terre dedans', 1, 'kg', '1.00'),
+(25, 3, 'boeuf', 'la vache', 1, 'kg', '12.00'),
+(26, 4, 'lait', 'direct de la vache', 1, 'litre', '1.50'),
+(27, 6, 'pumps', 'desc', 1, 'litre', '2.33'),
+(28, 3, 'agneau', 'c''est clarisse qui fait', 1, 'kg', '13.00'),
+(29, 4, 'crème fraiche', 'desc creme fraiche', 1, 'litre', '2.00'),
+(30, 4, 'Laitier le produit', 'Laitier le produit', 0, 'litre', '1.70');
 
 --
 -- Contraintes pour les tables exportées
@@ -264,10 +313,23 @@ ALTER TABLE `commande`
   ADD CONSTRAINT `commande_client_fk` FOREIGN KEY (`commande_id_client`) REFERENCES `client` (`client_reference`);
 
 --
+-- Contraintes pour la table `conditionnement`
+--
+ALTER TABLE `conditionnement`
+  ADD CONSTRAINT `cond_produi_fk` FOREIGN KEY (`cond_id_produit`) REFERENCES `produit` (`produit_id`);
+
+--
 -- Contraintes pour la table `facture`
 --
 ALTER TABLE `facture`
   ADD CONSTRAINT `facture_comande_fk` FOREIGN KEY (`facture_id_commande`) REFERENCES `commande` (`commande_id`);
+
+--
+-- Contraintes pour la table `lien_commande_cond`
+--
+ALTER TABLE `lien_commande_cond`
+  ADD CONSTRAINT `lcc_commande_fk` FOREIGN KEY (`lcc_id_commande`) REFERENCES `commande` (`commande_id`),
+  ADD CONSTRAINT `lcc_cond_fk` FOREIGN KEY (`lcc_id_cond`) REFERENCES `conditionnement` (`cond_id`);
 
 --
 -- Contraintes pour la table `lien_commande_produit`

@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="./javascript/produit.js"></script>
 	<script type="text/javascript" src="./javascript/partenaire.js"></script>
 	<script type="text/javascript" src="./javascript/commande.js"></script>
+	<script type="text/javascript" src="./javascript/conditionnement.js"></script>
 	<script type="text/javascript" src="../js/prototype.js"></script>
 	<script type="text/javascript" src="./javascript/dhtmlgoodies_calendar.js"></script>
 </head>
@@ -20,7 +21,14 @@
 
 <?php
 require ("../tools/config.php") ;
-require ("fonctions.php");
+require ("fonctions/fn-commun.php"); 
+require ("fonctions/fn-commande.php");
+require ("fonctions/fn-client.php");
+require ("fonctions/fn-actualite.php");
+require ("fonctions/fn-categorie_produit.php");
+require ("fonctions/fn-produit.php");
+require ("fonctions/fn-conditionnement.php");
+require ("fonctions/fn-partenaire.php");
 ?>
 
 <div align="center">
@@ -39,6 +47,7 @@ require ("fonctions.php");
       	<a href="?page=actualites">Actualités</a> | <a href="?page=actualites&action=creer"><?php echo ADMIN_ACTUALITE_CREER;?></a><br><br>
       	<a href="?page=categories">Catégories de produits</a><br><br>
       	<a href="?page=produits">Liste des produits</a><br><br>
+      	<a href="?page=conditionnements">Liste des conditionnements</a><br><br>
       	<a href="?page=partenaires">Partenaires</a><br><br>
       </td>
       <td valign="top" colspan="2"><div align="center">
@@ -53,6 +62,7 @@ require ("fonctions.php");
      if ($page=="actualites") {include ("actualite/actualites.php");}
      if ($page=="categories") {include ("categorie_produit/categories.php");}
      if ($page=="produits") {include ("produit/produits.php");}
+     if ($page=="conditionnements") {include ("conditionnement/conditionnements.php");}
      if ($page=="partenaires") {include ("partenaire/partenaires.php");}
      
      elseif ($page=="accueil") {include ("accueil.htm");}

@@ -1,12 +1,13 @@
+#global{
+	width: 100%;
+}
+
 
 /*************************
 ** panier
 ***************************/
 
 #banniere-resume_panier{
-	position: absolute;
-	top: 0;
-	left: 700;
 	margin-top: 0px;
 	vertical-align: top;	
 	background-color: #D87093;
@@ -20,12 +21,11 @@
 ***************************/
 
 #centre {
-	display: box;
-	margin-left:  180px; 
+	margin-left:  180px;
 	/*margin-right: 154px;*/
-	width: 780px; 
+	/*width: 780px; 
 	min-height: 300px;
-	height: 540px;
+	height: 540px;*/
 	/*background-color: #FFFFFF;*/ 
 }
 
@@ -49,8 +49,7 @@ body, table, td {
 
 #resume_panier{
 	position: absolute;
-	top: 0;
-	left: 700;
+	float:right;
 	margin-top: 0px;
 	vertical-align: top;	
 	background-color: #D87093;
@@ -65,16 +64,12 @@ body, table, td {
 
 #gaucheID {	
 	position: absolute;
-	left: 0;
-	width:  161px;
-	height: 765px;
-	vertical-align: top;	
+	height: 100%;
+	vertical-align: top;
 	margin-top: 0px;
 	margin-left: 5px;
 	padding-left: 4px;
-	vertical-align: top;
 	border-right: solid green;
-	/*background-color: #D87093;*/ 
 }
 .gaucheCL_text {
 	font-weight: bold;
@@ -92,11 +87,7 @@ body, table, td {
 
 #banniereID {
 	height: 80px;
-	margin-left: 180px;
-	/*margin-right:154px;*/
-	width: 780px; 
-	/*min-height: 300px;*/
-	/*background-color: #FF8C00;*/
+	margin-left: 180px;	
 }
 
 /*************************

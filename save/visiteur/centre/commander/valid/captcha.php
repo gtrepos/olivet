@@ -1,0 +1,1 @@
+<img src="securimage/securimage_show.php?sid=<?php echo md5(uniqid(time())); ?>"><br />

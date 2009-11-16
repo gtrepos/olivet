@@ -16,9 +16,8 @@ foreach ($_POST as $key => $value) {
 	<td colspan="5" align=center>Mon panier</td>
 </tr>
 <tr>
-	<td>Nom Produit</td>
+	<td>Produit</td>
 	<td>Quantit&eacute;</td>
-	<td>Unit&eacute;</td>
 	<td>Prix unitaire TTC</td>
 	<td>Prix TTC</td>
 </tr>
@@ -33,11 +32,9 @@ for($i=0;$i<count($recap);$i++){
 }
 ?>
 <tr>
-<td colspan="4" align=right>Total </td>
+<td colspan="3" align=right>Total </td>
 <td>
-<?php 
-echo panierMontantTotal();
-?>
+<?php echo panierMontantTotal();?> &euro;
 </td>
 </tr>
 </table>

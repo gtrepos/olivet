@@ -8,7 +8,7 @@ include('mon_panier.php')
 <form onsubmit='return false;'>
 	<table  border="1" align=center cellspacing=0 cellpadding=3 border=0 width='80%'>
 		<tr>
-			<td valign=top align=center> Déjà inscrit ? </td>
+			<td valign=top align=center> D&eacute;j&agrave; inscrit ? </td>
 			<td valign=top align=center> Pas encore inscrit ? </td>
 		</tr>
 		<tr>
@@ -25,7 +25,7 @@ include('mon_panier.php')
 		</tr>
 		<tr>
 			<td valign="middle" rowspan=6> 
-				Reference client* : 
+				R&eacute;f&eacute;rence client* : 
 				<input type=text id=client_ref size=30 
 					   value= <?php if(isset($ajax_client_ref)){echo "$ajax_client_ref";}?>> 
 			</td>
@@ -37,7 +37,7 @@ include('mon_panier.php')
 		</tr>
 		<tr>
 			<td valign="middle"> 
-				Prénom : 
+				Pr&eacute;nom : 
 				<input type=text id=nclient_prenom size=30
 					   value= <?php if(isset($ajax_nclient_prenom)){echo "$ajax_nclient_prenom";}?>> 
 			</td>
@@ -65,7 +65,7 @@ include('mon_panier.php')
 		</tr>
 		<tr>
 			<td valign="middle"> 
-				N° Tel : 
+				N&deg; Tel : 
 				<input type=text id=nclient_tel size=30
 					   value= <?php if(isset($ajax_nclient_tel)){echo "$ajax_nclient_tel";}?>> 
 			</td>

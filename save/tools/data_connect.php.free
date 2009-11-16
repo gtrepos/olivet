@@ -1,0 +1,7 @@
+<?php
+$hostname="sql.free.fr";
+$database="usacignefootball";
+$login="usacignefootball";
+$password="t31y2tjw";
+$lang="fr";
+?>

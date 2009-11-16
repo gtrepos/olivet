@@ -2,13 +2,13 @@
 		$refClient = null;
 		$datedeb = null;
 		$datefin = null;
-		$idProduit = null;
+		$idConditionnement = null;
 		$etat = null;
 		
 		if (isset($_POST['refClient'])) $refClient = $_POST['refClient'];
 		if (isset($_POST['datedeb'])) $datedeb = $_POST['datedeb'];
 		if (isset($_POST['datefin'])) $datefin = $_POST['datefin'];
-		if (isset($_POST['idProduit'])) $idProduit = $_POST['idProduit'];
+		if (isset($_POST['idConditionnement'])) $idConditionnement = $_POST['idConditionnement'];
 		if (isset($_POST['etat'])) $etat = $_POST['etat'];
 				
 ?>		
@@ -22,7 +22,7 @@
 								  <input type="button" value="?" onclick="displayCalendar(document.forms[0].datedeb,'yyyy-mm-dd',this)"> 
 							   au <input type="text" name="datefin" id="datefin" value="<?php echo $datefin;?>"/>
 							   	  <input type="button" value="?" onclick="displayCalendar(document.forms[0].datefin,'yyyy-mm-dd',this)"></div>
-	<div class=critere>Produits : <?php affiche_produits_pour_commande($idProduit, true);?></div>
+	<div class=critere>Produit conditionné : <?php affiche_conditionnements_pour_selection($idConditionnement, true, null);?></div>
 	<div class=critere>Etat : <?php affiche_etat_pour_commande($etat);?></div>
 	<table class=olivet width="100%" cellspacing="1" cellspacing="0">
 		<tr>
@@ -47,7 +47,7 @@
 		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php	  
-		affich_commandes ($refClient, $datedeb, $datefin, $idProduit, $etat);
+		liste_commandes ($refClient, $datedeb, $datefin, $idConditionnement, $etat);
 	?>
 </table>
 </div>

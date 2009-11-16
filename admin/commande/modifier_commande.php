@@ -10,13 +10,13 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Client : </td><td><?php liste_clients($_GET['refClient'], false);?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit à ajouter :</td><td><?php affiche_produits_pour_commande('-1', true);?></td></tr>
+			<tr><td>Produit conditionné à ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', true, 'addCondCommande()');?></td></tr>
 		</table>
 		<br/>
 		<div class="listeQuantites">
 		<table id="tableau" cellspacing="0">
 			<tr>
-				<td class=caption>Produit</td>
+				<td class=caption>Produit conditionné</td>
 				<td class=caption>Quantité</td>
 				<td class=caption>&nbsp;</td>
 			</tr>

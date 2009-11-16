@@ -1,39 +1,39 @@
-function addProduitCommande()
+function addCondCommande()
 {
   $('tableau').show();
 	
   var Cell;
-  var idProduit = $('idProduit').value;
+  var idCond = $('idConditionnement').value;
   
-  var idtestPresenceProduit = "tr_prod_" + idProduit;
+  var idtestPresenceCond = "tr_cond_" + idCond;
   
-  if (idProduit!=-1 && $(idtestPresenceProduit)==null){
+  if (idCond!=-1 && $(idtestPresenceCond)==null){
   
 	  var tableau = $('tableau');
 	  var ligne = tableau.insertRow(-1);
-	  ligne.id = "tr_prod_" + idProduit;
+	  ligne.id = "tr_cond_" + idCond;
 	  
 	  Cell = ligne.insertCell(0);
-	  var libelleProduit = get_current_option_text('idProduit');
-	  Cell.innerHTML = libelleProduit;
+	  var libelleCond = get_current_option_text('idConditionnement');
+	  Cell.innerHTML = libelleCond;
 	  
 	  Cell = ligne.insertCell(1);
 	  var inputQuantite = document.createElement("input");
 	  inputQuantite.type = "text";
-	  inputQuantite.id = "input_qte_prod_" + idProduit;
-	  inputQuantite.name = "input_qte_prod_" + idProduit;
+	  inputQuantite.id = "input_qte_cond_" + idCond;
+	  inputQuantite.name = "input_qte_cond_" + idCond;
 	  Cell.appendChild(inputQuantite);
 	  
 	  Cell = ligne.insertCell(2);	
 	  var bouton = document.createElement("input");
 	  bouton.type = "button";
-	  bouton.value = "Retirer '" + libelleProduit + "'";
-	  bouton.onclick = function(){retraitProduitCommande(ligne)};
+	  bouton.value = "Retirer '" + libelleCond + "'";
+	  bouton.onclick = function(){retraitCondCommande(ligne)};
 	  Cell.appendChild(bouton);
   }
 }
 
-function retraitProduitCommande(ligne)
+function retraitCondCommande(ligne)
 {
   $('tableau').deleteRow(ligne.rowIndex);  
 }
@@ -57,11 +57,14 @@ function prepareEnvoie(){
 	var concatQte = "";
 	for (var i = 0; i < quantites.length; i++) {
 		var id = quantites[i].id;
-		if (id!=null && id.startsWith("input_qte_prod_")){
+		if (id!=null && id.startsWith("input_qte_cond_")){
 			concatQte = concatQte + id + ":" + quantites[i].value + ";";
 		}
 	}
 	$('recapCommande').value = concatQte;
+	
+	alert ($('recapCommande').value);
+	
 }
 
 function valideCommande(){
@@ -77,7 +80,7 @@ function valideCommande(){
 	
 	if (quantites == ''){
 		alert("Vous devez ajouter au moins un produit à la commande.");
-		$('idProduit').focus();
+		$('idConditionnement').focus();
 		return false;
 	}	
 	
@@ -85,7 +88,7 @@ function valideCommande(){
 		var quantite = '';
 		for (var i = 0; i < quantites.length; i++) {
 			var id = quantites[i].id;
-			if (id!=null && id.startsWith("input_qte_prod_")){
+			if (id!=null && id.startsWith("input_qte_cond_")){
 				quantite = quantites[i].value.trim();
 				if (quantite == '') {
 					alert("Vous avez oublié de renseigner la quantité pour au moins un des produits sélectionnés.");
@@ -114,7 +117,7 @@ function alerteSuppressionCommande(idCommande){
 
 function checkRechercheCommande(){
 	if ($('refClient').value == -1 && $('datedeb').value.trim() == '' && $('datefin').value.trim() == '' 
-		&& $('idProduit').value == -1 && $('etat').value == -1){
+		&& $('idConditionnement').value == -1 && $('etat').value == -1){
 		alert('Vous devez renseigner un critère de recherche.');
 		return;
 	}
