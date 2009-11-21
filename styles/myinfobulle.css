@@ -1,0 +1,23 @@
+a.info {
+position: relative;
+text-decoration: none;
+color: black;
+border-bottom: 1px gray dotted;
+}
+a.info span {
+display: none;
+}
+a.info:hover {
+background: none; /* correction d'un bug IE */
+z-index: 500;
+}
+a.info:hover span {
+display: inline;
+position: absolute;
+top: 2em;
+left: 1em;
+background: orange;
+text-align: center;
+color: white;
+padding: 2px;
+}

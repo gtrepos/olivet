@@ -37,3 +37,20 @@
     	padding-top:3px;
     	font-weight:700;
     }
+    
+    
+        #infobulle infobulle {
+    	font:.75em "lucida grande", arial, sans-serif;
+    	overflow:auto;
+    	/*width:570px;*/
+    	/*padding:0 0 30px 30px;*/
+    	/*margin:30px auto;*/
+    	background:#eee;
+    	list-style:none;
+    	width:160px;
+    	height:160px;
+    	overflow:hidden;
+    	float:left;
+    	margin:30px 30px 0 0;
+    }
+    

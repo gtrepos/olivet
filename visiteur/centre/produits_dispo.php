@@ -1,185 +1,130 @@
 
 
-	<?php
+<?php
+echo "<h3>Produits actuellement disponibles</h3>";
+echo "<ul class='navigation2'>";
+
+$tmpres0 = bddCategorieMenu();
+while ($row0 = mysql_fetch_array($tmpres0)){
+	$cat_id = $row0[0];
+	$cat_name = $row0[1];
+	echo " <li class='toggleSubMenu'><span>$cat_name</span> ";
+	echo "<ul class='subMenu'>";
+	echo "<li>";
+
+	$tmpres1 = bddProduitsDispo($cat_id);
 	
-	echo "<h3>Produits actuellement disponibles</h3>";
-	echo "<ul class='navigation2'>";
+	echo "<table>";
 	
-	$tmpres0 = bddCategorieMenu();
-	while ($row0 = mysql_fetch_array($tmpres0)){
-		$cat_id = $row0[0];
-		$cat_name = $row0[1];
-		echo " <li class='toggleSubMenu'><span>$cat_name</span> ";
-		echo "<ul class='subMenu'>";
-		echo "<div id='infobulle'>";
-		$tmpres1 = bddProduitsDispo($cat_id);
-		while ($row1 = mysql_fetch_array($tmpres1)){
-			$produit_libelle = $row1[0];
-			$produit_unite = $row1[1];
-			$produit_prix_unite = $row1[2];
-			$produit_id_categorie = $row1[3];
-			$produit_description = $row1[4];
-			$lien_photo = $row1[5];
-			$produit_id = $row1[6];
-			echo "<ul>";
-			echo "<li>";
-			echo "<img src=\"img/upload/$lien_photo\" alt=\"\">";
-			echo "<p>";
-			echo "<strong>Info:</strong>";
-			echo "$produit_description";
-			echo "</p>";
-			echo "</li>";
-			echo "<li>";
-			echo " conditionnements pour le produit $produit_libelle : <br>";
-			$tmpres2 = bddConditionnements($produit_id);
-			while ($row2 = mysql_fetch_array($tmpres2)){
-				$nb_stock = $row2[0];
-				$nom_conditionnement = $row2[1];
-				$prix_conditionnement = $row2[2];
-				$qtite_cond = $row2[3];
-				echo " $nom_conditionnement : prix = $prix_conditionnement, 
-					   quantité = $qtite_cond ";
-				echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
-				 for($i=0;$i<=$nb_stock;$i++){
-				 	if($nbarticles == $i){
-						$selected = " SELECTED";
-					}else{
-						$selected = "";
-					}
-					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-				 }
-			echo "</SELECT> <br>";
+	while ($row1 = mysql_fetch_array($tmpres1)){
+		$produit_libelle = $row1[0];
+		$produit_unite = $row1[1];
+		$produit_prix_unite = $row1[2];
+		$produit_id_categorie = $row1[3];
+		$produit_description = $row1[4];
+		$lien_photo = $row1[5];
+		$produit_id = $row1[6];
+
+
+		echo "<tr>";
+		echo "<td>";
+		echo "<img src='img/upload/$lien_photo' alt='texte alternatif' />";
+		echo "</td>";
+
+		echo "<td>";
+		echo " $produit_libelle : $produit_description <br> -> Conditionnement : <br> ";
+		$tmpres2 = bddConditionnements($produit_id);
+		while ($row2 = mysql_fetch_array($tmpres2)){
+			$nb_stock = $row2[0];
+			$nom_conditionnement = $row2[1];
+			$prix_conditionnement = $row2[2];
+			$qtite_cond = $row2[3];
+			$ID_cond = $row2[4];
+			$nbarticles_panier = panierNbArticles($ID_cond);
+			echo " $nom_conditionnement : prix = $prix_conditionnement,
+ 				quantité = $qtite_cond ";
+			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
+			for($i=0;$i<=$nb_stock;$i++){
+				if($nbarticles_panier == $i){
+					$selected = " SELECTED";
+				}else{
+					$selected = "";
+				}
+				echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
 			}
-			echo "</li>";
-			echo "</ul>";
+			echo "</SELECT> <br>";
 		}
-		echo "</div>";
-		echo "</ul>";
-		echo "</li>";
-	}	
+		echo "</td>";
+	}
+	echo "</table>";
+	echo "</li>";
 	echo "</ul>";
-	
-	
-	
+	echo "</li>";
+}
+echo "</ul>";
 
 
-		/*while ($row = mysql_fetch_array($tmpres)){
-			$condId = $row[0];
-			$condNom = $row[1];
-			$condPrix = $row[2];
-			$condQuantiteProduit = $row[3];
-			$produitLibelle = $row[4];
-			$produitUnite = $row[5];
-			$produitPrixUnite = $row[6];
-			$produitIdCategorie = $row[7];
-			$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
-			$nbarticles = panierNbArticles($condId);
-			$prixParProduit = $nbarticles * $prixUnitaireProduit;
-			
-						
-			echo "<tr>";
-			echo "<td>$condNom [$produitLibelle]</td>" .
-   				 "<td align=right>$prixUnitaireProduit &euro;</td>";
-   			
-			echo "<td>" .
-				 "<SELECT  id='nbarticles_$row[0]' onChange='javascript:clickSetNbArticles($row[0]);'>";
-				 for($i=0;$i<10;$i++){
-				 	if($nbarticles == $i){
-						$selected = " SELECTED";
-					}else{
-						$selected = "";
-					}
-					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-				 }
-			echo "</SELECT></td>";	   				 
-   			echo "<td align=right>$prixParProduit &euro;</td>";
-   			echo "</tr>"	
-			
-		}*/
-		
-	
-	
-	?>
 
 
-<!--  <table border='1' align=center
-	style='border-collapse: separate; empty-cells: show;'>
-	<tr>
-		<td>Produits</td>
-		<td>Prix unitaire TTC</td>
-		<td>Nombre</td>
-		<td style='border-left: 3px solid #000;'>Prix total TTC</td>
-		
-	</tr>
 
-</table>  
-<div id='infobulle'>
-	<ul> 
-		<li> 
-			<img src="img/upload/10.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/20.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/30.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/40.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/50.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/60.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/70.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/80.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/90.jpg" alt=""> 
-			<p> 
-				<strong>Info:</strong> 
-				Lorem ipsum dolor
-			</p> 
-		</li> 
-	</ul>
-</div> 
+//		while ($row = mysql_fetch_array($tmpres)){
+//			$condId = $row[0];
+//			$condNom = $row[1];
+//			$condPrix = $row[2];
+//			$condQuantiteProduit = $row[3];
+//			$produitLibelle = $row[4];
+//			$produitUnite = $row[5];
+//			$produitPrixUnite = $row[6];
+//			$produitIdCategorie = $row[7];
+//			$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
+//			$nbarticles = panierNbArticles($condId);
+//			$prixParProduit = $nbarticles * $prixUnitaireProduit;
+//
+//
+//			echo "<tr>";
+//			echo "<td>$condNom [$produitLibelle]</td>" .
+//   				 "<td align=right>$prixUnitaireProduit &euro;</td>";
+//
+//			echo "<td>" .
+//				 "<SELECT  id='nbarticles_$row[0]' onChange='javascript:clickSetNbArticles($row[0]);'>";
+//				 for($i=0;$i<10;$i++){
+//				 	if($nbarticles == $i){
+//						$selected = " SELECTED";
+//					}else{
+//						$selected = "";
+//					}
+//					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+//				 }
+//			echo "</SELECT></td>";
+//   			echo "<td align=right>$prixParProduit &euro;</td>";
+//   			echo "</tr>"
+//
+//		}
+
+
+
+?>
+
+
+<?php
+/*echo "<div class='myinfobulle'>";
+ echo 	"<ul>";
+ echo 	"	<li>";
+ echo 	"	<img src=\"img/upload/10.jpg\" alt=\"\">";
+ echo "	<p>";
+ echo 	"		<strong>Info:</strong>";
+ echo 	"		Lorem ipsum dolor";
+ echo 		"	</p> ";
+ echo 	"</li>";
+ echo "	</ul>";
+ echo "</div> ";*/
+?>
+<!--
+
+<infoimg href="url-du-lien" class="tooltip">
+<img src="img/upload/20.jpg" alt="texte alternatif" />
+<em><span></span>texte de l'infobulle</em></infoimg>
+
 
 <table cellspacing=0 cellpadding=0 border=0 width='100%'>
 <tr>

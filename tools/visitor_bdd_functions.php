@@ -53,7 +53,8 @@ function bddProduitsConditionnes($cat_prod){
 }
 function bddConditionnements($id_prod){
 	$requete=
-		"SELECT cond.cond_nb_stock, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit " .
+		"SELECT cond.cond_nb_stock, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, ".
+		"cond.cond_id ".
 		"FROM conditionnement cond " .
     	"WHERE cond.cond_id_produit = $id_prod ".
 		"ORDER by cond.cond_id DESC";

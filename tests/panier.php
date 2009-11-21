@@ -1,5 +1,7 @@
 <?php
-session_start();
+if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+      //session_start();
+}
 include_once("fonctions-panier.php");
 
 echo '<?xml version="1.0" encoding="iso-8859-1"?>';
