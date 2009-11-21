@@ -1,7 +1,105 @@
+
+
+	<?php
+	
+	echo "<h3>Produits actuellement disponibles</h3>";
+	echo "<ul class='navigation2'>";
+	
+	$tmpres0 = bddCategorieMenu();
+	while ($row0 = mysql_fetch_array($tmpres0)){
+		$cat_id = $row0[0];
+		$cat_name = $row0[1];
+		echo " <li class='toggleSubMenu'><span>$cat_name</span> ";
+		echo "<ul class='subMenu'>";
+		echo "<div id='infobulle'>";
+		$tmpres = bddProduitsDispo();
+		while ($row = mysql_fetch_array($tmpres)){
+			$produit_libelle = $row[0];
+			$produit_unite = $row[1];
+			$produit_prix_unite = $row[2];
+			$produit_id_categorie = $row[3];
+			$produit_description = $row[4];
+			$lien_photo = $row[5];
+			echo " $produit_id_categorie vs $cat_id <br>";
+			if($produit_id_categorie == $cat_id){	
+				echo "<ul>";
+				echo "<li>";
+				echo "<img src=\"img/upload/$lien_photo\" alt=\"\">";
+				echo "<p>";
+				echo "<strong>Info:</strong>";
+				echo "Lorem ipsum dolor";
+				echo "</p>";
+				echo "</li>";
+				echo "<li>";
+				echo " $produit_libelle --- $produit_description <br>";
+				echo "</li>";
+				echo "</ul>";
+			}
+		}
+		echo "</div>";
+		echo "</ul>";
+		echo "</li>";
+	}	
+	echo "</ul>";
+	
+	
+	
+
+
+		/*while ($row = mysql_fetch_array($tmpres)){
+			$condId = $row[0];
+			$condNom = $row[1];
+			$condPrix = $row[2];
+			$condQuantiteProduit = $row[3];
+			$produitLibelle = $row[4];
+			$produitUnite = $row[5];
+			$produitPrixUnite = $row[6];
+			$produitIdCategorie = $row[7];
+			$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
+			$nbarticles = panierNbArticles($condId);
+			$prixParProduit = $nbarticles * $prixUnitaireProduit;
+			
+						
+			echo "<tr>";
+			echo "<td>$condNom [$produitLibelle]</td>" .
+   				 "<td align=right>$prixUnitaireProduit &euro;</td>";
+   			
+			echo "<td>" .
+				 "<SELECT  id='nbarticles_$row[0]' onChange='javascript:clickSetNbArticles($row[0]);'>";
+				 for($i=0;$i<10;$i++){
+				 	if($nbarticles == $i){
+						$selected = " SELECTED";
+					}else{
+						$selected = "";
+					}
+					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+				 }
+			echo "</SELECT></td>";	   				 
+   			echo "<td align=right>$prixParProduit &euro;</td>";
+   			echo "</tr>"	
+			
+		}*/
+		
+	
+	
+	?>
+
+
+<!--  <table border='1' align=center
+	style='border-collapse: separate; empty-cells: show;'>
+	<tr>
+		<td>Produits</td>
+		<td>Prix unitaire TTC</td>
+		<td>Nombre</td>
+		<td style='border-left: 3px solid #000;'>Prix total TTC</td>
+		
+	</tr>
+
+</table>  
 <div id='infobulle'>
 	<ul> 
 		<li> 
-			<img src="visiteur/centre/infobulles_fichiers/10.jpg" alt=""> 
+			<img src="img/upload/10.jpg" alt=""> 
 			<p> 
 				<strong>Info:</strong> 
 				Lorem ipsum dolor
@@ -64,7 +162,7 @@
 			</p> 
 		</li> 
 	</ul>
-</div>
+</div> 
 
 <table cellspacing=0 cellpadding=0 border=0 width='100%'>
 <tr>
@@ -111,4 +209,4 @@
 </td>
 </tr>
 </table>
-
+-->
