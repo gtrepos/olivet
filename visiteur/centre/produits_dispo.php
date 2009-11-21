@@ -12,29 +12,46 @@
 		echo " <li class='toggleSubMenu'><span>$cat_name</span> ";
 		echo "<ul class='subMenu'>";
 		echo "<div id='infobulle'>";
-		$tmpres = bddProduitsDispo();
-		while ($row = mysql_fetch_array($tmpres)){
-			$produit_libelle = $row[0];
-			$produit_unite = $row[1];
-			$produit_prix_unite = $row[2];
-			$produit_id_categorie = $row[3];
-			$produit_description = $row[4];
-			$lien_photo = $row[5];
-			echo " $produit_id_categorie vs $cat_id <br>";
-			if($produit_id_categorie == $cat_id){	
-				echo "<ul>";
-				echo "<li>";
-				echo "<img src=\"img/upload/$lien_photo\" alt=\"\">";
-				echo "<p>";
-				echo "<strong>Info:</strong>";
-				echo "Lorem ipsum dolor";
-				echo "</p>";
-				echo "</li>";
-				echo "<li>";
-				echo " $produit_libelle --- $produit_description <br>";
-				echo "</li>";
-				echo "</ul>";
+		$tmpres1 = bddProduitsDispo($cat_id);
+		while ($row1 = mysql_fetch_array($tmpres1)){
+			$produit_libelle = $row1[0];
+			$produit_unite = $row1[1];
+			$produit_prix_unite = $row1[2];
+			$produit_id_categorie = $row1[3];
+			$produit_description = $row1[4];
+			$lien_photo = $row1[5];
+			$produit_id = $row1[6];
+			echo "<ul>";
+			echo "<li>";
+			echo "<img src=\"img/upload/$lien_photo\" alt=\"\">";
+			echo "<p>";
+			echo "<strong>Info:</strong>";
+			echo "$produit_description";
+			echo "</p>";
+			echo "</li>";
+			echo "<li>";
+			echo " conditionnements pour le produit $produit_libelle : <br>";
+			$tmpres2 = bddConditionnements($produit_id);
+			while ($row2 = mysql_fetch_array($tmpres2)){
+				$nb_stock = $row2[0];
+				$nom_conditionnement = $row2[1];
+				$prix_conditionnement = $row2[2];
+				$qtite_cond = $row2[3];
+				echo " $nom_conditionnement : prix = $prix_conditionnement, 
+					   quantité = $qtite_cond ";
+				echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
+				 for($i=0;$i<=$nb_stock;$i++){
+				 	if($nbarticles == $i){
+						$selected = " SELECTED";
+					}else{
+						$selected = "";
+					}
+					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+				 }
+			echo "</SELECT> <br>";
 			}
+			echo "</li>";
+			echo "</ul>";
 		}
 		echo "</div>";
 		echo "</ul>";
