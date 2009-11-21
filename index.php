@@ -1,3 +1,9 @@
+<?php
+if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+	session_start();
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -6,7 +12,6 @@ require_once("tools/config.php") ;
 ouverture();
 require_once("tools/visitor_bdd_functions.php") ;
 require_once('tools/visitor_panier_functions.php');
-session_start();
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
@@ -14,13 +19,13 @@ session_start();
 	<title>GAEC à 3 voix, la ferme d'Olivet</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta http-equiv='language' content='fr'>
-	<meta name='Description' content='La ferme de l''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
+	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
 	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
 	<meta name='robots' content='index,follow'>
-	<meta name='author' content='Ferme de l''Olivet'>
+	<meta name='author' content='Ferme d''Olivet'>
 	<meta name='revisit-after' content='7 days'>
 	<meta name="rating" content="general" />
-	<link href="http://gaeca4voies.free.fr/favicon.ico" rel="SHORTCUT ICON" />
+	<link href="http://fermeolivet.free.fr/favicon.ico" rel="SHORTCUT ICON" />
 	<!-- La feuille de styles "base.css" doit être appelée en premier. -->
 	<link rel="stylesheet" type="text/css" href="styles/base.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="styles/modele08.css" media="screen" />
@@ -44,7 +49,6 @@ session_start();
 		<p class="sous-titre">
 			<strong>Vous nourrir mais pas seulement...</strong>
 			agriculture biologique,
-			fauchage d'OGM,
 			lutte anti Mal bouffe
 		</p>
 	</div><!-- #entete -->

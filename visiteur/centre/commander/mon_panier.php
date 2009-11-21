@@ -5,7 +5,6 @@ foreach ($_POST as $key => $value) {
 		require_once("../../../tools/visitor_bdd_functions.php");
 		require_once("../../../tools/config.php");
 		ouverture();
-		session_start();
 	}    
 }
 ?>

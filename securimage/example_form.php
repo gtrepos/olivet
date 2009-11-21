@@ -38,7 +38,9 @@
  *
  */
 
-  session_start();
+if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+      session_start();
+    }
 
 ?>
 <html>

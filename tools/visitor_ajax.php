@@ -1,11 +1,13 @@
 <?php
-
+if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+	session_start();
+}
 require_once("visitor_panier_functions.php");
 require_once("visitor_bdd_functions.php");
 require_once("config.php");
 require_once("../securimage/securimage.php");
 ouverture();
-session_start();
+
 
 //foreach ($_POST as $key => $value) {
 //		echo "$key --- $value <br/>";
