@@ -7,7 +7,7 @@ function bddNouveauxProduits(){
 		"p.produit_unite FROM produit p, categorie_produit c, conditionnement cond " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id AND cond.cond_id_produit = p.produit_id " .
 		"AND cond.cond_nouveaute = TRUE AND p.produit_etat = TRUE AND cond.cond_etat = TRUE ORDER by cond.cond_id DESC";
-  		
+
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
@@ -39,7 +39,7 @@ function bddCategorieMenu(){
 		"ORDER by c.categorie_produit_libelle DESC";
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
-	
+
 }
 function bddProduitsConditionnes($cat_prod){
 	$requete=
@@ -51,13 +51,37 @@ function bddProduitsConditionnes($cat_prod){
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
+function bddConditionnements($id_prod){
+	$requete=
+		"SELECT cond.cond_nb_stock, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit " .
+		"FROM conditionnement cond " .
+    	"WHERE cond.cond_id_produit = $id_prod ".
+		"ORDER by cond.cond_id DESC";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
+function bddProduitsDispo($id_cat){
+	$requete=
+		"SELECT DISTINCT p.produit_libelle, p.produit_unite, ". 
+		"p.produit_prix_unite, p.produit_id_categorie, ".
+	    "p.produit_descriptif_production, cond.cond_lien_photo, p.produit_id ".
+		"FROM produit p ".
+		"LEFT JOIN conditionnement cond ".
+		"ON p.produit_id=cond.cond_id_produit ".
+		"WHERE p.produit_etat = true and cond.cond_etat = true ".
+		"and cond.cond_nb_stock > 0 and  p.produit_id_categorie = $id_cat ".
+		"ORDER BY cond.cond_id DESC";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
 function bddLigneProduit($idproduitcond){
 	$requete=
 		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
 		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, p.produit_id_categorie ". 
 		"FROM  produit p, conditionnement cond " .
     	"WHERE cond.cond_id_produit = p.produit_id AND cond.cond_id = $idproduitcond ";	
-    	
+	 
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }

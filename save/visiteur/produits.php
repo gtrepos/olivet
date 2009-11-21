@@ -26,7 +26,7 @@
  <ul class="produits_menu1CL">	
 		<li>Les autres produits disponibles toute l'année</li>
 		<ul class="produits_menu2CL">	
-			<li>Légumes de saison</li>
+			<li>Légumes de saison  czsd</li>
 			<li>Fruits de saison</li>
 			<li>Les oeufs bio fermiers</li>
 			

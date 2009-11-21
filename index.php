@@ -57,7 +57,7 @@ require_once('tools/visitor_panier_functions.php');
 		<ul>
 			<li class="gauche"><a href="index.php">Accueil</a></li>
 			<li class="gauche"><a href="index.php?page=ferme">La Ferme</a></li>
-			<li class="gauche"><a href="index.php?page=produits">Nos produits</a></li>
+			<li class="gauche"><a href="index.php?page=produits_dispo">Nos produits</a></li>
 			<li class="gauche"><a href="index.php?page=commande">Commander</a></li>
 			<li class="droite"><a href="index.php?page=contact">Nous contacter</a></li>
 		</ul>
@@ -77,8 +77,8 @@ require_once('tools/visitor_panier_functions.php');
 							case 'actu' :
 								include('visiteur/centre/accueil.php');
 								break;
-							case 'produits' :
-								include('visiteur/centre/infobulles.html');
+							case 'produits_dispo' :
+								include('visiteur/centre/produits_dispo.php');
 								break;
 							case 'ferme' :
 								include('visiteur/centre/ferme.php');
