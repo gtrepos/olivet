@@ -84,7 +84,7 @@ function clickCategorieProduits(id_cat_prod){
 		method: 'post', 
 		parameters: {event: 'clickCategorieProduits', id_cat_prod: id_cat_prod},
 		onComplete: function(transport){
-			$('selection_produits-liste_produits').innerHTML= transport.responseText;
+			$('centre-commander-mon_panier').innerHTML= transport.responseText;
 		},
 		onFailure : function(){ alert('Something went wrong...') }
 			});
@@ -99,6 +99,14 @@ function clickSetNbArticles(id_prod){
 		parameters:{event: 'clickSetNbArticles', id_prod: id_prod, nb_articles: nb_articles},
 		onComplete: function(transport){
 			$('banniere-resume_panier').innerHTML= transport.responseText;
+		}
+			});
+	new Ajax.Request("tools/visitor_ajax.php", 
+			{ 
+		method: 'post', 
+		parameters:{event: 'updateCommanderPanier'},
+		onComplete: function(transport){
+			$('centre-commander-mon_panier').innerHTML= transport.responseText;
 		}
 			});
 }
@@ -130,9 +138,12 @@ function clickViderPanier(){
 		method: 'post', 
 		parameters:{event: 'updateCommanderPanier'},
 		onComplete: function(transport){
-			$('commander-panier').innerHTML= transport.responseText;
+			$('centre-commander-mon_panier').innerHTML= transport.responseText;
 		}
 			});
+	
+	
+	jQuery("ul.subMenu2").hide();
 }
 
 

@@ -79,7 +79,9 @@ require_once('tools/visitor_panier_functions.php');
 								include('visiteur/centre/accueil.php');
 								break;
 							case 'produits_dispo' :
+								echo "<div id=produits_dispo>";
 								include('visiteur/centre/produits_dispo.php');
+								echo "</div>";
 								break;
 							case 'ferme' :
 								include('visiteur/centre/ferme.php');
@@ -105,9 +107,9 @@ require_once('tools/visitor_panier_functions.php');
 			
 			<h3>Partenaires</h3>
 			
-			<ul class="navigation2"> 
-			    <li class="toggleSubMenu"><span>Accueil paysan</span> 
-			        <ul class="subMenu"> 
+			<ul class="menu_deroulant1"> 
+			    <li class="toggleSubMenu1"><span>Accueil paysan</span> 
+			        <ul class="subMenu1"> 
 			            <li>
 			            <a href="#" title="Aller à la page 1">
 			            	<img src='img/accueilpaysan.gif'  width='100' height='100' border=0>
@@ -115,13 +117,13 @@ require_once('tools/visitor_panier_functions.php');
 			            </li>
 			        </ul> 
 			    </li> 
-			    <li class="toggleSubMenu"><span>Partenaire 2</span> 
-			        <ul class="subMenu"> 
+			    <li class="toggleSubMenu1"><span>Partenaire 2</span> 
+			        <ul class="subMenu1"> 
 			            <li><a href="#" title="Aller à la page 2">Partenaire 2</a></li> 
 			        </ul> 
 			    </li> 
-			    <li class="toggleSubMenu"><span>Partenaire 3</span> 
-			        <ul class="subMenu"> 
+			    <li class="toggleSubMenu1"><span>Partenaire 3</span> 
+			        <ul class="subMenu1"> 
 			            <li><a href="#" title="Aller à la page 3">Partenaire 3</a></li> 
 			        </ul> 
 			    </li> 

@@ -95,10 +95,13 @@ switch($ajax_event){
 		include('../visiteur/banniere/resume_panier.php');
 		break;
 	case 'updateCaptcha' :
-		include('../visiteur/centre/commander/valid/captcha.php');
+		include('../visiteur/centre/commander/captcha.php');
 		break;
 	case 'updateCommanderPanier' :
 		include('../visiteur/centre/commander/mon_panier.php');
+		break;
+	case 'produits_dispo' :
+		include('../visiteur/centre/produits_dispo.php');
 		break;
 		
 	

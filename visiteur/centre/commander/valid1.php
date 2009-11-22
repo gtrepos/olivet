@@ -73,7 +73,7 @@ include('mon_panier.php')
 		<tr>
 			<td align="center" colspan=2>
 				<div id="commander-captcha">
-					<?php include('valid/captcha.php');?>
+					<?php include('captcha.php');?>
 				</div>
 				
 				Code antispam* :  <input type="text" name="code" id="securimage_code"/><br />

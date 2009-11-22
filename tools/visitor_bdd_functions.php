@@ -45,12 +45,25 @@ function bddProduitsConditionnes($cat_prod){
 	$requete=
 		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
 		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, p.produit_id_categorie ". 
-		"FROM  produit p, conditionnement cond " .
+		"FROM  produit p, conditionnement cond ". 
     	"WHERE p.produit_etat = true AND cond.cond_etat = true AND cond.cond_id_produit = p.produit_id and p.produit_id_categorie = $cat_prod ".
 		"ORDER by cond.cond_id DESC";
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
+
+function bddProduitsConditionnesTous(){
+	$requete=
+		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
+		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, ".
+		"p.produit_id_categorie, cond.cond_nb_stock ". 
+		"FROM  produit p, conditionnement cond " .
+    	"WHERE p.produit_etat = true AND cond.cond_etat = true AND cond.cond_id_produit = p.produit_id ".
+		"ORDER by cond.cond_id DESC";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
 function bddConditionnements($id_prod){
 	$requete=
 		"SELECT cond.cond_nb_stock, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, ".
