@@ -19,7 +19,9 @@ while ($row0 = mysql_fetch_array($tmpres0)){
 	$cat_id = $row0[0];
 	$cat_name = $row0[1];
 	echo " <li>";
-	echo "<a href='javascript:clickMenuProditsDispo($cat_id)'>$cat_name</a>";
+	echo "<a href='javascript:clickMenuProditsDispo($cat_id)'>";
+	echo html_entity_decode($cat_name);
+	echo "</a>";
 	echo "<div id='MenuProduitsDispoCat$cat_id' class='categories' open=false>";
 	
 	$tmpres1 = bddProduitsDispo($cat_id);
@@ -50,7 +52,7 @@ while ($row0 = mysql_fetch_array($tmpres0)){
 			$ID_cond = $row2[4];
 			$nbarticles_panier = panierNbArticles($ID_cond);
 			echo " $nom_conditionnement : prix = $prix_conditionnement,
- 				quantité = $qtite_cond ";
+ 				quantitÃ© = $qtite_cond ";
 			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
 			for($i=0;$i<=$nb_stock;$i++){
 				if($nbarticles_panier == $i){
@@ -126,7 +128,7 @@ echo "</ul>";
 //			$ID_cond = $row2[4];
 //			$nbarticles_panier = panierNbArticles($ID_cond);
 //			echo " $nom_conditionnement : prix = $prix_conditionnement,
-// 				quantité = $qtite_cond ";
+// 				quantitï¿½ = $qtite_cond ";
 //			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
 //			for($i=0;$i<=$nb_stock;$i++){
 //				if($nbarticles_panier == $i){

@@ -16,17 +16,18 @@ require_once('tools/visitor_panier_functions.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-	<title>GAEC à 3 voix, la ferme d'Olivet</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>GAEC Ã  3 voix, la ferme d'Olivet</title>
+	<!--  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />  -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
 	<meta http-equiv='language' content='fr'>
-	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
-	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
+	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualitï¿½s, Produits'>
+	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, ActualitÃ©s, Produits'>
 	<meta name='robots' content='index,follow'>
 	<meta name='author' content='Ferme d''Olivet'>
 	<meta name='revisit-after' content='7 days'>
 	<meta name="rating" content="general" />
 	<link href="http://fermeolivet.free.fr/favicon.ico" rel="SHORTCUT ICON" />
-	<!-- La feuille de styles "base.css" doit être appelée en premier. -->
+	<!-- La feuille de styles "base.css" doit etre appelle en premier. -->
 	<link rel="stylesheet" type="text/css" href="styles/base.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="styles/modele08.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/infobulle.css" media="screen" />
@@ -45,7 +46,7 @@ require_once('tools/visitor_panier_functions.php');
 	<div id="entete">
 		<h1>
 		<img  src="img/logoexploit.gif" alt="logoexploit" title="logoexploit" border="0" width='110' height='70'>
-			<span>"GAEC à 3 voix" ferme d'Olivet</span>
+			<span>"GAEC Ã  3 voix" ferme d'Olivet</span>
 		</h1>
 		<p class="sous-titre">
 			<strong>Vous nourrir mais pas seulement...</strong>
@@ -111,7 +112,7 @@ require_once('tools/visitor_panier_functions.php');
 			    <li class="toggleSubMenu1"><span>Accueil paysan</span> 
 			        <ul class="subMenu1"> 
 			            <li>
-			            <a href="#" title="Aller à la page 1">
+			            <a href="#" title="Aller Ã  la page 1">
 			            	<img src='img/accueilpaysan.gif'  width='100' height='100' border=0>
 			            </a>
 			            </li>
@@ -119,20 +120,20 @@ require_once('tools/visitor_panier_functions.php');
 			    </li> 
 			    <li class="toggleSubMenu1"><span>Partenaire 2</span> 
 			        <ul class="subMenu1"> 
-			            <li><a href="#" title="Aller à la page 2">Partenaire 2</a></li> 
+			            <li><a href="#" title="Aller Ã  la page 2">Partenaire 2</a></li> 
 			        </ul> 
 			    </li> 
 			    <li class="toggleSubMenu1"><span>Partenaire 3</span> 
 			        <ul class="subMenu1"> 
-			            <li><a href="#" title="Aller à la page 3">Partenaire 3</a></li> 
+			            <li><a href="#" title="Aller Ã  la page 3">Partenaire 3</a></li> 
 			        </ul> 
 			    </li> 
 			</ul>
 			
-			<h3>Quoi de neuf à l'Olivet ?</h3>
+			<h3>Quoi de neuf Ã  l'Olivet ?</h3>
 			<ul>		
-				<li>Commandes spéciales</li>
-				<li>Evénements</li>
+				<li>Commandes spÃ©ciales</li>
+				<li>EvÃ©nements</li>
 				<li>Fermeture du magasin</li>
 			</ul>		
 			
@@ -141,7 +142,7 @@ require_once('tools/visitor_panier_functions.php');
 			
 			<p id="copyright">
 				<a href="http://www.elephorm.com">Elephorm</a> et
-				<a href="http://www.alsacreations.com">Alsacréations</a>
+				<a href="http://www.alsacreations.com">Alsacrï¿½ations</a>
 			</p>
 		</div><!-- #secondaire -->
 
