@@ -18,7 +18,7 @@ require_once('tools/visitor_panier_functions.php');
 <head>
 	<title>GAEC à 3 voix, la ferme d'Olivet</title>
 	<!--  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />  -->
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='language' content='fr'>
 	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualit�s, Produits'>
 	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
