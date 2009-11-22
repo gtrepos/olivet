@@ -142,8 +142,85 @@ function clickViderPanier(){
 		}
 			});
 	
-	
-	jQuery("ul.subMenu2").hide();
+	new Ajax.Request("tools/visitor_ajax.php", 
+			{ 
+		method: 'post', 
+		parameters:{event: 'produits_dispo'},
+		onComplete: function(transport){
+			$('produits_dispo').innerHTML= transport.responseText;
+			//close all items in MenuProduitsDispo
+		    all_cat = "ul.categories";
+			all_prod = "div.products";
+			jQuery(all_prod).hide();
+			jQuery(all_cat).attr("open","false");
+		}
+			});
 }
 
 
+function clickMenuProditsDispo(id_cat){
+	sel_cat = "ul#MenuProduitsDispoCat"+id_cat;
+	sel_prod = "div.MenuProduitsDispoProd"+id_cat;
+	all_cat = "ul.categories";
+	all_prod = "div.products";
+	if(jQuery(sel_cat).attr("open") == "true"){
+		//close sel
+		jQuery(sel_prod).hide();
+		jQuery(sel_prod).slideUp("normal");
+		jQuery(sel_cat).attr("open","false");
+		
+	}else{
+		//close all
+		jQuery(all_prod).hide();
+		jQuery(all_cat).attr("open","false");
+		//open sel
+		jQuery(sel_prod).slideDown("normal");
+		jQuery(sel_cat).attr("open","true");
+	}
+	
+}
+
+
+jQuery.noConflict();
+
+jQuery(document).ready( function () {
+	/*************************
+	* menu_deroulant1, partenaires
+	**************************/
+    // On cache les sous-menus
+    // sauf celui qui porte la classe "open_at_load" :
+    jQuery("ul.subMenu1:not('.open_at_load')").hide();
+    // On selectionne tous les items de liste portant la classe "toggleSubMenu"
+
+    // et on remplace l'element span qu'ils contiennent par un lien :
+    jQuery("li.toggleSubMenu1 span").each( function () {
+        // On stocke le contenu du span :
+        var TexteSpan = jQuery(this).text();
+        jQuery(this).replaceWith('<a href="" title="Afficher le sous-menu">' + TexteSpan + '</a>') ;
+    } ) ;
+
+    // On modifie l'evenement "click" sur les liens dans les items de liste
+    // qui portent la classe "toggleSubMenu" :
+    jQuery("li.toggleSubMenu1 > a").click( function () {
+        // Si le sous-menu etait deja ouvert, on le referme :
+        if (jQuery(this).next("ul.subMenu1:visible").length != 0) {
+            jQuery(this).next("ul.subMenu1").slideUp("normal", function () { jQuery(this).parent().removeClass("open") } );
+        }
+        // Si le sous-menu est cache, on ferme les autres et on l'affiche :
+        else {
+            jQuery("ul.subMenu1").slideUp("normal", function () { jQuery(this).parent().removeClass("open") } );
+            jQuery(this).next("ul.subMenu1").slideDown("normal", function () { jQuery(this).parent().addClass("open") } );
+        }
+        // On empêche le navigateur de suivre le lien :
+        return false;
+    });
+
+    /***********************
+     * menu_deroulant2, produits dispo
+	**************************/
+    //at initialisation close all
+    all_cat = "ul.categories";
+	all_prod = "div.products";
+	jQuery(all_prod).hide();
+	jQuery(all_cat).attr("open","false");
+} ) ;
