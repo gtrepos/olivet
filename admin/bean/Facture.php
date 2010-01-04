@@ -2,13 +2,14 @@
 
 require ('Commande.php');
 require ('Client.php');
-require ('Produit.php');
+require ('Conditionnement.php');
 
 class Facture {
 	
 	var $commande;
 	var $client;
-	var $produits;
+	var $conditionnements;
+	var $prixTotal;
 	
 	function InitFacture ($idCommande) {
 		//init de la commande
@@ -21,21 +22,27 @@ class Facture {
 		$leClient->InitClient($laCommande->idClient);
 		$this->client = $leClient;
 		
-		//init des produits : tableau qui porte comme indice 0, 1, 2... 
-		//et comme valeur un objet 'Produit'. On fait un setQuantite avant de le mettre dans le tableau.
-		$lesProduits = array();
-		$requete = "SELECT lcp_id_produit, lcp_quantite FROM lien_commande_produit WHERE lcp_id_commande = " . $idCommande . "";
+		//init des conditionnements : tableau qui porte comme indice 0, 1, 2... 
+		//et comme valeur un objet 'Conditionnement'. On fait un setQuantite avant de le mettre dans le tableau.
+		$lesConditionnements = array();
+		$requete = "SELECT lcc_id_cond, lcc_quantite FROM lien_commande_cond WHERE lcc_id_commande = " . $idCommande . "";
 		$resultats=mysql_query($requete) or die (mysql_error());
   		$i = 0;
-		while ($row = mysql_fetch_array($resultats)) 
+  		$prix = 0;
+  		while ($row = mysql_fetch_array($resultats)) 
   		{
-  			$leProduit = new Produit();
-  			$leProduit->InitProduit($row[0]);
-  			$leProduit->setQuantite($row[1]);
-  			$lesProduits[$i] = $leProduit;
+  			$leConditionnement = new Conditionnement();
+  			$leConditionnement->InitConditionnement($row[0]);
+  			$leConditionnement->setQuantite($row[1]);
+  			$lesConditionnements[$i] = $leConditionnement;
+  			$prixUnite = $leConditionnement->prixConditionnement + $leConditionnement->produitPrixUnite * $leConditionnement->quantiteProduit;
+  			$prix = $prix + $prixUnite * $leConditionnement->quantiteConditionnement;
   			$i++;
   		}
-		$this->produits = $lesProduits;
+		$this->conditionnements = $lesConditionnements;
+		$this->prixTotal = $prix;
+		
+		
 	}
 	
 }

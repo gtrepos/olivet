@@ -28,7 +28,7 @@ function affich_clients ($nom, $prenom, $commune)
     echo "<td>$row[7]</td>";
     echo "<td align=\"right\">";
     echo " <a href=\"?page=clients&action=modifier&ref=$row[0]\">[".ADMIN_CLIENT_MODIFIER."]</a>";
-    echo " <a href=\"\" onclick=\"alerteSuppressionClient('$row[0]','$row[1]','$row[2]')\">[".ADMIN_CLIENT_SUPPRIMER."]</a>";
+    echo " <a href=\"\" onclick=\"alerteSuppressionClient('$row[0]','" . addslashes($row[1]) . "','" . addslashes($row[2]) . "')\">[".ADMIN_CLIENT_SUPPRIMER."]</a>";
     echo "</tr>";
   }
 }
@@ -43,13 +43,13 @@ function affich_modif_client ($ref)
 	echo "<tr><td colspan='2'>Modification du client <b>'$row[1] $row[2]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='ref' name='ref' value='$row[0]'/></tr>";
 	echo "<tr><td>Référence : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value='$row[1]' size='30'/></td></tr>";
-	echo "<tr><td>Prénom : </td><td><input type='text' id='prenom' name='prenom' value='$row[2]' size='30'/></td></tr>";
+	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value=\"$row[1]\" size='30'/></td></tr>";
+	echo "<tr><td>Prénom : </td><td><input type='text' id='prenom' name='prenom' value=\"$row[2]\" size='30'/></td></tr>";
 	echo "<tr><td valign='top'>Adresse : </td><td><textarea id='adresse' name='adresse' cols='25'>$row[3]</textarea></td></tr>";
-	echo "<tr><td>Code postal : </td><td><input type='text' id='cp' name='cp' value='$row[4]' size='30'/></td></tr>";
-	echo "<tr><td>Commune : </td><td><input type='text' id='commune' name='commune' value='$row[5]' size='30'/></td></tr>";
-	echo "<tr><td>N° Téléphone : </td><td><input type='text' id='tel' name='tel' value='$row[6]' size='30'/></td></tr>";
-	echo "<tr><td>Email : </td><td><input type='text' id='email' name='email' value='$row[7]' size='30'/></td></tr>";
+	echo "<tr><td>Code postal : </td><td><input type='text' id='cp' name='cp' value=\"$row[4]\" size='30'/></td></tr>";
+	echo "<tr><td>Commune : </td><td><input type='text' id='commune' name='commune' value=\"$row[5]\" size='30'/></td></tr>";
+	echo "<tr><td>N° Téléphone : </td><td><input type='text' id='tel' name='tel' value=\"$row[6]\" size='30'/></td></tr>";
+	echo "<tr><td>Email : </td><td><input type='text' id='email' name='email' value=\"$row[7]\" size='30'/></td></tr>";
 	echo "</table>";
   }
 }

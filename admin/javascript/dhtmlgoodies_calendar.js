@@ -50,7 +50,7 @@ var turnOffYearSpan = false;     // true = Only show This Year and Next, false =
 var weekStartsOnSunday = false;  // true = Start the week on Sunday, false = start the week on Monday
 var showWeekNumber = true;  // true = show week number,  false = do not show week number
 
-var languageCode = 'en';	// Possible values: 	en,ge,no,nl,es,pt-br,fr
+var languageCode = 'fr';	// Possible values: 	en,ge,no,nl,es,pt-br,fr
 							// en = english, ge = german, no = norwegian,nl = dutch, es = spanish, pt-br = portuguese, fr = french, da = danish, hu = hungarian(Use UTF-8 doctype for hungarian)
 
 var calendar_display_time = true;
@@ -122,7 +122,7 @@ switch(languageCode){
 		var todayString = 'Hoje &eacute;';
 		break;
 	case "fr":      /* French */
-		var monthArray = ['Janvier','Fï¿½vrier','Mars','Avril','Mai','Juin','Juillet','Aoï¿½t','Septembre','Octobre','Novembre','Dï¿½cembre'];
+		var monthArray = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 		var monthArrayShort = ['Jan','Fev','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Dec'];
 		var dayArray = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
 		var weekString = 'Sem';

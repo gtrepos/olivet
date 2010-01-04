@@ -11,7 +11,6 @@ function valideFormConditionnement(){
 	var nb_stock = $('nb_stock').value.trim();
 	var prix_cond = $('prix_cond').value.trim();
 	var quantite_produit = $('quantite_produit').value.trim();
-	var lien_photo = $('lien_photo').value.trim();
 	
 	if (idProduit == -1){
 		alert("Vous devez renseigner un produit.");
@@ -67,12 +66,6 @@ function valideFormConditionnement(){
 			$('quantite_produit').focus();
 			return false;
 		}
-	}
-	
-	if (lien_photo == ''){
-		alert("Vous devez renseigner un nom de photo.");
-		$('lien_photo').focus();
-		return false;
 	}
 	
 	return true;

@@ -1,4 +1,4 @@
-<div id='banniere-resume_panier' style='background-color:black'>
+<div id='banniere-resume_panier' style='background-color:#CCFF99;color:black;'>
 <p>nombre de produits : <?php  echo panierNbProduits()?><br>
 montant TTC : <?php  echo panierMontantTotal()?>&nbsp;&euro;</p>
 <p>

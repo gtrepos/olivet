@@ -1,6 +1,6 @@
 <form name="form_actualite" action='index.php?page=actualites&action=enregistrer&mode=creation' method="post"
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkActu);">
-	<div style='border-size:1px;position:relative;'>
+	<div style='position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'une nouvelle actualité<td></tr>
 			<tr><td colspan="2">&nbsp;<input type='hidden' id='id' name='id'/><td></tr>

@@ -20,7 +20,8 @@ function affich_conditionnements ()
     $stockLibelle = ($row[5]==-1) ? 'Aucun' : $row[5];
     $nouveauteLibelle = ($row[6]==0) ? 'Non' : 'Oui';
     $etat = $row[7];
-    $etatLibelle = ($row[7]==0) ? 'Inactif' : 'Actif'; 
+    $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
+	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
     $condPrix = $row[8];
 	$condNom = $row[9];
 	$condQuantiteProduit = $row[10];
@@ -35,7 +36,7 @@ function affich_conditionnements ()
     echo "<td>$condNom</td>";
     echo "<td>$stockLibelle</td>";
     echo "<td>$nouveauteLibelle</td>";
-    echo "<td>$etatLibelle</td>";
+    echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$prixGlobal €</td>";
     echo "<td>$condQuantiteProduit $produitUnite</td>";
     echo "<td>$condPrix €</td>";
@@ -54,7 +55,7 @@ function affich_conditionnements ()
     
     if (!$isInCommande) {
     	echo " <a href=\"?page=conditionnements&action=modifier&id=$row[0]\">[".ADMIN_CONDITIONNEMENT_MODIFIER."]</a>";
-    	echo " <a href=\"\" onclick=\"alerteSuppressionConditionnement('$row[0]','$row[1]')\">[".ADMIN_CONDITIONNEMENT_SUPPRIMER."]</a>";	
+    	echo " <a href=\"\" onclick=\"alerteSuppressionConditionnement('$row[0]','".addslashes($condNom)."')\">[".ADMIN_CONDITIONNEMENT_SUPPRIMER."]</a>";
     }
     
     echo "</td>";
@@ -65,7 +66,7 @@ function affich_conditionnements ()
 function affich_modif_conditionnement ($id)
 {
   $requete=
-		"SELECT cond_id, cond_id_produit, cond_nb_stock, cond_nouveaute, cond_prix, cond_nom, cond_lien_photo, cond_quantite_produit, produit_libelle " .
+		"SELECT cond_id, cond_id_produit, cond_nb_stock, cond_nouveaute, cond_prix, cond_nom, produit_photo, cond_quantite_produit, produit_libelle " .
 		"FROM conditionnement, produit " .
 		"WHERE cond_id = '$id' and cond_id_produit = produit_id";
   
@@ -104,20 +105,18 @@ function affich_modif_conditionnement ($id)
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$idcond'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idcond</td></tr>";
 	echo "<tr><td>Produit : </td><td>";echo affiche_produits_pour_selection($idproduit, false, null);echo "</td></tr>";
-	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value='$nom'/></td></tr>";
+	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value=\"$nom\"/></td></tr>";
 	echo "<tr><td>Stock : </td><td><input type='checkbox' $checkedStock id='is_stock' name='is_stock' onclick='selectionneStock()'/> : " .
 		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
 	echo "<tr><td>Prix du conditionnement : </td><td><input type='text' id='prix_cond' name='prix_cond' value='$prixCond'/> € (Exemple : 1.50)</td></tr>";
 	echo "<tr><td>Quantite de produit : </td><td><input type='text' id='quantite_produit' name='quantite_produit' value='$quantiteProduit'/></td></tr>";
-	echo "<tr><td>Nom photo : </td><td><input type='text' id='lien_photo' name='lien_photo' value='$photo'/></td></tr>";
-	
 	echo "</table>";
   }
   
 }
 
-function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nbStock, $nouveaute, $prix_cond, $quantiteProduit, $lienPhoto){
+function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nbStock, $nouveaute, $prix_cond, $quantiteProduit){
 	
 	if ($nbStock == '') $nbStock = -1;
 	
@@ -130,13 +129,13 @@ function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nbStock, $no
 	$requete = "";
 	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO conditionnement (cond_id_produit, cond_nom, cond_nb_stock, cond_nouveaute, cond_prix, cond_quantite_produit, cond_lien_photo)" . 
-				   "VALUES ($idProduit, '$nom', $nbStock, $nouveaute, $prix_cond, $quantiteProduit, '$lienPhoto')";				  
+		$requete = "INSERT INTO conditionnement (cond_id_produit, cond_nom, cond_nb_stock, cond_nouveaute, cond_prix, cond_quantite_produit)" . 
+				   "VALUES ($idProduit, '$nom', $nbStock, $nouveaute, $prix_cond, $quantiteProduit)";				  
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE conditionnement SET cond_id_produit = $idProduit, cond_nom = '$nom', cond_nb_stock = $nbStock, cond_nouveaute = $nouveaute, " . 
-				   "cond_prix = $prix_cond, cond_quantite_produit = $quantiteProduit, cond_lien_photo = '$lienPhoto' " .
+				   "cond_prix = $prix_cond, cond_quantite_produit = $quantiteProduit " .
 				   "WHERE cond_id = '$id'";		
 	}
 	
@@ -153,8 +152,13 @@ function desactiver_conditionnement($id) {
 	$result=mysql_query($requete) or die (mysql_error());
 }
 
+function supprimer_conditionnement($id) {
+	$requete = "DELETE FROM conditionnement WHERE cond_id = '$id'";
+	$result=mysql_query($requete) or die (mysql_error());
+}
+
 function checkCondInCommande($id) {
-	//on ne peut pas supprimer ou modifier un conditionnement qui a été référencé dans une commande.
+	//on ne peut pas supprimer ou modifier un conditionnement qui a ï¿½tï¿½ rï¿½fï¿½rencï¿½ dans une commande.
 	$requeteCheckInCommande = "SELECT distinct cond.cond_nom, cond.cond_id FROM lien_commande_cond lcc, commande com, conditionnement cond " .
 			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND cond.cond_id = '$id'";
 	

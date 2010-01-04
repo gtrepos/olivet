@@ -11,6 +11,7 @@ function valideFormProduit(){
 	var descriptif = $('descriptif').value.trim();
 	var unite = $('unite').value.trim();
 	var prix_unite = $('prix_unite').value.trim();
+	var photo = $('photo').value.trim();
 	
 	if (idCategorie == -1){
 		alert("Vous devez renseigner une catégorie de produits.");
@@ -49,6 +50,12 @@ function valideFormProduit(){
 			$('prix_unite').focus();
 			return false;
 		}
+	}
+	
+	if (photo == ''){
+		alert("Vous devez renseigner une photo.");
+		$('photo').focus();
+		return false;
 	}
 	
 	return true;

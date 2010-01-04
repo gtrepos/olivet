@@ -1,6 +1,6 @@
 <form name="form_client" action='index.php?page=clients&action=enregistrer&mode=creation' method="post" 
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkClient);">
-	<div style='border-size:1px;position:relative;'>
+	<div style='position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'un nouveau client</tr>
 			<tr><td colspan="2">&nbsp;</tr>

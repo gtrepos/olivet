@@ -11,7 +11,9 @@ function affich_actualites ()
     
     $nouveauteLibelle = ($row[6]==0) ? 'Non' : 'Oui';
     
-    $etatLibelle = ($row[7]==0) ? 'Inactif' : 'Actif';
+    $etat = $row[7];
+    $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
+	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
     
     echo "<tr id='actu_$row[0]' onmouseout=\"restaureLigne('actu_$row[0]');\" onmouseover=\"survolLigne('actu_$row[0]');\">";
     echo "<td>$row[0]</td>";
@@ -21,7 +23,7 @@ function affich_actualites ()
     echo "<td>$row[4]</td>";
     echo "<td>$typeLibelle</td>";
     echo "<td>$nouveauteLibelle</td>";
-    echo "<td>$etatLibelle</td>";
+    echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td align=\"right\">";
   	if ($row[7]==0) {
     	echo " <a href=\"?page=actualites&action=activer&id=$row[0]\">[".ADMIN_ACTUALITE_ACTIVER."]</a>";	
@@ -30,7 +32,7 @@ function affich_actualites ()
     	echo " <a href=\"?page=actualites&action=desactiver&id=$row[0]\">[".ADMIN_ACTUALITE_DESACTIVER."]</a>";
     }
     echo " <a href=\"?page=actualites&action=modifier&id=$row[0]\">[".ADMIN_ACTUALITE_MODIFIER."]</a>";
-    echo " <a href=\"\" onclick=\"alerteSuppressionActu('$row[0]','$row[1]')\">[".ADMIN_ACTUALITE_SUPPRIMER."]</a>";
+    echo " <a href=\"\" onclick=\"alerteSuppressionActu('$row[0]','" . addslashes($row[1]) . "')\">[".ADMIN_ACTUALITE_SUPPRIMER."]</a>";
     echo "</tr>";
     
   }
@@ -60,8 +62,8 @@ function enregistrer_actu($mode, $id, $libelle, $descriptif, $type, $nouveaute){
 	$requete = "";
 	$nouveaute = ($nouveaute=='on') ? 1 : 0 ; 
 	
-	$libelle = addslashes($libelle); 
-	$descriptif = addslashes($descriptif);
+	//$libelle = addslashes($libelle); 
+	//$descriptif = addslashes($descriptif);
 	
 	if ($mode == 'creation'){
 		$requete = "INSERT INTO actualite (actualite_libelle, actualite_descriptif, actualite_datecreation, actualite_type, actualite_nouveaute) VALUES ('$libelle', '$descriptif', now(), '$type', '$nouveaute')";		 

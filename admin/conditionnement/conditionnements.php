@@ -56,7 +56,7 @@ if ($action=='enregistrer') {
 	}
 	
 	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nbStock, $nouveaute, 
-								$_POST['prix_cond'], $_POST['quantite_produit'], $_POST['lien_photo']);	
+								$_POST['prix_cond'], $_POST['quantite_produit']);
 }
 
 if ($action=='activer') {

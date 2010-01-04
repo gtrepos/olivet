@@ -1,16 +1,11 @@
-
-
-
-<div id ='centre-commander'>
-
-<h2>Mon panier</h2>
+<h3>Mon panier</h3>
 
 <div id='centre-commander-mon_panier'>
 <?php include('visiteur/centre/commander/mon_panier.php'); ?>
 </div>
 
 
-<h2>Conditions de vente</h2>
+<h3>Conditions de vente</h3>
 
 <table align=center cellspacing=0 cellpadding=0 border=0 width='98%'>
   <tr>
@@ -21,8 +16,8 @@
   		</div>
   		<div>
   			Merci de passer vos commandes avant le mardi soir et de venir les chercher
-  		 	sur l'exploitation Ã  partir du vendredi midi jusqu'au samedi midi.
-  			Merci pour votre comprÃ©hension.
+  		 	sur l'exploitation à partir du vendredi midi jusqu'au samedi midi.
+  			Merci pour votre compréhension.
   		</div>
   	</div>
   </td>
@@ -30,7 +25,7 @@
 </table>
 
 
-<h2>Valider ma commande</h2>
+<h3>Valider ma commande</h3>
 
 <form onsubmit='return false;'>
 	<table  border="1" align=center cellspacing=0 cellpadding=3 border=0 width='80%'>
@@ -110,4 +105,3 @@
 		</tr>
 </table>
 </form>	
-</div>

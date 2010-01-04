@@ -17,7 +17,7 @@
 /* Général */
 body {
 	color: #F0E39E;
-	background: #2C2F22;
+	background: white;
 }
 a {
 	color: #FF6533;
@@ -25,30 +25,38 @@ a {
 a:hover, a:focus {
 	color: #FF4C00;
 }
+
 strong {
 	color: #A1B55D;
 }
 
 /* Navigation */
 #navigation {
-	background: #181A12;
+	/*background-image:url(../img/barrenavigation.gif);
+	background-repeat:no-repeat;
+	background-position: center top;*/
+	border : #F40707 3px solid;
+	height:30px;
+	background: #CCFF99;
+	bottom:6px;
+  	right: 6px;
 }
 #navigation a {
-	color: #FF6533;
+	color: #F40707;
 }
 #navigation a:hover, #navigation a:focus {
-	background: #000000;
+	background-color: #FFFFFD;	
 }
 
 /* Bloc central */
 #centre {
-	background: url(img/08-colonnes.png) repeat-y; /* Voir -> Note 1 */
+	/*background: url(img/08-colonnes.png) repeat-y; /* Voir -> Note 1 */
 }
 
 /* Contenu principal */
 #principal {
 	color: #181A12;
-	background: #cbd888; /* -> 2 */
+	/*background: #cbd888;*/ /* -> 2 */	
 }
 #principal a {
 	color: #332510;
@@ -62,10 +70,26 @@ strong {
 
 /* Contenu secondaire */
 #secondaire {
-	background: #181A12; /* -> 2 */
+	border : #F40707 3px solid;
+	background: #CCFF99; /* -> 2 */	
 }
 
+.ombre {
+  background: url(../img/ombre.png) no-repeat bottom right;
+  padding: 0;  
+}
 
+.ombresecondaire {
+  margin: 10px 0 0px 650px !important;
+  margin: 10px 0 0px 650px;
+  width:225px;
+}
+
+.ombrenavigation {
+  margin: 10px 0 10px 30px !important;
+  margin: 10px 0 10px 30px;
+  float:left;  
+}
 
 /* --- POSITIONNEMENT --- */
 
@@ -74,48 +98,67 @@ body {
 	padding: 20px 5px;
 }
 #global {
-	width: 800px;
+	width: 900px;
 	margin: 0 auto; /* -> 3 */
 }
 
 /* En-tête */
 #entete {
-	padding: 20px;
+	width:900px;
+	height:140px;
+	background-image:url(../img/bandeaucomplet.gif);
+	background-repeat:no-repeat;
 }
 #entete h1 {
-	margin: 0;
+	margin-top: 0.7em;
+	margin-bottom: 0em;	
+	text-align: right;
 }
+
 #entete h1 img {
 	float: left;
 	margin: 7px 20px 10px 0;
 }
 #entete .sous-titre {
-	margin: 4px 0 15px 0;
+	font-family: French Grotesque;
+	margin: 0 0 5px 0;
+	float:right;
+	color: #F40707;
+	font-size: 1.1em;
+}
+
+#entete .sur-titre {
+	color:black;
+	margin: 4px 0 5px 0;
+	float:right;
+	font-size: 0.9em;
+	font-weight: bold;
+	font-family: Myriad Roman;	
 }
 
 /* Menu de navigation */
 #navigation {
 	padding: 12px 15px;
-	margin-bottom: 10px;
+	position:relative;
+	width:820px;
 }
 #navigation ul {
-	width: 100%;
 	overflow: hidden;
-	margin: 0;
+	margin: 5px 0 0 10px;
 	padding: 0;
 	list-style: none;
 }
 #navigation li.gauche {
 	float: left;
 	margin-right: 10px;
-	font-size: 1.4em;
-	font-style: italic;
+	font-size: 1.2em;
 }
 #navigation li.droite {
 	float: right;
 	margin-right: 0;
 	margin-left: 10px;
-	padding: 3px 0;
+	font-size: 1.2em;
+	font-style: italic;	
 }
 #navigation a {
 	padding: 6px;
@@ -127,7 +170,7 @@ body {
 
 /* Bloc central */
 #centre {
-	width: 100%; /* -> 4 */
+	width: 876px; /* -> 4 */
 	overflow: hidden; /* -> 4 */
 }
 
@@ -135,7 +178,7 @@ body {
 #principal {
 	float: left; /* -> 5 */
 	width: 560px;
-	padding: 10px 20px;
+	padding: 10px 20px 10px 30px;
 }
 #principal > :first-child {
 	margin-top: 10px;
@@ -146,9 +189,13 @@ body {
 
 /* Contenu secondaire */
 #secondaire {
-	margin-left: 620px; /* -> 6 */
-	margin-right: 20px;
-	padding: 12px 0;
+	/*margin-left: 650px;*/ /* -> 6 */
+	/*margin-right: 30px;*/
+	/*padding: 12px 0;*/
+	padding:0 10px;
+	position:relative;
+  	bottom:6px;
+  	right: 6px;
 }
 
 /* Mention de copyright */

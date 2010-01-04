@@ -20,7 +20,14 @@ if ($action=='creer') {include("creer_actualite.php");}
 if ($action=='modifier') {include("modifier_actualite.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_actu($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['type'], $_POST['nouveaute']);	
+	
+	$nouveaute = "";
+	
+	if (isset($_POST['nouveaute'])) {
+		$nouveaute = $_POST['nouveaute'];
+	};
+	
+	enregistrer_actu($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['type'], $nouveaute);	
 }
 
 if ($action=='activer') {

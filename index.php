@@ -16,9 +16,9 @@ require_once('tools/visitor_panier_functions.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-	<title>GAEC à 3 voix, la ferme d'Olivet</title>
-	<!--  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />  -->
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>GAEC � 3 voix, la ferme d'Olivet</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  -->
 	<meta http-equiv='language' content='fr'>
 	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualit�s, Produits'>
 	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
@@ -44,26 +44,28 @@ require_once('tools/visitor_panier_functions.php');
 <div id="global">
 
 	<div id="entete">
-		<h1>
-		<img  src="img/logoexploit.gif" alt="logoexploit" title="logoexploit" border="0" width='110' height='70'>
-			<span>"GAEC à 3 voix" ferme d'Olivet</span>
-		</h1>
-		<p class="sous-titre">
-			<strong>Vous nourrir mais pas seulement...</strong>
-			agriculture biologique,
-			lutte anti Mal bouffe
+		<div style='float:right;padding:20px;'> 	
+		<p class="sur-titre">
+			agriculture biologique, lutte anti mal bouffe
 		</p>
+		</div>
+		
 	</div><!-- #entete -->
+
+	<div class="ombre ombrenavigation">
 
 	<div id="navigation">
 		<ul>
 			<li class="gauche"><a href="index.php">Accueil</a></li>
 			<li class="gauche"><a href="index.php?page=ferme">La Ferme</a></li>
-			<li class="gauche"><a href="index.php?page=produits_dispo">Nos produits</a></li>
+			<li class="gauche"><a href="index.php?page=produits_dispo">Nos Produits</a></li>
 			<li class="gauche"><a href="index.php?page=commande">Commander</a></li>
+			<li class="gauche"><a href="index.php?page=actualite">Actualit�s</a></li>
 			<li class="droite"><a href="index.php?page=contact">Nous contacter</a></li>
 		</ul>
 	</div><!-- #navigation -->
+
+	</div
 
 	<div id="centre">
 
@@ -80,9 +82,7 @@ require_once('tools/visitor_panier_functions.php');
 								include('visiteur/centre/accueil.php');
 								break;
 							case 'produits_dispo' :
-								echo "<div id=produits_dispo>";
 								include('visiteur/centre/produits_dispo.php');
-								echo "</div>";
 								break;
 							case 'ferme' :
 								include('visiteur/centre/ferme.php');
@@ -94,57 +94,34 @@ require_once('tools/visitor_panier_functions.php');
 								include('visiteur/centre/contacts.php');
 								break;	
 	   						default :
-	   						    include('visiteur/centre/accueil.php');
+	   						    include('visiteur/centre/actualites.php');
 	   						    break;
 						}
 				?>
 			
 		</div><!-- #principal -->
 
-		<div id="secondaire">
+		<div class="ombre ombresecondaire">
+
+		<div id="secondaire" >
 			
 			<h3>Mon panier</h3>
 			<?php include('visiteur/banniere/resume_panier.php'); ?>
 			
 			<h3>Partenaires</h3>
 			
-			<ul class="menu_deroulant1"> 
-			    <li class="toggleSubMenu1"><span>Accueil paysan</span> 
-			        <ul class="subMenu1"> 
-			            <li>
-			            <a href="#" title="Aller à la page 1">
-			            	<img src='img/accueilpaysan.gif'  width='100' height='100' border=0>
-			            </a>
-			            </li>
-			        </ul> 
-			    </li> 
-			    <li class="toggleSubMenu1"><span>Partenaire 2</span> 
-			        <ul class="subMenu1"> 
-			            <li><a href="#" title="Aller à la page 2">Partenaire 2</a></li> 
-			        </ul> 
-			    </li> 
-			    <li class="toggleSubMenu1"><span>Partenaire 3</span> 
-			        <ul class="subMenu1"> 
-			            <li><a href="#" title="Aller à la page 3">Partenaire 3</a></li> 
-			        </ul> 
-			    </li> 
-			</ul>
-			
-			<h3>Quoi de neuf à l'Olivet ?</h3>
-			<ul>		
-				<li>Commandes spéciales</li>
-				<li>Evénements</li>
-				<li>Fermeture du magasin</li>
-			</ul>		
+			<?php include('visiteur/centre/partenaires.php'); ?>
 			
 			<h3>Agriculture biologique</h3>
 			<img src="img/ab2.gif" alt="ab" title="Agriculture biologique" border="0" >
 			
 			<p id="copyright">
 				<a href="http://www.elephorm.com">Elephorm</a> et
-				<a href="http://www.alsacreations.com">Alsacr�ations</a>
+				<a href="http://www.alsacreations.com">Alsacr�ations</a>
 			</p>
 		</div><!-- #secondaire -->
+		
+		</div><!-- ombre -->
 
 	</div><!-- #centre -->
 

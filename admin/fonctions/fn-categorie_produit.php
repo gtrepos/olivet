@@ -5,12 +5,15 @@ function affich_categories ()
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
-    $etatLibelle = ($row[2]==0) ? 'Inactif' : 'Actif';
+    
+    $etat = $row[2];
+    $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
+	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
     
     echo "<tr id='cat_$row[0]' onmouseout=\"restaureLigne('cat_$row[0]');\" onmouseover=\"survolLigne('cat_$row[0]');\">";
     echo "<td>$row[0]</td>";
     echo "<td>$row[1]</td>";
-    echo "<td>$etatLibelle</td>";
+    echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td align=\"right\">";
     
     if ($row[2]==0) {
@@ -21,7 +24,7 @@ function affich_categories ()
     }
     
     echo " <a href=\"?page=categories&action=modifier&id=$row[0]\">[".ADMIN_CATEGORIE_MODIFIER."]</a>";
-    echo " <a href=\"\" onclick=\"alerteSuppressionCategorie('$row[0]','$row[1]')\">[".ADMIN_CATEGORIE_SUPPRIMER."]</a>";
+    echo " <a href=\"\" onclick=\"alerteSuppressionCategorie('$row[0]','" . addslashes($row[1]) . "')\">[".ADMIN_CATEGORIE_SUPPRIMER."]</a>";
     echo "</tr>";
   }
 }
@@ -36,7 +39,7 @@ function affich_modif_categorie ($id)
 	echo "<tr><td colspan='2'>Modification de la catégorie <b>'$row[1]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$row[0]'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value='$row[1]'/></td></tr>";
+	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"/></td></tr>";
 	echo "</table>";
   }
 }

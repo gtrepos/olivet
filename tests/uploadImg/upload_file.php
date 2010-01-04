@@ -7,7 +7,7 @@ if ((($_FILES["file"]["type"] == "image/gif")
     echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
   }else{
   	$filename = $_FILES["file"]["name"];
-  	$filename_abs = "./upload/" . $filename;
+  	$filename_abs = "../../img/upload/" . $filename;
   	
   	
     echo "Upload: " . $filename  . "<br />";

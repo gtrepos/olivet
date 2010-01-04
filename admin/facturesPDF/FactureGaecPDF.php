@@ -45,7 +45,11 @@ class FactureGaecPDF extends FPDF
 		$client = $facture->client;
 		$commande = $facture->commande;
 		
-		$this->Cell($larg_colonne,$haut_line,"Servon-Sur-Vilaine, le jour/mois/année",1,0,'L',false);
+		setlocale (LC_TIME, 'fr_FR','fra');
+		
+		$ladate = strftime("%A %d %B %Y %T %H:%M:%S"); 
+		
+		$this->Cell($larg_colonne,$haut_line,"Servon-Sur-Vilaine, le $ladate",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line,"Référence Client : " . $client->id,1,1,'L',false);
 		$this->Cell($larg_colonne,$haut_line,"MOIS - ANNEE",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line/2,$client->nom . " " . $client->prenom,'LR',2,'L',false);
@@ -64,14 +68,14 @@ class FactureGaecPDF extends FPDF
 		5*$larg_page/20,3*$larg_page/20,3*$larg_page/20,
 		2*$larg_page/20,2*$larg_page/20);
 		
-		$produits = $facture->produits;
+		$conditionnements = $facture->conditionnements;
 		$commande = $facture->commande;
 		
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
 		//Headers
 		$this->Cell($larg_page,$haut_line,"DETAIL FACTURE",1,2,'C',false);
-		$this->Cell($larg_col[0],$haut_line,"Categorie Produit",1,0,'C',false);
+		$this->Cell($larg_col[0],$haut_line,"Catégorie Produit",1,0,'C',false);
 		$this->Cell($larg_col[1],$haut_line,"Nom Produit",1,0,'C',false);
 		$this->Cell($larg_col[2],$haut_line,"Quantité",1,0,'C',false);
 		$this->Cell($larg_col[3],$haut_line/2,"Prix unitaire",'LRT',2,'C',false);
@@ -79,58 +83,32 @@ class FactureGaecPDF extends FPDF
 		$this->SetXY($this->getX(),$this->getY()-$haut_line/2);
 		$this->Cell($larg_col[4],$haut_line,"Unité",1,0,'C',false);
 		$this->Cell($larg_col[5],$haut_line/2,"Prix total",'LRT',2,'C',false);
-		$this->Cell($larg_col[5],$haut_line/2,"TTC",'LRB',1,'C',false);
+		$this->Cell($larg_col[5],$haut_line/2,"HT",'LRB',1,'C',false);
 		//Commandes
-		$nbProduit = count($produits);//10 c'est un peu pourave
+		$nbConditionnements = count($conditionnements);//10 c'est un peu pourave
 		
-		$i = 0;
+		$i = 0;		
 		
-		foreach ( $produits as $produit ) {
+		foreach ( $conditionnements as $conditionnement ) {
        		$border = 'LR';
-			if($i == $nbProduit-1){
+			if($i == $nbConditionnements-1){
 				$border = 'LRB';	
 			}
-			$this->Cell($larg_col[0],$haut_line,$produit->libelleCategorie,$border,0,'C',false);
-			$this->Cell($larg_col[1],$haut_line,$produit->libelle,$border,0,'C',false);
-			$this->Cell($larg_col[2],$haut_line,$produit->quantite,$border,0,'C',false);
-			$this->Cell($larg_col[3],$haut_line,$produit->prixUnite.'€',$border,0,'C',false);
-			$this->Cell($larg_col[4],$haut_line,$produit->unite,$border,0,'C',false);
+			$prixUnite = $conditionnement->prixConditionnement + $conditionnement->produitPrixUnite * $conditionnement->quantiteProduit;
 			
-			$prix = 0;
-			$prixhaut = 0;
-			
-			if ($produit->conditionnement==0){
-				$prix = $produit->quantite * $produit->prixUnite; 
-				$prixhaut = $produit->quantite * $produit->prixUnite;
-			}
-			else {
-				//cas d'un conditionnement à taille fixe
-				if ($produit->conditionnementTailleFixe==1){
-					$prix = $produit->quantite * $produit->prixUnite * $produit->conditionnementTaille;
-					$prixhaut = $produit->quantite * $produit->prixUnite * $produit->conditionnementTaille;
-				}
-				//cas d'un conditionnement à taille variable
-				else {
-					$prix = $produit->quantite * $produit->prixUnite * $produit->conditionnementTaille;
-					$prixhaut = $produit->quantite * $produit->prixUnite * $produit->conditionnementTailleSup;
-				}
-			}
-			
-			if ($prix == $prixhaut)
-				$this->Cell($larg_col[5],$haut_line,$prix . '€',$border,1,'C',false);
-			else 
-				$this->Cell($larg_col[5],$haut_line,'de ' . $prix . '€ à ' . $prixhaut . '€' ,$border,1,'C',false);
+			$this->Cell($larg_col[0],$haut_line,$conditionnement->libelleCategorie,$border,0,'C',false);
+			$this->Cell($larg_col[1],$haut_line,$conditionnement->nomConditionnement . ' ' . $conditionnement->libelleProduit,$border,0,'C',false);
+			$this->Cell($larg_col[2],$haut_line,$conditionnement->quantiteConditionnement,$border,0,'C',false);
+			$this->Cell($larg_col[3],$haut_line,$prixUnite . ' €',$border,0,'C',false);
+			$this->Cell($larg_col[4],$haut_line,$conditionnement->produitUnite,$border,0,'C',false);
+			$this->Cell($larg_col[5],$haut_line,$prixUnite * $conditionnement->quantiteConditionnement . ' €',$border,1,'C',false);
 			$i++;
 		}
 		
-		
-		/*for($i=0;$i<$nb_commandes;$i++){
-			
-		}*/
 		$this->Ln(15);//espace vertical
 		
 	}
-	function Totaux()
+	function Totaux($facture)
 	{
 		$larg_page = 190;
 		$haut_line = 5; 
@@ -142,35 +120,37 @@ class FactureGaecPDF extends FPDF
 		
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TOTAL HT",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"Cher",1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line,$facture->prixTotal . ' €',1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"Taux TVA",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"100%",1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line,"19,6 %",1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TVA",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"Tout pareil",1,1,'C',false);
+		$tvaFinale = number_format( ($facture->prixTotal * 19.6)/100 . ' €', 2 );
+		$this->Cell($larg_col[1],$haut_line,$tvaFinale . ' €',1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TOTAL TTC",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"Tres cher",1,1,'C',false);
-		$this->SetXY($dec_droite,$this->getY());
+		$this->Cell($larg_col[1],$haut_line,$facture->prixTotal + $tvaFinale . ' €',1,1,'C',false);
+		/*$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"REMISE",1,0,'L',false);
 		$this->Cell($larg_col[1],$haut_line,"Que dalle",1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TOTAL TTC après remise",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"emprunte!",1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line,"emprunte!",1,1,'C',false);*/
 		$this->Ln(15);//espace vertical
 	}
-	function DatePaiement()
+	function DatePaiement($facture)
 	{
 		//Police Arial gras 15
 		$this->SetFont('Arial','',8);
-		
 		$larg_col = 30;
 		$haut_line = 10;
 		$this->Cell($larg_col,$haut_line,"A REGLER",1,0,'L',false);
-		$this->Cell($larg_col,$haut_line,"TOTAL TTC",1,0,'L',false);
-		$this->Cell($larg_col,$haut_line,"avant le:",1,0,'L',false);
-		$this->Cell($larg_col,$haut_line,"J+18 jours",1,0,'L',false);
+		$tvaFinale = number_format( ($facture->prixTotal * 19.6)/100 . ' €', 2 );
+		$this->Cell($larg_col,$haut_line,$facture->prixTotal + $tvaFinale . ' €',1,0,'L',false);
+		$this->Cell($larg_col,$haut_line,"avant le : ",1,0,'L',false);
+		$dans18jours = date("d/m/Y", mktime(0, 0, 0, date("m"), date("d")+18,  date("Y")));
+		$this->Cell($larg_col,$haut_line,$dans18jours,1,0,'L',false);
 		$this->Ln(15);//espace vertical
 	 	
 	}
@@ -198,7 +178,9 @@ class FactureGaecPDF extends FPDF
 }
 
 function GenererUneFacture($idCommande){
+	
 	$pdf=new FactureGaecPDF();
+	
 	$facture=new Facture();
 	$facture->InitFacture($idCommande);
 	
@@ -208,8 +190,8 @@ function GenererUneFacture($idCommande){
 	$pdf->BanniereFacture();
 	$pdf->TableClient($facture);
 	$pdf->DetailFacture($facture);
-	$pdf->Totaux();
-	$pdf->DatePaiement();
+	$pdf->Totaux($facture);
+	$pdf->DatePaiement($facture);
 	$pdf->Agio();
 	
 	$pdf->Output('./factures/facture'.$idCommande.'.pdf','F');

@@ -11,23 +11,42 @@ function bddNouveauxProduits(){
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
-function bddActusGaec(){
-	$requete="SELECT actualite_id, actualite_libelle,".
-				 "CONCAT(SUBSTRING(actualite_descriptif, 1, 20),'...'),". 
-				 "actualite_datecreation, actualite_datemodification ".
-				 "FROM actualite ".
-				 "WHERE actualite_type = 'GAEC' ".
-				 "ORDER by actualite_id DESC ";
+function bddActusGaec($nouveaute, $descriptif){
+	$select = "SELECT actualite_id, actualite_libelle, ".
+				 "actualite_datecreation, actualite_datemodification ";
+	$from = " FROM actualite ";
+	$where = " WHERE actualite_type = 'GAEC' and actualite_etat = 1 "; 
+	$order = " ORDER by actualite_datecreation DESC ";
+
+	if ($nouveaute) {
+		$where = $where . " and actualite_nouveaute = 1";  
+	}
+	
+	if ($descriptif) {
+		$select = $select . " , actualite_descriptif ";  
+	}
+				 
+	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
-function bddActusLoma(){
-	$requete="SELECT actualite_id, actualite_libelle,".
-				 "CONCAT(SUBSTRING(actualite_descriptif, 1, 20),'...'),". 
-				 "actualite_datecreation, actualite_datemodification ".
-				 "FROM actualite ".
-				 "WHERE actualite_type = 'LOMA' ".
-				 "ORDER by actualite_id DESC ";
+
+function bddActusLoma($nouveaute, $descriptif){
+	$select = "SELECT actualite_id, actualite_libelle, ".
+				 "actualite_datecreation, actualite_datemodification ";
+	$from = " FROM actualite ";
+	$where = " WHERE actualite_type = 'LOMA' and actualite_etat = 1 "; 
+	$order = " ORDER by actualite_datecreation DESC ";
+
+	if ($nouveaute) {
+		$where = $where . " and actualite_nouveaute = 1";  
+	}
+	
+	if ($descriptif) {
+		$select = $select . " , actualite_descriptif ";  
+	}
+				 
+	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
@@ -79,7 +98,7 @@ function bddProduitsDispo($id_cat){
 	$requete=
 		"SELECT DISTINCT p.produit_libelle, p.produit_unite, ". 
 		"p.produit_prix_unite, p.produit_id_categorie, ".
-	    "p.produit_descriptif_production, cond.cond_lien_photo, p.produit_id ".
+	    "p.produit_descriptif_production, p.produit_photo, p.produit_id ".
 		"FROM produit p ".
 		"LEFT JOIN conditionnement cond ".
 		"ON p.produit_id=cond.cond_id_produit ".
@@ -102,12 +121,23 @@ function bddLigneProduit($idproduitcond){
 
 function bddCheckClient($mail,$ref){
 	$requete=
-		"SELECT * ". 
+		"SELECT c.client_reference ". 
 		"FROM  client c " .
     	"WHERE c.client_reference = '$ref' ".
 		"AND c.client_email = '$mail' ";	
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return (mysql_num_rows($resultats) == 1);
 }
+
+function bddPartenaires(){
+	$requete=
+		"SELECT partenaire_libelle, partenaire_descriptif, partenaire_siteweb ". 
+		"FROM  partenaire " .
+    	"WHERE partenaire_etat = 1 ".
+		"ORDER BY partenaire_rang, partenaire_libelle ";	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
 
 ?>

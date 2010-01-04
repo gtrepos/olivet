@@ -3,7 +3,7 @@ function checkPartenaire(){
 		$('libelle').value = $('libelle').value.trim(); 
 		$('descriptif').value = $('descriptif').value.trim();
 		$('imglogo').value = $('imglogo').value.trim(); 
-		$('siteweb').value = $('siteweb').value.trim(); 
+		$('siteweb').value = $('siteweb').value.trim();
 		document.form_partenaire.submit();
 	}
 }
@@ -31,12 +31,6 @@ function valideFormPartenaire(){
 	if (imglogo == '') {
 		alert("Vous devez renseigner un logo.");
 		$('imglogo').focus();
-		return false;
-	}
-	
-	if (siteweb == '') {
-		alert("Vous devez renseigner un site web.");
-		$('siteweb').focus();
 		return false;
 	}
 	

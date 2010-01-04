@@ -86,6 +86,18 @@ define("ADMIN_PRODUIT_DESACTIVER","Désactiver");
 define("ADMIN_PRODUIT_MODIFIER","Modifier");
 define("ADMIN_PRODUIT_SUPPRIMER","Supprimer");
 
+//gestion des produits à la réservation
+define("ADMIN_PRODUIT_RESA_GESTION","Gestion des produits à la réservation");
+define("ADMIN_PRODUIT_RESA_ID","Identifiant");
+define("ADMIN_PRODUIT_RESA_LIBELLE","Libellé");
+define("ADMIN_PRODUIT_RESA_DESCRIPTIF","Descriptif");
+define("ADMIN_PRODUIT_RESA_ETAT","Etat");
+define("ADMIN_PRODUIT_RESA_CREER","Créer un produit à la réservation");
+define("ADMIN_PRODUIT_RESA_ACTIVER","Activer");
+define("ADMIN_PRODUIT_RESA_DESACTIVER","Désactiver");
+define("ADMIN_PRODUIT_RESA_MODIFIER","Modifier");
+define("ADMIN_PRODUIT_RESA_SUPPRIMER","Supprimer");
+
 //gestion des conditionnements
 define("ADMIN_CONDITIONNEMENT_GESTION","Gestion des conditionnements");
 define("ADMIN_CONDITIONNEMENT_ID","Identifiant");
@@ -124,7 +136,7 @@ define("ADMIN_COMMANDE_GESTION","Gestion des commandes");
 define("ADMIN_COMMANDE_ID","Identifiant");
 define("ADMIN_COMMANDE_CLIENT","Client");
 define("ADMIN_COMMANDE_RESUME","Résumé");
-define("ADMIN_COMMANDE_DATE_CREATION","Date de création");
+define("ADMIN_COMMANDE_DATE_CREATION","Date de commande");
 define("ADMIN_COMMANDE_DATE_ANNULATION","Date d'annulation");
 define("ADMIN_COMMANDE_ETAT","Etat");
 define("ADMIN_COMMANDE_SOMME","Somme");
@@ -134,4 +146,6 @@ define("ADMIN_COMMANDE_ANNULER","Annuler");
 define("ADMIN_COMMANDE_REPRENDRE","Reprendre");
 define("ADMIN_COMMANDE_MODIFIER","Modifier");
 define("ADMIN_COMMANDE_SUPPRIMER","Supprimer");
+define("ADMIN_COMMANDE_FACTUREE","Facturée ?");
+define("ADMIN_COMMANDE_ENCOURS","En cours ?");
 ?>

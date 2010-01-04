@@ -1,6 +1,6 @@
 <form name="form_partenaire" action='index.php?page=partenaires&action=enregistrer&mode=creation' method="post"
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkPartenaire);">
-	<div style='border-size:1px;position:relative;'>
+	<div style='position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'un nouveau partenaire</tr>
 			<tr><td colspan="2">&nbsp;<input type='hidden' id='id' name='id'/></tr>

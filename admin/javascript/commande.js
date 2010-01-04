@@ -33,7 +33,49 @@ function addCondCommande()
   }
 }
 
+function addProduitResaCommande()
+{
+  $('tableau').show();
+	
+  var Cell;
+  var idProduitResa = $('idProduitResa').value;
+  
+  var idtestPresenceProduitResa = "tr_produitresa_" + idProduitResa;
+  
+  if (idProduitResa!=-1 && $(idtestPresenceProduitResa)==null){
+  
+	  var tableau = $('tableau');
+	  var ligne = tableau.insertRow(-1);
+	  ligne.id = "tr_produitresa_" + idProduitResa;
+	  
+	  Cell = ligne.insertCell(0);
+	  var libelleProduitResa = get_current_option_text('idProduitResa');
+	  Cell.innerHTML = libelleProduitResa;
+	  
+	  Cell = ligne.insertCell(1);
+	  var inputQuantite = document.createElement("input");
+	  inputQuantite.type = "text";
+	  inputQuantite.id = "input_qte_produitresa_" + idProduitResa;
+	  inputQuantite.name = "input_qte_produitresa_" + idProduitResa;
+	  Cell.appendChild(inputQuantite);
+	  
+	  Cell = ligne.insertCell(2);
+	  var bouton = document.createElement("input");
+	  bouton.type = "button";
+	  bouton.value = "Retirer '" + libelleProduitResa + "'";
+	  bouton.onclick = function(){retraitProduitResaCommande(ligne)};
+	  Cell.appendChild(bouton);
+  }
+	
+}
+
+
 function retraitCondCommande(ligne)
+{
+  $('tableau').deleteRow(ligne.rowIndex);  
+}
+
+function retraitProduitResaCommande(ligne)
 {
   $('tableau').deleteRow(ligne.rowIndex);  
 }
@@ -54,17 +96,19 @@ function checkCommande(){
 
 function prepareEnvoie(){
 	var quantites = $$('.listeQuantites input');
-	var concatQte = "";
+	var concatQteCond = "";
+	var concatQteProduitResa = "";
 	for (var i = 0; i < quantites.length; i++) {
 		var id = quantites[i].id;
 		if (id!=null && id.startsWith("input_qte_cond_")){
-			concatQte = concatQte + id + ":" + quantites[i].value + ";";
+			concatQteCond = concatQteCond + id + ":" + quantites[i].value + ";";
+		}
+		if (id!=null && id.startsWith("input_qte_produitresa_")){
+			concatQteProduitResa = concatQteProduitResa + id + ":" + quantites[i].value + ";";
 		}
 	}
-	$('recapCommande').value = concatQte;
-	
-	alert ($('recapCommande').value);
-	
+	$('recapCommandeCond').value = concatQteCond;
+	$('recapCommandeProduitResa').value = concatQteProduitResa;	
 }
 
 function valideCommande(){
@@ -103,6 +147,21 @@ function valideCommande(){
 					}					
 				}	
 			}
+			if (id!=null && id.startsWith("input_qte_produitresa_")){
+				quantite = quantites[i].value.trim();
+				if (quantite == '') {
+					alert("Vous avez oublié de renseigner la quantité pour au moins un des produits sélectionnés.");
+					$(quantites[i].id).focus();
+					return false;
+				}
+				else {
+					if (!verifieNombre($(quantites[i].id))){
+						alert("La quantité doit être un nombre.");
+						$(quantites[i].id).focus();
+						return false;
+					}					
+				}	
+			}
 		}
 	}
 	
@@ -115,9 +174,21 @@ function alerteSuppressionCommande(idCommande){
 	}	
 }
 
+function alerteFacturationCommande(idCommande){
+	if (confirm('Êtes vous sûr d\'avoir facturé la commande '+idCommande+' ?')){
+		location.href = 'index.php?page=commandes&action=facturer&idCommande='+idCommande;
+	}	
+}
+
+function alerteDefacturationCommande(idCommande){
+	if (confirm('Êtes vous sûr de vouloir changer l\'état de la commande '+idCommande+' en \'en cours\' ?')){
+		location.href = 'index.php?page=commandes&action=defacturer&idCommande='+idCommande;
+	}	
+}
+
 function checkRechercheCommande(){
-	if ($('refClient').value == -1 && $('datedeb').value.trim() == '' && $('datefin').value.trim() == '' 
-		&& $('idConditionnement').value == -1 && $('etat').value == -1){
+	if ($('refClient').value == -1 && $('idCommande').value.trim() == '' && $('datedeb').value.trim() == '' && $('datefin').value.trim() == '' 
+		&& $('idConditionnement').value == -1 && $('idProduitResa').value == -1 && $('etat').value == -1){
 		alert('Vous devez renseigner un critère de recherche.');
 		return;
 	}

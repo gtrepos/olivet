@@ -11,7 +11,8 @@ foreach ($_POST as $key => $value) {
 
 
 <?php
-echo "<h2>Produits actuellement disponibles</h2>";
+echo "<h3>Produits actuellement disponibles</h3>";
+echo "<div id=produits_dispo>";
 echo "<ul class='menu_deroulant2'>";
 
 $tmpres0 = bddCategorieMenu();
@@ -52,7 +53,7 @@ while ($row0 = mysql_fetch_array($tmpres0)){
 			$ID_cond = $row2[4];
 			$nbarticles_panier = panierNbArticles($ID_cond);
 			echo " $nom_conditionnement : prix = $prix_conditionnement,
- 				quantitÃ© = $qtite_cond ";
+ 				quantité = $qtite_cond ";
 			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
 			for($i=0;$i<=$nb_stock;$i++){
 				if($nbarticles_panier == $i){
@@ -73,7 +74,7 @@ while ($row0 = mysql_fetch_array($tmpres0)){
 	echo "</li>";
 }
 echo "</ul>";
-
+echo "</div>";
 
 
 ?>
