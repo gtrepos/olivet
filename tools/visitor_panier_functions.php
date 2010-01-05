@@ -54,7 +54,7 @@ function panierMontantTotal(){
 }
 
 function panierNbProduitsConditionnes(){
-	
+	return -1;
 }
 
 function panierNbArticles($idproduitcond){

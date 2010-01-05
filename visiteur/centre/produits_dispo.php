@@ -11,7 +11,7 @@ foreach ($_POST as $key => $value) {
 
 
 <?php
-echo "<h3>Produits actuellement disponibles</h3>";
+echo "<h3>Produits conditionnés actuellement disponibles</h3>";
 echo "<div id=produits_dispo>";
 echo "<ul class='menu_deroulant2'>";
 
@@ -19,6 +19,74 @@ $tmpres0 = bddCategorieMenu();
 while ($row0 = mysql_fetch_array($tmpres0)){
 	$cat_id = htmlentities($row0[0]);
 	$cat_name = htmlentities($row0[1]);
+	
+	echo " <li>";
+	echo "<a href='javascript:clickMenuProditsDispo($cat_id)'>";
+	echo $cat_name;
+	echo "</a>";
+	echo "<div id='MenuProduitsDispoCat$cat_id' class='categories' open=false>";
+	
+	$tmpres1 = bddProduitsDispo($cat_id);
+	while ($row1 = mysql_fetch_array($tmpres1)){
+		$produit_libelle = htmlentities($row1[0]);
+		$produit_unite = htmlentities($row1[1]);
+		$produit_prix_unite = htmlentities($row1[2]);
+		$produit_id_categorie = htmlentities($row1[3]);
+		$produit_description = htmlentities($row1[4]);
+		$lien_photo = htmlentities($row1[5]);
+		$produit_id = htmlentities($row1[6]);
+		
+		echo "<div class='MenuProduitsDispoProd$cat_id products'>";
+		echo "<table>";
+		echo "<tr>";
+		echo "<td>";
+		echo "<img src='img/upload/$lien_photo' alt='texte alternatif' />";
+		echo "</td>";
+
+		echo "<td>";
+		echo " $produit_libelle : $produit_description <br> -> Conditionnement : <br> ";
+		$tmpres2 = bddConditionnements($produit_id);
+		while ($row2 = mysql_fetch_array($tmpres2)){
+			$nb_stock = $row2[0];
+			$nom_conditionnement = $row2[1];
+			$prix_conditionnement = $row2[2];
+			$qtite_cond = $row2[3];
+			$ID_cond = $row2[4];
+			$nbarticles_panier = panierNbArticles($ID_cond);
+			echo " $nom_conditionnement : prix = $prix_conditionnement,
+ 				quantité = $qtite_cond ";
+			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
+			for($i=0;$i<=$nb_stock;$i++){
+				if($nbarticles_panier == $i){
+					$selected = " SELECTED";
+				}else{
+					$selected = "";
+				}
+				echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+			}
+			echo "</SELECT> <br>";
+		}
+		echo "</td>";
+		echo "</table>";
+		echo "</div>";
+	}
+
+	echo "</div>";
+	echo "</li>";
+}
+echo "</ul>";
+echo "</div>";
+
+
+echo "<h3>Produits non conditionnés actuellement disponibles (pour réservation)</h3>";
+echo "<div id=produits_dispo>";
+echo "<ul class='menu_deroulant2'>";
+
+$tmpres0 = bddCategorieMenu();
+while ($row0 = mysql_fetch_array($tmpres0)){
+	$cat_id = htmlentities($row0[0]);
+	$cat_name = htmlentities($row0[1]);
+	
 	echo " <li>";
 	echo "<a href='javascript:clickMenuProditsDispo($cat_id)'>";
 	echo $cat_name;
