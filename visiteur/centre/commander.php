@@ -16,8 +16,8 @@
   		</div>
   		<div>
   			Merci de passer vos commandes avant le mardi soir et de venir les chercher
-  		 	sur l'exploitation à partir du vendredi midi jusqu'au samedi midi.
-  			Merci pour votre compréhension.
+  		 	sur l'exploitation Ã  partir du vendredi midi jusqu'au samedi midi.
+  			Merci pour votre comprÃ©hension.
   		</div>
   	</div>
   </td>
