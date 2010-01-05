@@ -26,7 +26,7 @@ function panierSetNbArticles($idproduitcond,$nbarticles){
 			array_push( $_SESSION['panier']['nbarticles'],$nbarticles);
 		}
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
 }
 
@@ -49,8 +49,12 @@ function panierMontantTotal(){
 		}
 		return $total;
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
+}
+
+function panierNbProduitsConditionnes(){
+	
 }
 
 function panierNbArticles($idproduitcond){
@@ -62,7 +66,7 @@ function panierNbArticles($idproduitcond){
 			return 0;
 		}
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
 }
 function panierNbProduits(){
@@ -76,7 +80,7 @@ function panierNbProduits(){
 		}
 		return $nbproduits;
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
 }
 function panierCommande(){
@@ -104,7 +108,7 @@ function panierCommande(){
 		}
 		return $recap;
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
 
 }
@@ -115,7 +119,7 @@ function panierVider(){
 		$_SESSION['panier']['idproduitcond'] = array();
 		$_SESSION['panier']['nbarticles'] = array();
 	}else{
-		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+		echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 	}
 }
 
