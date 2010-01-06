@@ -16,9 +16,9 @@ require_once('tools/visitor_panier_functions.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-	<title>GAEC à 3 voix, la ferme d'Olivet</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  -->
+	<title>GAEC Ã  3 voix, la ferme d'Olivet</title>
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='language' content='fr'>
 	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
 	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
@@ -60,12 +60,12 @@ require_once('tools/visitor_panier_functions.php');
 			<li class="gauche"><a href="index.php?page=ferme">La Ferme</a></li>
 			<li class="gauche"><a href="index.php?page=produits_dispo">Nos Produits</a></li>
 			<li class="gauche"><a href="index.php?page=commande">Commander</a></li>
-			<li class="gauche"><a href="index.php?page=actualite">Actualités</a></li>
+			<li class="gauche"><a href="index.php?page=actualite">ActualitÃ©s</a></li>
 			<li class="droite"><a href="index.php?page=contact">Nous contacter</a></li>
 		</ul>
 	</div><!-- #navigation -->
 
-	</div
+	</div>
 
 	<div id="centre">
 
@@ -117,7 +117,7 @@ require_once('tools/visitor_panier_functions.php');
 			
 			<p id="copyright">
 				<a href="http://www.elephorm.com">Elephorm</a> et
-				<a href="http://www.alsacreations.com">Alsacréations</a>
+				<a href="http://www.alsacreations.com">AlsacrÃ©ations</a>
 			</p>
 		</div><!-- #secondaire -->
 		

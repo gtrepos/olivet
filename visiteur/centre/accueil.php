@@ -1,6 +1,6 @@
 <h3>Bienvenue !</h3>
-<p>Depuis le <b>30 janvier 2010</b>, la ferme d'Olivet met à ouverture de son magasin de vente directe. 
-Cette date correspond naturellement à la date de mise en ligne de ce site web. 
+<p>Depuis le <b>30 janvier 2010</b>, la ferme d'Olivet met  ouverture de son magasin de vente directe. 
+Cette date correspond naturellement Ã  la date de mise en ligne de ce site web. 
 Celui ci vous permettera de commander les produits disponibles. blablabla... Expliquer le fonctionnement des commandes.</p> 
 
 <h3>Nouveaux produits : </h3>
@@ -15,7 +15,7 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 ?>
 </p>
 
-<h3>Actualités du GAEC :</h3>
+<h3>ActualitÃ©s du GAEC :</h3>
 <p>
 <?php 
 	$tmpres = bddActusGaec(true, false);	
@@ -27,7 +27,7 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 ?>
 </p>
 	
-<h3>Actualités locales et du monde agricole :</h3>
+<h3>ActualitÃ©s locales et du monde agricole :</h3>
 <p>
 <?php 
 	$tmpres = bddActusLoma(true, false);
