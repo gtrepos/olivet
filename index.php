@@ -20,8 +20,8 @@ require_once('tools/visitor_panier_functions.php');
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<!--  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  -->
 	<meta http-equiv='language' content='fr'>
-	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualitï¿½s, Produits'>
-	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, ActualitÃ©s, Produits'>
+	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
+	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
 	<meta name='robots' content='index,follow'>
 	<meta name='author' content='Ferme d''Olivet'>
 	<meta name='revisit-after' content='7 days'>

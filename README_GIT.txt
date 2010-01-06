@@ -84,17 +84,11 @@ GUide d'utilisation de git pour l'olivet.
 	permet de voir un seul arbre dans git-gui.. mais on verra plus tard. 
 
 
-6. Le Readme de Gwen : (que je ne vais pas supprimer tout de même) 
+6. Base de données.
 
-	le commit doit être fait dans origin/master
-	pour récupérer un commit propre : 
-	dépot distant > récupérer de > origin
-	fusionner > fusion locale : branche de suivi doit être coché avec origin/master en choix.
-	cliquer sur fusionner.
-
-	Dans l'écran de visualisation de la fusion il faut sélectionner la derniere version pushé avec clic 
-	droit puis faire un clic gauche sur la version en locale puis faire un Diff this -> 
-	selected ou un Diff selected -> this. Le résultat de la comparaison est en bas.
+	créer la base de données sous mysql 
+	interclassement latin1 general ci
+	fichier d'import utf-8
 
 
 
