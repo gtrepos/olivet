@@ -91,6 +91,22 @@ strong {
   float:left;  
 }
 
+#banniere-resume_panier {
+  border : #F40707 1px solid;
+  color:black;
+  padding:0.3em;
+  background-color: white;
+}
+
+#banniere-resume_panier div{
+  width:100%;
+  text-align: right;  
+}
+
+#banniere-resume_panier a{
+  color:black;	
+}
+
 /* --- POSITIONNEMENT --- */
 
 /* Page */
