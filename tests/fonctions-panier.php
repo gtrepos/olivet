@@ -25,7 +25,7 @@ unset($tmp);
        
 }
 else
-  echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+  echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 }
 
 
@@ -47,7 +47,7 @@ if (creationPanier())
       
 }
 else
-  echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+  echo "Un problÃ¨me est survenu veuillez contacter l'administrateur du site.";
 }
 function MontantGlobal(){
 

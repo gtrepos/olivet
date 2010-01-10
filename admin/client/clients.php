@@ -20,7 +20,13 @@ if ($action=='creer') {include("creer_client.php");}
 if ($action=='modifier') {include("modifier_client.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_client($_GET['mode'], $_POST['ref'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['commune'], $_POST['tel'], $_POST['email']);	
+	
+	$ref = "";
+	if (isset($_POST['ref'])) {
+		$ref = $_POST['ref'];
+	}
+	
+	enregistrer_client($_GET['mode'], $ref, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['commune'], $_POST['tel'], $_POST['email']);	
 }
 
 if ($action=='supprimer') {

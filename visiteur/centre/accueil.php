@@ -9,7 +9,7 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 <?php
 	$tmpres = bddNouveauxProduits();
 	while ($row = mysql_fetch_array($tmpres)){
-		echo htmlentities("$row[1] > $row[3] > $row[2]");
+		echo $row[1] . " > " . $row[3] . " > " . $row[2];
 		echo "<br/>";
 	}
 ?>
@@ -21,7 +21,7 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 	$tmpres = bddActusGaec(true, false);	
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo htmlentities("$row[2] : $row[1]");
+		echo $row[2] . " : " . $row[1];
 		echo "<br/>";
 	}
 ?>
@@ -33,7 +33,7 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 	$tmpres = bddActusLoma(true, false);
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo htmlentities("$row[2]: $row[1]");
+		echo $row[2] . " : " . $row[1];
 		echo "<br/>";
 	}
 ?>

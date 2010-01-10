@@ -29,8 +29,8 @@
 								  <input type="button" value="?" onclick="displayCalendar(document.forms[0].datedeb,'yyyy-mm-dd',this)"> 
 							   au <input type="text" name="datefin" id="datefin" value="<?php echo $datefin;?>"/>
 							   	  <input type="button" value="?" onclick="displayCalendar(document.forms[0].datefin,'yyyy-mm-dd',this)"></div>
-	<div class=critere>Produit conditionné : <?php affiche_conditionnements_pour_selection($idConditionnement, true, null);?> 
-	Produit à la réservation : <?php affiche_produitsresa_pour_selection($idProduitResa, true, null);?></div>
+	<div class=critere>Produit conditionnÃ© : <?php affiche_conditionnements_pour_selection($idConditionnement, true, null);?> 
+	Produit Ã  la rÃ©servation : <?php affiche_produitsresa_pour_selection($idProduitResa, true, null);?></div>
 	<table class=olivet width="100%" cellspacing="1" cellspacing="0">
 		<tr>
 			<td align="center"><a href="javascript:checkRechercheCommande();" ><?php echo ADMIN_COMMANDE_RECHERCHER;?></a>

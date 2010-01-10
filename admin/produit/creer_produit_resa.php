@@ -22,10 +22,12 @@ function popupPick(val) {
 <form name="form_produit_resa" action='index.php?page=produitsresa&action=enregistrer&mode=creation' method="post"
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkProduitResa);">
 		<table>
-			<tr><td colspan="2"><?php echo "CrÈation d'un nouveau produit ‡ la rÈservation"; ?></tr>
+			<tr><td colspan="2"><?php echo "Cr√©ation d'un nouveau produit √† la r√©servation"; ?></tr>
 			<tr><td colspan="2">&nbsp;</tr>
-			<tr><td>LibellÈ : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
+			<tr><td>Libell√© : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
 			<tr><td valign="top">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
+			<tr><td>Stock : </td><td><input type="checkbox" id="a_stock" name="a_stock" onclick="selectionneStock()"/> : <input type='text' id='nb_stock' name='nb_stock' readonly="readonly"/></td></tr>
+			<tr><td>Afficher en tant que nouveaut√© ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute'/></td></tr>
 			<tr>
 				<td>Photo : </td>
 				<td><input name="photo" id="photo"> <a href="#" onclick="popupActivate(document.forms['form_produit_resa'].photo,'anchor');return false;" name="anchor" id="anchor">Choisir un fichier</a></td>

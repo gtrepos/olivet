@@ -42,6 +42,7 @@ if ($action=='enregistrer') {
 	$id = "";
 	$nouveaute = "off";
 	$nbStock = -1;
+	$aStock = "off";
 	
 	if (isset($_POST['id'])) {
 		$id = $_POST['id'];
@@ -51,12 +52,17 @@ if ($action=='enregistrer') {
 		$nouveaute = $_POST['nouveaute'];
 	};
 	
-	if (isset($_POST['is_stock'])) {
-		if ($_POST['is_stock'] == 'on') $nbStock = $_POST['nb_stock'];		
+	if (isset($_POST['a_stock'])) {
+		$aStock = $_POST['a_stock'];				
 	}
 	
-	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nbStock, $nouveaute, 
-								$_POST['prix_cond'], $_POST['quantite_produit']);
+	if (isset($_POST['nb_stock'])) {
+		if (trim($_POST['nb_stock'])!='')
+		$nbStock = $_POST['nb_stock'];				
+	}
+	
+	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nouveaute, 
+								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock);
 }
 
 if ($action=='activer') {

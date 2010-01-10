@@ -35,7 +35,7 @@ function aff_journee($champ, $numero, $legende, $proba)
 	while ($row=mysql_fetch_array($result))
 		$equipe_fetiche=$row[0];
 
-	// cellule d'affichage des derniers résultats
+	// cellule d'affichage des derniers rÃ©sultats
 	$query1="SELECT cldom.nom as cldom, clext.nom as clext, phpl_matchs.buts_dom, phpl_matchs.buts_ext, phpl_journees.date_prevue, cldom.id as cliddom, clext.id as clidext, date_reelle
 	        FROM phpl_equipes as dom, phpl_equipes as ext, phpl_matchs, phpl_journees, phpl_clubs as cldom, phpl_clubs as clext
 	        WHERE phpl_matchs.id_equipe_dom=dom.id
@@ -83,8 +83,8 @@ function aff_journee($champ, $numero, $legende, $proba)
 	    {
 			echo "<TABLE style=\"MARGIN-TOP: 14px\" cellSpacing=0 cellPadding=0 width=100% align=center border=0>
 			   <TBODY><TR><TD class=deco><SPAN class=deco3>".$legende."</SPAN><SPAN class=deco4>".$numero;
-			   if($numero==1){echo "ère";}else{echo "ème";}
-			   echo " journée</SPAN></TD></TR></TBODY></TABLE>";
+			   if($numero==1){echo "1Ã¨re";}else{echo "2Ã¨me";}
+			   echo " journÃ©e</SPAN></TD></TR></TBODY></TABLE>";
 			$date = ereg_replace('^([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})$','\\3/\\2/\\1', $row[4]);
 			echo "<TABLE style=\"MARGIN-BOTTOM: 14px; TEXT-ALIGN: center\" cellSpacing=0 align=center
 				cellPadding=0 width=100% background=\"img/fclassement.gif\" border=0>";
@@ -104,9 +104,9 @@ function aff_journee($champ, $numero, $legende, $proba)
 			echo "<TR>";
 	    $date_reelle = $row[7];
 
-		$minute = substr($date_reelle,14,2); // on récupère la minute
-		$heure = substr($date_reelle,11,2); // on récupère l'heure
-		$jour = substr($date_reelle,8,2); // on récupère le jour
+		$minute = substr($date_reelle,14,2); // on rÃ©cupÃ¨re la minute
+		$heure = substr($date_reelle,11,2); // on rÃ©cupÃ¨re l'heure
+		$jour = substr($date_reelle,8,2); // on rÃ©cupÃ¨re le jour
 		$mois = substr($date_reelle,5,2); // puis le mois
 		$annee = substr($date_reelle,0,4); // et l'annee
 
@@ -219,7 +219,7 @@ $dom = mysql_query($query) or die (mysql_error());
      $clmnt[$row[2]]['BUTSDOMCONTRE']+=$row[4];
      }
 mysql_free_result($dom);
-// Resultats à domicile
+// Resultats Ã  domicile
 $query="SELECT phpl_clubs.nom FROM phpl_clubs, phpl_equipes, phpl_championnats
 WHERE phpl_equipes.id_champ=phpl_championnats.id
       AND phpl_championnats.id='$champ'
@@ -515,7 +515,7 @@ function Buteur($legende, $requete, $type, $EquipeFetiche )
 	echo "</table>";
 }
 
-// Affichage renseignements utilisée dans consult/club.php
+// Affichage renseignements utilisÃ©e dans consult/club.php
 function aff_rens ($id_classe, $id_clubs)
 {
 $query="SELECT phpl_donnee.id, phpl_donnee.nom, id_rens, id_clubs, phpl_rens.id, phpl_rens.nom, phpl_rens.id_classe, phpl_clubs.id, etat, phpl_donnee.url, phpl_rens.url
@@ -553,7 +553,7 @@ while ($row=mysql_fetch_array($result))
 	$equipe_fetiche=$row[0];
 
 echo "<table width=170 border=0 cellspacing=0 cellpadding=0 style='margin-bottom:14px; border:1px #061922 solid; color:#E03127;'>";
-echo "<tr><TD align=center colspan=3 class=bgnoir height=20><SPAN class=deco3><a href='index.php?page=classement&champ=$champmini&type=Général'><b class=jaune>CLASSEMENT</b></a></SPAN></td></tr>";
+echo "<tr><TD align=center colspan=3 class=bgnoir height=20><SPAN class=deco3><a href='index.php?page=classement&champ=$champmini&type=GÃ©nÃ©ral'><b class=jaune>CLASSEMENT</b></a></SPAN></td></tr>";
 
 $result=mysql_query($requetemini) or die (mysql_error());
 $pl=1;
@@ -596,7 +596,7 @@ while ($row=mysql_fetch_array($result))
 				$result2=mysql_query($query2);
 
 				if ($lienmini=='non'){echo "$row[$x]";}
-				else {echo "<a class='nav3' href='index.php?page=classement&champ=$champmini&type=Général'>$row[$x]</a>";}
+				else {echo "<a class='nav3' href='index.php?page=classement&champ=$champmini&type=GÃ©nÃ©ral'>$row[$x]</a>";}
 			}
 
 			else {echo "<td>".$row[$x]."</td>";}
@@ -663,13 +663,13 @@ function next_mini($champ, $numero)
 	{
 		echo "<TD align=\"right\">";
 		if($row[1]==$club)
-		    echo "<b><a class=nav3 href='?page=classement&type=Général&champ=$champ'>";
+		    echo "<b><a class=nav3 href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'>";
 		echo $row[1]."</a></td><td align=center>-</td><TD align='left'>";
 		if($row[2]==$club)
-			echo "<b><a class=nav3 href='?page=classement&type=Général&champ=$champ'>";
+			echo "<b><a class=nav3 href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'>";
 		echo $row[2]."</a></td>";
 	}
-	echo "<TD height=20 align=center><a class=nav href='?page=classement&type=Général&champ=$champ'><b>$shortchamp</b></td></tr>";
+	echo "<TD height=20 align=center><a class=nav href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'><b>$shortchamp</b></td></tr>";
 
 	@mysql_free_result($query1);
 }
@@ -704,14 +704,14 @@ function last_mini($champ, $numero)
 
 	while ($row=mysql_fetch_array($result))
 	{
-	    echo "<TR><TD align=center height=20><a class=nav href='?page=classement&type=Général&champ=$champ'><b>$shortchamp</b></center>";
+	    echo "<TR><TD align=center height=20><a class=nav href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'><b>$shortchamp</b></center>";
 		if ($row[1]=='Exempte' or $row[2]=='Exempte')
 			echo "<td colspan=5 align=center>".ADMIN_RESULTS_1."</td>";
 		else
 		{
 			echo "<TD align=\"right\">";
 			if($row[1]==$club)
-			    echo "<b><a class=nav3 href='?page=classement&type=Général&champ=$champ'>";
+			    echo "<b><a class=nav3 href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'>";
 			echo $row[1];
 			echo "</a>&nbsp;&nbsp;</td><TD align=center width=5%><b>";
 			if ($row[3]<>'' and $row[1]==$club)
@@ -743,7 +743,7 @@ function last_mini($champ, $numero)
 			echo $row[4];
 			echo "</td><TD align='left'>&nbsp;&nbsp;";
 			if($row[2]==$club)
-				echo "<b><a class=nav3 href='?page=classement&type=Général&champ=$champ'>";
+				echo "<b><a class=nav3 href='?page=classement&type=GÃ©nÃ©ral&champ=$champ'>";
 			echo $row[2]."</a></td></tr>";
 		}
 	}

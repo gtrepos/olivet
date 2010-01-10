@@ -9,11 +9,26 @@ function valideFormProduitResa(){
 	var libelle = $('libelle').value.trim();
 	var descriptif = $('descriptif').value.trim();
 	var photo = $('photo').value.trim();
+	var nb_stock = $('nb_stock').value.trim();
 	
 	if (libelle == ''){
 		alert("Vous devez renseigner un libelle.");
 		$('libelle').focus();
 		return false;
+	}
+	
+	if ($('a_stock').checked) {
+		if (nb_stock == ''){
+			alert("Vous devez renseigner un stock.");
+			$('nb_stock').focus();
+			return false;
+		}
+		if (nb_stock != ''){
+			if (!verifieNombre($('nb_stock'))){
+				alert("Le stock doit Ãªtre un nombre.");
+				return false;
+			}
+		}
 	}
 	
 	if (descriptif == ''){
@@ -33,7 +48,7 @@ function valideFormProduitResa(){
 }
 
 function alerteSuppressionProduitResa(id, libelle){
-	if (confirm('Êtes vous sûr de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
+	if (confirm('Ã‹tes vous sÃ»r de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=produitsresa&action=supprimer&id='+id;
 	}
 }

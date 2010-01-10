@@ -42,13 +42,13 @@ function affich_modif_client ($ref)
 	echo "<table>";
 	echo "<tr><td colspan='2'>Modification du client <b>'$row[1] $row[2]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='ref' name='ref' value='$row[0]'/></tr>";
-	echo "<tr><td>Référence : </td><td>$row[0]</td></tr>";
+	echo "<tr><td>RÃ©fÃ©rence : </td><td>$row[0]</td></tr>";
 	echo "<tr><td>Nom : </td><td><input type='text' id='nom' name='nom' value=\"$row[1]\" size='30'/></td></tr>";
-	echo "<tr><td>Prénom : </td><td><input type='text' id='prenom' name='prenom' value=\"$row[2]\" size='30'/></td></tr>";
+	echo "<tr><td>PrÃ©nom : </td><td><input type='text' id='prenom' name='prenom' value=\"$row[2]\" size='30'/></td></tr>";
 	echo "<tr><td valign='top'>Adresse : </td><td><textarea id='adresse' name='adresse' cols='25'>$row[3]</textarea></td></tr>";
 	echo "<tr><td>Code postal : </td><td><input type='text' id='cp' name='cp' value=\"$row[4]\" size='30'/></td></tr>";
 	echo "<tr><td>Commune : </td><td><input type='text' id='commune' name='commune' value=\"$row[5]\" size='30'/></td></tr>";
-	echo "<tr><td>N° Téléphone : </td><td><input type='text' id='tel' name='tel' value=\"$row[6]\" size='30'/></td></tr>";
+	echo "<tr><td>NÂ° TÃ©lÃ©phone : </td><td><input type='text' id='tel' name='tel' value=\"$row[6]\" size='30'/></td></tr>";
 	echo "<tr><td>Email : </td><td><input type='text' id='email' name='email' value=\"$row[7]\" size='30'/></td></tr>";
 	echo "</table>";
   }
@@ -57,7 +57,9 @@ function affich_modif_client ($ref)
 function enregistrer_client($mode, $reference, $nom, $prenom, $adresse, $codepostal, $commune, $numerotel, $email){
 	$requete = "";
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email) VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email')";		 
+		$codeClient = random(10);
+		$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email, client_code) " .
+				"VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email', '$codeClient')";		 
 	}
 	else if ($mode == 'modification'){
 		$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', client_adresse = '$adresse', client_code_postal = '$codepostal', client_commune = '$commune', client_numero_tel = '$numerotel', client_email = '$email' WHERE client_reference = '$reference'";
@@ -79,7 +81,7 @@ function liste_clients($select, $toDisabled){
 	if ($toDisabled) $disabled = "disabled"; 
 	
 	echo "<SELECT id='refClient' name='refClient' ".$disabled.">";
-	echo "<OPTION value='-1'>-- Sélectionner un client --</OPTION>";
+	echo "<OPTION value='-1'>-- SÃ©lectionner un client --</OPTION>";
 	while ($row = mysql_fetch_array($resultats))
   	{
   		$selected = "";

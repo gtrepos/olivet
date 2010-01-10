@@ -4,7 +4,7 @@
 function affich_produits_resa ()
 {
   $requete=
-		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat " .
+		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat, p.produit_resa_a_stock, p.produit_resa_nb_stock, p.produit_resa_nouveaute " .
 		"FROM produit_resa p " .
 		"ORDER by p.produit_resa_id DESC";
   		
@@ -14,14 +14,21 @@ function affich_produits_resa ()
     $idproduit = $row[0];
     $libelleProduit = $row[1];
     $etat = $row[2];
+    $aStock = $row[3];
+    $nbStock = $row[4];
+    $nouveaute = $row[5];
     $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
+	$nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
+	$stockLibelle = ($aStock==0) ? 'Aucun' : $nbStock;
 	
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
     echo "<td>$idproduit</td>";
     echo "<td>$libelleProduit</td>";
+    echo "<td>$stockLibelle</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
+    echo "<td>$nouveauteLibelle</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkProduitResaInCommande($row[0]);
@@ -50,7 +57,7 @@ function affich_produits_resa ()
 function affich_modif_produit_resa ($id)
 {
   $requete=
-		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo " .
+		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute " .
 		"FROM produit_resa " .
 		"WHERE produit_resa_id = '$id' ";
   
@@ -62,29 +69,64 @@ function affich_modif_produit_resa ($id)
   	$libelle = $row[1];
   	$descriptif = $row[2];
   	$photo = $row[3];
+  	$aStock = $row[4];
+  	$nbStock = $row[5];
+  	$nouveaute = $row[6];
+  	
+  	$checkedStock = '';
+  	$readOnlyStock = '';
+  	
+  	if ($aStock==1) {
+  		$checkedStock = 'checked';
+  	}	
+  	else {
+  		$readOnlyStock = 'readonly="readonly"';  		
+  	}
+  	
+  	$checkedNouveaute = '';
+  	if ($nouveaute == 1) $checkedNouveaute = 'checked';
+  	
   	
   	echo "<table>";
 	echo "<tr><td colspan='2'>Modification du produit <b>'$libelle'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$idproduit'/></tr>";
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
-	echo "<tr><td>LibellÈ : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
+	echo "<tr><td>Libell√© : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
+	echo "<tr><td>Stock : </td><td><input type='checkbox' $checkedStock id='a_stock' name='a_stock' onclick='selectionneStock()'/> : " .
+		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
+	echo "<tr><td>Afficher en tant que nouveaut√© ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit_resa'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
 	echo "</table>";
   }
 }
 
-function enregistrer_produit_resa($mode, $id, $libelle, $descriptif, $photo){
+function enregistrer_produit_resa($mode, $id, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock){
+	
+	if ($aStock == 'on') {
+		$aStock = 1;
+	} else {
+		$aStock = 0;
+	}
+	
+	if ($nouveaute == 'on') {
+		$nouveaute = 1;
+	}else {
+		$nouveaute = 0;
+	}	
+	
 	$requete = "";
 	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO produit_resa (produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo)" . 
-				   "VALUES ('$libelle', '$descriptif', '$photo')";
+		$requete = "INSERT INTO produit_resa (produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, " .
+				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute)" . 
+				   "VALUES ('$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute)";
 	}
 	
 	else if ($mode == 'modification'){
-		$requete = "UPDATE produit_resa SET produit_resa_libelle = '$libelle', produit_resa_descriptif_production = '$descriptif', produit_resa_photo = '$photo' " .
+		$requete = "UPDATE produit_resa SET produit_resa_libelle = '$libelle', produit_resa_descriptif_production = '$descriptif', produit_resa_photo = '$photo', " .
+				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute " . 
 				   "WHERE produit_resa_id = '$id'";
 	}
 	
@@ -109,7 +151,7 @@ function supprimer_produit_resa($id){
 }
 
 function checkProduitResaInCommande($id) {
-	//on ne peut pas supprimer un produit qui a ÈtÈ rÈfÈrencÈ dans une commande.
+	//on ne peut pas supprimer un produit qui a √©t√© r√©f√©renc√© dans une commande.
 	$requeteCheckInCommande = "SELECT distinct p.produit_resa_libelle, p.produit_resa_id FROM lien_commande_produit_resa lcpr, commande com, produit_resa p " .
 			"WHERE lcpr.lcpr_id_commande = com.commande_id AND lcpr.lcpr_id_produit_resa = p.produit_resa_id AND p.produit_resa_id = '$id'";
 	

@@ -4,9 +4,9 @@
 	$tmpres = bddActusGaec(false, true);	
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo "<b>".htmlentities($row[1])."</b> (postée le $row[2])";
+		echo "<b>".$row[1]."</b> (postée le $row[2])";
 		echo "<br/>";
-		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".htmlentities($row[4])."</div>";
+		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".$row[4]."</div>";
 		echo "<br/>";
 	}
 ?>
@@ -18,9 +18,9 @@
 	$tmpres = bddActusLoma(false, true);
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo htmlentities("$row[2]: $row[1]");
+		echo $row[2] ." : " . $row[1];
 		echo "<br/>";
-		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".htmlentities($row[4])."</div>";
+		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".$row[4]."</div>";
 		echo "<br/>";
 	}
 ?>

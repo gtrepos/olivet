@@ -15,7 +15,7 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   if ($fnOnChange!=null) $onChange = "onChange='" . $fnOnChange . "'"; 
   
   echo "<SELECT id='idProduit' name='idProduit' $onChange>";
-  echo "<OPTION value='-1'>-- S�lectionner un produit --</OPTION>";
+  echo "<OPTION value='-1'>-- Sélectionner un produit --</OPTION>";
   while ($row = mysql_fetch_array($resultats))
   {
   	$selected = "";
@@ -24,4 +24,17 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   }
   echo "</SELECT>";  
 }
+
+//Générer une chaine de caractère unique et aléatoire
+
+function random($car) {
+$string = "";
+$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+srand((double)microtime()*1000000);
+for($i=0; $i<$car; $i++) {
+$string .= $chaine[rand()%strlen($chaine)];
+}
+return $string;
+}
+
 ?>

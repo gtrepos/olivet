@@ -36,10 +36,10 @@ function affich_modif_categorie ($id)
   while ($row = mysql_fetch_array($resultats))
   {
 	echo "<table>";
-	echo "<tr><td colspan='2'>Modification de la catégorie <b>'$row[1]'</b></tr>";
+	echo "<tr><td colspan='2'>Modification de la catÃ©gorie <b>'$row[1]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$row[0]'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"/></td></tr>";
+	echo "<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"/></td></tr>";
 	echo "</table>";
   }
 }
@@ -74,7 +74,7 @@ function liste_categories($select){
 	$requete="SELECT categorie_produit_id, categorie_produit_libelle FROM categorie_produit WHERE categorie_produit_etat = 1 ORDER by categorie_produit_libelle";
 	$resultats=mysql_query($requete) or die (mysql_error());
 	echo "<SELECT id='idCategorie' name='idCategorie'>";
-	echo "<OPTION value='-1'>-- Sélectionner une catégorie --</OPTION>";
+	echo "<OPTION value='-1'>-- SÃ©lectionner une catÃ©gorie --</OPTION>";
 	while ($row = mysql_fetch_array($resultats))
   	{
   		$selected = "";

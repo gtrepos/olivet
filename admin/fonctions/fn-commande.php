@@ -15,7 +15,7 @@ function affiche_conditionnements_pour_selection($select, $remonteInactif, $fnOn
   if ($fnOnChange!=null) $onChange = "onChange='" . $fnOnChange . "'"; 
   
   echo "<SELECT id='idConditionnement' name='idConditionnement' $onChange>";
-  echo "<OPTION value='-1'>-- Sélectionner un produit conditionné --</OPTION>";
+  echo "<OPTION value='-1'>-- SÃ©lectionner un produit conditionnÃ© --</OPTION>";
   while ($row = mysql_fetch_array($resultats))
   {
   	$selected = "";
@@ -31,40 +31,44 @@ function affiche_conditionnements_pour_selection($select, $remonteInactif, $fnOn
 
 function affiche_etat_pour_commande($select){
 	echo "<SELECT id='etat' name='etat'>";
-	echo "<OPTION value='-1'>-- Sélectionner un état --</OPTION>";
+	echo "<OPTION value='-1'>-- SÃ©lectionner un Ã©tat --</OPTION>";
 	$selected = "";
 	if ( "EC" == $select ) $selected = "selected";
 	echo "<OPTION value='EC' $selected>en cours</OPTION>";
 	$selected = "";
 	if ( "FA" == $select ) $selected = "selected";
-	echo "<OPTION value='FA' $selected>facturée</OPTION>";
+	echo "<OPTION value='FA' $selected>facturÃ©e</OPTION>";
 	echo "</SELECT>";
 }
 
 function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClient){
 	
-	//booleens nécessaires pour le commit
+	//booleens nÃ©cessaires pour le commit
 	$resultCommande = false;
 	$resultLcc = false;
 	$resultLcpr = false;
+	$resultStockCond = false;
+	$resultStockResa = false;
 	
 	if ($recapCommandeCond!=null && strlen($recapCommandeCond)>0) {
-		//suppression du dernier caractère de recapCommandeCond
+		//suppression du dernier caractÃ¨re de recapCommandeCond
 		$recapCommandeCond = substr ($recapCommandeCond, 0, strlen($recapCommandeCond)-1);
 	}
 	else {
 		$resultLcc = true;
+		$resultStockCond = true;
 	}
 	
 	if ($recapCommandeProduitResa!=null && strlen($recapCommandeProduitResa)>0) {
-		//suppression du dernier caractère de recapCommandeProduitResa
+		//suppression du dernier caractÃ¨re de recapCommandeProduitResa
 		$recapCommandeProduitResa = substr ($recapCommandeProduitResa, 0, strlen($recapCommandeProduitResa)-1);
 	}
 	else {
 		$resultLcpr = true;
+		$resultStockResa = true;
 	}
 	
-	begin(); // début de transaction
+	begin(); // dÃ©but de transaction
 	
 	//insert dans la table commande
 	$requeteCommande = "INSERT INTO commande (commande_id_client) VALUES ($refClient)";
@@ -79,26 +83,36 @@ function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClie
   			$idCommande = $row[0];
   		}
   		
-		//pour chaque produit conditonné insert dans la table lien_commande_cond
+		//pour chaque produit conditonnÃ© insert dans la table lien_commande_cond
 		if ($recapCommandeCond!=null && strlen($recapCommandeCond)>0) {
 			$tableauCond = split(";", $recapCommandeCond);
 			for($i=0; $i < count($tableauCond); $i++){
 				$quantiteEtCond = split(":",$tableauCond[$i]);
 				$idcond = substr ($quantiteEtCond[0], strlen("input_qte_cond_"), strlen($quantiteEtCond[0]));
 				$quantite = $quantiteEtCond[1];
+				//met Ã  jour les stocks si soumis Ã  stock
+				$requeteStockCond = "UPDATE conditionnement set cond_nb_stock = cond_nb_stock - $quantite where cond_id = $idcond and cond_a_stock = 1";	
+				$resultStockCond = @mysql_query($requeteStockCond);
+				if (!$resultStockCond) break;
+				//insert dans table lien_commande_cond
 				$requeteLcc = "INSERT INTO lien_commande_cond (lcc_id_commande, lcc_id_cond, lcc_quantite) VALUES ($idCommande, $idcond, $quantite)";
 				$resultLcc = @mysql_query($requeteLcc);
 				if (!$resultLcc) break;
 			}
 		}
 		
-		//pour chaque produit à la réservation insert dans la table lien_commande_produit_resa
+		//pour chaque produit Ã  la rÃ©servation insert dans la table lien_commande_produit_resa
 		if ($recapCommandeProduitResa!=null && strlen($recapCommandeProduitResa)>0) {
 			$tableauProduitResa = split(";", $recapCommandeProduitResa);
 			for($j=0; $j < count($tableauProduitResa); $j++){
 				$quantiteEtProduitResa = split(":",$tableauProduitResa[$j]);
 				$idProduitResa = substr ($quantiteEtProduitResa[0], strlen("input_qte_produitresa_"), strlen($quantiteEtProduitResa[0]));
 				$quantiteResa = $quantiteEtProduitResa[1];
+				//met Ã  jour les stocks si soumis Ã  stock
+				$requeteStockResa = "UPDATE produit_resa set produit_resa_nb_stock = produit_resa_nb_stock - $quantiteResa where produit_resa_id = $idProduitResa and produit_resa_a_stock = 1";
+				$resultStockResa = @mysql_query($requeteStockResa);
+				if (!$resultStockResa) break;
+				//insert dans table lien_commande_produit_resa
 				$requeteLcpr = "INSERT INTO lien_commande_produit_resa (lcpr_id_commande, lcpr_id_produit_resa, lcpr_quantite) VALUES ($idCommande, $idProduitResa, $quantiteResa)";
 				$resultLcpr = @mysql_query($requeteLcpr);
 				if (!$resultLcpr) break;
@@ -106,7 +120,7 @@ function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClie
 		}
 	}
 	
-	if ($resultCommande && $resultLcc && $resultLcpr){
+	if ($resultCommande && $resultLcc && $resultLcpr && $resultStockCond && $resultStockResa){
 		commit(); // transaction is committed				
 	}
 	else {
@@ -116,30 +130,35 @@ function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClie
 
 function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCommande, $refClient) {
 	
-	//booleens nécessaires pour le commit
+	//booleens nÃ©cessaires pour le commit
 	$resultCommande = false;
 	$resultLcc = false;
 	$resultLcpr = false;
+	$resultStockCond = false;
+	$resultStockResa = false;
 	$resultDeleteLcc = false;
 	$resultDeleteLcpr = false;
+	$resultMajStocksPrecedents = false;
 	
 	if ($recapCommandeCond!=null && strlen($recapCommandeCond)>0) {
-		//suppression du dernier caractère de recapCommandeCond
+		//suppression du dernier caractÃ¨re de recapCommandeCond
 		$recapCommandeCond = substr ($recapCommandeCond, 0, strlen($recapCommandeCond)-1);
 	}
 	else {
 		$resultLcc = true;
+		$resultStockCond = true;
 	}
 	
 	if ($recapCommandeProduitResa!=null && strlen($recapCommandeProduitResa)>0) {
-		//suppression du dernier caractère de recapCommandeProduitResa
+		//suppression du dernier caractÃ¨re de recapCommandeProduitResa
 		$recapCommandeProduitResa = substr ($recapCommandeProduitResa, 0, strlen($recapCommandeProduitResa)-1);
 	}
 	else {
 		$resultLcpr = true;
+		$resultStockResa = true; 
 	}
 	
-	begin(); // début de transaction
+	begin(); // dÃ©but de transaction
 	
 	//insert dans la table commandes
 	$requeteCommande = "UPDATE commande SET commande_id_client = $refClient WHERE commande_id = $idCommande "  ;
@@ -147,6 +166,9 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 	
 	if ($resultCommande){
 		
+		//mise Ã  jour des stocks (ajouts) comme pour une suppression de commande.
+		$resultMajStocksPrecedents = majStockSuppressionCommande($idCommande);			
+			
 		$requeteDeleteLcc = "DELETE FROM lien_commande_cond WHERE lcc_id_commande = " . $idCommande;
 		$resultDeleteLcc = @mysql_query($requeteDeleteLcc);
 		
@@ -154,17 +176,22 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 			
 			if ($recapCommandeCond!=null && strlen($recapCommandeCond)>0) {
 			
-				//pour chaque produit conditionné insert dans la table lien_commande_cond
+				//pour chaque produit conditionnÃ© insert dans la table lien_commande_cond
 				$tableauCond = split(";", $recapCommandeCond);
-				for($i=0; $i < count($tableauCond); $i++){
-					$quantiteEtCond = split(":",$tableauCond[$i]);
+				for($k=0; $k < count($tableauCond); $k++){
+					$quantiteEtCond = split(":",$tableauCond[$k]);
 					$idcond = substr ($quantiteEtCond[0], strlen("input_qte_cond_"), strlen($quantiteEtCond[0]));
 					$quantite = $quantiteEtCond[1];
+					//met Ã  jour les stocks si soumis Ã  stock
+					$requeteStockCond = "UPDATE conditionnement set cond_nb_stock = cond_nb_stock - $quantite where cond_id = $idcond and cond_a_stock = 1";	
+					$resultStockCond = @mysql_query($requeteStockCond);
+					if (!$resultStockCond) break;
+					//insert dans la table lien_commande_cond
 					$requeteLcc = "INSERT INTO lien_commande_cond (lcc_id_commande, lcc_id_cond, lcc_quantite) VALUES ($idCommande, $idcond, $quantite)";
 					$resultLcc = @mysql_query($requeteLcc);
 					if (!$resultLcc) break;
 				}
-			
+				
 			}
 		}
 		
@@ -175,12 +202,17 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 			
 			if ($recapCommandeProduitResa!=null && strlen($recapCommandeProduitResa)>0) {
 				
-				//pour chaque produit à la réservation insert dans la table lien_commande_produit_resa
+				//pour chaque produit Ã  la rÃ©servation insert dans la table lien_commande_produit_resa
 				$tableauProduitResa = split(";", $recapCommandeProduitResa);
-				for($j=0; $j < count($tableauProduitResa); $j++){
-					$quantiteEtProduitResa = split(":",$tableauProduitResa[$j]);
+				for($l=0; $l < count($tableauProduitResa); $l++){
+					$quantiteEtProduitResa = split(":",$tableauProduitResa[$l]);
 					$idproduitresa = substr ($quantiteEtProduitResa[0], strlen("input_qte_produitresa_"), strlen($quantiteEtProduitResa[0]));
 					$quantiteResa = $quantiteEtProduitResa[1];
+					//met Ã  jour les stocks si soumis Ã  stock
+					$requeteStockResa = "UPDATE produit_resa set produit_resa_nb_stock = produit_resa_nb_stock - $quantiteResa where produit_resa_id = $idproduitresa and produit_resa_a_stock = 1";
+					$resultStockResa = @mysql_query($requeteStockResa);
+					if (!$resultStockResa) break;
+					//insert dans la table lien_commande_produit_resa
 					$requeteLcpr = "INSERT INTO lien_commande_produit_resa (lcpr_id_commande, lcpr_id_produit_resa, lcpr_quantite) VALUES ($idCommande, $idproduitresa, $quantiteResa)";
 					$resultLcpr = @mysql_query($requeteLcpr);
 					if (!$resultLcpr) break;
@@ -192,7 +224,7 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 				
 	}
 	
-	if ($resultCommande && $resultDeleteLcc && $resultLcc && $resultDeleteLcpr && $resultLcpr){
+	if ($resultCommande && $resultMajStocksPrecedents && $resultDeleteLcc && $resultLcc && $resultDeleteLcpr && $resultLcpr){
 		commit(); // transaction is committed				
 	}
 	else {
@@ -251,7 +283,7 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
 	    $imgEtat = "encours.gif";
 	    break;
 	case 'FA':
-	    $libelleEtat = "facturée";
+	    $libelleEtat = "facturÃ©e";
 	    $imgEtat = "picto_ok.gif";
 	    break;
 	}
@@ -269,7 +301,7 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
   		 "</td>";
 	echo "<td>".affiche_somme_commande($row[0])."</td>";  		 
   	echo "<td align=\"right\">";
-    echo "<a title='générer la facture' href='javascript:genererFacture($row[0])'><image src='images/pdf.gif' border=0/></a> ";
+    echo "<a title='gÃ©nÃ©rer la facture' href='javascript:genererFacture($row[0])'><image src='images/pdf.gif' border=0/></a> ";
     echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[5]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
     
     if ($etat == 'EC') {
@@ -357,7 +389,7 @@ function affiche_somme_commande($idCommande){
   			 + $quantiteCondCommande * $condPrix;  	
   }
   
-  return $prix . " €";
+  return $prix . " â‚¬";
   
 }
 
@@ -367,7 +399,9 @@ function supprimer_commande($idCommande) {
 	$resultDeleteLcpr = false;
 	$resultDeleteCommande = false;
 	
-	begin(); // début de transaction
+	begin(); // dÃ©but de transaction
+	
+	$resultStock = majStockSuppressionCommande($idCommande);
 	
 	$requeteDeleteLcc = "DELETE FROM lien_commande_cond where lcc_id_commande = '$idCommande'";
 	$resultDeleteLcc=mysql_query($requeteDeleteLcc) or die (mysql_error());
@@ -386,12 +420,45 @@ function supprimer_commande($idCommande) {
 	}
 }
 
+function majStockSuppressionCommande($idCommande) {
+	
+	$resultMajStockCond = true;
+	$resultMajStockResa = true;
+	
+	$requeteCond = "SELECT lcc_id_cond, lcc_quantite FROM lien_commande_cond WHERE lcc_id_commande = " . $idCommande ;
+	$resultatsCond=mysql_query($requeteCond) or die (mysql_error());
+	
+  	while ($rowCond = mysql_fetch_array($resultatsCond))
+  	{
+  	  $idCond = $rowCond[0];
+  	  $quantiteCond = $rowCond[1];
+  	  $requeteMajStockCond = "UPDATE conditionnement set cond_nb_stock = cond_nb_stock + $quantiteCond where cond_id = $idCond and cond_a_stock = 1";
+  	  $resultMajStockCond=mysql_query($requeteMajStockCond) or die (mysql_error());  	   
+  	}
+  	
+  	$requeteResa = "SELECT lcpr_id_produit_resa, lcpr_quantite FROM lien_commande_produit_resa WHERE lcpr_id_commande = " . $idCommande ;
+  	$resultatsResa=mysql_query($requeteResa) or die (mysql_error());
+  	
+  	while ($rowResa = mysql_fetch_array($resultatsResa))
+  	{
+  	  //met Ã  jour les stocks si soumis Ã  stock
+  	  $idProduitResa = $rowResa[0];
+  	  $quantiteResa = $rowResa[1];
+	  $requeteMajStockResa = "UPDATE produit_resa set produit_resa_nb_stock = produit_resa_nb_stock + $quantiteResa where produit_resa_id = $idProduitResa and produit_resa_a_stock = 1";
+	  $resultMajStockResa=mysql_query($requeteMajStockResa) or die (mysql_error());  
+  	}
+  	
+  	return $resultMajStockCond && $resultMajStockResa;
+	
+}
+
+
 function facturer_commande($idCommande) {
 	
 	$resultUpdateEtat = false;
 	$resultInsertFacture = false;
 	
-	begin(); // début de transaction
+	begin(); // dÃ©but de transaction
 	
 	$requeteUpdateEtat = "UPDATE commande SET commande_etat = 'FA' WHERE commande_id = '$idCommande'";
 	$resultUpdateEtat=mysql_query($requeteUpdateEtat) or die (mysql_error());
@@ -411,7 +478,7 @@ function defacturer_commande($idCommande) {
 	$resultUpdateEtat = false;
 	$resultDeleteFacture = false;
 	
-	begin(); // début de transaction
+	begin(); // dÃ©but de transaction
 	
 	$requeteUpdateEtat = "UPDATE commande SET commande_etat = 'EC' WHERE commande_id = $idCommande";
 	$resultUpdateEtat=mysql_query($requeteUpdateEtat) or die (mysql_error());
@@ -554,7 +621,7 @@ function affiche_produitsresa_pour_selection($select, $remonteInactif, $fnOnChan
   if ($fnOnChange!=null) $onChange = "onChange='" . $fnOnChange . "'"; 
   
   echo "<SELECT id='idProduitResa' name='idProduitResa' $onChange>";
-  echo "<OPTION value='-1'>-- Sélectionner un produit à la réservation --</OPTION>";
+  echo "<OPTION value='-1'>-- SÃ©lectionner un produit Ã  la rÃ©servation --</OPTION>";
   while ($row = mysql_fetch_array($resultats))
   {
   	$selected = "";

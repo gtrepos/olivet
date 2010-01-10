@@ -2,9 +2,9 @@
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkPartenaire);">
 	<div style='position:relative;'>
 		<table>
-			<tr><td colspan="2">Création d'un nouveau partenaire</tr>
+			<tr><td colspan="2">CrÃ©ation d'un nouveau partenaire</tr>
 			<tr><td colspan="2">&nbsp;<input type='hidden' id='id' name='id'/></tr>
-			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
+			<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
 			<tr><td valign="top">Descriptif du partenaire : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
 			<tr><td>Logo (nom de l'image) : </td><td><input type='text' id='imglogo' name='imglogo'/></td></tr>
 			<tr><td>Site web : </td><td><input type='text' id='siteweb' name='siteweb'/></td></tr>

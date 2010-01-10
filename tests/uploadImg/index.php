@@ -3,7 +3,7 @@
 
 
 <body>
-Charger une image (par exemple olivet/tests/uploadImg/upload/141.jpg qui alors sera ecrasée par elle même) <br />
+Charger une image (par exemple olivet/tests/uploadImg/upload/141.jpg qui alors sera ecrasÃ©e par elle mÃªme) <br />
 <form action="upload_file.php" method="post"
 enctype="multipart/form-data">
 <label for="file">Filename:</label>

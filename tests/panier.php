@@ -21,8 +21,8 @@ echo '<?xml version="1.0" encoding="iso-8859-1"?>';
       <td colspan="4">Votre panier</td >
 </tr>
 <tr>
-      <td>Libellé</td>
-      <td>Quantité</td>
+      <td>LibellÃ©</td>
+      <td>QuantitÃ©</td>
       <td>Prix Unitaire</td>
       <td>Action</td>
 </tr>

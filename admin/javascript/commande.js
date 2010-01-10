@@ -117,13 +117,13 @@ function valideCommande(){
 	var quantites = $$('.listeQuantites input');
 	
 	if (refClient == -1) {
-		alert("Vous devez renseigner le client concerné par la commande.");
+		alert("Vous devez renseigner le client concernÃ© par la commande.");
 		$('refClient').focus();
 		return false;
 	}
 	
 	if (quantites == ''){
-		alert("Vous devez ajouter au moins un produit à la commande.");
+		alert("Vous devez ajouter au moins un produit Ã  la commande.");
 		$('idConditionnement').focus();
 		return false;
 	}	
@@ -135,13 +135,13 @@ function valideCommande(){
 			if (id!=null && id.startsWith("input_qte_cond_")){
 				quantite = quantites[i].value.trim();
 				if (quantite == '') {
-					alert("Vous avez oublié de renseigner la quantité pour au moins un des produits sélectionnés.");
+					alert("Vous avez oubliÃ© de renseigner la quantitÃ© pour au moins un des produits sÃ©lectionnÃ©s.");
 					$(quantites[i].id).focus();
 					return false;
 				}
 				else {
 					if (!verifieNombre($(quantites[i].id))){
-						alert("La quantité doit être un nombre.");
+						alert("La quantitÃ© doit Ãªtre un nombre.");
 						$(quantites[i].id).focus();
 						return false;
 					}					
@@ -150,13 +150,13 @@ function valideCommande(){
 			if (id!=null && id.startsWith("input_qte_produitresa_")){
 				quantite = quantites[i].value.trim();
 				if (quantite == '') {
-					alert("Vous avez oublié de renseigner la quantité pour au moins un des produits sélectionnés.");
+					alert("Vous avez oubliÃ© de renseigner la quantitÃ© pour au moins un des produits sÃ©lectionnÃ©s.");
 					$(quantites[i].id).focus();
 					return false;
 				}
 				else {
 					if (!verifieNombre($(quantites[i].id))){
-						alert("La quantité doit être un nombre.");
+						alert("La quantitÃ© doit Ãªtre un nombre.");
 						$(quantites[i].id).focus();
 						return false;
 					}					
@@ -169,19 +169,19 @@ function valideCommande(){
 }
 
 function alerteSuppressionCommande(idCommande){
-	if (confirm('Êtes vous sûr de vouloir supprimer la commande '+idCommande+' ?')){
+	if (confirm('Ã‹tes vous sÃ»r de vouloir supprimer la commande '+idCommande+' ?')){
 		location.href = 'index.php?page=commandes&action=supprimer&idCommande='+idCommande;
 	}	
 }
 
 function alerteFacturationCommande(idCommande){
-	if (confirm('Êtes vous sûr d\'avoir facturé la commande '+idCommande+' ?')){
+	if (confirm('Ã‹tes vous sÃ»r d\'avoir facturÃ© la commande '+idCommande+' ?')){
 		location.href = 'index.php?page=commandes&action=facturer&idCommande='+idCommande;
 	}	
 }
 
 function alerteDefacturationCommande(idCommande){
-	if (confirm('Êtes vous sûr de vouloir changer l\'état de la commande '+idCommande+' en \'en cours\' ?')){
+	if (confirm('Ã‹tes vous sÃ»r de vouloir changer l\'Ã©tat de la commande '+idCommande+' en \'en cours\' ?')){
 		location.href = 'index.php?page=commandes&action=defacturer&idCommande='+idCommande;
 	}	
 }
@@ -189,7 +189,7 @@ function alerteDefacturationCommande(idCommande){
 function checkRechercheCommande(){
 	if ($('refClient').value == -1 && $('idCommande').value.trim() == '' && $('datedeb').value.trim() == '' && $('datefin').value.trim() == '' 
 		&& $('idConditionnement').value == -1 && $('idProduitResa').value == -1 && $('etat').value == -1){
-		alert('Vous devez renseigner un critère de recherche.');
+		alert('Vous devez renseigner un critÃ¨re de recherche.');
 		return;
 	}
 	$('formRechercheCommande').submit();
@@ -201,8 +201,8 @@ function genererFacture(idCommande){
             './facturesPDF/index.php?idCommande='+idCommande,
             {
                 method: 'get',
-                onSuccess: function() { alert('Facture générée.');window.open('./facturesPDF/factures/facture'+idCommande+'.pdf');},
-                onFailure: function() { alert('Erreur à la génération de la facture.') }
+                onSuccess: function() { alert('Facture gÃ©nÃ©rÃ©e.');window.open('./facturesPDF/factures/facture'+idCommande+'.pdf');},
+                onFailure: function() { alert('Erreur Ã  la gÃ©nÃ©ration de la facture.') }
             }
     );	
 }

@@ -45,15 +45,15 @@ function affich_modif_actu ($id)
   while ($row = mysql_fetch_array($resultats))
   {
 	echo "<table>";
-	echo "<tr><td colspan='2'>Modification de l'actualité <b>'$row[1]'</b></tr>";
+	echo "<tr><td colspan='2'>Modification de l'actualitÃ© <b>'$row[1]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$row[0]'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"></td></tr>";
+	echo "<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"></td></tr>";
 	echo "<tr><td valign='top'>Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$row[2]</textarea></td></tr>";
-	echo "<tr><td>Type d'actualité : </td><td>"; echo liste_type_actualite($row[5]); echo "</td></tr>";
+	echo "<tr><td>Type d'actualitÃ© : </td><td>"; echo liste_type_actualite($row[5]); echo "</td></tr>";
 	$nouveauteChecked = "";
 	if ($row[6]==1) $nouveauteChecked = "checked";
-	echo "<tr><td>Nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $nouveauteChecked/></td></tr>";
+	echo "<tr><td>NouveautÃ© ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $nouveauteChecked/></td></tr>";
 	echo "</table>";
   }
 }
@@ -76,7 +76,7 @@ function enregistrer_actu($mode, $id, $libelle, $descriptif, $type, $nouveaute){
 
 function liste_type_actualite($select){
 	echo "<SELECT id='type' name='type'>";
-	echo "<OPTION value='-1'>-- Sélectionner un type d'actualité --</OPTION>";
+	echo "<OPTION value='-1'>-- SÃ©lectionner un type d'actualitÃ© --</OPTION>";
 	echo "<OPTION value='GAEC' " ; if ('GAEC' == $select) echo "selected"; echo ">".ADMIN_ACTUALITE_GAEC."</OPTION>";
     echo "<OPTION value='LOMA' " ; if ('LOMA' == $select) echo "selected"; echo ">".ADMIN_ACTUALITE_LOMA."</OPTION>";
   	echo "</SELECT>";

@@ -2,20 +2,20 @@
 	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkCommande);">
 	<div style='position:relative;'>
 		<table>
-			<tr><td colspan="2">Création d'une nouvelle commande</td></tr>
+			<tr><td colspan="2">CrÃ©ation d'une nouvelle commande</td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Choix du client : </td><td><?php liste_clients('-1', false);?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit conditionné à ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', false, 'addCondCommande()');?></td></tr>
+			<tr><td>Produit conditionnÃ© Ã  ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', false, 'addCondCommande()');?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit à la réservation à ajouter :</td><td><?php affiche_produitsresa_pour_selection('-1', false, 'addProduitResaCommande()');?></td></tr>
+			<tr><td>Produit Ã  la rÃ©servation Ã  ajouter :</td><td><?php affiche_produitsresa_pour_selection('-1', false, 'addProduitResaCommande()');?></td></tr>
 		</table>
 		<br/>
 		<div class="listeQuantites">
 		<table id="tableau" cellspacing="0" style="display: none;" >
 			<tr>
 				<td class=caption>Produit</td>
-				<td class=caption>Quantité</td>
+				<td class=caption>QuantitÃ©</td>
 				<td class=caption>&nbsp;</td>
 			</tr>
 		</table>

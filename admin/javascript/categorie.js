@@ -9,7 +9,7 @@ function valideFormCategorie(){
 	var libelle = $('libelle').value.trim(); 
 	
 	if (libelle == '') {
-		alert("Vous devez renseigner un libellé.");
+		alert("Vous devez renseigner un libellÃ©.");
 		$('libelle').focus();
 		return false;
 	}
@@ -17,7 +17,7 @@ function valideFormCategorie(){
 }
 
 function alerteSuppressionCategorie(id, libelle){
-	if (confirm('Êtes vous sûr de vouloir supprimer la catégorie \'' + libelle + '\' ('+id+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer la catÃ©gorie \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=categories&action=supprimer&id='+id;
 	}
 }

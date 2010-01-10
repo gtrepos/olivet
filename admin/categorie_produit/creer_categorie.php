@@ -2,9 +2,9 @@
 	  method="post" onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkCategorie);">
 	<div style='position:relative;'>
 		<table>
-			<tr><td colspan="2">Création d'une nouvelle catégorie de produits</tr>
+			<tr><td colspan="2">CrÃ©ation d'une nouvelle catÃ©gorie de produits</tr>
 			<tr><td colspan="2">&nbsp;<input type='hidden' id='id' name='id'/></tr>
-			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
+			<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
 		</table>
 	</div>
 	<br>

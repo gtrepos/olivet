@@ -1,7 +1,7 @@
 /**
-* Permet de retrouver le style appliqué à un élément
-* @param string Identifiant de l'élément dont on recherche le style
-* @return object Style recherché
+* Permet de retrouver le style appliquÃ© Ã  un Ã©lÃ©ment
+* @param string Identifiant de l'Ã©lÃ©ment dont on recherche le style
+* @return object Style recherchÃ©
 */
 function trouvestyle(idf) {
   if (document.getElementById) {
@@ -14,8 +14,8 @@ function trouvestyle(idf) {
 }
 
 /**
-* Change la couleur de fond appliquée à un bloc
-* @param string Identifiant de l'élément dont on recherche le style
+* Change la couleur de fond appliquÃ©e Ã  un bloc
+* @param string Identifiant de l'Ã©lÃ©ment dont on recherche le style
 * @return aucun
 */
 function survolLigne(idf) {
@@ -26,8 +26,8 @@ function survolLigne(idf) {
 }
 
 /**
-* Restaure la couleur de fond appliquée à un bloc
-* @param string Identifiant de l'élément dont on recherche le style
+* Restaure la couleur de fond appliquÃ©e Ã  un bloc
+* @param string Identifiant de l'Ã©lÃ©ment dont on recherche le style
 * @return aucun
 */
 function restaureLigne(idf) {
@@ -37,7 +37,7 @@ function restaureLigne(idf) {
 	}
 }
 
-/*appelée sur l'évennement onKeyPress des formulaires*/
+/*appelÃ©e sur l'Ã©venement onKeyPress des formulaires*/
 function gestionToucheEntree(event,callBack){
 	if (!event) {event = window.event ;}  //cas IE
 	

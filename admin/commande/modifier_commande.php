@@ -10,16 +10,16 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Client : </td><td><?php liste_clients($_GET['refClient'], false);?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit conditionné à ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', true, 'addCondCommande()');?></td></tr>
+			<tr><td>Produit conditionnÃ© Ã  ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', true, 'addCondCommande()');?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
-			<tr><td>Produit à la réservation à ajouter :</td><td><?php affiche_produitsresa_pour_selection('-1', true, 'addProduitResaCommande()');?></td></tr>
+			<tr><td>Produit Ã  la rÃ©servation Ã  ajouter :</td><td><?php affiche_produitsresa_pour_selection('-1', true, 'addProduitResaCommande()');?></td></tr>
 		</table>
 		<br/>
 		<div class="listeQuantites">
 		<table id="tableau" cellspacing="0">
 			<tr>
 				<td class=caption>Produit</td>
-				<td class=caption>Quantité</td>
+				<td class=caption>QuantitÃ©</td>
 				<td class=caption>&nbsp;</td>
 			</tr>
 			<?php affiche_detail_commande($_GET['idCommande']);?>

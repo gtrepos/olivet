@@ -12,7 +12,7 @@
 	<div id=recherche>
 	<div class=caption>Rechercher des clients</div>
 	<div class=critere>Nom : <input type="text" name="nom" id="nom" value="<?php echo $nom;?>"/></div>
-	<div class=critere>Prénom : <input type="text" name="prenom" id="prenom" value="<?php echo $prenom;?>"/></div>
+	<div class=critere>PrÃ©nom : <input type="text" name="prenom" id="prenom" value="<?php echo $prenom;?>"/></div>
 	<div class=critere>Commune : <input type="text" name="commune" id="commune" value="<?php echo $commune;?>"/></div>
 	
 	<table class=olivet width="100%" cellspacing="1" cellspacing="0">

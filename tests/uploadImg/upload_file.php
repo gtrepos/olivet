@@ -27,11 +27,11 @@ if ((($_FILES["file"]["type"] == "image/gif")
     $imgsize = getimagesize($filename_abs );
     $imgWidth = $imgsize[0];
     $imgHeight = $imgsize[1];
-    echo "L'image chargée : ". "<br />";
+    echo "L'image chargÃ©e : ". "<br />";
    	echo "image size :".$imgsize[3]. "<br />";
     echo "<IMG SRC=\"$filename_abs\" $imgsize[3]>". "<br /><br />";
     
-    //image coupée
+    //image coupÃ©e
 	$little_filename_abs = "./upload/little_" . $filename;
     $imgWidth_little = 40;
     $imgHeight_little = 80;
@@ -42,7 +42,7 @@ if ((($_FILES["file"]["type"] == "image/gif")
 	imagecopy($little, $big, 0, 0,0, 0, $imgWidth_little , $imgHeight_little);	
 	imagejpeg($little,$little_filename_abs);
  	$imgsize_little = getimagesize($little_filename_abs );
-	echo "L'image coupée (little) : ". "<br />";
+	echo "L'image coupÃ©e (little) : ". "<br />";
  	echo "image size :".$imgsize_little[3]. "<br />";
 	echo "<IMG SRC=\"$little_filename_abs\"$imgsize_little[3]>". "<br /><br />";
     

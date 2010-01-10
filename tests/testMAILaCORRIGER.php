@@ -4,8 +4,8 @@
 		<!-- <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'> -->
 		<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
 		<meta http-equiv='language' content='fr'>
-		<meta name='Description' content='La ferme de l''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
-		<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
+		<meta name='Description' content='La ferme de l''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, ActualitÃ©s, Produits'>
+		<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, ActualitÃ©s, Produits'>
 		<meta name='robots' content='index,follow'>
 		<meta name='author' content='Ferme de l''Olivet'>
 		<meta name='revisit-after' content='7 days'>
@@ -16,8 +16,8 @@
 	</head>
 	<body leftmargin="0" topmargin="0" background="gimp_img/fond2.jpg" onload="loadGoogleMap()" onunload="GUnload()" onResize="location.reload();">		
 		<div> 
-		Fichier à mettre sur Free.fr et a renommer index.php.
-		Crée un fichier tmp/facture.pdf et pourrait l'envoyer à rtrepos@gmail.com.
+		Fichier Ã  mettre sur Free.fr et a renommer index.php.
+		CrÃ©e un fichier tmp/facture.pdf et pourrait l'envoyer Ã  rtrepos@gmail.com.
 		
 		<?php
 		//PDF generation

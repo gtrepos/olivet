@@ -87,7 +87,7 @@ switch(languageCode){
 		var todayString = '';
 		break;
 	case "ge":	/* German */
-		var monthArray = ['Januar','Februar','M�rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+		var monthArray = ['Januar','Februar','Marz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 		var monthArrayShort = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
 		var dayArray = ['Mon','Die','Mit','Don','Fre','Sam','Son'];
 		var weekString = 'Woche';
@@ -122,7 +122,7 @@ switch(languageCode){
 		var todayString = 'Hoje &eacute;';
 		break;
 	case "fr":      /* French */
-		var monthArray = ['Janvier','F�vrier','Mars','Avril','Mai','Juin','Juillet','Ao�t','Septembre','Octobre','Novembre','D�cembre'];
+		var monthArray = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
 		var monthArrayShort = ['Jan','Fev','Mar','Avr','Mai','Jun','Jul','Aou','Sep','Oct','Nov','Dec'];
 		var dayArray = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
 		var weekString = 'Sem';
@@ -136,8 +136,8 @@ switch(languageCode){
 		var todayString = 'I dag er den';
 		break;
 	case "hu":	/* Hungarian  - Remember to use UTF-8 encoding, i.e. the <meta> tag */
-		var monthArray = ['Január','Február','Március','�?prilis','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
-		var monthArrayShort = ['Jan','Feb','Márc','�?pr','Máj','Jún','Júl','Aug','Szep','Okt','Nov','Dec'];
+		var monthArray = ['Január','Február','Március','Aprilis','Május','Június','Július','Augusztus','Szeptember','Október','November','December'];
+		var monthArrayShort = ['Jan','Feb','Márc','Apr','Máj','Jún','Júl','Aug','Szep','Okt','Nov','Dec'];
 		var dayArray = ['Hé','Ke','Sze','Cs','Pé','Szo','Vas'];
 		var weekString = 'Hét';
 		var todayString = 'Mai nap';

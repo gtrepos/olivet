@@ -211,7 +211,7 @@ jQuery(document).ready( function () {
             jQuery("ul.subMenu1").slideUp("normal", function () { jQuery(this).parent().removeClass("open") } );
             jQuery(this).next("ul.subMenu1").slideDown("normal", function () { jQuery(this).parent().addClass("open") } );
         }
-        // On empêche le navigateur de suivre le lien :
+        // On empÃªche le navigateur de suivre le lien :
         return false;
     });
 

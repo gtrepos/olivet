@@ -14,7 +14,7 @@ function valideFormProduit(){
 	var photo = $('photo').value.trim();
 	
 	if (idCategorie == -1){
-		alert("Vous devez renseigner une catégorie de produits.");
+		alert("Vous devez renseigner une catÃ©gorie de produits.");
 		$('idCategorie').focus();
 		return false;
 	}
@@ -32,13 +32,13 @@ function valideFormProduit(){
 	}
 	
 	if (unite == ''){
-		alert("Vous devez renseigner une unité.");
+		alert("Vous devez renseigner une unitÃ©.");
 		$('unite').focus();
 		return false;
 	}
 	
 	if (prix_unite == ''){
-		alert("Vous devez renseigner un prix à l'unité.");
+		alert("Vous devez renseigner un prix Ã  l'unitÃ©.");
 		$('prix_unite').focus();
 		return false;
 	}
@@ -46,7 +46,7 @@ function valideFormProduit(){
 	else {
 		var isAFloat = ""+parseFloat(prix_unite);
 		if(isAFloat == 'NaN'){
-			alert("Le prix à l'unité doit être décimal.\nExemple : 1.50");
+			alert("Le prix Ã  l'unitÃ© doit Ãªtre dÃ©cimal.\nExemple : 1.50");
 			$('prix_unite').focus();
 			return false;
 		}
@@ -63,7 +63,7 @@ function valideFormProduit(){
 }
 
 function alerteSuppressionProduit(id, libelle){
-	if (confirm('Êtes vous sûr de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=produits&action=supprimer&id='+id;
 	}
 }

@@ -31,7 +31,7 @@ function valideFormClient(){
 	}
 	
 	if (tel == '') {
-		alert("Vous devez renseigner un numéro de telephone.");
+		alert("Vous devez renseigner un numÃ©ro de telephone.");
 		$('tel').focus();
 		return false;
 	}
@@ -43,7 +43,7 @@ function valideFormClient(){
 	}
 	
 	if (email != '' && !checkEmail(email)){
-		alert("L'adresse email renseignée n'est pas valide.");
+		alert("L'adresse email renseignÃ©e n'est pas valide.");
 		$('email').focus();
 		return false;
 	}
@@ -52,7 +52,7 @@ function valideFormClient(){
 }
 
 function alerteSuppressionClient(ref, nom, prenom){
-	if (confirm('Êtes vous sûr de vouloir supprimer le client \'' + nom + ' ' + prenom + '\' ('+ref+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer le client \'' + nom + ' ' + prenom + '\' ('+ref+') ?')){
 		location.href = 'index.php?page=clients&action=supprimer&ref='+ref;
 	}	
 }
@@ -64,7 +64,7 @@ function checkEmail(email) {
 
 function checkRechercheClient(){
 	if ($('nom').value.trim() == '' && $('prenom').value.trim() == '' && $('commune').value.trim() == ''){
-		alert('Vous devez renseigner un critère de recherche.');
+		alert('Vous devez renseigner un critÃ¨re de recherche.');
 		return;
 	}
 	$('formRechercheClient').submit();

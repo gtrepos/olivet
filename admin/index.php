@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Language" content="fr">
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Administration</title>
 	<link rel="stylesheet" type="text/css" href="css/dhtmlgoodies_calendar.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -50,11 +50,11 @@ require ("fonctions/fn-produit-resa.php");
       	<div><?php ouverture ();?></div>
       	<a href="?page=commandes">Commandes</a> | <a href="?page=commandes&action=creer"><?php echo ADMIN_COMMANDE_CREER;?></a><br><br>
       	<a href="?page=clients">Clients</a> | <a href="?page=clients&action=creer"><?php echo ADMIN_CLIENT_CREER;?></a><br><br>
-      	<a href="?page=actualites">Actualités</a> | <a href="?page=actualites&action=creer"><?php echo ADMIN_ACTUALITE_CREER;?></a><br><br>
-      	<a href="?page=categories">Catégories de produits</a><br><br>
+      	<a href="?page=actualites">ActualitÃ©s</a> | <a href="?page=actualites&action=creer"><?php echo ADMIN_ACTUALITE_CREER;?></a><br><br>
+      	<a href="?page=categories">CatÃ©gories de produits</a><br><br>
       	<a href="?page=produits">Liste des produits</a><br><br>
       	<a href="?page=conditionnements">Liste des conditionnements</a><br><br>
-      	<a href="?page=produitsresa">Liste des produits à la réservation</a><br><br>
+      	<a href="?page=produitsresa">Liste des produits Ã  la rÃ©servation</a><br><br>
       	<a href="?page=partenaires">Partenaires</a><br><br>
       </td>
       <td valign="top" colspan="2"><div align="center">

@@ -83,11 +83,11 @@ function affich_modif_produit ($id)
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$idproduit'/></tr>";
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
-	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
+	echo "<tr><td>CatÃ©gorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
+	echo "<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
-	echo "<tr><td>Unité (kg ? litre ?) : </td><td><input type='text' id='unite' name='unite' value='$unite'/></td></tr>";
-	echo "<tr><td>Prix à l'unité : </td><td><input type='text' id='prix_unite' name='prix_unite' value='$prixUnite'/> €</td></tr>";
+	echo "<tr><td>UnitÃ© (kg ? litre ?) : </td><td><input type='text' id='unite' name='unite' value='$unite'/></td></tr>";
+	echo "<tr><td>Prix Ã  l'unitÃ© : </td><td><input type='text' id='prix_unite' name='prix_unite' value='$prixUnite'/> â‚¬</td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
 	echo "</table>";
   }
@@ -128,7 +128,7 @@ function supprimer_produit($id){
 }
 
 function checkProduitInCommande($id) {
-	//on ne peut pas supprimer un produit qui a été référencé dans une commande.
+	//on ne peut pas supprimer un produit qui a Ã©tÃ© rÃ©fÃ©rencÃ© dans une commande.
 	$requeteCheckInCommande = "SELECT distinct p.produit_libelle, p.produit_id FROM lien_commande_cond lcc, commande com, produit p, conditionnement cond " .
 			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND p.produit_id = cond.cond_id_produit AND p.produit_id = '$id'";
 	
@@ -142,7 +142,7 @@ function checkProduitInCommande($id) {
 }
 
 function checkProduitInConditionnement($id) {
-	//on ne peut pas supprimer un produit qui a été référencé dans un conditionnement.
+	//on ne peut pas supprimer un produit qui a Ã©tÃ© rÃ©fÃ©rencÃ© dans un conditionnement.
 	$requeteCheckInCommande = "SELECT distinct p.produit_id FROM produit p, conditionnement cond " .
 			"WHERE p.produit_id = cond.cond_id_produit AND p.produit_id = '$id'";
 	

@@ -1,4 +1,5 @@
 <?php
+
 if ((($_FILES["file"]["type"] == "image/gif")
 || ($_FILES["file"]["type"] == "image/jpeg")
 || ($_FILES["file"]["type"] == "image/pjpeg"))
@@ -10,16 +11,16 @@ if ((($_FILES["file"]["type"] == "image/gif")
   	$filename_abs = "../../img/upload/" . $filename;
 
     if (file_exists("../../img/upload/" . $filename )){
-      echo "Erreur : " . $filename  . " existe dÈj‡ <a href=\"../produit/formupload.html\">Choisir un autre fichier</a>". "<br />";
+      echo utf8_decode("Erreur : " . $filename  . " existe d√©j√† <a href=\"../produit/formupload.html\">Choisir un autre fichier</a>". "<br />");
     }
     else {
       move_uploaded_file($_FILES["file"]["tmp_name"],$filename_abs );
-      echo "'" . $filename . "' tÈlÈchargÈ <a href=\"javascript:parent.popupPick('$filename')\">Valider</a> <a href=\"../produit/formupload.html\">Choisir un autre fichier</a>" ;
+      echo utf8_decode("'" . $filename . "' t√©l√©charg√© <a href=\"javascript:parent.popupPick('$filename')\">Valider</a> <a href=\"../produit/formupload.html\">Choisir un autre fichier</a>") ;
     }
     
     
   }
 }else{
-  echo "Erreur : Pas de fichier ou fichier invalide (taille > 100 ko ou format diffÈrent de image/gif, image/jpeg, image/pjpeg) <a href=\"../produit/formupload.html\">Choisir un fichier</a>";
+  echo utf8_decode("Erreur : Pas de fichier ou fichier invalide (taille > 100 ko ou format diff√©rent de image/gif, image/jpeg, image/pjpeg) <a href=\"../produit/formupload.html\">Choisir un fichier</a>");
 }
 ?>

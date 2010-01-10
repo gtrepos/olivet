@@ -24,7 +24,7 @@ function valideFormConditionnement(){
 		return false;
 	}
 	
-	if ($('is_stock').checked) {
+	if ($('a_stock').checked) {
 		if (nb_stock == ''){
 			alert("Vous devez renseigner un stock.");
 			$('nb_stock').focus();
@@ -32,7 +32,7 @@ function valideFormConditionnement(){
 		}
 		if (nb_stock != ''){
 			if (!verifieNombre($('nb_stock'))){
-				alert("Le stock doit être un nombre.");
+				alert("Le stock doit Ãªtre un nombre.");
 				return false;
 			}
 		}
@@ -47,7 +47,7 @@ function valideFormConditionnement(){
 	else {
 		var isAFloat = ""+parseFloat(prix_cond);
 		if(isAFloat == 'NaN'){
-			alert("Le prix du conditionnement doit être décimal.\nExemple : 1.50");
+			alert("Le prix du conditionnement doit Ãªtre dÃ©cimal.\nExemple : 1.50");
 			$('prix_cond').focus();
 			return false;
 		}
@@ -62,7 +62,7 @@ function valideFormConditionnement(){
 	else {
 		var isAFloat = ""+parseFloat(quantite_produit);
 		if(isAFloat == 'NaN'){
-			alert("La quantité de produit doit être décimale.\nExemple : 1.50");
+			alert("La quantitÃ© de produit doit Ãªtre dÃ©cimale.\nExemple : 1.50");
 			$('quantite_produit').focus();
 			return false;
 		}
@@ -73,13 +73,13 @@ function valideFormConditionnement(){
 }
 
 function alerteSuppressionConditionnement(id, nom){
-	if (confirm('Êtes vous sûr de vouloir supprimer le conditionnement \'' + nom + '\' ('+id+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer le conditionnement \'' + nom + '\' ('+id+') ?')){
 		location.href = 'index.php?page=conditionnements&action=supprimer&id='+id;
 	}
 }
 
 function selectionneStock(){
-	if ($('is_stock').checked){
+	if ($('a_stock').checked){
 		$('nb_stock').readOnly = "";
 	}
 	else {

@@ -17,7 +17,7 @@ function valideFormPartenaire(){
 	var rang = $('rang').value.trim();
 	
 	if (libelle == '') {
-		alert("Vous devez renseigner un libellé.");
+		alert("Vous devez renseigner un libellÃ©.");
 		$('libelle').focus();
 		return false;
 	}
@@ -49,7 +49,7 @@ function valideFormPartenaire(){
 	
 	if (rang != ''){
 		if (!verifieNombre($('rang'))){
-			alert("Le rang doit être un nombre.");
+			alert("Le rang doit Ãªtre un nombre.");
 			return false;
 		}
 	}
@@ -67,7 +67,7 @@ function verifieSiteweb(champ){
 }
 
 function alerteSuppressionPartenaire(id, libelle){
-	if (confirm('Êtes vous sûr de vouloir supprimer le partenaire \'' + libelle + '\' ('+id+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer le partenaire \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=partenaires&action=supprimer&id='+id;
 	}
 }

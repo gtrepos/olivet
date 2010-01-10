@@ -4,12 +4,12 @@
 if (isset($_POST['nom'])){
 	$nom = $_POST['nom'];
 	if($nom==""){
-		echo "<br> Pas de nom donné (1) !!  <br>";	
+		echo "<br> Pas de nom donnÃ© (1) !!  <br>";	
 	}else{
 		echo "<br> NOM FOURNI = $nom <br>";
 	}
 }else{
-	echo "<br> Pas de nom donné (2) !!  <br>";
+	echo "<br> Pas de nom donnÃ© (2) !!  <br>";
 }
 
 
@@ -89,25 +89,25 @@ $headers = 'From: rtrepos@gmail.com' . "\r\n" .
 
 <div style="font-family: arial, sans-serif; font-size: 12pt;">
 Bonjour Mr Robert Dupont, <br>
-ceci est votre première commande, un mail vous a été envoyé
-avec une référence client pour les commandes suivantes. <br>
+ceci est votre premiÃ¨re commande, un mail vous a Ã©tÃ© envoyÃ©
+avec une rÃ©fÃ©rence client pour les commandes suivantes. <br>
 </div>
 
 <table border="1" align=center style="border-collapse: separate;  empty-cells: show;">
 <tr>
-	<td colspan="6" align=center>Récapitulatif commande</td>
+	<td colspan="6" align=center>RÃ©capitulatif commande</td>
 </tr>
 <tr>
-	<td>Catégorie Produit</td>
+	<td>CatÃ©gorie Produit</td>
 	<td>Nom Produit</td>
-	<td> Quantité</td>
+	<td> QuantitÃ©</td>
 	<td>Prix unitaire TTC</td>
-	<td>Unité</td>
+	<td>UnitÃ©</td>
 	<td>Prix total TTC</td>
 </tr>
 <tr>
 	<td>Lait</td>
-	<td>Crême fraîche</td>
+	<td>CrÃªme fraÃ®che</td>
 	<td>1Kg</td>
 	<td>pas cher</td>
 	<td>35</td>
@@ -125,7 +125,7 @@ avec une référence client pour les commandes suivantes. <br>
 
 	<div align=center style="font-size: 15pt;">
 		<a href="index.php" style="font-family: arial, sans-serif; font-size: 15pt;">
-		Merci pour l'achat, retour à l'index'
+		Merci pour l'achat, retour Ã  l'index'
 		</a>
 	</div>
 	

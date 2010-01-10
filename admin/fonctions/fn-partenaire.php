@@ -45,7 +45,7 @@ function affich_modif_partenaire ($id)
 	echo "<tr><td colspan='2'>Modification du partenaire <b>'$row[1]'</b></tr>";
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$row[0]'/></tr>";
 	echo "<tr><td>Identifiant : </td><td>$row[0]</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"/></td></tr>";
+	echo "<tr><td>LibellÃ© : </td><td><input type='text' id='libelle' name='libelle' value=\"$row[1]\"/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif du partenaire : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$row[2]</textarea></td></tr>";
 	echo "<tr><td>Logo (nom de l'image) : </td><td><input type='text' id='imglogo' name='imglogo' value=\"$row[3]\"/></td></tr>";
 	echo "<tr><td>Site web : </td><td><input type='text' id='siteweb' name='siteweb' value=\"$row[4]\"/></td></tr>";

@@ -13,7 +13,7 @@ function valideFormActu(){
 	var type = $('type').value;
 	
 	if (libelle == '') {
-		alert("Vous devez renseigner un libellé.");
+		alert("Vous devez renseigner un libellÃ©.");
 		$('libelle').focus();
 		return false;
 	}
@@ -25,7 +25,7 @@ function valideFormActu(){
 	}
 	
 	if (type == -1) {
-		alert("Vous devez renseigner le type d'actualité.");
+		alert("Vous devez renseigner le type d'actualitÃ©.");
 		$('type').focus();
 		return false;
 	}
@@ -34,7 +34,7 @@ function valideFormActu(){
 }
 
 function alerteSuppressionActu(id, libelle){
-	if (confirm('Êtes vous sûr de vouloir supprimer l\'actualité \'' + libelle + '\' ('+id+') ?')){
+	if (confirm('ÃŠtes vous sÃ»r de vouloir supprimer l\'actualitÃ© \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=actualites&action=supprimer&id='+id;
 	}
 }
