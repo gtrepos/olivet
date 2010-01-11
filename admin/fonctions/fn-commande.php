@@ -299,7 +299,7 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
     echo "<td>" .
   			"<a href='javascript:void(0);' onmouseover=\"return overlib('" .addslashes($resume). "');\" onmouseout='return nd();''>$resumeLight</a>" .
   		 "</td>";
-	echo "<td>".affiche_somme_commande($row[0])."</td>";  		 
+	echo "<td>".affiche_somme_commande($row[0]). " " . affiche_presence_produit_resa($row[0]) .  "</td>";  		 
   	echo "<td align=\"right\">";
     echo "<a title='générer la facture' href='javascript:genererFacture($row[0])'><image src='images/pdf.gif' border=0/></a> ";
     echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[5]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
@@ -389,7 +389,32 @@ function affiche_somme_commande($idCommande){
   			 + $quantiteCondCommande * $condPrix;  	
   }
   
+  
+  
   return $prix . " €";
+  
+}
+
+function affiche_presence_produit_resa($idCommande){
+  $requete=
+		"SELECT resa.produit_resa_libelle, lcpr_quantite " .
+		"FROM produit_resa resa, lien_commande_produit_resa lcpr " .
+		"WHERE resa.produit_resa_id = lcpr.lcpr_id_produit_resa AND lcpr.lcpr_id_commande = " . $idCommande . "";
+  
+  $resultats=mysql_query($requete) or die (mysql_error());
+  
+  $retour = "";
+  
+  while ($row = mysql_fetch_array($resultats))
+  {
+  	$libelleResa = $row[0];
+  	$quantiteResa = $row[1];
+  	
+  	$retour = $retour . " " . $libelleResa . " x " . $quantiteResa . "<br>";
+  	
+  }
+  if (strlen($retour)>0)
+  return "<span style='color:red'> + <br>" . $retour . "</span>" ;
   
 }
 
@@ -496,7 +521,7 @@ function defacturer_commande($idCommande) {
 
 function affiche_resume_commande($idCommande){
 	$resume = "";
-	$requeteCond = "SELECT cond_nom, produit_libelle, lcc_quantite  FROM conditionnement, produit, lien_commande_cond " .
+	$requeteCond = "SELECT cond_nom, produit_libelle, lcc_quantite FROM conditionnement, produit, lien_commande_cond " .
 			"WHERE lcc_id_cond = cond_id AND cond_id_produit = produit_id AND lcc_id_commande = " . $idCommande ;
 	
 	$resultatsCond=mysql_query($requeteCond) or die (mysql_error());

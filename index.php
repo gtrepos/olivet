@@ -44,8 +44,8 @@ require_once('tools/visitor_panier_functions.php');
 <div id="global">
 
 	<div id="entete">
-		<div style='float:right;padding:20px;'> 	
-		<p class="sur-titre">
+		<div id="sur-titre"> 	
+		<p>
 			agriculture biologique, lutte anti mal bouffe
 		</p>
 		</div>

@@ -80,15 +80,13 @@ strong {
 }
 
 .ombresecondaire {
-  margin: 10px 0 0px 650px !important;
-  margin: 10px 0 0px 650px;
-  width:225px;
+  margin: 10px 0 0px 680px !important;
+  margin: 10px 0 0px 680px;  
 }
 
 .ombrenavigation {
-  margin: 10px 0 10px 30px !important;
-  margin: 10px 0 10px 30px;
-  float:left;  
+  margin: 10px 0 10px 10px !important;
+  margin: 10px 0 10px 10px;
 }
 
 #banniere-resume_panier {
@@ -120,7 +118,6 @@ body {
 
 /* En-tête */
 #entete {
-	width:900px;
 	height:140px;
 	background-image:url(../img/bandeaucomplet.gif);
 	background-repeat:no-repeat;
@@ -143,20 +140,24 @@ body {
 	font-size: 1.1em;
 }
 
-#entete .sur-titre {
+#entete #sur-titre {
+	float:right;
+	padding:20px;
+}
+
+#entete #sur-titre p {
 	color:black;
 	margin: 4px 0 5px 0;
 	float:right;
 	font-size: 0.9em;
 	font-weight: bold;
-	font-family: Myriad Roman;	
+	font-family: Myriad Roman;
 }
 
 /* Menu de navigation */
 #navigation {
 	padding: 12px 15px;
-	position:relative;
-	width:820px;
+	position:relative;	
 }
 #navigation ul {
 	overflow: hidden;
@@ -186,15 +187,15 @@ body {
 
 /* Bloc central */
 #centre {
-	width: 876px; /* -> 4 */
+	/*width: 876px; /* -> 4 */
 	overflow: hidden; /* -> 4 */
 }
 
 /* Contenu principal */
 #principal {
 	float: left; /* -> 5 */
-	width: 560px;
-	padding: 10px 20px 10px 30px;
+	width: 600px;
+	padding: 0px 20px 10px 15px;
 }
 #principal > :first-child {
 	margin-top: 10px;
