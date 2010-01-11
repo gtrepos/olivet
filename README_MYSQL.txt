@@ -5,7 +5,7 @@ Infos sur la base de données mysql
 	Il faut créer la base de données via phpmyadmin.
 	cliquer sur l'icone accueil.
 	créer la base de données 'olivet' en choisissant interclassement utf8_general_ci
-	et interclassement pour la connexion Mysql utf8_general_ci
+	et interclassement pour la connexion Mysql par contre latin1_general_ci (pour rendu des accents corrects dans les exports sql)
 	cliquer sur créer.
 	cliquer sur importer. choisir le fichier olivet.sql du projet eclipse.
 	bien valider que le fichier d'import est encodé dans eclipse en utf-8.
