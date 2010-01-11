@@ -5,7 +5,6 @@
 		<td class=caption><?php echo ADMIN_PARTENAIRE_ID; ?></td>
 		<td class=caption><?php echo ADMIN_PARTENAIRE_LIBELLE; ?></td>
 		<td class=caption><?php echo ADMIN_PARTENAIRE_DESCRIPTIF; ?></td>
-		<td class=caption><?php echo ADMIN_PARTENAIRE_IMGLOGO; ?></td>
 		<td class=caption><?php echo ADMIN_PARTENAIRE_SITEWEB; ?></td>
 		<td class=caption><?php echo ADMIN_PARTENAIRE_RANG; ?></td>
 		<td class=caption><?php echo ADMIN_PARTENAIRE_ETAT; ?></td>
@@ -13,9 +12,9 @@
 	</tr>
 	<?php affich_partenaires(); ?>
 </table>
-<table class=olivet width="90%" cellspacing="1" cellspacing="0">	
+<table class=olivet width="90%" cellspacing="1" cellspacing="0">
 	<tr>
-		<td align="right" colspan="8"><a href="?page=partenaires&action=creer"><?php echo ADMIN_PARTENAIRE_CREER;?></a></td>
+		<td align="right" colspan="7"><a href="?page=partenaires&action=creer"><?php echo ADMIN_PARTENAIRE_CREER;?></a></td>
 	</tr>
 </table>
 
@@ -36,7 +35,7 @@ if ($action=='creer') {include("creer_partenaire.php");}
 if ($action=='modifier') {include("modifier_partenaire.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_partenaire($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['imglogo'], $_POST['siteweb'], $_POST['rang']);	
+	enregistrer_partenaire($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['siteweb'], $_POST['rang']);	
 }
 
 if ($action=='activer') {

@@ -124,7 +124,6 @@ define("ADMIN_PARTENAIRE_ID","Identifiant");
 define("ADMIN_PARTENAIRE_LIBELLE","Libellé");
 define("ADMIN_PARTENAIRE_DESCRIPTIF","Descriptif");
 define("ADMIN_PARTENAIRE_SITEWEB","Site web");
-define("ADMIN_PARTENAIRE_IMGLOGO","Logo (nom de l'image)");
 define("ADMIN_PARTENAIRE_ETAT","Etat");
 define("ADMIN_PARTENAIRE_RANG","Rang");
 define("ADMIN_PARTENAIRE_CREER","Créer un partenaire");

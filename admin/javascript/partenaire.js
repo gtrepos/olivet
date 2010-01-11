@@ -2,7 +2,6 @@ function checkPartenaire(){
 	if (valideFormPartenaire()) {
 		$('libelle').value = $('libelle').value.trim(); 
 		$('descriptif').value = $('descriptif').value.trim();
-		$('imglogo').value = $('imglogo').value.trim(); 
 		$('siteweb').value = $('siteweb').value.trim();
 		document.form_partenaire.submit();
 	}
@@ -12,7 +11,6 @@ function valideFormPartenaire(){
 
 	var libelle = $('libelle').value.trim(); 
 	var descriptif = $('descriptif').value.trim(); 
-	var imglogo = $('imglogo').value.trim();
 	var siteweb = $('siteweb').value.trim();
 	var rang = $('rang').value.trim();
 	
@@ -25,12 +23,6 @@ function valideFormPartenaire(){
 	if (descriptif == '') {
 		alert("Vous devez renseigner un descriptif.");
 		$('descriptif').focus();
-		return false;
-	}
-	
-	if (imglogo == '') {
-		alert("Vous devez renseigner un logo.");
-		$('imglogo').focus();
 		return false;
 	}
 	

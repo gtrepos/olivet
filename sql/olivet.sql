@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Dim 10 Janvier 2010 à 11:46
+-- Généré le : Mar 12 Janvier 2010 à 00:00
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `olivet`
@@ -43,12 +37,12 @@ CREATE TABLE IF NOT EXISTS `actualite` (
 
 INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
 (6, 'my actuality', 'c''est la cote qui tue mon p''tit pote ?''''''', 1, '2009-07-09 12:13:38', '2009-12-30 17:51:48', 'GAEC', 0),
-(7, 'DeuxiÃªme actu', '12345678910111213141516171819', 1, '2009-07-09 12:28:55', '2010-01-09 19:32:59', 'GAEC', 0),
-(9, 'new actu', 'description hÃ©hÃ©', 1, '2009-08-17 10:32:40', '2010-01-09 19:32:53', 'LOMA', 0),
+(7, 'Deuxiême actu', '12345678910111213141516171819', 1, '2009-07-09 12:28:55', '2010-01-09 19:32:59', 'GAEC', 0),
+(9, 'new actu', 'description héhé', 1, '2009-08-17 10:32:40', '2010-01-09 19:32:53', 'LOMA', 0),
 (10, 'lib', 'sans apostrophe', 1, '2009-08-17 10:48:01', '2009-12-30 17:51:46', 'GAEC', 1),
-(11, 'libelle''cotÃ©', 'desc''cotÃ©''''''', 1, '2009-08-17 11:35:21', '2010-01-09 19:32:47', 'GAEC', 1),
+(11, 'libelle''coté', 'desc''coté''''''', 1, '2009-08-17 11:35:21', '2010-01-09 19:32:47', 'GAEC', 1),
 (12, 'test', 'desc', 1, '2009-09-19 17:48:31', '2009-12-30 17:51:43', 'GAEC', 1),
-(13, 'accentuÃ©''s', 'dtes', 1, '2009-12-28 18:12:22', '2010-01-09 19:32:38', 'LOMA', 1);
+(13, 'accentué''s', 'dtes', 1, '2009-12-28 18:12:22', '2010-01-09 19:32:38', 'LOMA', 1);
 
 -- --------------------------------------------------------
 
@@ -70,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `categorie_produit` (
 INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libelle`, `categorie_produit_etat`) VALUES
 (3, 'Viandes', 0),
 (4, 'Produits laitiers', 1),
-(6, 'LÃ©gumes', 1),
+(6, 'Légumes', 1),
 (7, 'Fruits', 1);
 
 -- --------------------------------------------------------
@@ -99,10 +93,10 @@ CREATE TABLE IF NOT EXISTS `client` (
 INSERT INTO `client` (`client_reference`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`, `client_code`) VALUES
 (4, 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'abcdefghij'),
 (5, 'Guillemin', 'Sandra', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com', '1234567890'),
-(6, 'Trepos', 'Ronan', '8 r St FerrÃ©ol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
+(6, 'Trepos', 'Ronan', '8 r St Ferréol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
 (8, 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
-(9, 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'AcignÃ©', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
-(10, 'TREPOS', 'MichÃ¨le', '38 rue du clos des vignes', '35690', 'AcignÃ©', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1');
+(9, 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
+(10, 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1');
 
 -- --------------------------------------------------------
 
@@ -117,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_etat` varchar(2) NOT NULL DEFAULT 'EC' COMMENT 'etat de la commande : EC = en cours, FA = facturee',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=42 ;
 
 --
 -- Contenu de la table `commande`
@@ -127,7 +121,8 @@ INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreat
 (37, 5, '2010-01-10 10:21:49', 'EC'),
 (38, 4, '2010-01-10 10:22:15', 'EC'),
 (39, 6, '2010-01-10 10:40:35', 'EC'),
-(40, 8, '2010-01-10 11:17:47', 'EC');
+(40, 8, '2010-01-10 11:17:47', 'EC'),
+(41, 10, '2010-01-11 23:32:14', 'EC');
 
 -- --------------------------------------------------------
 
@@ -155,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
 
 INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_quantite_produit`, `cond_a_stock`, `cond_nb_stock`) VALUES
 (38, 33, 1, 1, '0.20', 'pot 50 cl', '0.500', 1, 59),
-(39, 32, 0, 1, '0.10', 'sac de 10', '1.000', 1, 88),
+(39, 32, 0, 1, '0.10', 'sac de 10', '1.000', 1, 76),
 (40, 34, 1, 1, '0.20', 'sac de 100', '1.000', 1, 148);
 
 -- --------------------------------------------------------
@@ -199,7 +194,8 @@ INSERT INTO `lien_commande_cond` (`lcc_id_commande`, `lcc_id_cond`, `lcc_quantit
 (37, 39, 1),
 (38, 38, 1),
 (39, 40, 2),
-(40, 39, 1);
+(40, 39, 1),
+(41, 39, 12);
 
 -- --------------------------------------------------------
 
@@ -223,6 +219,7 @@ INSERT INTO `lien_commande_produit_resa` (`lcpr_id_commande`, `lcpr_id_produit_r
 (37, 36, 1),
 (38, 35, 1),
 (39, 37, 4),
+(40, 36, 1),
 (40, 37, 1);
 
 -- --------------------------------------------------------
@@ -254,25 +251,24 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
   `partenaire_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant du partenaire',
   `partenaire_libelle` varchar(100) NOT NULL COMMENT 'libelle du partenaire',
   `partenaire_descriptif` varchar(100) NOT NULL COMMENT 'descriptif du partenaire',
-  `partenaire_img_logo` varchar(100) NOT NULL COMMENT 'nom de l''image du logo du partenaire',
   `partenaire_siteweb` varchar(100) NOT NULL COMMENT 'adresse du site web du partenaire',
   `partenaire_rang` int(11) NOT NULL COMMENT 'rang d''affichage du partenaire',
   `partenaire_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du partenaire 0 = inactif, 1 = actif ',
   PRIMARY KEY (`partenaire_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `partenaire`
 --
 
-INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_img_logo`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`) VALUES
-(2, 'Partenaire 2', 'sa description est sommaire mais il fait du bon pâté', 'pates.gif', 'http://www.website1.fr', 1, 1),
-(3, 'test 2', 'desc', 'qsd', 'http://www.website2.com', 2, 1),
-(4, 'test', 'desc', 'logo', 'http://www.website.com', 3, 1),
-(5, 'dsdq', 'qsd', 'ds', 'http://www.website.com', 4, 1),
-(6, 'cote''s 21', 'desxcwwxcwxc', 'tetedeveau.gif', 'http://www.website.com', 3, 1),
-(7, 'part', 'desc', 'temp', '', 6, 1),
-(8, 'partÃ©naire', 'desc', 'logo.bidon', 'http://www.pate2.fr', 9, 1);
+INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`) VALUES
+(2, 'Partenaire 2', 'sa description est sommaire mais il fait du bon pâté', 'http://www.website1.fr', 1, 1),
+(3, 'test 2', 'desc', 'http://www.website2.com', 3, 1),
+(4, 'test', 'desc', 'http://www.website.com', 4, 1),
+(5, 'dsdq', 'qsd', 'http://www.website.com', 6, 1),
+(6, 'cote''s 21', 'desxcwwxcwxc', 'http://www.website.com', 5, 1),
+(8, 'parténaire', 'desc', 'http://www.pate2.fr', 7, 1),
+(9, 'newone', 'la desc', 'http://www.fromage.fr', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -326,8 +322,8 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
 
 INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
 (35, 'caissette d''agneau', 'c''est clarisse qui fait', 1, 'Anima-Peluche-agneau-blanc-1702.jpg', 1, 9, 1),
-(36, 'caissette de boeuf', 'c''est gÃ©rard le boss', 1, '323-tete-boeuf.jpg', 1, 14, 1),
-(37, 'caissette de porc', 'la on sait pas trop d''oÃ¹ ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0);
+(36, 'caissette de boeuf', 'c''est gérard le boss', 1, '323-tete-boeuf.jpg', 1, 13, 1),
+(37, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0);
 
 --
 -- Contraintes pour les tables exportées
