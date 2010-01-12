@@ -1,8 +1,8 @@
 <?php
 
-require ('Commande.php');
-require ('Client.php');
-require ('Conditionnement.php');
+require_once('Commande.php');
+require_once('../../visiteur/bean/Client.php');
+require_once('Conditionnement.php');
 
 class Facture {
 	

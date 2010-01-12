@@ -30,10 +30,10 @@ ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xj
     "<div style='color: blue; font-size: 14px; font-weight:bold;'>"+
     "Ferme D'olivet"+
     "</div><br/>"+
-    "Gaec à 3 voies, L'Olivet<br/>"+
+    "Gaec à 3 voix, L'Olivet<br/>"+
     "35530 SERVON-SUR-VILAINE<br/>"+
     "02 99 55 28 69<br/>"+
-    "<a href='http://http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"+
+    "<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"+
     "</td>"+
 //    "<td>"+
 //    "<img src='http://www.business-in-europe.com/fr/visuals/new-voie-express.gif'" + 

@@ -119,14 +119,30 @@ function bddLigneProduit($idproduitcond){
 	return $resultats;
 }
 
-function bddCheckClient($mail,$ref){
+function bddCheckClient($mail,$code){
 	$requete=
 		"SELECT c.client_reference ". 
 		"FROM  client c " .
-    	"WHERE c.client_reference = '$ref' ".
-		"AND c.client_email = '$mail' ";	
+    	"WHERE c.client_code = '$code' ".
+		"AND c.client_email = '$mail' ";
 	$resultats=mysql_query($requete) or die (mysql_error());
-	return (mysql_num_rows($resultats) == 1);
+	
+	$retour = false;
+	
+	while ($row = mysql_fetch_array($resultats)) 
+  		{
+  			$retour = new Client();
+			$retour->InitClient($row[0]);
+  		}
+	
+	return $retour;
+}
+
+function bddUpdateClient($reference,$mail,$nom,$prenom,$adresse,$codepostal,$commune,$numerotel){
+	$requete=$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', " .
+			"client_adresse = '$adresse', client_code_postal = '$codepostal', client_commune = '$commune', " .
+			"client_numero_tel = '$numerotel', client_email = '$mail' WHERE client_reference = '$reference'";
+	$resultats=mysql_query($requete) or die (mysql_error());	
 }
 
 function bddPartenaires(){

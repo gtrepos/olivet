@@ -6,7 +6,7 @@ include('mon_panier.php')
 ?>
 </div>
 <form onsubmit='return false;'>
-	<table  border="1" align=center cellspacing=0 cellpadding=3 border=0 width='80%'>
+	<table  border="0" align=center cellspacing=0 cellpadding=3 border=0>
 		<tr>
 			<td valign=top align=center> D&eacute;j&agrave; inscrit ? </td>
 			<td valign=top align=center> Pas encore inscrit ? </td>
@@ -25,9 +25,10 @@ include('mon_panier.php')
 		</tr>
 		<tr>
 			<td valign="middle" rowspan=6> 
-				R&eacute;f&eacute;rence client* : 
-				<input type=text id=client_ref size=30 
-					   value= <?php if(isset($ajax_client_ref)){echo "$ajax_client_ref";}?>> 
+				Code client* : 
+				<input type=text id=client_code size=30 
+					   value= <?php if(isset($ajax_client_code)){echo "$ajax_client_code";}?>> 
+				<a href="index.php?page=mesinfos">Modifier vos informations</a>	   
 			</td>
 			<td valign="middle"> 
 				Nom : 

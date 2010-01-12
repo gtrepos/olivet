@@ -285,3 +285,15 @@ body {
 		design-trois-colonnes-positionnement-flottant
 
 */
+
+.mesinformations label{
+	clear: left;
+	float: left;
+	width: 150px;
+}
+
+label{
+	clear: left;
+	float: left;
+	width: 300px;
+}

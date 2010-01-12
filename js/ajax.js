@@ -50,7 +50,7 @@ function clickValid1(){
 	
 	var securimage_code = $F('securimage_code');
 	var client_mail = $F('client_mail');
-	var client_ref = $F('client_ref');
+	var client_code = $F('client_code');
 	var nclient_mail = $F('nclient_mail');
 	var nclient_nom = $F('nclient_nom');
 	var nclient_prenom = $F('nclient_prenom');
@@ -64,7 +64,7 @@ function clickValid1(){
 			{ 
 		method: 'post', 
 		parameters: {event: 'clickValid1', securimage_code: securimage_code,
-					 client_mail: client_mail, client_ref: client_ref, nclient_mail: nclient_mail,
+					 client_mail: client_mail, client_code: client_code, nclient_mail: nclient_mail,
 					 nclient_nom: nclient_nom, nclient_prenom: nclient_prenom,
 					 nclient_adresse: nclient_adresse, nclient_postal: nclient_postal,
 					 nclient_commune: nclient_commune, nclient_tel: nclient_tel
@@ -76,6 +76,89 @@ function clickValid1(){
 	
 }
 
+function clickCheckClient(){
+	
+	var client_mail = $F('client_mail');
+	var client_code = $F('client_code');
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckClient', 
+					 client_mail: client_mail, 
+					 client_code: client_code
+		            },
+		onComplete: manageClickCheckClient,
+		onFailure : function(){ alert('Something went wrong...') }
+			});
+	
+	
+}
+
+function clickCheckClient(){
+	
+	var client_mail = $F('client_mail');
+	var client_code = $F('client_code');
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckClient', 
+					 client_mail: client_mail, 
+					 client_code: client_code
+		            },
+		onComplete: manageClickCheckClient,
+		onFailure : function(){ alert('Something went wrong...') }
+			});
+	
+	
+}
+
+function manageClickCheckClient(transport){
+	if(transport.responseText.match("Erreur dans le formulaire")){
+		alert(transport.responseText);		
+	}else{
+		$('mesinfos').innerHTML= transport.responseText;
+	}
+}
+
+function clickCheckModifClient(){
+	
+	var client_mail = $F('client_mail');
+	var client_nom = $F('client_nom');
+	var client_prenom = $F('client_prenom');
+	var client_adresse = $F('client_adresse');
+	var client_postal = $F('client_postal');
+	var client_commune = $F('client_commune');
+	var client_tel = $F('client_tel');
+	var client_ref = $F('client_ref');
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckModifClient', 
+						client_mail: client_mail,
+						client_nom: client_nom, 
+						client_prenom: client_prenom,		 
+						client_adresse: client_adresse, 
+						client_postal: client_postal,
+						client_commune: client_commune, 
+						client_tel: client_tel,
+						client_ref: client_ref
+						
+		            },
+		onComplete: manageClickCheckModifClient,
+		onFailure : function(){ alert('Something went wrong...') }
+			});	
+}
+
+function manageClickCheckModifClient(transport){
+	if(transport.responseText.match("Erreur dans le formulaire")){
+		alert(transport.responseText);
+	}else{
+		$('mesinfos').innerHTML= transport.responseText;
+	}
+}
 
 
 function clickCategorieProduits(id_cat_prod){
@@ -179,6 +262,7 @@ function clickMenuProditsDispo(id_cat){
 	}
 	
 }
+
 
 
 jQuery.noConflict();

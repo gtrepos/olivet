@@ -3,6 +3,7 @@ if ( session_id() == '' ) { // no session has been started yet, which is needed 
 	session_start();
 }
 require_once("visitor_panier_functions.php");
+require_once('../visiteur/bean/Client.php');
 require_once("visitor_bdd_functions.php");
 require_once("config.php");
 require_once("../securimage/securimage.php");
@@ -63,7 +64,7 @@ switch($ajax_event){
   		}
   		
   		$ajax_client_mail = "$_POST[client_mail]";
-  		$ajax_client_ref = "$_POST[client_ref]";
+  		$ajax_client_code = "$_POST[client_code]";
   		$ajax_nclient_mail = "$_POST[nclient_mail]";
   		$ajax_nclient_nom = "$_POST[nclient_nom]";
   		$ajax_nclient_prenom = "$_POST[nclient_prenom]";
@@ -72,8 +73,8 @@ switch($ajax_event){
   		$ajax_nclient_commune = "$_POST[nclient_commune]";
   		$ajax_nclient_tel = "$_POST[nclient_tel]";
 
-  		if(($ajax_client_mail != "")&&($ajax_client_ref != "")){
-  			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_ref);
+  		if(($ajax_client_mail != "")&&($ajax_client_code != "")){
+  			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_code);
   			if(!$tmpCheckClient){
   				echo "Erreur dans le formulaire : le client n'est pas reconnu";
   				break;
@@ -103,6 +104,47 @@ switch($ajax_event){
 	case 'produits_dispo' :
 		include('../visiteur/centre/produits_dispo.php');
 		break;
+	case 'clickCheckClient' :
+		
+		$ajax_client_mail = "$_POST[client_mail]";
+  		$ajax_client_code = "$_POST[client_code]";
+  		
+		if(($ajax_client_mail != "")&&($ajax_client_code != "")){
+  			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_code);
+  			if(!$tmpCheckClient){
+  				echo "Erreur dans le formulaire : le client n'est pas reconnu";
+  				break;
+  			}
+  			else {
+  				include('../visiteur/centre/client/formmodifclient.php');
+  			}
+  		}
+  		
+		break;
+		
+	case 'clickCheckModifClient' :
+		
+  		$ajax_client_mail = "$_POST[client_mail]";
+  		$ajax_client_nom = "$_POST[client_nom]";
+  		$ajax_client_prenom = "$_POST[client_prenom]";
+  		$ajax_client_adresse = "$_POST[client_adresse]";
+  		$ajax_client_postal = "$_POST[client_postal]";
+  		$ajax_client_commune = "$_POST[client_commune]";
+  		$ajax_client_tel = "$_POST[client_tel]";
+  		$ajax_client_ref = "$_POST[client_ref]";
+  		
+		if(($ajax_client_mail != "")){
+  			bddUpdateClient($ajax_client_ref,$ajax_client_mail,$ajax_client_nom,$ajax_client_prenom,
+  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
+  			include('../visiteur/centre/client/confirmmodifclient.php');
+  		}
+  		else {
+  			echo "Erreur dans le formulaire : vous devez spécifier un email";
+  				break;
+  		}
+  		
+		break;		
+		
 		
 	
 }

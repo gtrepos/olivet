@@ -92,7 +92,10 @@ require_once('tools/visitor_panier_functions.php');
 								break;	
 							case 'contact' :
 								include('visiteur/centre/contacts.php');
-								break;	
+								break;
+							case 'mesinfos' :
+								include('visiteur/centre/client/mesinfos.php');
+								break;
 	   						default :
 	   						    include('visiteur/centre/actualites.php');
 	   						    break;
