@@ -1,13 +1,19 @@
 -- phpMyAdmin SQL Dump
--- version 3.1.1
+-- version 3.2.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Mar 12 Janvier 2010 à 00:00
--- Version du serveur: 5.1.30
--- Version de PHP: 5.2.8
+-- Généré le : Sam 16 Janvier 2010 à 16:57
+-- Version du serveur: 5.1.37
+-- Version de PHP: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `olivet`
@@ -142,16 +148,20 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `cond_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce conditionnement en stock',
   PRIMARY KEY (`cond_id`),
   KEY `cond_produit_fk` (`cond_id_produit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=45 ;
 
 --
 -- Contenu de la table `conditionnement`
 --
 
 INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_quantite_produit`, `cond_a_stock`, `cond_nb_stock`) VALUES
-(38, 33, 1, 1, '0.20', 'pot 50 cl', '0.500', 1, 59),
-(39, 32, 0, 1, '0.10', 'sac de 10', '1.000', 1, 76),
-(40, 34, 1, 1, '0.20', 'sac de 100', '1.000', 1, 148);
+(38, 33, 1, 1, 0.20, 'pot 50 cl', 0.500, 1, 59),
+(39, 32, 0, 1, 0.10, 'sac de 10', 1.000, 1, 76),
+(40, 34, 1, 1, 0.20, 'sac de 100', 1.000, 1, 148),
+(41, 31, 0, 1, 0.30, '3 choux', 0.600, 1, 28),
+(42, 31, 0, 0, 0.30, '2 choux', 0.400, 1, 25),
+(43, 31, 0, 1, 0.30, '1 choux', 0.200, 1, 0),
+(44, 31, 0, 1, 0.30, '4 choux', 0.800, 1, 24);
 
 -- --------------------------------------------------------
 
@@ -294,9 +304,10 @@ CREATE TABLE IF NOT EXISTS `produit` (
 --
 
 INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_unite`, `produit_prix_unite`, `produit_photo`) VALUES
-(32, 6, 'carrottes', 'poussent grâce au temps et au maraîcher', 1, 'kg', '0.20', '20.jpg'),
-(33, 4, 'creme fraiche', 'desc', 1, 'litre', '0.50', 'cremefraiche.gif'),
-(34, 7, 'pommes''caramel', 'pommier', 1, 'kg', '1.50', 'pomme_caramalisee.jpg');
+(31, 6, 'choux fleur', 'à balancer sur les bâtiments administratifs de Rennes', 1, 'kg', 1.00, 'choux-fleur.JPG'),
+(32, 6, 'carrottes', 'poussent grâce au temps et au maraîcher', 1, 'kg', 0.20, '20.jpg'),
+(33, 4, 'creme fraiche', 'desc', 1, 'litre', 0.50, 'cremefraiche.gif'),
+(34, 7, 'pommes''caramel', 'pommier', 1, 'kg', 1.50, 'pomme_caramalisee.jpg');
 
 -- --------------------------------------------------------
 

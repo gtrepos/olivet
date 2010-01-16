@@ -119,6 +119,83 @@ function bddLigneProduit($idproduitcond){
 	return $resultats;
 }
 
+
+/**
+ * @brief Un conditionnement est disponible si tout est respecte :
+ *   la categorie du produit est actif
+ *   le produit est actif
+ *   le conditionnement est actif 
+ *   (le stock est > 0) OU (le conditionnement n'est pas gere par stock)
+ */
+function bddProdsCondDispo(){
+	$requete = 
+	"SELECT DISTINCT ".
+	"categorie_produit.categorie_produit_id, ". 
+	"categorie_produit.categorie_produit_libelle, ".
+	"produit.produit_id, ".
+	"produit.produit_libelle, ".
+	"conditionnement.cond_id, ".
+	"conditionnement.cond_nom, ".
+	"produit.produit_photo, ".
+	"produit.produit_descriptif_production, ".
+	"produit.produit_unite, ".
+	"produit.produit_prix_unite, ".
+	"conditionnement.cond_prix, ".
+	"conditionnement.cond_quantite_produit, ".
+	"conditionnement.cond_a_stock, ".
+	"conditionnement.cond_nb_stock ".
+	"FROM produit ".
+	"LEFT JOIN	categorie_produit ".
+	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
+	"LEFT JOIN conditionnement ".
+	"ON conditionnement.cond_id_produit = produit.produit_id ".
+	"WHERE categorie_produit.categorie_produit_etat = 1 AND ".
+	"produit.produit_etat = 1 AND ".
+	"conditionnement.cond_etat = 1 AND ".
+	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0)".
+	"ORDER BY categorie_produit.categorie_produit_libelle, ".
+	"produit.produit_libelle, ".
+	"conditionnement.cond_nom ";
+	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
+
+/**
+/**TODO
+ * @brief Un produit à la réservation est dispo si tout est respecte :
+ *   la categorie du produit_resa est actif
+ *   le produit_resa est actif
+ *   (le stock est > 0) OU (le produit_resa n'est pas gere par stock)
+ *
+function bddProdsCondDispo(){
+	$requete = 
+	"SELECT DISTINCT ".
+	"categorie_produit.categorie_produit_id, ". 
+	"categorie_produit.categorie_produit_libelle, ".
+	"produit_resa.produit_resa_id, ".
+	"produit_resa.produit_resa_libelle, ".
+	"produit_resa.produit_resa_photo, ".
+	"produit_resa.produit_resa_descriptif_production ".
+	"FROM produit_resa ".
+	"LEFT JOIN	categorie_produit ".
+	TODO "ON produit_resa.produit_id_categorie = categorie_produit.categorie_produit_id ".
+	"LEFT JOIN conditionnement ".
+	"ON conditionnement.cond_id_produit = produit.produit_id ".
+	"WHERE categorie_produit.categorie_produit_etat = 1 AND ".
+	"produit.produit_etat = 1 AND ".
+	"conditionnement.cond_etat = 1 AND ".
+	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0)".
+	"ORDER BY categorie_produit.categorie_produit_libelle, ".
+	"produit.produit_libelle, ".
+	"conditionnement.cond_nom ";
+	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+*/
+
 function bddCheckClient($mail,$code){
 	$requete=
 		"SELECT c.client_reference ". 
