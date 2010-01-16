@@ -82,7 +82,9 @@ require_once('tools/visitor_panier_functions.php');
 								include('visiteur/centre/accueil.php');
 								break;
 							case 'produits_dispo' :
+								echo "<div id=produits_dispo>";
 								include('visiteur/centre/produits_dispo.php');
+								echo "</div>";
 								break;
 							case 'ferme' :
 								include('visiteur/centre/ferme.php');
@@ -109,8 +111,9 @@ require_once('tools/visitor_panier_functions.php');
 		<div id="secondaire" >
 			
 			<h3>Mon panier</h3>
+			<div id='banniere-resume_panier'>
 			<?php include('visiteur/banniere/resume_panier.php'); ?>
-			
+			</div>
 			<h3>Partenaires</h3>
 			
 			<?php include('visiteur/centre/partenaires.php'); ?>

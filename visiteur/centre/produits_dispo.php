@@ -48,7 +48,6 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 
 
 echo "<h3>Produits conditionnés actuellement disponibles</h3>";
-echo "<div id=produits_dispo>";
 echo "<ul class='menu_deroulant2'>";
 while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo "<li>";
@@ -81,7 +80,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$cond_prix = $condStruct["cond_prix"];
 			$cond_a_stock = $condStruct["cond_a_stock"];
 			$cond_nb_stock = $condStruct["cond_nb_stock"];
-			$nbarticles_panier = panierNbArticles($cond_id);
+			$nbarticles_panier = panierNbArticlesProdsCond($cond_id);
 			if($cond_a_stock = 1 ){
 				$nbstock = $cond_nb_stock;
 			}else{
@@ -98,7 +97,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo ($cond_prix + ($cond_quantite_produit + $produit_prix_unite))." &euro;" ;
 			echo "</td>";
 			echo "<td>";
-			echo "<SELECT  id='nbarticles_$produit_id' onChange='javascript:clickSetNbArticles($produit_id);'>";
+			echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
 			for($i=0;$i<=$nbstock;$i++){
 				if($nbarticles_panier == $i){
 					$selected = " SELECTED";
@@ -116,16 +115,11 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 		echo "</tr>";
 		echo "</table>";
 		echo "</div>";
-		
-	
-		
-
 	}
 	echo "</div>";
 	echo "</li>";
 }
 echo "</ul>";
-echo "</div>";
 ?>
 
 

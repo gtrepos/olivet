@@ -174,12 +174,19 @@ function clickCategorieProduits(id_cat_prod){
 
 }
 
-function clickSetNbArticles(id_prod){
-	var nb_articles = $F('nbarticles_'+id_prod);	
+function clickSetNbArticles(cond, id){
+	var nb_articles;
+	if(cond == 1){
+		nb_articles = $F('nbarticles_1_'+id);
+	}else{
+		nb_articles = $F('nbarticles_0_'+id)
+	}
 	new Ajax.Request("tools/visitor_ajax.php", 
 			{ 
 		method: 'post', 
-		parameters:{event: 'clickSetNbArticles', id_prod: id_prod, nb_articles: nb_articles},
+		parameters:{event: 'clickSetNbArticles', 
+		  id: id, cond: cond, 
+		  nb_articles: nb_articles},
 		onComplete: function(transport){
 			$('banniere-resume_panier').innerHTML= transport.responseText;
 		}

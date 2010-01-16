@@ -43,9 +43,10 @@ switch($ajax_event){
 		include('../visiteur/centre/commander/selection_produits/liste_produits.php'); 
 		break;
 	case 'clickSetNbArticles' :
-		$ajax_id_prod = "$_POST[id_prod]";
+		$ajax_cond = "$_POST[cond]";
+		$ajax_id = "$_POST[id]";
 		$ajax_nb_articles = "$_POST[nb_articles]";
-		panierSetNbArticles($ajax_id_prod,$ajax_nb_articles);
+		panierSetNbArticles($ajax_cond, $ajax_id, $ajax_nb_articles);
 		include('../visiteur/banniere/resume_panier.php');
 		break;
 	case 'clickVoirCommande' :

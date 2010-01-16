@@ -108,7 +108,7 @@ function bddProduitsDispo($id_cat){
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
-function bddLigneProduit($idproduitcond){
+function bddLigneProdCond($idproduitcond){
 	$requete=
 		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
 		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, p.produit_id_categorie ". 
@@ -152,7 +152,7 @@ function bddProdsCondDispo(){
 	"WHERE categorie_produit.categorie_produit_etat = 1 AND ".
 	"produit.produit_etat = 1 AND ".
 	"conditionnement.cond_etat = 1 AND ".
-	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0)".
+	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0) ".
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
 	"produit.produit_libelle, ".
 	"conditionnement.cond_nom ";
