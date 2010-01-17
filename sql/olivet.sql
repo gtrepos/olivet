@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 16 Janvier 2010 à 16:57
+-- Généré le : Dim 17 Janvier 2010 à 15:36
 -- Version du serveur: 5.1.37
 -- Version de PHP: 5.3.0
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `categorie_produit` (
 --
 
 INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libelle`, `categorie_produit_etat`) VALUES
-(3, 'Viandes', 0),
+(3, 'Viandes', 1),
 (4, 'Produits laitiers', 1),
 (6, 'Légumes', 1),
 (7, 'Fruits', 1);
