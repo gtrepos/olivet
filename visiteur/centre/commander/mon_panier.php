@@ -10,6 +10,9 @@ foreach ($_POST as $key => $value) {
 ?>
 
 <?php
+/***
+ *Produits conditionnes
+ */
 echo "<table border='1' align=center
 	style='border-collapse: separate; empty-cells: show;'>";
 echo "<tr>";
@@ -17,7 +20,7 @@ echo "<td>Produit";
 echo "</td>";
 echo "<td> Prix unitaire";
 echo "</td>";
-echo "<td> Quantit&eacute; ";
+echo "<td> Quantité ";
 echo "</td>";
 echo "<td> Prix";
 echo "</td>";
@@ -49,12 +52,9 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		}
 		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
 		$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
-
-
 		echo "<tr>";
-		echo "<td>".$cond_nom."[".$produit_libelle."]</td>";
+		echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td align=right> $prixUnitaireCond  &euro;</td>";
-
 		echo "<td>";
 		echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
 		for($i=0;$i<$cond_nb_stock ;$i++){
@@ -76,11 +76,52 @@ echo "<td colspan=3> Prix total </td>" ;
 echo "<td colspan=1>".panierMontantTotalProdsCond()." &euro;</td>";
 echo "</tr>";
 echo "</table>";
+/***
+ * Produits a la reservation
+ */
+echo "<table border='1' align=center
+	style='border-collapse: separate; empty-cells: show;'>";
+echo "<tr>";
+echo "<td>Produit à la réservation </td>";
+echo "<td> Description </td>";
+echo "<td> Quantité </td>";
+echo "</tr>";
+$tmpres2 = bddProdsResaDispo();
+while ($row2 = mysql_fetch_array($tmpres2)){
+	$categorie_produit_id =  $row2[0];
+	$categorie_produit_libelle =  $row2[1];
+	$produit_resa_id =  $row2[2];
+	$produit_resa_libelle =  $row2[3];
+	$produit_resa_photo =  $row2[4];
+	$produit_resa_descriptif_production =  $row2[5];
+	$produit_resa_a_stock =  $row2[6];
+	$produit_resa_nb_stock =  $row2[7];
+
+	$nbarticles_panier = panierNbArticlesProdsResa($produit_resa_id);
+	if($nbarticles_panier > 0){
+		if($produit_resa_a_stock = 1 ){
+			$nbstock = $produit_resa_nb_stock;
+		}else{
+			$nbstock = 20;
+		}
+		echo "<tr>";
+		echo "<td>$produit_resa_libelle</td>";
+		echo "<td align=right>$produit_resa_descriptif_production</td>";
+		echo "<td>";
+		echo "<SELECT  id='nbarticles_0_$produit_resa_id' onChange='javascript:clickSetNbArticles(0,$produit_resa_id);'>";
+		for($i=0;$i<$cond_nb_stock ;$i++){
+			if($nbarticles_panier == $i){
+				$selected = " SELECTED";
+			}else{
+				$selected = "";
+			}
+			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+		}
+		echo "</SELECT>";
+		echo "</td>";
+		echo "</tr>";
+	}
+}
+echo "</table>";
+
 ?>
-
-
-<?php
-
-/** Produits à la réservation **/
-?>
-

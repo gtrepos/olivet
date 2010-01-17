@@ -15,17 +15,17 @@ function bddActusGaec($nouveaute, $descriptif){
 	$select = "SELECT actualite_id, actualite_libelle, ".
 				 "actualite_datecreation, actualite_datemodification ";
 	$from = " FROM actualite ";
-	$where = " WHERE actualite_type = 'GAEC' and actualite_etat = 1 "; 
+	$where = " WHERE actualite_type = 'GAEC' and actualite_etat = 1 ";
 	$order = " ORDER by actualite_datecreation DESC ";
 
 	if ($nouveaute) {
-		$where = $where . " and actualite_nouveaute = 1";  
+		$where = $where . " and actualite_nouveaute = 1";
 	}
-	
+
 	if ($descriptif) {
-		$select = $select . " , actualite_descriptif ";  
+		$select = $select . " , actualite_descriptif ";
 	}
-				 
+		
 	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
@@ -35,17 +35,17 @@ function bddActusLoma($nouveaute, $descriptif){
 	$select = "SELECT actualite_id, actualite_libelle, ".
 				 "actualite_datecreation, actualite_datemodification ";
 	$from = " FROM actualite ";
-	$where = " WHERE actualite_type = 'LOMA' and actualite_etat = 1 "; 
+	$where = " WHERE actualite_type = 'LOMA' and actualite_etat = 1 ";
 	$order = " ORDER by actualite_datecreation DESC ";
 
 	if ($nouveaute) {
-		$where = $where . " and actualite_nouveaute = 1";  
+		$where = $where . " and actualite_nouveaute = 1";
 	}
-	
+
 	if ($descriptif) {
-		$select = $select . " , actualite_descriptif ";  
+		$select = $select . " , actualite_descriptif ";
 	}
-				 
+		
 	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
@@ -124,7 +124,7 @@ function bddLigneProdCond($idproduitcond){
 		p.produit_id_categorie ". 
 		"FROM  produit p, conditionnement cond " .
     	"WHERE cond.cond_id_produit = p.produit_id AND cond.cond_id = $idproduitcond ";	
-	 
+
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
@@ -134,11 +134,11 @@ function bddLigneProdCond($idproduitcond){
  * @brief Un conditionnement est disponible si tout est respecte :
  *   la categorie du produit est actif
  *   le produit est actif
- *   le conditionnement est actif 
+ *   le conditionnement est actif
  *   (le stock est > 0) OU (le conditionnement n'est pas gere par stock)
  */
 function bddProdsCondDispo(){
-	$requete = 
+	$requete =
 	"SELECT DISTINCT ".
 	"categorie_produit.categorie_produit_id, ". 
 	"categorie_produit.categorie_produit_libelle, ".
@@ -166,45 +166,108 @@ function bddProdsCondDispo(){
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
 	"produit.produit_libelle, ".
 	"conditionnement.cond_nom ";
-	
+
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
 
 
 /**
-/**TODO
  * @brief Un produit à la réservation est dispo si tout est respecte :
  *   la categorie du produit_resa est actif
  *   le produit_resa est actif
  *   (le stock est > 0) OU (le produit_resa n'est pas gere par stock)
- *
-function bddProdsCondDispo(){
-	$requete = 
+ */
+function bddProdsResaDispo(){
+	$requete =
 	"SELECT DISTINCT ".
 	"categorie_produit.categorie_produit_id, ". 
 	"categorie_produit.categorie_produit_libelle, ".
 	"produit_resa.produit_resa_id, ".
 	"produit_resa.produit_resa_libelle, ".
 	"produit_resa.produit_resa_photo, ".
-	"produit_resa.produit_resa_descriptif_production ".
+	"produit_resa.produit_resa_descriptif_production, ".
+	"produit_resa.produit_resa_a_stock, ".
+	"produit_resa.produit_resa_nb_stock ".
 	"FROM produit_resa ".
 	"LEFT JOIN	categorie_produit ".
-	TODO "ON produit_resa.produit_id_categorie = categorie_produit.categorie_produit_id ".
-	"LEFT JOIN conditionnement ".
-	"ON conditionnement.cond_id_produit = produit.produit_id ".
+	"ON produit_resa.produit_resa_id_categorie = categorie_produit.categorie_produit_id ".
 	"WHERE categorie_produit.categorie_produit_etat = 1 AND ".
-	"produit.produit_etat = 1 AND ".
-	"conditionnement.cond_etat = 1 AND ".
-	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0)".
+	"produit_resa.produit_resa_etat = 1 AND ".
+	"(produit_resa.produit_resa_nb_stock > 0 OR produit_resa.produit_resa_a_stock = 0) ".
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
-	"produit.produit_libelle, ".
-	"conditionnement.cond_nom ";
-	
+	"produit_resa.produit_resa_libelle";
+
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
-*/
+/**
+ * @brief donne une structure contenant tous les produits dispo (Cond ou Resa)
+ * @return structure globale facile à parcourir
+ */
+function bddProdsDispo(){
+
+	
+	$tmpres1 = bddProdsCondDispo();
+	while ($row1 = mysql_fetch_array($tmpres1)){
+		$categorie_produit_id = $row1[0];
+		$categorie_produit_libelle = $row1[1];
+		$produit_id = $row1[2];
+		$produit_libelle = $row1[3];
+		$cond_id = $row1[4];
+		$cond_nom = $row1[5];
+		$produit_photo = $row1[6];
+		$produit_descriptif_production = $row1[7];
+		$produit_unite = $row1[8];
+		$produit_prix_unite = $row1[9];
+		$cond_prix = $row1[10];
+		$cond_quantite_produit = $row1[11];
+		$cond_a_stock = $row1[12];
+		$cond_nb_stock = $row1[13];
+
+		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_libelle"] = $produit_libelle;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_photo"] = $produit_photo;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_unite"] = $produit_unite;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_prix_unite"] = $produit_prix_unite;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_descriptif_production"] = $produit_descriptif_production;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nom"] = $cond_nom;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_prix"] = $cond_prix;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_quantite_produit"] = $cond_quantite_produit;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_a_stock"] = $cond_a_stock;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nb_stock"] = $cond_nb_stock;
+
+	}
+
+	
+	$tmpres2 = bddProdsResaDispo();
+	while ($row2 = mysql_fetch_array($tmpres2)){
+		$categorie_produit_id =  $row2[0];
+		$categorie_produit_libelle =  $row2[1];
+		$produit_resa_id =  $row2[2];
+		$produit_resa_libelle =  $row2[3];
+		$produit_resa_photo =  $row2[4];
+		$produit_resa_descriptif_production =  $row2[5];
+		$produit_resa_a_stock =  $row2[6];
+		$produit_resa_nb_stock =  $row2[7];
+	
+		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_libelle"] = $produit_resa_libelle;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_photo"] = $produit_resa_photo;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_descriptif_production"] = $produit_resa_descriptif_production;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_a_stock"] = $produit_resa_a_stock;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_nb_stock"] = $produit_resa_nb_stock;
+	}
+	return $globStruc;
+}
+
+
+/**
+ *
+ * @param $mail
+ * @param $code
+ * @return unknown_type
+ */
 
 function bddCheckClient($mail,$code){
 	$requete=
@@ -213,15 +276,15 @@ function bddCheckClient($mail,$code){
     	"WHERE c.client_code = '$code' ".
 		"AND c.client_email = '$mail' ";
 	$resultats=mysql_query($requete) or die (mysql_error());
-	
+
 	$retour = false;
-	
-	while ($row = mysql_fetch_array($resultats)) 
-  		{
-  			$retour = new Client();
-			$retour->InitClient($row[0]);
-  		}
-	
+
+	while ($row = mysql_fetch_array($resultats))
+	{
+		$retour = new Client();
+		$retour->InitClient($row[0]);
+	}
+
 	return $retour;
 }
 
@@ -229,7 +292,7 @@ function bddUpdateClient($reference,$mail,$nom,$prenom,$adresse,$codepostal,$com
 	$requete=$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', " .
 			"client_adresse = '$adresse', client_code_postal = '$codepostal', client_commune = '$commune', " .
 			"client_numero_tel = '$numerotel', client_email = '$mail' WHERE client_reference = '$reference'";
-	$resultats=mysql_query($requete) or die (mysql_error());	
+	$resultats=mysql_query($requete) or die (mysql_error());
 }
 
 function bddPartenaires(){

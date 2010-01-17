@@ -118,6 +118,11 @@ function panierNbProdsResa(){
 function panierNbProduits(){
 	return panierNbProdsResa() + panierNbProdsCond();
 }
+/**
+ * @param $id_cond le conditonnement 
+ * @return le nombre d'articles selectionnés pour un
+ * produit conditionné
+ */
 
 function panierNbArticlesProdsCond($id_cond){
 	if (panierCreation()){
@@ -134,6 +139,27 @@ function panierNbArticlesProdsCond($id_cond){
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}
 }
+
+/**
+ * @param $id_prod_resa l'id d'un produit a la reservation
+ * @return le nombre d'article selectionnes pour $id_prod_resa
+ */
+function panierNbArticlesProdsResa($id_prod_resa){
+	if (panierCreation()){
+		$indexCondOuResa = array_search($id_prod_resa, $_SESSION['panier']['id']);
+		if ($indexCondOuResa !== false){
+			if($_SESSION['panier']['cond'][$indexCondOuResa] != 0){
+				echo "ERROR panierNbArticlesProdsResa--1";
+			}
+			return $_SESSION['panier']['nbarticles'][$indexCondOuResa];
+		}else{
+			return 0;
+		}
+	}else{
+		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+	}
+}
+
 
 function panierVider(){
 	if (panierCreation()){
