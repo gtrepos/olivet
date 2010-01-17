@@ -58,16 +58,21 @@ function panierMontantTotalProdsCond(){
 		$total = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 1){
-				$nbarticles = $_SESSION['panier']['nbarticles'][$i];
-				if($nbarticles>0){
+				$nbarticles_panier = $_SESSION['panier']['nbarticles'][$i];
+				if($nbarticles_panier>0){
 					$tmpres = bddLigneProdCond($_SESSION['panier']['id'][$i]);
 					while ($row = mysql_fetch_array($tmpres)){
-						$condPrix = $row[2];
-						$condQuantiteProduit = $row[3];
-						$produitPrixUnite = $row[6];
-						$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
-						$total  = $total +  $prixUnitaireProduit * $nbarticles ;
-						
+						$cond_id = $row[0];
+						$cond_nom = $row[1];
+						$cond_prix= $row[2];
+						$cond_quantite_produit= $row[3];
+						$produit_libelle= $row[4];
+						$produit_unite= $row[5];
+						$produit_prix_unite= $row[6];
+						$produit_id_categorie= $row[7];
+						$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
+						$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
+						$total  = $total +  $prixTotalCond ;
 					}
 				}
 			}

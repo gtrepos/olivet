@@ -5,7 +5,7 @@ foreach ($_POST as $key => $value) {
 		require_once("../../../tools/visitor_bdd_functions.php");
 		require_once("../../../tools/config.php");
 		ouverture();
-	}    
+	}
 }
 ?>
 
@@ -22,43 +22,58 @@ echo "</td>";
 echo "<td> Prix";
 echo "</td>";
 echo "</tr>";
-$tmpres = bddProduitsConditionnesTous();
-while ($row = mysql_fetch_array($tmpres)){
-	$condId = $row[0];
-	$condNom = $row[1];
-	$condPrix = $row[2];
-	$condQuantiteProduit = $row[3];
-	$produitLibelle = $row[4];
-	$produitUnite = $row[5];
-	$produitPrixUnite = $row[6];
-	$produitIdCategorie = $row[7];
-	$conNbStock = $row[8];
-	$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
-	$nbarticles = panierNbArticles($condId);
-	$prixParProduit = $nbarticles * $prixUnitaireProduit;
-		
-	echo "<tr>";
-	echo "<td>".html_entity_decode($condNom)."[".html_entity_decode($produitLibelle)."]</td>" .
-   				 "<td align=right>$prixUnitaireProduit &euro;</td>";
+$tmpres1 = bddProdsCondDispo();
+while ($row1 = mysql_fetch_array($tmpres1)){
+	$categorie_produit_id = $row1[0];
+	$categorie_produit_libelle = $row1[1];
+	$produit_id = $row1[2];
+	$produit_libelle = $row1[3];
+	$cond_id = $row1[4];
+	$cond_nom = $row1[5];
+	$produit_photo = $row1[6];
+	$produit_descriptif_production = $row1[7];
+	$produit_unite = $row1[8];
+	$produit_prix_unite = $row1[9];
+	$cond_prix = $row1[10];
+	$cond_quantite_produit = $row1[11];
+	$cond_a_stock = $row1[12];
+	$cond_nb_stock = $row1[13];
 
-	echo "<td>";
-	echo "<SELECT  id='nbarticles_$row[0]' onChange='javascript:clickSetNbArticles($row[0]);'>";
-	for($i=0;$i<$conNbStock;$i++){
-		if($nbarticles == $i){
-			$selected = " SELECTED";
+	$nbarticles_panier = panierNbArticlesProdsCond($cond_id);
+	if($nbarticles_panier > 0){
+
+		if($cond_a_stock = 1 ){
+			$nbstock = $cond_nb_stock;
 		}else{
-			$selected = "";
+			$nbstock = 20;
 		}
-		echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
+		$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
+
+
+		echo "<tr>";
+		echo "<td>".$cond_nom."[".$produit_libelle."]</td>";
+		echo "<td align=right> $prixUnitaireCond  &euro;</td>";
+
+		echo "<td>";
+		echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
+		for($i=0;$i<$cond_nb_stock ;$i++){
+			if($nbarticles_panier == $i){
+				$selected = " SELECTED";
+			}else{
+				$selected = "";
+			}
+			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
+		}
+		echo "</SELECT>";
+		echo "</td>";
+		echo "<td align=right>$prixTotalCond &euro;</td>";
+		echo "</tr>";
 	}
-	echo "</SELECT>";
-	echo "</td>";
-	echo "<td align=right>$prixParProduit &euro;</td>";
-	echo "</tr>";
 }
 echo "<tr>";
 echo "<td colspan=3> Prix total </td>" ;
-echo "<td colspan=1>".panierMontantTotal()." &euro;</td>";
+echo "<td colspan=1>".panierMontantTotalProdsCond()." &euro;</td>";
 echo "</tr>";
 echo "</table>";
 ?>
@@ -66,58 +81,6 @@ echo "</table>";
 
 <?php
 
-/** Produits non conditionnés **/
-
-echo "<table border='1' align=center
-	style='border-collapse: separate; empty-cells: show;'>";
-echo "<tr>";
-echo "<td>Produits non conditionnés (réservation)";
-echo "</td>";
-//echo "<td> Prix unitaire";
-//echo "</td>";
-echo "<td> Quantit&eacute; ";
-echo "</td>";
-//echo "<td> Prix";
-//echo "</td>";
-echo "</tr>";
-$tmpres = bddProduitsConditionnesTous();
-while ($row = mysql_fetch_array($tmpres)){
-	$condId = $row[0];
-	$condNom = $row[1];
-	$condPrix = $row[2];
-	$condQuantiteProduit = $row[3];
-	$produitLibelle = $row[4];
-	$produitUnite = $row[5];
-	$produitPrixUnite = $row[6];
-	$produitIdCategorie = $row[7];
-	$conNbStock = $row[8];
-	$prixUnitaireProduit = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
-	$nbarticles = panierNbArticles($condId);
-	$prixParProduit = $nbarticles * $prixUnitaireProduit;
-		
-	echo "<tr>";
-	echo "<td>".html_entity_decode($condNom)."[".html_entity_decode($produitLibelle)."]</td>" ;
-//   	echo  "<td align=right>$prixUnitaireProduit &euro;</td>";
-
-	echo "<td>";
-	echo "<SELECT  id='nbarticles_$row[0]' onChange='javascript:clickSetNbArticles($row[0]);'>";
-	for($i=0;$i<$conNbStock;$i++){
-		if($nbarticles == $i){
-			$selected = " SELECTED";
-		}else{
-			$selected = "";
-		}
-		echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-	}
-	echo "</SELECT>";
-	echo "</td>";
-//	echo "<td align=right>$prixParProduit &euro;</td>";
-	echo "</tr>";
-}
-//echo "<tr>";
-//echo "<td colspan=3> Prix total </td>" ;
-//echo "<td colspan=1>".panierMontantTotal()." &euro;</td>";
-//echo "</tr>";
-echo "</table>";
+/** Produits à la réservation **/
 ?>
 

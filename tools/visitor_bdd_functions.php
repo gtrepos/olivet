@@ -71,6 +71,10 @@ function bddProduitsConditionnes($cat_prod){
 	return $resultats;
 }
 
+/**
+ * OBSOLETE
+ * @return unknown_type
+ */
 function bddProduitsConditionnesTous(){
 	$requete=
 		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
@@ -110,8 +114,14 @@ function bddProduitsDispo($id_cat){
 }
 function bddLigneProdCond($idproduitcond){
 	$requete=
-		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
-		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, p.produit_id_categorie ". 
+		"SELECT cond.cond_id, 
+		cond.cond_nom, 
+		cond.cond_prix, 
+		cond.cond_quantite_produit, 
+		p.produit_libelle, 
+		p.produit_unite, 
+		p.produit_prix_unite, 
+		p.produit_id_categorie ". 
 		"FROM  produit p, conditionnement cond " .
     	"WHERE cond.cond_id_produit = p.produit_id AND cond.cond_id = $idproduitcond ";	
 	 
