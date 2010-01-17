@@ -317,6 +317,7 @@ INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, 
 
 CREATE TABLE IF NOT EXISTS `produit_resa` (
   `produit_resa_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant du produit',
+  `produit_resa_id_categorie` int(11) NOT NULL COMMENT 'identifiant de la categorie',
   `produit_resa_libelle` varchar(100) NOT NULL COMMENT 'libelle du produit',
   `produit_resa_descriptif_production` text NOT NULL COMMENT 'descriptif de fabrication/production du produit',
   `produit_resa_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
@@ -331,10 +332,10 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
 -- Contenu de la table `produit_resa`
 --
 
-INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
-(35, 'caissette d''agneau', 'c''est clarisse qui fait', 1, 'Anima-Peluche-agneau-blanc-1702.jpg', 1, 9, 1),
-(36, 'caissette de boeuf', 'c''est gérard le boss', 1, '323-tete-boeuf.jpg', 1, 13, 1),
-(37, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0);
+INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_id_categorie`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
+(35, 3, 'caissette d''agneau', 'c''est clarisse qui fait', 1, 'Anima-Peluche-agneau-blanc-1702.jpg', 1, 9, 1),
+(36, 3, 'caissette de boeuf', 'c''est gérard le boss', 1, '323-tete-boeuf.jpg', 1, 13, 1),
+(37, 3, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0);
 
 --
 -- Contraintes pour les tables exportées
