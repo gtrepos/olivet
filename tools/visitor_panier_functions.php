@@ -123,7 +123,7 @@ function panierNbArticlesProdsCond($id_cond){
 	if (panierCreation()){
 		$indexCondOuResa = array_search($id_cond, $_SESSION['panier']['id']);
 		if ($indexCondOuResa !== false){
-			if($_SESSION['panier']['cond'][$indexCondOuResa] !== 1){
+			if($_SESSION['panier']['cond'][$indexCondOuResa] != 1){
 				echo "ERROR panierNbArticlesProdsCond--1";
 			}
 			return $_SESSION['panier']['nbarticles'][$indexCondOuResa];
