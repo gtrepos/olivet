@@ -42,11 +42,11 @@ switch($ajax_event){
 		$ajax_id_cat_prod = "$_POST[id_cat_prod]";
 		include('../visiteur/centre/commander/selection_produits/liste_produits.php'); 
 		break;
-	case 'clickSetNbArticles' :
+	case 'clickSetQuantite' :
 		$ajax_cond = "$_POST[cond]";
 		$ajax_id = "$_POST[id]";
-		$ajax_nb_articles = "$_POST[nb_articles]";
-		panierSetNbArticles($ajax_cond, $ajax_id, $ajax_nb_articles);
+		$ajax_quantite = "$_POST[quantite]";
+		panierSetQuantite($ajax_cond, $ajax_id, $ajax_quantite);
 		include('../visiteur/banniere/resume_panier.php');
 		break;
 	case 'clickVoirCommande' :

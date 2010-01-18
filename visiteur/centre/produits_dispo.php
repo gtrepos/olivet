@@ -50,7 +50,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 				$cond_prix = $condStruct["cond_prix"];
 				$cond_a_stock = $condStruct["cond_a_stock"];
 				$cond_nb_stock = $condStruct["cond_nb_stock"];
-				$nbarticles_panier = panierNbArticlesProdsCond($cond_id);
+				$quantite_panier = panierQuantiteProdsCond($cond_id);
 				if($cond_a_stock = 1 ){
 					$nbstock = $cond_nb_stock;
 				}else{
@@ -67,16 +67,8 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 				echo ($cond_prix + ($cond_quantite_produit + $produit_prix_unite))." &euro;" ;
 				echo "</td>";
 				echo "<td>";
-				echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
-				for($i=0;$i<=$nbstock;$i++){
-					if($nbarticles_panier == $i){
-						$selected = " SELECTED";
-					}else{
-						$selected = "";
-					}
-					echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-				}
-				echo "</SELECT>";
+				echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
+				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
 				echo "</td>";
 				echo "</tr>";
 			}
@@ -111,7 +103,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "<td>";
 			echo "<table border='1' style='border-collapse: separate; empty-cells: show;'>";
 
-			$nbarticles_panier = panierNbArticlesProdsResa($produit_resa_id);
+			$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
 			if($produit_resa_a_stock = 1 ){
 				$nbstock = $produit_resa_nb_stock;
 			}else{
@@ -119,16 +111,9 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			}
 			echo "<tr>";
 			echo "<td>";
-			echo "<SELECT  id='nbarticles_0_$produit_resa_id' onChange='javascript:clickSetNbArticles(0,$produit_resa_id);'>";
-			for($i=0;$i<=$nbstock;$i++){
-				if($nbarticles_panier == $i){
-					$selected = " SELECTED";
-				}else{
-					$selected = "";
-				}
-				echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-			}
-			echo "</SELECT>";
+				
+			echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
+			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
 			echo "</td>";
 			echo "</tr>";
 

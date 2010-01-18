@@ -42,8 +42,8 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 	$cond_a_stock = $row1[12];
 	$cond_nb_stock = $row1[13];
 
-	$nbarticles_panier = panierNbArticlesProdsCond($cond_id);
-	if($nbarticles_panier > 0){
+	$quantite_panier = panierQuantiteProdsCond($cond_id);
+	if($quantite_panier > 0){
 
 		if($cond_a_stock = 1 ){
 			$nbstock = $cond_nb_stock;
@@ -51,21 +51,13 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 			$nbstock = 20;
 		}
 		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
-		$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
+		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
 		echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td align=right> $prixUnitaireCond  &euro;</td>";
 		echo "<td>";
-		echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
-		for($i=0;$i<$cond_nb_stock ;$i++){
-			if($nbarticles_panier == $i){
-				$selected = " SELECTED";
-			}else{
-				$selected = "";
-			}
-			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-		}
-		echo "</SELECT>";
+		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
+				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
 		echo "</td>";
 		echo "<td align=right>$prixTotalCond &euro;</td>";
 		echo "</tr>";
@@ -97,8 +89,8 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 	$produit_resa_a_stock =  $row2[6];
 	$produit_resa_nb_stock =  $row2[7];
 
-	$nbarticles_panier = panierNbArticlesProdsResa($produit_resa_id);
-	if($nbarticles_panier > 0){
+	$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
+	if($quantite_panier > 0){
 		if($produit_resa_a_stock = 1 ){
 			$nbstock = $produit_resa_nb_stock;
 		}else{
@@ -108,16 +100,8 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 		echo "<td>$produit_resa_libelle</td>";
 		echo "<td align=right>$produit_resa_descriptif_production</td>";
 		echo "<td>";
-		echo "<SELECT  id='nbarticles_0_$produit_resa_id' onChange='javascript:clickSetNbArticles(0,$produit_resa_id);'>";
-		for($i=0;$i<$cond_nb_stock ;$i++){
-			if($nbarticles_panier == $i){
-				$selected = " SELECTED";
-			}else{
-				$selected = "";
-			}
-			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-		}
-		echo "</SELECT>";
+		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
+			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
 		echo "</td>";
 		echo "</tr>";
 	}

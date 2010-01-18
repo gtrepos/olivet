@@ -175,6 +175,9 @@ function clickCategorieProduits(id_cat_prod){
 }
 
 function clickSetNbArticles(cond, id){
+	
+	
+	
 	var nb_articles;
 	if(cond == 1){
 		nb_articles = $F('nbarticles_1_'+id);
@@ -199,6 +202,45 @@ function clickSetNbArticles(cond, id){
 			$('centre-commander-mon_panier').innerHTML= transport.responseText;
 		}
 			});
+}
+
+function clickSetQuantite(cond, id){
+	var idInput;
+	var qtProd;
+	if(cond == 1){
+		idInput = 'qtProd_1_'+id;
+		
+	}else{
+		idInput = 'qtProd_0_'+id;
+	}
+	qtProd = $F(idInput);
+	
+	if(!isNaN(qtProd) && qtProd>=0.5 && qtProd<=100){
+//		alert('ok pour '+qtProd);
+		new Ajax.Request("tools/visitor_ajax.php", 
+				{ 
+			method: 'post', 
+			parameters:{event: 'clickSetQuantite', 
+			  id: id, cond: cond, 
+			  quantite: qtProd},
+			onComplete: function(transport){
+				$('banniere-resume_panier').innerHTML= transport.responseText;
+			}
+				});
+		new Ajax.Request("tools/visitor_ajax.php", 
+				{ 
+			method: 'post', 
+			parameters:{event: 'updateCommanderPanier'},
+			onComplete: function(transport){
+				$('centre-commander-mon_panier').innerHTML= transport.responseText;
+			}
+				});
+	}else{
+		alert('Vous devez saisir un nombre entre  0.5 et 100');
+		var moninput=document.getElementById(idInput);
+		moninput.focus();
+		moninput.value='';
+	}
 }
 
 
