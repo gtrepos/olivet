@@ -97,8 +97,8 @@ function clickCheckClient(){
 
 function clickCheckClient(){
 	
-	var client_mail = $F('client_mail');
-	var client_code = $F('client_code');
+	var client_mail = $F('client_mail').trim();
+	var client_code = $F('client_code').trim();
 	
 	new Ajax.Request('tools/visitor_ajax.php', 
 			{ 
@@ -124,22 +124,24 @@ function manageClickCheckClient(transport){
 
 function clickCheckModifClient(){
 	
-	var client_mail = $F('client_mail');
-	var client_nom = $F('client_nom');
-	var client_prenom = $F('client_prenom');
-	var client_adresse = $F('client_adresse');
-	var client_postal = $F('client_postal');
-	var client_commune = $F('client_commune');
-	var client_tel = $F('client_tel');
+	var client_civilite = $F('client_civilite');
+	var client_nom = $F('client_nom').trim();
+	var client_prenom = $F('client_prenom').trim();
+	var client_mail = $F('client_mail').trim();
+	var client_adresse = $F('client_adresse').trim();
+	var client_postal = $F('client_postal').trim();
+	var client_commune = $F('client_commune').trim();
+	var client_tel = $F('client_tel').trim();
 	var client_ref = $F('client_ref');
 	
 	new Ajax.Request('tools/visitor_ajax.php', 
 			{ 
 		method: 'post', 
 		parameters: {event: 'clickCheckModifClient', 
-						client_mail: client_mail,
+						client_civilite: client_civilite,
 						client_nom: client_nom, 
-						client_prenom: client_prenom,		 
+						client_prenom: client_prenom,
+						client_mail: client_mail,
 						client_adresse: client_adresse, 
 						client_postal: client_postal,
 						client_commune: client_commune, 

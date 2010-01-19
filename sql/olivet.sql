@@ -9,12 +9,6 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
 -- Base de données: `olivet`
 --
@@ -378,3 +372,10 @@ ALTER TABLE `lien_commande_produit_resa`
 --
 ALTER TABLE `produit`
   ADD CONSTRAINT `produit_categorie_fk` FOREIGN KEY (`produit_id_categorie`) REFERENCES `categorie_produit` (`categorie_produit_id`);
+  
+--
+-- Contraintes pour la table `produit_resa`
+--
+ALTER TABLE `produit_resa`
+  ADD CONSTRAINT `produit_resa_categorie_fk` FOREIGN KEY (`produit_resa_id_categorie`) REFERENCES `categorie_produit` (`categorie_produit_id`);  
+  

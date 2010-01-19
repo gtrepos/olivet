@@ -125,24 +125,37 @@ switch($ajax_event){
 		
 	case 'clickCheckModifClient' :
 		
-  		$ajax_client_mail = "$_POST[client_mail]";
+  		$ajax_client_civilite = "$_POST[client_civilite]";
   		$ajax_client_nom = "$_POST[client_nom]";
   		$ajax_client_prenom = "$_POST[client_prenom]";
+  		$ajax_client_mail = "$_POST[client_mail]";
   		$ajax_client_adresse = "$_POST[client_adresse]";
   		$ajax_client_postal = "$_POST[client_postal]";
   		$ajax_client_commune = "$_POST[client_commune]";
   		$ajax_client_tel = "$_POST[client_tel]";
   		$ajax_client_ref = "$_POST[client_ref]";
   		
-		if(($ajax_client_mail != "")){
-  			bddUpdateClient($ajax_client_ref,$ajax_client_mail,$ajax_client_nom,$ajax_client_prenom,
-  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
-  			include('../visiteur/centre/client/confirmmodifclient.php');
+  		if(($ajax_client_nom == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un nom";
+  				break;
   		}
-  		else {
+  		if(($ajax_client_prenom == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un prenom";
+  				break;
+  		}
+		if(($ajax_client_mail == "")){
   			echo "Erreur dans le formulaire : vous devez spécifier un email";
   				break;
   		}
+  		if(($ajax_client_tel == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un numéro de téléphone";
+  				break;
+  		}
+  		
+  			
+  		bddUpdateClient($ajax_client_ref,$ajax_client_civilite,$ajax_client_nom,$ajax_client_prenom,$ajax_client_mail,
+  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
+  		include('../visiteur/centre/client/confirmmodifclient.php');
   		
 		break;		
 		

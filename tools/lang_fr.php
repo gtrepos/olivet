@@ -32,6 +32,7 @@ define("SETUP_REMPLIR_CHAMP","Veuillez remplir tous les champs !");
 //gestion des clients
 define("ADMIN_CLIENT_GESTION","Gestion des clients");
 define("ADMIN_CLIENT_REFERENCE","Référence");
+define("ADMIN_CLIENT_CIVILITE","Civilité");
 define("ADMIN_CLIENT_NOM","Nom");
 define("ADMIN_CLIENT_PRENOM","Prénom");
 define("ADMIN_CLIENT_ADRESSE","Adresse");
@@ -89,6 +90,7 @@ define("ADMIN_PRODUIT_SUPPRIMER","Supprimer");
 //gestion des produits à la réservation
 define("ADMIN_PRODUIT_RESA_GESTION","Gestion des produits à la réservation");
 define("ADMIN_PRODUIT_RESA_ID","Identifiant");
+define("ADMIN_PRODUIT_RESA_CATEGORIE","Catégorie");
 define("ADMIN_PRODUIT_RESA_LIBELLE","Libellé");
 define("ADMIN_PRODUIT_RESA_NBSTOCK","Stock");
 define("ADMIN_PRODUIT_RESA_DESCRIPTIF","Descriptif");

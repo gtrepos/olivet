@@ -29,6 +29,7 @@
 <table id=tableauRech cellspacing="0" cellspacing="0" align=center>
 	<tr>
 		<td class=caption><?php echo ADMIN_CLIENT_REFERENCE; ?></td>
+		<td class=caption><?php echo ADMIN_CLIENT_CIVILITE; ?></td>
 		<td class=caption><?php echo ADMIN_CLIENT_NOM; ?></td>
 		<td class=caption><?php echo ADMIN_CLIENT_PRENOM; ?></td>
 		<td class=caption><?php echo ADMIN_CLIENT_ADRESSE; ?></td>

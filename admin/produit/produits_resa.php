@@ -3,6 +3,7 @@
 <table id=tableau cellspacing="0" cellspacing="0">
 	<tr>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ID; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RESA_CATEGORIE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_LIBELLE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_NBSTOCK; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ETAT; ?></td>
@@ -13,7 +14,7 @@
 </table>
 <table class=olivet width="90%" cellspacing="1" cellspacing="0">
 	<tr>
-		<td align="right" colspan="7"><a href="?page=produitsresa&action=creer"><?php echo ADMIN_PRODUIT_RESA_CREER;?></a></td>
+		<td align="right" colspan="8"><a href="?page=produitsresa&action=creer"><?php echo ADMIN_PRODUIT_RESA_CREER;?></a></td>
 	</tr>
 </table>
 
@@ -57,7 +58,7 @@ if ($action=='enregistrer') {
 		$nbStock = $_POST['nb_stock'];				
 	}
 	
-	enregistrer_produit_resa($_GET['mode'], $id, $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], $nouveaute, $aStock, $nbStock);	
+	enregistrer_produit_resa($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], $nouveaute, $aStock, $nbStock);	
 }
 
 if ($action=='activer') {

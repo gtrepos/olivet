@@ -33,6 +33,7 @@ require_once('tools/visitor_panier_functions.php');
 	<link rel="stylesheet" type="text/css" href="styles/infobulle.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/myinfobulle.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/partenaires.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="styles/recapitulatif.css" media="screen">
 	<script type="text/javascript" src="js/prototype.js" ></script>
 	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
@@ -56,12 +57,20 @@ require_once('tools/visitor_panier_functions.php');
 
 	<div id="navigation">
 		<ul>
-			<li class="gauche"><a href="index.php">Accueil</a></li>
-			<li class="gauche"><a href="index.php?page=ferme">La Ferme</a></li>
-			<li class="gauche"><a href="index.php?page=produits_dispo">Nos Produits</a></li>
-			<li class="gauche"><a href="index.php?page=commande">Commander</a></li>
-			<li class="gauche"><a href="index.php?page=actualite">Actualités</a></li>
-			<li class="droite"><a href="index.php?page=contact">Nous contacter</a></li>
+		
+		<?php
+			if (isset($_GET['page']))
+				$page = $_GET['page'];
+	 		else
+			 	$page = 'accueil';
+		?>
+		
+			<li class="gauche" <?php if($page == 'accueil') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php">Accueil</a></li>
+			<li class="gauche" <?php if($page == 'ferme') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php?page=ferme">La Ferme</a></li>
+			<li class="gauche" <?php if($page == 'produits_dispo') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php?page=produits_dispo">Nos Produits</a></li>
+			<li class="gauche" <?php if($page == 'commande') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php?page=commande">Commander</a></li>
+			<li class="gauche" <?php if($page == 'actualite') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php?page=actualite">Actualités</a></li>
+			<li class="droite" <?php if($page == 'contact') echo 'style="background-color:#FFFFFD;"' ?>><a href="index.php?page=contact">Nous contacter</a></li>
 		</ul>
 	</div><!-- #navigation -->
 
@@ -73,12 +82,8 @@ require_once('tools/visitor_panier_functions.php');
 		
 		
 				<?php
-					if (isset($_GET['page']))
-						$page = $_GET['page'];
-	 				else
-					 	$page = 'actu';
 					switch ($page) {
-							case 'actu' :
+							case 'accueil' :
 								include('visiteur/centre/accueil.php');
 								break;
 							case 'produits_dispo' :
@@ -98,8 +103,11 @@ require_once('tools/visitor_panier_functions.php');
 							case 'mesinfos' :
 								include('visiteur/centre/client/mesinfos.php');
 								break;
+							case 'actualite' :
+								include('visiteur/centre/actualites.php');
+								break;	
 	   						default :
-	   						    include('visiteur/centre/actualites.php');
+	   						    include('visiteur/centre/accueil.php');
 	   						    break;
 						}
 				?>

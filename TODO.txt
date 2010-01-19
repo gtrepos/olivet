@@ -1,5 +1,5 @@
 petites choses à corriger :
 
 - 5/01/2010 : problème accents (encore) :
- par ex : titre onglet de navigation "GAEC à 3 voies"  : le 'à' passe pas bien
+ par ex : titre onglet de navigation "GAEC à 3 voix"  : le 'à' passe pas bien
  ou encore : contacts.php qui n'est pas en UTF8 dans mon eclipse  
