@@ -53,7 +53,10 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
 		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
-		echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
+		echo "<td><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$produit_libelle."[".$cond_nom."]</a></td>";
+		
+		//echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td align=right> $prixUnitaireCond  &euro;</td>";
 		echo "<td>";
 		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'

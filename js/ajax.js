@@ -335,6 +335,29 @@ function clickCategorieProduits(id_cat_prod) {
 			});
 
 }
+function clickSelectCatProduit(categorie_produit_id){
+	
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{
+		method : 'post',
+		parameters : {
+			event : 'clickNavigation',
+			menu : 'nos_produits'
+		},
+		onComplete : function(transport) {
+				$('principal').innerHTML = transport.responseText;
+				clickMenuProditsDispo(categorie_produit_id);
+		},
+		onFailure : function() {
+			alert('Something went wrong...');
+		}
+	});
+}
+
+function clickActualite(){
+	clickNavigation('actualites');
+}
 
 function clickSetNbArticles(cond, id) {
 

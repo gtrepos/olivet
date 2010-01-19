@@ -9,7 +9,17 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 <?php
 	$tmpres = bddNouveauxProduits();
 	while ($row = mysql_fetch_array($tmpres)){
-		echo $row[1] . " > " . $row[3] . " > " . $row[2];
+		$produit_id = $row[0];
+		$categorie_produit_libelle = $row[1];
+		$cond_nom = $row[2];
+		$produit_libelle = $row[3];
+		$categorie_produit_id = $row[4];
+		
+		
+		echo "<a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$categorie_produit_libelle. " > " 
+		.$produit_libelle. " > " 
+		.$cond_nom."</a>";
 		echo "<br/>";
 	}
 ?>
@@ -21,7 +31,8 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 	$tmpres = bddActusGaec(true, false);	
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo $row[2] . " : " . $row[1];
+		echo $row[2]." : "
+		."<a href='javascript:clickActualite()'>$row[1]</a>";
 		echo "<br/>";
 	}
 ?>
@@ -33,7 +44,8 @@ Celui ci vous permettera de commander les produits disponibles. blablabla... Exp
 	$tmpres = bddActusLoma(true, false);
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo $row[2] . " : " . $row[1];
+		echo $row[2]." : "
+		."<a href='javascript:clickActualite()'>$row[1]</a>";
 		echo "<br/>";
 	}
 ?>
