@@ -146,7 +146,7 @@ function manageClickValid1(transport) {
 			}
 		});
 	} else {
-		$('centre-commander').innerHTML = transport.responseText;
+		$('principal').innerHTML = transport.responseText;
 	}
 }
 
@@ -165,6 +165,7 @@ function clickNavigation(menu) {
 			case 'la_ferme':
 			case 'commander':
 			case 'actualites':
+			case 'valid1':
 				$('principal').innerHTML = transport.responseText;
 				break;
 			case 'nos_produits':
@@ -247,6 +248,10 @@ function clickCheckClient() {
 		}
 	});
 
+}
+
+function clickPasserCommande(){
+	clickNavigation('valid1');
 }
 
 function clickCheckClient() {

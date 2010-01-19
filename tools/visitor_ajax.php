@@ -36,6 +36,9 @@ switch($ajax_event){
 			case 'nous_contacter' :
 				include('../visiteur/centre/contacts.php');
 				break;
+			case 'valid1' :
+				include('../visiteur/centre/commander/valid1.php');
+				break;
 		}		
 		break;
 	case 'clickCategorieProduits' :
@@ -59,10 +62,7 @@ switch($ajax_event){
   		$img = new Securimage();
   		$tmpvalid = $img->check("$_POST[securimage_code]");
   		
-  		if($tmpvalid == false) {
-  			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
-  			break;
-  		}
+  		
   		
   		$ajax_client_mail = "$_POST[client_mail]";
   		$ajax_client_code = "$_POST[client_code]";
@@ -88,6 +88,10 @@ switch($ajax_event){
   		}
   		if(panierNbProduits()==0){
   			echo "Erreur dans le formulaire : le panier est vide";
+  			break;
+  		}
+		if($tmpvalid == false) {
+  			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
   			break;
   		}
   		include('../visiteur/centre/commander/valid2.php');

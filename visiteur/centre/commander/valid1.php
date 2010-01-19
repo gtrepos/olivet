@@ -1,14 +1,10 @@
 
+<h3>Valider ma commande</h3>
 
-<div id = 'commander-panier'>
-<?php 
-include('mon_panier.php')
-?>
-</div>
 <form onsubmit='return false;'>
-	<table  border="0" align=center cellspacing=0 cellpadding=3 border=0>
+	<table  border="1" align=center cellspacing=0 cellpadding=3 border=0 width='80%'>
 		<tr>
-			<td valign=top align=center> D&eacute;j&agrave; inscrit ? </td>
+			<td valign=top align=center> D&eacute;j&agrave; inscrit ? <br><a href="index.php?page=mesinfos">Modifier mes informations</a></td>
 			<td valign=top align=center> Pas encore inscrit ? </td>
 		</tr>
 		<tr>
@@ -27,8 +23,7 @@ include('mon_panier.php')
 			<td valign="middle" rowspan=6> 
 				Code client* : 
 				<input type=text id=client_code size=30 
-					   value= <?php if(isset($ajax_client_code)){echo "$ajax_client_code";}?>> 
-				<a href="index.php?page=mesinfos">Modifier vos informations</a>	   
+					   value= <?php if(isset($ajax_client_code)){echo "$ajax_client_code";}?>>					    
 			</td>
 			<td valign="middle"> 
 				Nom : 
@@ -72,11 +67,12 @@ include('mon_panier.php')
 			</td>
 		</tr>
 		<tr>
-			<td align="center" colspan=2>
+			<td align="center" colspan=1>
 				<div id="commander-captcha">
 					<?php include('captcha.php');?>
 				</div>
-				
+			</td>
+			<td align="center" colspan=1>	
 				Code antispam* :  <input type="text" name="code" id="securimage_code"/><br />
 				<input type=button value="Valider la commande" onclick='javascript:clickValid1();'>
 			</td>
