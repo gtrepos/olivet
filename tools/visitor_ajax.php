@@ -10,30 +10,30 @@ require_once("../securimage/securimage.php");
 ouverture();
 
 
-//foreach ($_POST as $key => $value) {
-//		echo "$key --- $value <br/>";
-//}
-
 $ajax_event = "$_POST[event]";
 
 
+
 switch($ajax_event){
-	case 'clickEntete' :
+	case 'clickNavigation' :
 		$ajax_menu = "$_POST[menu]";
 		switch($ajax_menu){
 			case 'accueil' :
 				include('../visiteur/centre/accueil.php');
 				break;
-			case 'ferme' :
+			case 'la_ferme' :
 				include('../visiteur/centre/ferme.php');
 				break;
-			case 'produits' :
-				include('../visiteur/centre/produits.php');
+			case 'nos_produits' :
+				include('../visiteur/centre/nos_produits.php');
 				break;
 			case 'commander' :
 				include('../visiteur/centre/commander.php');
 				break;
-			case 'contacts' :
+			case 'actualites' :
+				include('../visiteur/centre/actualites.php');
+				break;
+			case 'nous_contacter' :
 				include('../visiteur/centre/contacts.php');
 				break;
 		}		
@@ -102,8 +102,8 @@ switch($ajax_event){
 	case 'updateCommanderPanier' :
 		include('../visiteur/centre/commander/mon_panier.php');
 		break;
-	case 'produits_dispo' :
-		include('../visiteur/centre/produits_dispo.php');
+	case 'updateProduitsDispo' :
+		include('../visiteur/centre/nos_produits/produits_dispo.php');
 		break;
 	case 'clickCheckClient' :
 		

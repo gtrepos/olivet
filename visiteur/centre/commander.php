@@ -1,7 +1,7 @@
 <h3>Mon panier</h3>
 
 <div id='centre-commander-mon_panier'>
-<?php include('visiteur/centre/commander/mon_panier.php'); ?>
+<?php include('commander/mon_panier.php'); ?>
 </div>
 
 
