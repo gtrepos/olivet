@@ -166,6 +166,7 @@ function clickNavigation(menu) {
 			case 'commander':
 			case 'actualites':
 			case 'valid1':
+			case 'mesinfos':
 				$('principal').innerHTML = transport.responseText;
 				break;
 			case 'nos_produits':

@@ -4,7 +4,9 @@
 <form onsubmit='return false;'>
 	<table  border="1" align=center cellspacing=0 cellpadding=3 border=0 width='80%'>
 		<tr>
-			<td valign=top align=center> D&eacute;j&agrave; inscrit ? <br><a href="index.php?page=mesinfos">Modifier mes informations</a></td>
+			<td valign=top align=center> D&eacute;j&agrave; inscrit ? <br>
+				<a href="javascript:clickNavigation('mesinfos')">Modifier mes informations</a>
+			</td>
 			<td valign=top align=center> Pas encore inscrit ? </td>
 		</tr>
 		<tr>

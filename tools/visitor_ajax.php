@@ -39,6 +39,9 @@ switch($ajax_event){
 			case 'valid1' :
 				include('../visiteur/centre/commander/valid1.php');
 				break;
+			case 'mesinfos' :
+				include('../visiteur/centre/client/mesinfos.php');
+				break;
 		}		
 		break;
 	case 'clickCategorieProduits' :
