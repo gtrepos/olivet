@@ -99,6 +99,8 @@ function panierNbProdsCond(){
 	}
 }
 
+
+
 function panierNbProdsResa(){
 	if (panierCreation()){
 		$nb = 0;
@@ -115,9 +117,53 @@ function panierNbProdsResa(){
 	}
 }
 
+
+
 function panierNbProduits(){
 	return panierNbProdsResa() + panierNbProdsCond();
 }
+
+function panierSelProdsCond(){
+	if (panierCreation()){
+		$nb = 0;
+		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+			if($_SESSION['panier']['cond'][$i] == 1){
+				if($_SESSION['panier']['quantite'][$i] > 0){
+					$id = $_SESSION['panier']['id'][$i];
+					$qtite = $_SESSION['panier']['quantite'][$i];
+					$prodsConds[$nb]["id"]= $id;
+					$prodsConds[$nb]["qtite"]= $qtite;
+					$nb ++;
+				}
+			}
+		}
+		return $prodsConds;
+	}else{
+		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+	}
+}
+
+function panierSelProdsResa(){
+	if (panierCreation()){
+		$prodsConds = false;
+		$nb = 0;
+		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+			if($_SESSION['panier']['cond'][$i] == 0){
+				if($_SESSION['panier']['quantite'][$i] > 0){
+					$id = $_SESSION['panier']['id'][$i];
+					$qtite = $_SESSION['panier']['quantite'][$i];
+					$prodsConds[$nb]["id"]= $id;
+					$prodsConds[$nb]["qtite"]= $qtite;
+					$nb ++;
+				}
+			}
+		}
+		return $prodsConds;
+	}else{
+		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+	}
+}
+
 /**
  * @param $id_cond le conditonnement 
  * @return le nombre d'articles selectionnés pour un

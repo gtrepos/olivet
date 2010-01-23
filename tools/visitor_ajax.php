@@ -83,12 +83,18 @@ switch($ajax_event){
   		$ajax_nclient_commune = "$_POST[nclient_commune]";
   		$ajax_nclient_tel = "$_POST[nclient_tel]";
 
+  		$addClient = false;
+  		$addCommande = false;
+  		$mail = "";
+  		
   		if(($ajax_client_mail != "")&&($ajax_client_mdp != "")){
   			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_mdp);
   			if(!$tmpCheckClient){
   				echo "Erreur dans le formulaire : le client n'est pas reconnu";
   				break;
   			}
+  			$addCommande = true;
+  			$mail = $ajax_client_mail;
   		}else{
   			if($ajax_nclient_mail == ""){
   				echo "Erreur dans le formulaire : un nouveau client doit au moins avoir un mail";
@@ -98,12 +104,18 @@ switch($ajax_event){
   				echo "Erreur dans le formulaire : veuillez rentrer un mot de passe";
   				break;
   			}
-  			if($ajax_nclient_mdp1 != $ajax_nclient_mdp1){
+  			if($ajax_nclient_mdp1 != $ajax_nclient_mdp2){
   				echo "Erreur dans le formulaire : la répétition du mot de passe n'est pas correcte";
   				break;
   			}
-  			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
-  				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1);
+  			if(bddCheckExistClient($ajax_nclient_mail)){
+  				echo "Erreur dans le formulaire : un client a déjà été enregistré avec ce mail";
+  				break;
+  			}
+  			$addClient = true;
+  			$addCommande = true;
+  			$mail = $ajax_nclient_mail;
+  			
   			
   			//TODO ajout autres champs obligatoires
   			
@@ -116,8 +128,16 @@ switch($ajax_event){
   			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
   			break;
   		}
-  		
-  		
+  		if($addClient){
+  			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
+  				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1);
+  		}
+  		if($addCommande){
+  			if(!bddAddCommande($mail)){
+  				echo "Erreur dans le formulaire : probleme interne pour l'ajout de la commande ";
+  				break;
+  			}
+  		}
   		
   		include('../visiteur/centre/commander/valid2.php');
 		break;

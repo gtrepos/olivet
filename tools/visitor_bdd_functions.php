@@ -25,7 +25,7 @@ function bddActusGaec($nouveaute, $descriptif){
 	if ($descriptif) {
 		$select = $select . " , actualite_descriptif ";
 	}
-		
+
 	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
@@ -34,7 +34,83 @@ function bddActusGaec($nouveaute, $descriptif){
 function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel, $email, $mdp){
 	$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email, client_code) " .
 				"VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email', '$mdp')";		 
-	$result=mysql_query($requete) or die (mysql_error());	
+	$result=mysql_query($requete) or die (mysql_error());
+}
+
+/**
+ * add a command for client which mail is given.
+ * The client is required to be already registered.
+ * @param $mail
+ * @return unknown_type
+ */
+function bddAddCommande($mail){
+	//recup id client
+	$select = "SELECT client.client_reference ".
+		"FROM client ".
+		"WHERE client.client_email = '$mail'";
+	$client_id = "";
+	$tmpres1 = mysql_query($select) or die (mysql_error());
+	while ($row1 = mysql_fetch_array($tmpres1)){
+		$client_id = $row1[0];
+	}
+	if($client_id == ""){
+		return false;
+	}
+	//add commande
+	$requete = "INSERT INTO commande (commande_id_client) " .
+				"VALUES ('$client_id')";
+	$tmpres2 = mysql_query($requete) or die (mysql_error());
+	if($tmpres2 == ""){
+		return false;
+	}
+
+	//recup id commande
+	$select = "SELECT LAST_INSERT_ID(commande_id) FROM commande";
+	$tmpres3 = mysql_query($select) or die (mysql_error());
+	$commande_id = "";
+	while ($row3 = mysql_fetch_array($tmpres3)){
+		$commande_id = $row3[0];
+	}
+	if($commande_id == ""){
+		return false;
+	}
+
+	echo " COMMANDE $commande_id -- ";
+
+	//add prod conditionnes
+	$prodsConds = panierSelProdsCond();
+	if($prodsConds != false){
+		for($i=0;$i<count($prodsConds);$i++){
+			$idCond = $prodsConds[$i]["id"];
+			$qtite = $prodsConds[$i]["qtite"];
+
+			$requete =  "INSERT INTO lien_commande_cond (lcc_id_commande, lcc_id_cond, lcc_quantite) " .
+				"VALUES ('$commande_id', '$idCond', '$qtite')";
+			$tmpres4 = mysql_query($requete) or die (mysql_error());
+			if($tmpres4 == ""){
+				return false;
+			}
+		}
+	}
+
+	//add prod resa
+	$prodsResa = panierSelProdsResa();
+	if($prodsResa != false){
+		for($i=0;$i<count($prodsResa);$i++){
+			$idResa = $prodsResa[$i]["id"];
+			$qtite = $prodsResa[$i]["qtite"];
+
+			$requete =  "INSERT INTO lien_commande_produit_resa (lcpr_id_commande, lcpr_id_produit_resa, lcpr_quantite) " .
+				"VALUES ('$commande_id', '$idResa', '$qtite')";
+			$tmpres5 = mysql_query($requete) or die (mysql_error());
+			if($tmpres5 == ""){
+				return false;
+			}
+		}
+	}
+
+	return true;
+
 }
 
 function bddActusLoma($nouveaute, $descriptif){
@@ -51,7 +127,7 @@ function bddActusLoma($nouveaute, $descriptif){
 	if ($descriptif) {
 		$select = $select . " , actualite_descriptif ";
 	}
-		
+
 	$requete = $select . $from . $where . $order;
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
@@ -213,7 +289,7 @@ function bddProdsResaDispo(){
  */
 function bddProdsDispo(){
 
-	
+
 	$tmpres1 = bddProdsCondDispo();
 	while ($row1 = mysql_fetch_array($tmpres1)){
 		$categorie_produit_id = $row1[0];
@@ -245,7 +321,7 @@ function bddProdsDispo(){
 
 	}
 
-	
+
 	$tmpres2 = bddProdsResaDispo();
 	while ($row2 = mysql_fetch_array($tmpres2)){
 		$categorie_produit_id =  $row2[0];
@@ -256,7 +332,7 @@ function bddProdsDispo(){
 		$produit_resa_descriptif_production =  $row2[5];
 		$produit_resa_a_stock =  $row2[6];
 		$produit_resa_nb_stock =  $row2[7];
-	
+
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_libelle"] = $produit_resa_libelle;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_photo"] = $produit_resa_photo;
@@ -291,6 +367,26 @@ function bddCheckClient($mail,$code){
 		$retour->InitClient($row[0]);
 	}
 
+	return $retour;
+}
+
+/**
+ * return true if a client with given mail is
+ * already registered
+ * @param $mail
+ * @return unknown_type
+ */
+function bddCheckExistClient($mail){
+	$requete=
+		"SELECT c.client_reference ". 
+		"FROM  client c " .
+    	"WHERE c.client_email = '$mail' ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	$retour = false;
+	while ($row = mysql_fetch_array($resultats))
+	{
+		$retour = true;
+	}
 	return $retour;
 }
 
