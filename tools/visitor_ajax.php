@@ -36,9 +36,6 @@ switch($ajax_event){
 			case 'nous_contacter' :
 				include('../visiteur/centre/contacts.php');
 				break;
-			case 'valid1' :
-				include('../visiteur/centre/commander/valid1.php');
-				break;
 			case 'mesinfos' :
 				include('../visiteur/centre/client/mesinfos.php');
 				break;
@@ -56,25 +53,36 @@ switch($ajax_event){
 	case 'clickVoirCommande' :
 		include('../visiteur/centre/commander/valid1.php');
 		break;
+
+	case 'clickPasserCommande' :
+		if(panierNbProduits() == 0){
+			echo "Erreur dans le formulaire : votre panier est vide";
+		}else{
+			include('../visiteur/centre/commander/valid1.php');
+		}
+		break;
 		
 	case 'clickValid1' :
 		
 		$img = new Securimage();
   		$tmpvalid = $img->check("$_POST[securimage_code]");
-  		
+
   		$ajax_client_mail = trim("$_POST[client_mail]");
-  		$ajax_client_code = trim("$_POST[client_code]");
+  		$ajax_client_mdp = "$_POST[client_mdp]";
   		$ajax_nclient_mail = trim("$_POST[nclient_mail]");
   		$ajax_nclient_nom = trim("$_POST[nclient_nom]");
   		$ajax_nclient_prenom = trim("$_POST[nclient_prenom]");
+  		$ajax_nclient_mdp1 = "$_POST[nclient_mdp1]";
+  		$ajax_nclient_mdp2 = "$_POST[nclient_mdp2]";
   		$ajax_nclient_adresse = trim("$_POST[nclient_adresse]");
   		$ajax_nclient_postal = trim("$_POST[nclient_postal]");
   		$ajax_nclient_commune = trim("$_POST[nclient_commune]");
   		$ajax_nclient_tel = trim("$_POST[nclient_tel]");
   		$ajax_daterecup_commande = "$_POST[daterecup_commande]";
 
-  		if(($ajax_client_mail != "")||($ajax_client_code != "")){
-  			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_code);
+  		if(($ajax_client_mail != "")&&($ajax_client_mdp != "")){
+  			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_mdp);
+
   			if(!$tmpCheckClient){
   				echo "Erreur dans le formulaire : le client n'est pas reconnu";
   				break;
@@ -96,10 +104,22 @@ switch($ajax_event){
   				echo "Erreur dans le formulaire : veuillez préciser votre numéro de téléphone";
   				break;
   			}
+
   			if($ajax_daterecup_commande == "-1"){
   				echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
   				break;
   			}
+
+  			if($ajax_nclient_mdp1 == ""){
+  				echo "Erreur dans le formulaire : veuillez rentrer un mot de passe";
+  				break;
+  			}
+  			if($ajax_nclient_mdp1 != $ajax_nclient_mdp1){
+  				echo "Erreur dans le formulaire : la répétition du mot de passe n'est pas correcte";
+  				break;
+  			}
+  			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
+  				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1);
   			
   		}
   		
@@ -112,6 +132,9 @@ switch($ajax_event){
   			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
   			break;
   		}
+  		
+  		
+  		
   		include('../visiteur/centre/commander/valid2.php');
 		break;
 	case 'clickViderPanier' :

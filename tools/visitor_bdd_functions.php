@@ -31,6 +31,12 @@ function bddActusGaec($nouveaute, $descriptif){
 	return $resultats;
 }
 
+function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel, $email, $mdp){
+	$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email, client_code) " .
+				"VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email', '$mdp')";		 
+	$result=mysql_query($requete) or die (mysql_error());	
+}
+
 function bddActusLoma($nouveaute, $descriptif){
 	$select = "SELECT actualite_id, actualite_libelle, ".
 				 "actualite_datecreation, actualite_datemodification ";

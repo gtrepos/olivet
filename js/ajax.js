@@ -3,48 +3,47 @@
 jQuery.noConflict();
 
 // Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur
-var cfg_adress         = 'Olivet, 35000 Servon Sur Vilaine';
+var cfg_adress = 'Olivet, 35000 Servon Sur Vilaine';
 
 // Largeur de la carte
-var cfg_largeur     = '500px';
+var cfg_largeur = '500px';
 
 // Hauteur de la carte
-var cfg_hauteur     = '400px';
+var cfg_hauteur = '400px';
 
 // Niveau de zoom, entre 1 (niveau globe) et 17 (niveau rue)
-var cfg_zoomLevel    = 13;
+var cfg_zoomLevel = 13;
 
 // Texte pour le popup
 // Si vous ne souahitez pas de poupup laisser mettre simplement "" comme valeur
-var cfg_description = ""+
-"<table border='0' width='207' cellpadding='3' cellspacing='0'>"+
-"<tr><td valign='top'>"+
-"<div style='color: blue; font-size: 14px; font-weight:bold;'>"+
-"Ferme D'olivet"+
-"</div><br/>"+
-"Gaec à 3 voix, L'Olivet<br/>"+
-"35530 SERVON-SUR-VILAINE<br/>"+
-"02 99 55 28 69<br/>"+
-"<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"+
-"</td>"+
-//"<td>"+
-//"<img src='http://www.business-in-europe.com/fr/visuals/new-voie-express.gif'" + 
-//	"border='0' alt='Photo' vspace='5' align='right' />"+
-//"</td>"+
-"</tr></table>";
+var cfg_description = ""
+		+ "<table border='0' width='207' cellpadding='3' cellspacing='0'>"
+		+ "<tr><td valign='top'>"
+		+ "<div style='color: blue; font-size: 14px; font-weight:bold;'>"
+		+ "Ferme D'olivet" + "</div><br/>" + "Gaec à 3 voix, L'Olivet<br/>"
+		+ "35530 SERVON-SUR-VILAINE<br/>" + "02 99 55 28 69<br/>"
+		+ "<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"
+		+ "</td>" +
+		// "<td>"+
+		// "<img
+		// src='http://www.business-in-europe.com/fr/visuals/new-voie-express.gif'"
+		// +
+		// "border='0' alt='Photo' vspace='5' align='right' />"+
+		// "</td>"+
+		"</tr></table>";
 
 // Variable globale pour l'objet GMAP2
 var map;
 
-// Variable global pour l'objet GClientGeocoder qui traduit une adresse en longitude,latitude
+// Variable global pour l'objet GClientGeocoder qui traduit une adresse en
+// longitude,latitude
 var geocoder;
 
-//Function appellée au chargement de la page web
-//Créee et configure la carte
+// Function appellée au chargement de la page web
+// Créee et configure la carte
 function loadMyMap() {
 
-
- // Teste si le navigateur est compatible avec l'API Gmaps
+	// Teste si le navigateur est compatible avec l'API Gmaps
 
 	// Affecte la carte à la div  "map_olivet" (voir tout en bas)
      var divMap    = document.getElementById("map_olivet");
@@ -80,54 +79,53 @@ function loadMyMap() {
  }else{
  	divMap.innerHTML = "Votre navigateur ne permet pas l\'affichage de carte Google Maps : ";
  }
+
 }
 
-//Centre une carte sur une adresse
-//Geocode l'adresse
-//Message d'erreur si adresse non trouvé
+// Centre une carte sur une adresse
+// Geocode l'adresse
+// Message d'erreur si adresse non trouvé
 function centerMapOnAdress(adresse) {
 
- if (!adresse.length) alert('Remplir la variable adresse');
+	if (!adresse.length)
+		alert('Remplir la variable adresse');
 
- // Décodage de l'adresse         
- geocoder.getLatLng(
-   adresse,
-   function(point) {
-  
-     // Adresse introuvable
-     if (!point) {
-         alert('Adresse : ' + addresse + " introuvable");
-     } else {
-    
-         // Centre la carte sur l'adresse
-         map.setCenter(point, cfg_zoomLevel);
-        
-         // On créer un marqueur à l'adresse spécifiée
-         var marker = new GMarker(point);
-        
-         var textePopUp = cfg_description;
-        
-         // Si il y a une description
-         if (textePopUp.length) {               
-        
-             // Affiche un popup lors du clic sur le marqueur
-             GEvent.addListener(marker, "click", function() {
-                 marker.openInfoWindowHtml(textePopUp);
-             });
-             // Affiche le marqueur
-             map.addOverlay(marker);
-            
-             // Par défaut on affiche le popup tout de suite sans attendre un clic
-             // Désactiver en commentant la ligne
-             marker.openInfoWindowHtml(textePopUp);
-         }
-             else  map.addOverlay(marker); // Affiche le marqueur
-         }
-       }
- );
-   
+	// Décodage de l'adresse
+	geocoder.getLatLng(adresse, function(point) {
+
+		// Adresse introuvable
+			if (!point) {
+				alert('Adresse : ' + addresse + " introuvable");
+			} else {
+
+				// Centre la carte sur l'adresse
+			map.setCenter(point, cfg_zoomLevel);
+
+			// On créer un marqueur à l'adresse spécifiée
+			var marker = new GMarker(point);
+
+			var textePopUp = cfg_description;
+
+			// Si il y a une description
+			if (textePopUp.length) {
+
+				// Affiche un popup lors du clic sur le marqueur
+				GEvent.addListener(marker, "click", function() {
+					marker.openInfoWindowHtml(textePopUp);
+				});
+				// Affiche le marqueur
+				map.addOverlay(marker);
+
+				// Par défaut on affiche le popup tout de suite sans attendre un
+				// clic
+				// Désactiver en commentant la ligne
+				marker.openInfoWindowHtml(textePopUp);
+			} else
+				map.addOverlay(marker); // Affiche le marqueur
+		}
+	});
+
 }
-
 
 function manageClickValid1(transport) {
 	if (transport.responseText.match("Erreur dans le formulaire")) {
@@ -164,32 +162,31 @@ function clickNavigation(menu) {
 			case 'la_ferme':
 			case 'commander':
 			case 'actualites':
-			case 'valid1':
 			case 'mesinfos':
 				$('principal').innerHTML = transport.responseText;
 				break;
 			case 'nos_produits':
 				$('principal').innerHTML = transport.responseText;
-				closeAllProducts();	
+				closeAllProducts();
 				break;
 			case 'nous_contacter':
 				$('principal').innerHTML = transport.responseText;
 				// Au chargement de la page on affiche la carte
-				loadMyMap();
-				//window.onload=loadMyMap;
-				// A la fermeture de la page on libère la mémoire allouée à la carte
-				//window.onunload=GUnload;
-				break;
-			default:
-				alert('Something went wrong... ' + menu);
-				
-				break;
-			}
+		loadMyMap();
+		// window.onload=loadMyMap;
+		// A la fermeture de la page on libère la mémoire allouée à la carte
+		// window.onunload=GUnload;
+		break;
+	default:
+		alert('Something went wrong... ' + menu);
 
-		},
-		onFailure : function() {
-			alert('Something went wrong...');
-		}
+		break;
+	}
+
+},
+onFailure : function() {
+	alert('Something went wrong...');
+}
 	});
 
 }
@@ -198,8 +195,10 @@ function clickValid1() {
 
 	var securimage_code = $F('securimage_code');
 	var client_mail = $F('client_mail');
-	var client_code = $F('client_code');
+	var client_mdp = $F('client_mdp');
 	var nclient_mail = $F('nclient_mail');
+	var nclient_mdp1 = $F('nclient_mdp1');
+	var nclient_mdp2 = $F('nclient_mdp2');
 	var nclient_nom = $F('nclient_nom');
 	var nclient_prenom = $F('nclient_prenom');
 	var nclient_adresse = $F('nclient_adresse');
@@ -214,8 +213,10 @@ function clickValid1() {
 			event : 'clickValid1',
 			securimage_code : securimage_code,
 			client_mail : client_mail,
-			client_code : client_code,
+			client_mdp : client_mdp,
 			nclient_mail : nclient_mail,
+			nclient_mdp1 : nclient_mdp1,
+			nclient_mdp2 : nclient_mdp2,
 			nclient_nom : nclient_nom,
 			nclient_prenom : nclient_prenom,
 			nclient_adresse : nclient_adresse,
@@ -250,8 +251,23 @@ function clickCheckClient(){
 
 }	
 
-function clickPasserCommande(){
-	clickNavigation('valid1');
+function clickPasserCommande() {
+	new Ajax.Request('tools/visitor_ajax.php', {
+		method : 'post',
+		parameters : {
+			event : 'clickPasserCommande'
+		},
+		onComplete : function(transport) {
+			if (transport.responseText.match("Erreur dans le formulaire")) {
+				alert(transport.responseText);
+			} else {
+				$('principal').innerHTML = transport.responseText;
+			}
+		}
+	// onFailure : function() {
+			// alert('Something went wrong...');
+			// }
+			});
 }
 
 function manageClickCheckClient(transport) {
@@ -303,19 +319,18 @@ function manageClickCheckModifClient(transport) {
 	}
 }
 
-function clickSelectCatProduit(categorie_produit_id){
-	
-	
-	new Ajax.Request('tools/visitor_ajax.php', 
-			{
+function clickSelectCatProduit(categorie_produit_id) {
+
+	new Ajax.Request('tools/visitor_ajax.php', {
+
 		method : 'post',
 		parameters : {
 			event : 'clickNavigation',
 			menu : 'nos_produits'
 		},
 		onComplete : function(transport) {
-				$('principal').innerHTML = transport.responseText;
-				clickMenuProditsDispo(categorie_produit_id);
+			$('principal').innerHTML = transport.responseText;
+			clickMenuProditsDispo(categorie_produit_id);
 		},
 		onFailure : function() {
 			alert('Something went wrong...');
@@ -323,7 +338,7 @@ function clickSelectCatProduit(categorie_produit_id){
 	});
 }
 
-function clickActualite(){
+function clickActualite() {
 	clickNavigation('actualites');
 }
 
@@ -417,26 +432,29 @@ function clickVoirCommande() {
 }
 
 function clickViderPanier() {
-	new Ajax.Request("tools/visitor_ajax.php", {
-		method : 'post',
-		parameters : {
-			event : 'clickViderPanier'
-		},
-		onComplete : function(transport) {
-			$('banniere-resume_panier').innerHTML = transport.responseText;
-		}
-	});
 	new Ajax.Request(
 			"tools/visitor_ajax.php",
 			{
 				method : 'post',
 				parameters : {
-					event : 'updateCommanderPanier'
+					event : 'clickViderPanier'
 				},
 				onComplete : function(transport) {
-					$('centre-commander-mon_panier').innerHTML = transport.responseText;
+					$('banniere-resume_panier').innerHTML = transport.responseText;
+					new Ajax.Request(
+							"tools/visitor_ajax.php",
+							{
+								method : 'post',
+								parameters : {
+									event : 'updateCommanderPanier'
+								},
+								onComplete : function(transport) {
+									$('centre-commander-mon_panier').innerHTML = transport.responseText;
+								}
+							});
 				}
 			});
+
 	new Ajax.Request(
 			"tools/visitor_ajax.php",
 			{
@@ -449,8 +467,7 @@ function clickViderPanier() {
 					closeAllProducts();
 				}
 			});
-	
-	
+
 }
 
 function clickMenuProditsDispo(id_cat) {
@@ -482,8 +499,6 @@ function closeAllProducts() {
 	jQuery(all_prod).hide();
 	jQuery(all_cat).attr("open", "false");
 }
-
-
 
 jQuery(document)
 		.ready(function() {
@@ -551,9 +566,3 @@ jQuery(document)
 				jQuery(all_prod).hide();
 				jQuery(all_cat).attr("open", "false");
 			});
-
-
-
-
-
-

@@ -7,13 +7,15 @@
 <div class="mesinformations inscrit">
 <p style='font-size:1.5em;'>D&eacute;j&agrave; inscrit ?</p>
 <p><label>Email * :</label><input type=text id=client_mail size=30 value= <?php if(isset($ajax_client_mail)){echo "$ajax_client_mail";}?>></p>
-<p><label>Code client * :</label><input type=text id=client_code size=30 value= <?php if(isset($ajax_client_code)){echo "$ajax_client_code";}?>></p>
+<p><label>Mot de passe * :</label><input type=password id=client_mdp size=30 value= <?php if(isset($ajax_client_mdp)){echo "$ajax_client_mdp";}?>></p>
 <p><a href="javascript:clickNavigation('mesinfos')">Modifier mes informations</a></p>
 </div>
 
 <div class="mesinformations pasinscrit">
 <p style='font-size:1.5em;'>Pas encore inscrit ?</p>
 <p><label>E-mail * :</label><input type=text id=nclient_mail size=30 value= <?php if(isset($ajax_nclient_mail)){echo "$ajax_nclient_mail";}?>></p>
+<p><label>Mot de passe souhaité * :</label><input type=password id=nclient_mdp1 size=30 value= <?php if(isset($ajax_nclient_mdp1)){echo "$ajax_nclient_mdp1";}?>></p>
+<p><label>Répétition du mot de passe souhaité * : </label><input type=password id=nclient_mdp2 size=30 value= <?php if(isset($ajax_nclient_mdp2)){echo "$ajax_nclient_mdp2";}?>></p>
 <p><label>Nom * :</label><input type=text id=nclient_nom size=30 value= <?php if(isset($ajax_nclient_nom)){echo "$ajax_nclient_nom";}?>></p>
 <p><label>Pr&eacute;nom * :</label><input type=text id=nclient_prenom size=30 value= <?php if(isset($ajax_nclient_prenom)){echo "$ajax_nclient_prenom";}?>></p>
 <p><label>N&deg; Tel * :</label><input type=text id=nclient_tel size=30 value= <?php if(isset($ajax_nclient_tel)){echo "$ajax_nclient_tel";}?>></p>
@@ -69,40 +71,38 @@ function selectDateRecup($daterecup){
 	$retour = $retour."<option value='-1'>-- Indiquez une date --</option>";
 	
 	if ($cejour == 'lundi') {
-		
 		for ($i=1;$i<=5;$i++){
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime('+$i day')) . "'> " . strftime($outputAff, strtotime('+$i day')) . "</option>";	
-		}
-		
-		
-		/*$retour = $retour."<option value='" . strftime($outputVal, strtotime('+2 day')) . "'> " . strftime($outputAff, strtotime('+2 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+3 day')) . "'> " . strftime($outputAff, strtotime('+3 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+4 day')) . "'> " . strftime($outputAff, strtotime('+4 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+5 day')) . "'> " . strftime($outputAff, strtotime('+5 day')) . "</option>";*/
-		
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";	
+		}		
 	}
 	
 	if ($cejour == 'mardi') {
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+3 day')) . "'> " . strftime($outputAff, strtotime('+3 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+4 day')) . "'> " . strftime($outputAff, strtotime('+4 day')) . "</option>";				
+		for ($i=3;$i<=4;$i++){
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+		}
 	}
 	
 	if ($cejour == 'mercredi') {
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+2 day')) . "'> " . strftime($outputAff, strtotime('+2 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+3 day')) . "'> " . strftime($outputAff, strtotime('+3 day')) . "</option>";		
+		for ($i=2;$i<=3;$i++){
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+		}
 	}
 	
 	if ($cejour == 'jeudi') {
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+1 day')) . "'> " . strftime($outputAff, strtotime('+1 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+2 day')) . "'> " . strftime($outputAff, strtotime('+2 day')) . "</option>";		
+		for ($i=1;$i<=2;$i++){
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+		}
 	}
 	
 	if ($cejour == 'vendredi') {
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+4 day')) . "'> " . strftime($outputAff, strtotime('+4 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+5 day')) . "'> " . strftime($outputAff, strtotime('+5 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+6 day')) . "'> " . strftime($outputAff, strtotime('+6 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+7 day')) . "'> " . strftime($outputAff, strtotime('+7 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+8 day')) . "'> " . strftime($outputAff, strtotime('+8 day')) . "</option>";		
+		for ($i=4;$i<=8;$i++){
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+		}
 	}
 	
 	if ($cejour == 'samedi') {
@@ -111,20 +111,13 @@ function selectDateRecup($daterecup){
 			$expr = '+'.$i.' day';
 			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";	
 		}
-		
-		/*$retour = $retour."<option value='" . strftime($outputVal, strtotime('+3 day')) . "'> " . strftime($outputAff, strtotime('+3 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+4 day')) . "'> " . strftime($outputAff, strtotime('+4 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+5 day')) . "'> " . strftime($outputAff, strtotime('+5 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+6 day')) . "'> " . strftime($outputAff, strtotime('+6 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+7 day')) . "'> " . strftime($outputAff, strtotime('+7 day')) . "</option>";*/
 	}
 	
 	if ($cejour == 'dimanche') {
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+2 day')) . "'> " . strftime($outputAff, strtotime('+2 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+3 day')) . "'> " . strftime($outputAff, strtotime('+3 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+4 day')) . "'> " . strftime($outputAff, strtotime('+4 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+5 day')) . "'> " . strftime($outputAff, strtotime('+5 day')) . "</option>";
-		$retour = $retour."<option value='" . strftime($outputVal, strtotime('+6 day')) . "'> " . strftime($outputAff, strtotime('+6 day')) . "</option>";		
+		for ($i=2;$i<=6;$i++){
+			$expr = '+'.$i.' day';
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+		}		
 	}	
 	
 	$retour = $retour . "</select>";
