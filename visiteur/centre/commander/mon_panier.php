@@ -53,8 +53,8 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 	
 	
 
-	$nbarticles_panier = panierNbArticlesProdsCond($cond_id);
-	if($nbarticles_panier > 0){
+	$quantite_panier = panierQuantiteProdsCond($cond_id);
+	if($quantite_panier > 0){
 
 		if($cond_a_stock = 1 ){
 			$nbstock = $cond_nb_stock;
@@ -62,21 +62,17 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 			$nbstock = 20;
 		}
 		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
-		$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
+		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
-		echo "<th class='$classth'.>".$produit_libelle."[".$cond_nom."]</th>";
+		echo "<th class='$classth'><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$produit_libelle."[".$cond_nom."]</a></td>";
+		
+		//echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
 		echo "<td class='$classtd'>";
-		echo "<SELECT  id='nbarticles_1_$cond_id' onChange='javascript:clickSetNbArticles(1,$cond_id);'>";
-		for($i=0;$i<$cond_nb_stock ;$i++){
-			if($nbarticles_panier == $i){
-				$selected = " SELECTED";
-			}else{
-				$selected = "";
-			}
-			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-		}
-		echo "</SELECT>";
+		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
+				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
+
 		echo "</td>";
 		echo "<td class='$classtd'>$prixTotalCond &euro;</td>";
 		echo "</tr>";
@@ -94,18 +90,26 @@ echo "</tr>";
 </tbody>
 </table>
 
+<br>
+
+
+<table id="recap" cellspacing="0">
+  <tbody>
+  <tr>
+    <th scope="col">Produits sur réservation</th>
+    <th scope="col">Description</th>
+    <th scope="col">Quantité</th>	
+  </tr>
+
 <?php
 /***
  * Produits a la reservation
  */
-echo "<table border='1' align=center
-	style='border-collapse: separate; empty-cells: show;'>";
-echo "<tr>";
-echo "<td>Produit à la réservation </td>";
-echo "<td> Description </td>";
-echo "<td> Quantité </td>";
-echo "</tr>";
+
 $tmpres2 = bddProdsResaDispo();
+
+$nbresa = 0;
+
 while ($row2 = mysql_fetch_array($tmpres2)){
 	$categorie_produit_id =  $row2[0];
 	$categorie_produit_libelle =  $row2[1];
@@ -115,32 +119,34 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 	$produit_resa_descriptif_production =  $row2[5];
 	$produit_resa_a_stock =  $row2[6];
 	$produit_resa_nb_stock =  $row2[7];
+	
+	if ($nbresa%2 == 1) {
+    	$classth = 'specalt';
+    	$classtd = 'alt';    	
+	} else {
+    	$classth = 'spec';
+    	$classtd = '';
+	}
+	
 
-	$nbarticles_panier = panierNbArticlesProdsResa($produit_resa_id);
-	if($nbarticles_panier > 0){
+	$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
+	if($quantite_panier > 0){
 		if($produit_resa_a_stock = 1 ){
 			$nbstock = $produit_resa_nb_stock;
 		}else{
 			$nbstock = 20;
 		}
 		echo "<tr>";
-		echo "<td>$produit_resa_libelle</td>";
-		echo "<td align=right>$produit_resa_descriptif_production</td>";
-		echo "<td>";
-		echo "<SELECT  id='nbarticles_0_$produit_resa_id' onChange='javascript:clickSetNbArticles(0,$produit_resa_id);'>";
-		for($i=0;$i<$cond_nb_stock ;$i++){
-			if($nbarticles_panier == $i){
-				$selected = " SELECTED";
-			}else{
-				$selected = "";
-			}
-			echo "<OPTION VALUE='$i'$selected>$i</OPTION>";
-		}
-		echo "</SELECT>";
+		echo "<th class='$classth'>$produit_resa_libelle</td>";
+		echo "<td class='$classtd'>$produit_resa_descriptif_production</td>";
+		echo "<td class='$classtd'>";
+		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
+			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
 		echo "</td>";
 		echo "</tr>";
 	}
 }
-echo "</table>";
 
 ?>
+</tbody>
+</table>

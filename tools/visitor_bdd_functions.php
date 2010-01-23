@@ -2,7 +2,7 @@
 
 function bddNouveauxProduits(){
 	$requete=
-		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, " .
+		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, c.categorie_produit_id, " .
 		"CONCAT(SUBSTRING(p.produit_descriptif_production, 1, 50),'...'), p.produit_etat, " .
 		"p.produit_unite FROM produit p, categorie_produit c, conditionnement cond " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id AND cond.cond_id_produit = p.produit_id " .

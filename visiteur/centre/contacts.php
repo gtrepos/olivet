@@ -20,9 +20,13 @@
 
 <div id="centerpage_contacts_rightID">
 <ul class="centerpage_contacts_menu1CL">	
-		<li>Plan d'accès</li>	
-		 <?php include('visiteur/centre/contacts/googleMap.php'); ?>
-
+		<li>Plan d'accès</li>
+		<!-- dédiée à la carte //-->
+    <div id="map_olivet">
+    </div>
+	<a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=olivet+servon+sur+vilaine+france&sll=48.107059,-1.465495&sspn=0.007164,0.00972&ie=UTF8&hq=&hnear=Olivet,+35530+Servon-sur-Vilaine,+Ille-et-Vilaine,+Bretagne,+France&ll=48.107059,-1.465495&spn=0.007164,0.00972&t=h&z=16&iwloc=A">Agrandir le plan</a>	
+		
+	
 
 
 

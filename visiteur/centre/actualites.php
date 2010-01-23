@@ -1,7 +1,7 @@
 <h3>Actualités du GAEC :</h3>
 <p>
 <?php 
-	$tmpres = bddActusGaec(false, true);	
+	$tmpres = bddActusGaec(false, true);
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
 		echo "<b>".$row[1]."</b> (postée le $row[2])";

@@ -5,7 +5,7 @@
  * Pour un produit_resa ou un conditionnement i :
  * $_SESSSION['panier']['cond'][i] est à 0 si c'est produit_resa ou 1 sinon
  * $_SESSSION['panier']['id'][i] est l'id du produit_resa ou l'id du conditionnement
- * $_SESSSION['panier']['nbarticles'][i] est le nmbre d'articles pris
+ * $_SESSSION['panier']['quantite'][i] est la quantite de produit selectionnee
  *
  * @return true si le panier existe ou la creation n'a pas posée de probleme
  */
@@ -18,7 +18,7 @@ function panierCreation(){
 		$_SESSION['panier']=array();
 		$_SESSION['panier']['cond'] = array();
 		$_SESSION['panier']['id'] = array();
-		$_SESSION['panier']['nbarticles'] = array();
+		$_SESSION['panier']['quantite'] = array();
 		$ret=true;
 	}
 	return $ret;
@@ -28,21 +28,21 @@ function panierCreation(){
  * met à jour le panier
  * @param $cond 0 si c'est un produit_resa, 1 sinon
  * @param $id id produit_resa ou conditionnement
- * @param $nbarticles le nbre d'articles
+ * @param $quantite la quantite de produit
  * @return void
  */
-function panierSetNbArticles($cond, $id, $nbarticles){
+function panierSetQuantite($cond, $id, $quantite){
 	if (panierCreation()){
 		$indexCondOuResa = array_search($id,  $_SESSION['panier']['id']);
 		if ($indexCondOuResa !== false){
 			if($cond !==  $_SESSION['panier']['cond'][$indexCondOuResa]){
 				echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 			}
-			$_SESSION['panier']['nbarticles'][$indexCondOuResa] = $nbarticles ;
+			$_SESSION['panier']['quantite'][$indexCondOuResa] = $quantite ;
 		}else{
 			array_push( $_SESSION['panier']['cond'],$cond);
 			array_push( $_SESSION['panier']['id'],$id);
-			array_push( $_SESSION['panier']['nbarticles'],$nbarticles);
+			array_push( $_SESSION['panier']['quantite'],$quantite);
 		}
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
@@ -58,8 +58,8 @@ function panierMontantTotalProdsCond(){
 		$total = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 1){
-				$nbarticles_panier = $_SESSION['panier']['nbarticles'][$i];
-				if($nbarticles_panier>0){
+				$quantite_panier = $_SESSION['panier']['quantite'][$i];
+				if($quantite_panier>0){
 					$tmpres = bddLigneProdCond($_SESSION['panier']['id'][$i]);
 					while ($row = mysql_fetch_array($tmpres)){
 						$cond_id = $row[0];
@@ -71,7 +71,7 @@ function panierMontantTotalProdsCond(){
 						$produit_prix_unite= $row[6];
 						$produit_id_categorie= $row[7];
 						$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
-						$prixTotalCond = $nbarticles_panier * $prixUnitaireCond;
+						$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 						$total  = $total +  $prixTotalCond ;
 					}
 				}
@@ -88,7 +88,7 @@ function panierNbProdsCond(){
 		$nb = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 1){
-				if($_SESSION['panier']['nbarticles'][$i] > 0){
+				if($_SESSION['panier']['quantite'][$i] > 0){
 					$nb++;
 				}
 			}
@@ -104,7 +104,7 @@ function panierNbProdsResa(){
 		$nb = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 0){
-				if($_SESSION['panier']['nbarticles'][$i] > 0){
+				if($_SESSION['panier']['quantite'][$i] > 0){
 					$nb++;
 				}
 			}
@@ -124,14 +124,14 @@ function panierNbProduits(){
  * produit conditionné
  */
 
-function panierNbArticlesProdsCond($id_cond){
+function panierQuantiteProdsCond($id_cond){
 	if (panierCreation()){
 		$indexCondOuResa = array_search($id_cond, $_SESSION['panier']['id']);
 		if ($indexCondOuResa !== false){
 			if($_SESSION['panier']['cond'][$indexCondOuResa] != 1){
-				echo "ERROR panierNbArticlesProdsCond--1";
+				echo "ERROR panierquantiteProdsCond--1";
 			}
-			return $_SESSION['panier']['nbarticles'][$indexCondOuResa];
+			return $_SESSION['panier']['quantite'][$indexCondOuResa];
 		}else{
 			return 0;
 		}
@@ -144,14 +144,14 @@ function panierNbArticlesProdsCond($id_cond){
  * @param $id_prod_resa l'id d'un produit a la reservation
  * @return le nombre d'article selectionnes pour $id_prod_resa
  */
-function panierNbArticlesProdsResa($id_prod_resa){
+function panierQuantiteProdsResa($id_prod_resa){
 	if (panierCreation()){
 		$indexCondOuResa = array_search($id_prod_resa, $_SESSION['panier']['id']);
 		if ($indexCondOuResa !== false){
 			if($_SESSION['panier']['cond'][$indexCondOuResa] != 0){
-				echo "ERROR panierNbArticlesProdsResa--1";
+				echo "ERROR panierquantiteProdsResa--1";
 			}
-			return $_SESSION['panier']['nbarticles'][$indexCondOuResa];
+			return $_SESSION['panier']['quantite'][$indexCondOuResa];
 		}else{
 			return 0;
 		}
@@ -166,7 +166,7 @@ function panierVider(){
 		$_SESSION['panier']=array();
 		$_SESSION['panier']['cond'] = array();
 		$_SESSION['panier']['id'] = array();
-		$_SESSION['panier']['nbarticles'] = array();
+		$_SESSION['panier']['quantite'] = array();
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}
