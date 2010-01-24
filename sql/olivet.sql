@@ -1,13 +1,19 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.1
+-- version 3.1.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Dim 17 Janvier 2010 à 15:36
--- Version du serveur: 5.1.37
--- Version de PHP: 5.3.0
+-- Généré le : Dim 24 Janvier 2010 à 10:34
+-- Version du serveur: 5.1.30
+-- Version de PHP: 5.2.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `olivet`
@@ -75,6 +81,7 @@ INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libe
 
 CREATE TABLE IF NOT EXISTS `client` (
   `client_reference` int(11) NOT NULL AUTO_INCREMENT COMMENT 'reference du client',
+  `client_civilite` varchar(5) DEFAULT NULL COMMENT 'civilite du client',
   `client_nom` varchar(100) NOT NULL COMMENT 'nom du client',
   `client_prenom` varchar(100) NOT NULL COMMENT 'prenom du client',
   `client_adresse` varchar(500) DEFAULT NULL COMMENT 'adresse du client',
@@ -90,13 +97,13 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`client_reference`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`, `client_code`) VALUES
-(4, 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'abcdefghij'),
-(5, 'Guillemin', 'Sandra', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com', '1234567890'),
-(6, 'Trepos', 'Ronan', '8 r St Ferréol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
-(8, 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
-(9, 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
-(10, 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1');
+INSERT INTO `client` (`client_reference`, `client_civilite`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`, `client_code`) VALUES
+(4, 'mr', 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'azertyuiop'),
+(5, 'melle', 'Guillemin', 'Sandra', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com', '1234567890'),
+(6, 'mr', 'Trepos', 'Ronan', '8 r St Ferréol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
+(8, 'mme', 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
+(9, 'mr', 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
+(10, 'mme', 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1');
 
 -- --------------------------------------------------------
 
@@ -109,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_id_client` int(11) NOT NULL COMMENT 'identifiant du client',
   `commande_datecreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'date de creation de la commande',
   `commande_etat` varchar(2) NOT NULL DEFAULT 'EC' COMMENT 'etat de la commande : EC = en cours, FA = facturee',
+  `commande_daterecuperation` timestamp NULL DEFAULT NULL COMMENT 'date de recuperation de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=42 ;
@@ -117,12 +125,12 @@ CREATE TABLE IF NOT EXISTS `commande` (
 -- Contenu de la table `commande`
 --
 
-INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_etat`) VALUES
-(37, 5, '2010-01-10 10:21:49', 'EC'),
-(38, 4, '2010-01-10 10:22:15', 'EC'),
-(39, 6, '2010-01-10 10:40:35', 'EC'),
-(40, 8, '2010-01-10 11:17:47', 'EC'),
-(41, 10, '2010-01-11 23:32:14', 'EC');
+INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_etat`, `commande_daterecuperation`) VALUES
+(37, 5, '2010-01-10 10:21:49', 'EC', NULL),
+(38, 4, '2010-01-10 10:22:15', 'EC', NULL),
+(39, 6, '2010-01-10 10:40:35', 'EC', NULL),
+(40, 8, '2010-01-10 11:17:47', 'EC', NULL),
+(41, 10, '2010-01-11 23:32:14', 'EC', NULL);
 
 -- --------------------------------------------------------
 
@@ -140,22 +148,24 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `cond_quantite_produit` decimal(6,3) NOT NULL COMMENT 'quantite de produit contenue dans le conditionnement',
   `cond_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'conditionnement soumis à stock 0 = non 1 = oui ',
   `cond_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce conditionnement en stock',
+  `cond_divisible` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est ce que le conditionnement est divisible ?',
   PRIMARY KEY (`cond_id`),
   KEY `cond_produit_fk` (`cond_id_produit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=47 ;
 
 --
 -- Contenu de la table `conditionnement`
 --
 
-INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_quantite_produit`, `cond_a_stock`, `cond_nb_stock`) VALUES
-(38, 33, 1, 1, 0.20, 'pot 50 cl', 0.500, 1, 59),
-(39, 32, 0, 1, 0.10, 'sac de 10', 1.000, 1, 76),
-(40, 34, 1, 1, 0.20, 'sac de 100', 1.000, 1, 148),
-(41, 31, 0, 1, 0.30, '3 choux', 0.600, 1, 28),
-(42, 31, 0, 0, 0.30, '2 choux', 0.400, 1, 25),
-(43, 31, 0, 1, 0.30, '1 choux', 0.200, 1, 0),
-(44, 31, 0, 1, 0.30, '4 choux', 0.800, 1, 24);
+INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_quantite_produit`, `cond_a_stock`, `cond_nb_stock`, `cond_divisible`) VALUES
+(38, 33, 1, 1, '0.20', 'pot 50 cl', '0.500', 1, 59, 0),
+(39, 32, 0, 1, '0.10', 'sac de 10', '1.000', 1, 76, 0),
+(40, 34, 1, 1, '0.20', 'sac de 100', '1.000', 1, 148, 0),
+(41, 31, 0, 1, '0.30', '3 choux', '0.600', 1, 28, 0),
+(42, 31, 0, 1, '0.30', '2 choux', '0.400', 1, 25, 0),
+(43, 31, 0, 1, '0.30', '1 choux', '0.200', 1, 0, 0),
+(44, 31, 0, 1, '0.30', '4 choux', '0.800', 1, 24, 0),
+(46, 35, 1, 1, '0.20', 'litre de lait', '1.000', 0, -1, 1);
 
 -- --------------------------------------------------------
 
@@ -291,17 +301,18 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_photo` varchar(100) NOT NULL COMMENT 'photo du produit',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=36 ;
 
 --
 -- Contenu de la table `produit`
 --
 
 INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_unite`, `produit_prix_unite`, `produit_photo`) VALUES
-(31, 6, 'choux fleur', 'à balancer sur les bâtiments administratifs de Rennes', 1, 'kg', 1.00, 'choux-fleur.JPG'),
-(32, 6, 'carrottes', 'poussent grâce au temps et au maraîcher', 1, 'kg', 0.20, '20.jpg'),
-(33, 4, 'creme fraiche', 'desc', 1, 'litre', 0.50, 'cremefraiche.gif'),
-(34, 7, 'pommes''caramel', 'pommier', 1, 'kg', 1.50, 'pomme_caramalisee.jpg');
+(31, 6, 'choux fleur', 'à balancer sur les bâtiments administratifs de Rennes', 1, 'kg', '1.00', 'choux-fleur.JPG'),
+(32, 6, 'carrottes', 'poussent grâce au temps et au maraîcher', 1, 'kg', '0.20', '20.jpg'),
+(33, 4, 'creme fraiche', 'desc', 1, 'litre', '0.50', 'cremefraiche.gif'),
+(34, 7, 'pommes''caramel', 'pommier', 1, 'kg', '1.50', 'pomme_caramalisee.jpg'),
+(35, 4, 'lait', 'via les vaches', 1, 'litre', '1.00', 'Lait-bouteille.jpg');
 
 -- --------------------------------------------------------
 
@@ -319,8 +330,9 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
   `produit_resa_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'produit soumis à stock 0 = non 1 = oui ',
   `produit_resa_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce produit en stock',
   `produit_resa_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le produit est une nouveaute ? 0 = non, 1 = oui',
-  PRIMARY KEY (`produit_resa_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=38 ;
+  PRIMARY KEY (`produit_resa_id`),
+  KEY `produit_resa_categorie_fk` (`produit_resa_id_categorie`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=39 ;
 
 --
 -- Contenu de la table `produit_resa`
@@ -329,7 +341,8 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
 INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_id_categorie`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
 (35, 3, 'caissette d''agneau', 'c''est clarisse qui fait', 1, 'Anima-Peluche-agneau-blanc-1702.jpg', 1, 9, 1),
 (36, 3, 'caissette de boeuf', 'c''est gérard le boss', 1, '323-tete-boeuf.jpg', 1, 13, 1),
-(37, 3, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0);
+(37, 3, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0),
+(38, 3, 'chien', 'dans les rues', 1, 'le_chien_errant-300x225.jpg', 1, 12, 1);
 
 --
 -- Contraintes pour les tables exportées
@@ -372,10 +385,9 @@ ALTER TABLE `lien_commande_produit_resa`
 --
 ALTER TABLE `produit`
   ADD CONSTRAINT `produit_categorie_fk` FOREIGN KEY (`produit_id_categorie`) REFERENCES `categorie_produit` (`categorie_produit_id`);
-  
+
 --
 -- Contraintes pour la table `produit_resa`
 --
 ALTER TABLE `produit_resa`
-  ADD CONSTRAINT `produit_resa_categorie_fk` FOREIGN KEY (`produit_resa_id_categorie`) REFERENCES `categorie_produit` (`categorie_produit_id`);  
-  
+  ADD CONSTRAINT `produit_resa_categorie_fk` FOREIGN KEY (`produit_resa_id_categorie`) REFERENCES `categorie_produit` (`categorie_produit_id`);
