@@ -7,17 +7,18 @@
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NOM; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NBSTOCK; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NOUVEAUTE; ?></td>
+		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_DIVISIBLE; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX_GLOBAL; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_QUANTITEPRODUIT; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX; ?></td>
+		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX; ?></td>		
 		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php affich_conditionnements(); ?>
 </table>
 <table class=olivet width="90%" cellspacing="1" cellspacing="0">
 	<tr>
-		<td align="right" colspan="10"><a href="?page=conditionnements&action=creer"><?php echo ADMIN_CONDITIONNEMENT_CREER;?></a></td>
+		<td align="right" colspan="11"><a href="?page=conditionnements&action=creer"><?php echo ADMIN_CONDITIONNEMENT_CREER;?></a></td>
 	</tr>
 </table>
 
@@ -41,6 +42,7 @@ if ($action=='enregistrer') {
 	
 	$id = "";
 	$nouveaute = "off";
+	$divisible = "off";
 	$nbStock = -1;
 	$aStock = "off";
 	
@@ -50,6 +52,10 @@ if ($action=='enregistrer') {
 	
 	if (isset($_POST['nouveaute'])) {
 		$nouveaute = $_POST['nouveaute'];
+	};
+	
+	if (isset($_POST['divisible'])) {
+		$divisible = $_POST['divisible'];
 	};
 	
 	if (isset($_POST['a_stock'])) {
@@ -62,7 +68,7 @@ if ($action=='enregistrer') {
 	}
 	
 	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nouveaute, 
-								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock);
+								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock, $divisible);
 }
 
 if ($action=='activer') {

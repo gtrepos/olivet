@@ -234,7 +234,7 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 
 function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditionnement, $idProduitResa, $etat)
 {
-  $select = "SELECT distinct commande_id, client_nom, client_prenom, commande_datecreation, commande_etat, client_reference ";
+  $select = "SELECT distinct commande_id, client_nom, client_prenom, commande_datecreation, commande_etat, client_reference, commande_daterecuperation ";
   $from = "FROM commande, client ";
   $where = "WHERE commande_id_client = client_reference ";
 	  

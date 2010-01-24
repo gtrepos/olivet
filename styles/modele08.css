@@ -89,6 +89,34 @@ strong {
   margin: 10px 0 10px 10px;
 }
 
+.ombrepersonne {
+  margin: 10px 0 10px 8px !important;
+  margin: 10px 0 10px 8px;
+  width: 96px;
+  float: left;
+}
+
+.descpersonne {
+  float: left;	
+  height:90px;
+  vertical-align: middle;
+  margin-left: 1em;
+}
+
+.ensavoirplus {
+  background:transparent url(../img/pdf.gif) no-repeat scroll 0 50%;
+  padding-left: 1.7em;
+}
+
+.personne {
+	border : #F40707 3px solid;		
+	position:relative;
+	bottom: 6px;
+	right: 6px;
+	width:90px;
+	height:90px;
+}
+
 #banniere-resume_panier {
   border : #F40707 1px solid;
   color:black;
@@ -194,8 +222,10 @@ body {
 /* Contenu principal */
 #principal {
 	float: left; /* -> 5 */
-	width: 600px;
-	padding: 0px 20px 10px 15px;
+	width: 650px;
+	padding-left: 5px;
+	
+	/*padding: 0px 0px 10px 15px;*/
 }
 #principal > :first-child {
 	margin-top: 10px;
@@ -286,14 +316,51 @@ body {
 
 */
 
+.mesinformations {
+	font-size:0.7em;
+}
+
 .mesinformations label{
 	clear: left;
 	float: left;
-	width: 150px;
+	width: 80px;
+}
+
+.inscrit{
+	float:left;
+	margin-right:1em;
+	width: 48%;	
+}
+
+.pasinscrit {
+	float:left;
+	border-left:1px dashed red;
+	padding-left:1em;
+	width: 49%;
 }
 
 label{
 	clear: left;
 	float: left;
 	width: 300px;
+}
+
+a.bouton {
+  color: white;
+  background-color: #000080;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+}
+a.bouton:hover {
+  background-color: #6495ED;
+  background-image: url(aqua.jpg);
+}
+
+.separateurPointille{
+	clear:both; 
+	border-top:1px dashed red;
+	margin-top:1em;
+	margin-bottom:1em;
 }

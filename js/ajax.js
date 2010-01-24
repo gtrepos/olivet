@@ -1,4 +1,5 @@
-//Je sais pas à quoi ca sert
+//pour ne pas avoir de conflit avec prototype.js qui notamment propose 
+//une fonction $ qui remplace document.getElementById, alors que jQuery la propose également
 jQuery.noConflict();
 
 // Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur
@@ -44,41 +45,41 @@ function loadMyMap() {
 
 	// Teste si le navigateur est compatible avec l'API Gmaps
 
-	// Affecte la carte à la div "map_olivet" (voir tout en bas)
-	var divMap = document.getElementById("map_olivet");
+	// Affecte la carte à la div  "map_olivet" (voir tout en bas)
+     var divMap    = document.getElementById("map_olivet");
+             
+ if (GBrowserIsCompatible()) {
+        
+     // Redimensionne la carte
+     divMap.style.width    = cfg_largeur;
+     divMap.style.height    = cfg_hauteur;
+    
+     // Création des objets princiapux
+     map         = new GMap2(divMap); 
+     geocoder     = new GClientGeocoder();
+    
+     // Pour zoomer avec la molette de la souris
+     // Pour le désactiver ajouter // devant la ligne suivante ou bien la supprimer :)
+     map.enableScrollWheelZoom();
+    
+     // Grande barre de zoom
+     map.addControl(new GLargeMapControl());
+    
+     // Ou bien : Deux boutons zoom + 4 directions
+     //map.addControl(new GSmallMapControl());
+    
+     // Ou bien : Juste deux boutons pour zoomer et dézoomer
+     //map.addControl(new GSmallZoomControl());
+    
+     //Pour switcher entre les différentes vues (sattelite, plan, hybride)
+     map.addControl(new GMapTypeControl());                       
+    
+     // On centre la carte sur votre adresse
+     centerMapOnAdress(cfg_adress);
+ }else{
+ 	divMap.innerHTML = "Votre navigateur ne permet pas l\'affichage de carte Google Maps : ";
+ }
 
-	if (GBrowserIsCompatible()) {
-
-		// Redimensionne la carte
-		divMap.style.width = cfg_largeur;
-		divMap.style.height = cfg_hauteur;
-
-		// Création des objets princiapux
-		map = new GMap2(divMap);
-		geocoder = new GClientGeocoder();
-
-		// Pour zoomer avec la molette de la souris
-		// Pour le désactiver ajouter // devant la ligne suivante ou bien la
-		// supprimer :)
-		map.enableScrollWheelZoom();
-
-		// Grande barre de zoom
-		map.addControl(new GLargeMapControl());
-
-		// Ou bien : Deux boutons zoom + 4 directions
-		// map.addControl(new GSmallMapControl());
-
-		// Ou bien : Juste deux boutons pour zoomer et dézoomer
-		// map.addControl(new GSmallZoomControl());
-
-		// Pour switcher entre les différentes vues (sattelite, plan, hybride)
-		map.addControl(new GMapTypeControl());
-
-		// On centre la carte sur votre adresse
-		centerMapOnAdress(cfg_adress);
-	} else {
-		divMap.innerHTML = "Votre navigateur ne permet pas l\'affichage de carte Google Maps : ";
-	}
 }
 
 // Centre une carte sur une adresse
@@ -204,6 +205,7 @@ function clickValid1() {
 	var nclient_postal = $F('nclient_postal');
 	var nclient_commune = $F('nclient_commune');
 	var nclient_tel = $F('nclient_tel');
+	var daterecup_commande = $F('daterecup_commande');
 	
 	new Ajax.Request('tools/visitor_ajax.php', {
 		method : 'post',
@@ -220,7 +222,8 @@ function clickValid1() {
 			nclient_adresse : nclient_adresse,
 			nclient_postal : nclient_postal,
 			nclient_commune : nclient_commune,
-			nclient_tel : nclient_tel
+			nclient_tel : nclient_tel,
+			daterecup_commande : daterecup_commande
 		},
 		onComplete : manageClickValid1,
 		onFailure : function() {
@@ -230,25 +233,23 @@ function clickValid1() {
 
 }
 
-function clickCheckClient() {
-
+function clickCheckClient(){
+	
 	var client_mail = $F('client_mail');
 	var client_code = $F('client_code');
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckClient', 
+					 client_mail: client_mail, 
+					 client_code: client_code
+		            },
+		onComplete: manageClickCheckClient,
+		onFailure : function(){ alert('Something went wrong...') }
+			});
 
-	new Ajax.Request('tools/visitor_ajax.php', {
-		method : 'post',
-		parameters : {
-			event : 'clickCheckClient',
-			client_mail : client_mail,
-			client_code : client_code
-		},
-		onComplete : manageClickCheckClient,
-		onFailure : function() {
-			alert('Something went wrong...')
-		}
-	});
-
-}
+}	
 
 function clickPasserCommande() {
 	new Ajax.Request('tools/visitor_ajax.php', {
@@ -269,26 +270,6 @@ function clickPasserCommande() {
 			});
 }
 
-function clickCheckClient() {
-
-	var client_mail = $F('client_mail');
-	var client_code = $F('client_code');
-
-	new Ajax.Request('tools/visitor_ajax.php', {
-		method : 'post',
-		parameters : {
-			event : 'clickCheckClient',
-			client_mail : client_mail,
-			client_code : client_code
-		},
-		onComplete : manageClickCheckClient,
-		onFailure : function() {
-			alert('Something went wrong...')
-		}
-	});
-
-}
-
 function manageClickCheckClient(transport) {
 	if (transport.responseText.match("Erreur dans le formulaire")) {
 		alert(transport.responseText);
@@ -297,36 +278,37 @@ function manageClickCheckClient(transport) {
 	}
 }
 
-function clickCheckModifClient() {
-
-	var client_mail = $F('client_mail');
+function clickCheckModifClient(){
+	
+	var client_civilite = $F('client_civilite');
 	var client_nom = $F('client_nom');
 	var client_prenom = $F('client_prenom');
+	var client_mail = $F('client_mail');
 	var client_adresse = $F('client_adresse');
 	var client_postal = $F('client_postal');
 	var client_commune = $F('client_commune');
 	var client_tel = $F('client_tel');
 	var client_ref = $F('client_ref');
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckModifClient', 
+						client_civilite: client_civilite,
+						client_nom: client_nom, 
+						client_prenom: client_prenom,
+						client_mail: client_mail,
+						client_adresse: client_adresse, 
+						client_postal: client_postal,
+						client_commune: client_commune, 
+						client_tel: client_tel,
+						client_ref: client_ref
+						
+		            },
+		onComplete: manageClickCheckModifClient,
+		onFailure : function(){ alert('Something went wrong...') }
+			});	
 
-	new Ajax.Request('tools/visitor_ajax.php', {
-		method : 'post',
-		parameters : {
-			event : 'clickCheckModifClient',
-			client_mail : client_mail,
-			client_nom : client_nom,
-			client_prenom : client_prenom,
-			client_adresse : client_adresse,
-			client_postal : client_postal,
-			client_commune : client_commune,
-			client_tel : client_tel,
-			client_ref : client_ref
-
-		},
-		onComplete : manageClickCheckModifClient,
-		onFailure : function() {
-			alert('Something went wrong...')
-		}
-	});
 }
 
 function manageClickCheckModifClient(transport) {
@@ -337,27 +319,10 @@ function manageClickCheckModifClient(transport) {
 	}
 }
 
-function clickCategorieProduits(id_cat_prod) {
-	new Ajax.Request(
-			'tools/visitor_ajax.php',
-			{
-				method : 'post',
-				parameters : {
-					event : 'clickCategorieProduits',
-					id_cat_prod : id_cat_prod
-				},
-				onComplete : function(transport) {
-					$('centre-commander-mon_panier').innerHTML = transport.responseText;
-				},
-				onFailure : function() {
-					alert('Something went wrong...')
-				}
-			});
-
-}
 function clickSelectCatProduit(categorie_produit_id) {
 
 	new Ajax.Request('tools/visitor_ajax.php', {
+
 		method : 'post',
 		parameters : {
 			event : 'clickNavigation',
@@ -421,7 +386,7 @@ function clickSetQuantite(cond, id) {
 	}
 	qtProd = $F(idInput);
 
-	if (!isNaN(qtProd) && qtProd >= 0.5 && qtProd <= 100) {
+	if (!isNaN(qtProd) && qtProd >= 0 && qtProd <= 100) {
 		// alert('ok pour '+qtProd);
 		new Ajax.Request("tools/visitor_ajax.php", {
 			method : 'post',
@@ -447,10 +412,10 @@ function clickSetQuantite(cond, id) {
 					}
 				});
 	} else {
-		alert('Vous devez saisir un nombre entre  0.5 et 100');
+		alert('Vous devez saisir un nombre entre  0 et 100');
 		var moninput = document.getElementById(idInput);
 		moninput.focus();
-		moninput.value = '';
+		moninput.value = '0';
 	}
 }
 

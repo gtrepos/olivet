@@ -1,28 +1,21 @@
-<h3>Mon panier</h3>
+<h3>Conditions</h3>
+<div align=left class="conditions"> 
+	<p>Les commandes sont a récupérer à la ferme d'Olivet. Pour des raisons de temps de préparation des commandes, merci de prendre en compte les contraintes suivantes :</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le lundi, la récupération sera possible du mardi au samedi de la semaine en cours.</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le mardi, le mercredi ou le jeudi, la récupération sera possible du vendredi au samedi de la semaine en cours.</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le vendredi, le samedi ou le dimanche, la récupération sera possible du mardi au samedi de la semaine d'après.</p>
+	<p>Merci pour votre compréhension.</p>
+</div>
+
+<h3>Récapitulatif de la commande</h3>
 
 <div id='centre-commander-mon_panier'>
 <?php include('commander/mon_panier.php'); ?>
 </div>
 
+<div style='float:right;margin-top:1em;'><a href="javascript:clickNavigation('nos_produits')">Ajouter des produits</a></div>
 
-<h3>Conditions de vente</h3>
-
-<table align=center cellspacing=0 cellpadding=0 border=0 width='98%'>
-  <tr>
-  <td colspan=2 valign=top align=center>
-  	<div align=left class="conditions"> 
-  		<div align=left class="conditions_sous_titre"> 
-  		Pour les commandes :
-  		</div>
-  		<div>
-  			Merci de passer vos commandes avant le mardi soir et de venir les chercher
-  		 	sur l'exploitation à partir du vendredi midi jusqu'au samedi midi.
-  			Merci pour votre compréhension.
-  		</div>
-  	</div>
-  </td>
-  </tr>
-</table>
-
-<input type=button value="Passer la commande" onclick='javascript:clickPasserCommande();'>
-
+<div style='clear:both;'>&nbsp;</div>
+<p>
+<a href="javascript:clickPasserCommande();" class="bouton">Passer la commande</a>
+</p>

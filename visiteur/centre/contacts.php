@@ -4,7 +4,7 @@
  <ul class="centerpage_contacts_menu1CL">	
 	<li>Nous contacter</li>
 		Ferme d'Olivet<br>
-		GAEC à 3 voies<br>
+		GAEC à 3 voix<br>
 		L'Olivet<br>
 		35530 SERVON-SUR-VILAINE<br>
 		Tél : 02 99 55 28 69<br>

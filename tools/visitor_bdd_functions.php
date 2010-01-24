@@ -390,10 +390,10 @@ function bddCheckExistClient($mail){
 	return $retour;
 }
 
-function bddUpdateClient($reference,$mail,$nom,$prenom,$adresse,$codepostal,$commune,$numerotel){
+function bddUpdateClient($reference,$civilite,$nom,$prenom,$mail,$adresse,$codepostal,$commune,$numerotel){
 	$requete=$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', " .
 			"client_adresse = '$adresse', client_code_postal = '$codepostal', client_commune = '$commune', " .
-			"client_numero_tel = '$numerotel', client_email = '$mail' WHERE client_reference = '$reference'";
+			"client_numero_tel = '$numerotel', client_email = '$mail', client_civilite = '$civilite' WHERE client_reference = '$reference'";
 	$resultats=mysql_query($requete) or die (mysql_error());
 }
 

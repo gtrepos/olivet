@@ -9,13 +9,9 @@ foreach ($_POST as $key => $value) {
 }
 ?>
 
-
 <?php
-
 $globStruc = bddProdsDispo();
-
-
-echo "<h3>Produits conditionnés actuellement disponibles</h3>";
+echo "<h3>Produits actuellement disponibles</h3>";
 echo "<ul class='menu_deroulant2'>";
 while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo "<li>";

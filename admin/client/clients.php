@@ -26,7 +26,7 @@ if ($action=='enregistrer') {
 		$ref = $_POST['ref'];
 	}
 	
-	enregistrer_client($_GET['mode'], $ref, $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['commune'], $_POST['tel'], $_POST['email']);	
+	enregistrer_client($_GET['mode'], $ref, $_POST['nom'], $_POST['prenom'], $_POST['civilite'], $_POST['adresse'], $_POST['cp'], $_POST['commune'], $_POST['tel'], $_POST['email']);	
 }
 
 if ($action=='supprimer') {

@@ -42,20 +42,19 @@ switch($ajax_event){
 				break;
 		}		
 		break;
-	case 'clickCategorieProduits' :
-		$ajax_id_cat_prod = "$_POST[id_cat_prod]";
-		include('../visiteur/centre/commander/selection_produits/liste_produits.php'); 
-		break;
+	
 	case 'clickSetQuantite' :
 		$ajax_cond = "$_POST[cond]";
 		$ajax_id = "$_POST[id]";
 		$ajax_quantite = "$_POST[quantite]";
 		panierSetQuantite($ajax_cond, $ajax_id, $ajax_quantite);
-		include('../visiteur/banniere/resume_panier.php');
+		include('../visiteur/droite/resume_panier.php');
 		break;
+		
 	case 'clickVoirCommande' :
 		include('../visiteur/centre/commander/valid1.php');
 		break;
+
 	case 'clickPasserCommande' :
 		if(panierNbProduits() == 0){
 			echo "Erreur dans le formulaire : votre panier est vide";
@@ -63,26 +62,24 @@ switch($ajax_event){
 			include('../visiteur/centre/commander/valid1.php');
 		}
 		break;
+		
 	case 'clickValid1' :
 		
-		//$ajax_securimage_code = "$_POST[securimage_code]";
-		//include("securimage.php");
-  		$img = new Securimage();
+		$img = new Securimage();
   		$tmpvalid = $img->check("$_POST[securimage_code]");
-  		
-  		
-  		
-  		$ajax_client_mail = "$_POST[client_mail]";
+
+  		$ajax_client_mail = trim("$_POST[client_mail]");
   		$ajax_client_mdp = "$_POST[client_mdp]";
-  		$ajax_nclient_mail = "$_POST[nclient_mail]";
-  		$ajax_nclient_nom = "$_POST[nclient_nom]";
+  		$ajax_nclient_mail = trim("$_POST[nclient_mail]");
+  		$ajax_nclient_nom = trim("$_POST[nclient_nom]");
+  		$ajax_nclient_prenom = trim("$_POST[nclient_prenom]");
   		$ajax_nclient_mdp1 = "$_POST[nclient_mdp1]";
   		$ajax_nclient_mdp2 = "$_POST[nclient_mdp2]";
-  		$ajax_nclient_prenom = "$_POST[nclient_prenom]";
-  		$ajax_nclient_adresse = "$_POST[nclient_adresse]";
-  		$ajax_nclient_postal = "$_POST[nclient_postal]";
-  		$ajax_nclient_commune = "$_POST[nclient_commune]";
-  		$ajax_nclient_tel = "$_POST[nclient_tel]";
+  		$ajax_nclient_adresse = trim("$_POST[nclient_adresse]");
+  		$ajax_nclient_postal = trim("$_POST[nclient_postal]");
+  		$ajax_nclient_commune = trim("$_POST[nclient_commune]");
+  		$ajax_nclient_tel = trim("$_POST[nclient_tel]");
+  		$ajax_daterecup_commande = "$_POST[daterecup_commande]";
 
   		$addClient = false;
   		$addCommande = false;
@@ -91,6 +88,7 @@ switch($ajax_event){
   		
   		if(($ajax_client_mail != "")&&($ajax_client_mdp != "")){
   			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_mdp);
+
   			if(!$tmpCheckClient){
   				echo "Erreur dans le formulaire : le client n'est pas reconnu";
   				break;
@@ -100,9 +98,27 @@ switch($ajax_event){
   			$nouveauClient = false;
   		}else{
   			if($ajax_nclient_mail == ""){
-  				echo "Erreur dans le formulaire : un nouveau client doit au moins avoir un mail";
+  				echo "Erreur dans le formulaire : veuillez préciser votre mail";
   				break;
   			}
+  			if($ajax_nclient_nom == ""){
+  				echo "Erreur dans le formulaire : veuillez préciser votre nom";
+  				break;
+  			}
+  			if($ajax_nclient_prenom == ""){
+  				echo "Erreur dans le formulaire : veuillez préciser votre prénom";
+  				break;
+  			}
+  			if($ajax_nclient_tel == ""){
+  				echo "Erreur dans le formulaire : veuillez préciser votre numéro de téléphone";
+  				break;
+  			}
+
+  			if($ajax_daterecup_commande == "-1"){
+  				echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
+  				break;
+  			}
+
   			if($ajax_nclient_mdp1 == ""){
   				echo "Erreur dans le formulaire : veuillez rentrer un mot de passe";
   				break;
@@ -121,14 +137,14 @@ switch($ajax_event){
   			$nouveauClient = true;
   			
   			
-  			//TODO ajout autres champs obligatoires
-  			
   		}
+  		
   		if(panierNbProduits()==0){
-  			echo "Erreur dans le formulaire : le panier est vide";
+  			echo "Impossible de commander, le panier est vide";
   			break;
   		}
-		if($tmpvalid == false) {
+  		
+  		if($tmpvalid == false) {
   			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
   			break;
   		}
@@ -149,7 +165,7 @@ switch($ajax_event){
 		break;
 	case 'clickViderPanier' :
 		panierVider();
-		include('../visiteur/banniere/resume_panier.php');
+		include('../visiteur/droite/resume_panier.php');
 		break;
 	case 'updateCaptcha' :
 		include('../visiteur/centre/commander/captcha.php');
@@ -162,8 +178,8 @@ switch($ajax_event){
 		break;
 	case 'clickCheckClient' :
 		
-		$ajax_client_mail = "$_POST[client_mail]";
-  		$ajax_client_code = "$_POST[client_code]";
+		$ajax_client_mail = trim("$_POST[client_mail]");
+  		$ajax_client_code = trim("$_POST[client_code]");
   		
 		if(($ajax_client_mail != "")&&($ajax_client_code != "")){
   			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_code);
@@ -180,24 +196,37 @@ switch($ajax_event){
 		
 	case 'clickCheckModifClient' :
 		
-  		$ajax_client_mail = "$_POST[client_mail]";
-  		$ajax_client_nom = "$_POST[client_nom]";
-  		$ajax_client_prenom = "$_POST[client_prenom]";
-  		$ajax_client_adresse = "$_POST[client_adresse]";
-  		$ajax_client_postal = "$_POST[client_postal]";
-  		$ajax_client_commune = "$_POST[client_commune]";
-  		$ajax_client_tel = "$_POST[client_tel]";
+  		$ajax_client_civilite = "$_POST[client_civilite]";
+  		$ajax_client_nom = trim("$_POST[client_nom]");
+  		$ajax_client_prenom = trim("$_POST[client_prenom]");
+  		$ajax_client_mail = trim("$_POST[client_mail]");
+  		$ajax_client_adresse = trim("$_POST[client_adresse]");
+  		$ajax_client_postal = trim("$_POST[client_postal]");
+  		$ajax_client_commune = trim("$_POST[client_commune]");
+  		$ajax_client_tel = trim("$_POST[client_tel]");
   		$ajax_client_ref = "$_POST[client_ref]";
   		
-		if(($ajax_client_mail != "")){
-  			bddUpdateClient($ajax_client_ref,$ajax_client_mail,$ajax_client_nom,$ajax_client_prenom,
-  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
-  			include('../visiteur/centre/client/confirmmodifclient.php');
+  		if(($ajax_client_nom == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un nom";
+  				break;
   		}
-  		else {
+  		if(($ajax_client_prenom == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un prenom";
+  				break;
+  		}
+		if(($ajax_client_mail == "")){
   			echo "Erreur dans le formulaire : vous devez spécifier un email";
   				break;
   		}
+  		if(($ajax_client_tel == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un numéro de téléphone";
+  				break;
+  		}
+  		
+  			
+  		bddUpdateClient($ajax_client_ref,$ajax_client_civilite,$ajax_client_nom,$ajax_client_prenom,$ajax_client_mail,
+  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
+  		include('../visiteur/centre/client/confirmmodifclient.php');
   		
 		break;		
 		

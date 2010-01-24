@@ -10,10 +10,11 @@ class Client {
 	var $commune;
 	var $numeroTel;
 	var $email;
+	var $civilite;
 	
 	function InitClient($idClient) {
 		$requete = "SELECT client_reference, client_nom, client_prenom, client_adresse, client_code_postal," .
-				"client_commune, client_numero_tel, client_email FROM client WHERE client_reference = " . $idClient . "";
+				"client_commune, client_numero_tel, client_email, client_civilite FROM client WHERE client_reference = " . $idClient . "";
 		$resultats=mysql_query($requete) or die (mysql_error());
 		while ($row = mysql_fetch_array($resultats)) 
   		{
@@ -25,6 +26,9 @@ class Client {
   			$this->commune = $row[5];
   			$this->numeroTel = $row[6];
   			$this->email = $row[7];
+  			$this->civilite = $row[8];
+  			
+  			
   		}
 	}
 	

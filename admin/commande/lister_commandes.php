@@ -6,6 +6,7 @@
 		$idProduitResa = null;
 		$etat = null;
 		$idCommande = null;
+		$dateRecupCommande = null;
 		
 		
 		if (isset($_POST['refClient'])) $refClient = $_POST['refClient'];
@@ -15,7 +16,7 @@
 		if (isset($_POST['idProduitResa'])) $idProduitResa = $_POST['idProduitResa'];
 		if (isset($_POST['etat'])) $etat = $_POST['etat'];
 		if (isset($_POST['idCommande'])) $idCommande = $_POST['idCommande'];
-				
+		if (isset($_POST['dateRecupCommande'])) $dateRecupCommande = $_POST['dateRecupCommande'];
 ?>		
 
 <form name="formRechercheCommande" id="formRechercheCommande" action='index.php?page=commandes' method="post"
@@ -47,6 +48,7 @@
 		<td class=caption><?php echo ADMIN_COMMANDE_ID; ?></td>
 		<td class=caption><?php echo ADMIN_COMMANDE_CLIENT; ?></td>
 		<td class=caption><?php echo ADMIN_COMMANDE_DATE_CREATION; ?></td>
+		<td class=caption><?php echo ADMIN_COMMANDE_DATE_RECUPERATION; ?></td>
 		<td class=caption><?php echo ADMIN_COMMANDE_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_COMMANDE_RESUME; ?></td>
 		<td class=caption><?php echo ADMIN_COMMANDE_SOMME; ?></td>

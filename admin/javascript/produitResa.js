@@ -6,10 +6,17 @@ function checkProduitResa(){
 
 function valideFormProduitResa(){
 	
+	var idCategorie = $('idCategorie').value;
 	var libelle = $('libelle').value.trim();
 	var descriptif = $('descriptif').value.trim();
 	var photo = $('photo').value.trim();
 	var nb_stock = $('nb_stock').value.trim();
+	
+	if (idCategorie == -1){
+		alert("Vous devez renseigner une catégorie de produits.");
+		$('idCategorie').focus();
+		return false;
+	}
 	
 	if (libelle == ''){
 		alert("Vous devez renseigner un libelle.");

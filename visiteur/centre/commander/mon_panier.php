@@ -9,23 +9,23 @@ foreach ($_POST as $key => $value) {
 }
 ?>
 
+<table id="recap" cellspacing="0">
+  <tbody>
+  <tr>
+    <th scope="col">Produits</th>
+    <th scope="col">Prix unitaire</th>
+    <th scope="col">Quantité</th>
+	<th scope="col">Prix</th>
+  </tr>
+
 <?php
 /***
  *Produits conditionnes
  */
-echo "<table border='1' align=center
-	style='border-collapse: separate; empty-cells: show;'>";
-echo "<tr>";
-echo "<td>Produit";
-echo "</td>";
-echo "<td> Prix unitaire";
-echo "</td>";
-echo "<td> Quantité ";
-echo "</td>";
-echo "<td> Prix";
-echo "</td>";
-echo "</tr>";
 $tmpres1 = bddProdsCondDispo();
+
+$nbprod = 0;
+
 while ($row1 = mysql_fetch_array($tmpres1)){
 	$categorie_produit_id = $row1[0];
 	$categorie_produit_libelle = $row1[1];
@@ -41,6 +41,17 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 	$cond_quantite_produit = $row1[11];
 	$cond_a_stock = $row1[12];
 	$cond_nb_stock = $row1[13];
+	$nbprod++;
+	
+	if ($nbprod%2 == 1) {
+    	$classth = 'specalt';
+    	$classtd = 'alt';    	
+	} else {
+    	$classth = 'spec';
+    	$classtd = '';
+	}
+	
+	
 
 	$quantite_panier = panierQuantiteProdsCond($cond_id);
 	if($quantite_panier > 0){
@@ -53,35 +64,52 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
 		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
-		echo "<td><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		echo "<th class='$classth'><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
 		.$produit_libelle."[".$cond_nom."]</a></td>";
 		
 		//echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
-		echo "<td align=right> $prixUnitaireCond  &euro;</td>";
-		echo "<td>";
+		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
+		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
 				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
+
 		echo "</td>";
-		echo "<td align=right>$prixTotalCond &euro;</td>";
+		echo "<td class='$classtd'>$prixTotalCond &euro;</td>";
 		echo "</tr>";
 	}
+	
+	
+	
 }
 echo "<tr>";
-echo "<td colspan=3> Prix total </td>" ;
+echo "<th class='spec' colspan=3> Prix total </td>" ;
 echo "<td colspan=1>".panierMontantTotalProdsCond()." &euro;</td>";
 echo "</tr>";
-echo "</table>";
+
+?>
+</tbody>
+</table>
+
+<br>
+
+
+<table id="recap" cellspacing="0">
+  <tbody>
+  <tr>
+    <th scope="col">Produits sur réservation</th>
+    <th scope="col">Description</th>
+    <th scope="col">Quantité</th>	
+  </tr>
+
+<?php
 /***
  * Produits a la reservation
  */
-echo "<table border='1' align=center
-	style='border-collapse: separate; empty-cells: show;'>";
-echo "<tr>";
-echo "<td>Produit à la réservation </td>";
-echo "<td> Description </td>";
-echo "<td> Quantité </td>";
-echo "</tr>";
+
 $tmpres2 = bddProdsResaDispo();
+
+$nbresa = 0;
+
 while ($row2 = mysql_fetch_array($tmpres2)){
 	$categorie_produit_id =  $row2[0];
 	$categorie_produit_libelle =  $row2[1];
@@ -91,6 +119,15 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 	$produit_resa_descriptif_production =  $row2[5];
 	$produit_resa_a_stock =  $row2[6];
 	$produit_resa_nb_stock =  $row2[7];
+	
+	if ($nbresa%2 == 1) {
+    	$classth = 'specalt';
+    	$classtd = 'alt';    	
+	} else {
+    	$classth = 'spec';
+    	$classtd = '';
+	}
+	
 
 	$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
 	if($quantite_panier > 0){
@@ -100,15 +137,16 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 			$nbstock = 20;
 		}
 		echo "<tr>";
-		echo "<td>$produit_resa_libelle</td>";
-		echo "<td align=right>$produit_resa_descriptif_production</td>";
-		echo "<td>";
+		echo "<th class='$classth'>$produit_resa_libelle</td>";
+		echo "<td class='$classtd'>$produit_resa_descriptif_production</td>";
+		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
 			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
 		echo "</td>";
 		echo "</tr>";
 	}
 }
-echo "</table>";
 
 ?>
+</tbody>
+</table>
