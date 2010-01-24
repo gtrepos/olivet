@@ -125,6 +125,7 @@ function panierNbProduits(){
 
 function panierSelProdsCond(){
 	if (panierCreation()){
+		$prodConds = false;
 		$nb = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 1){
@@ -145,20 +146,20 @@ function panierSelProdsCond(){
 
 function panierSelProdsResa(){
 	if (panierCreation()){
-		$prodsConds = false;
+		$prodsResa = false;
 		$nb = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 0){
 				if($_SESSION['panier']['quantite'][$i] > 0){
 					$id = $_SESSION['panier']['id'][$i];
 					$qtite = $_SESSION['panier']['quantite'][$i];
-					$prodsConds[$nb]["id"]= $id;
-					$prodsConds[$nb]["qtite"]= $qtite;
+					$prodsResa[$nb]["id"]= $id;
+					$prodsResa[$nb]["qtite"]= $qtite;
 					$nb ++;
 				}
 			}
 		}
-		return $prodsConds;
+		return $prodsResa;
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}

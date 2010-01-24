@@ -15,7 +15,7 @@ echo "<h3>Produits actuellement disponibles</h3>";
 echo "<ul class='menu_deroulant2'>";
 while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo "<li>";
-	echo "<a href='javascript:clickMenuProditsDispo($categorie_produit_id)'>";
+	echo "<a href='javascript:clickMenuProduitsDispo($categorie_produit_id)'>";
 	echo $catStruct["categorie_produit_libelle"];
 	echo "</a>";
 	echo "<div id='MenuProduitsDispoCat$categorie_produit_id' class='categories' open=false>";

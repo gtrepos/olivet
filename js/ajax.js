@@ -320,7 +320,7 @@ function manageClickCheckModifClient(transport) {
 }
 
 function clickSelectCatProduit(categorie_produit_id) {
-
+	
 	new Ajax.Request('tools/visitor_ajax.php', {
 
 		method : 'post',
@@ -330,7 +330,7 @@ function clickSelectCatProduit(categorie_produit_id) {
 		},
 		onComplete : function(transport) {
 			$('principal').innerHTML = transport.responseText;
-			clickMenuProditsDispo(categorie_produit_id);
+			clickMenuProduitsDispo(categorie_produit_id);
 		},
 		onFailure : function() {
 			alert('Something went wrong...');
@@ -432,6 +432,8 @@ function clickVoirCommande() {
 }
 
 function clickViderPanier() {
+	
+	//enchainement 2 requete asynchrones en reponse du vidage de panier
 	new Ajax.Request(
 			"tools/visitor_ajax.php",
 			{
@@ -440,6 +442,7 @@ function clickViderPanier() {
 					event : 'clickViderPanier'
 				},
 				onComplete : function(transport) {
+					//alert('revenu de clickViderPanier');
 					$('banniere-resume_panier').innerHTML = transport.responseText;
 					new Ajax.Request(
 							"tools/visitor_ajax.php",
@@ -450,27 +453,35 @@ function clickViderPanier() {
 								},
 								onComplete : function(transport) {
 									$('centre-commander-mon_panier').innerHTML = transport.responseText;
+									//alert('revenu de updateCommanderPanier');
+									
 								}
+							});
+					new Ajax.Request(
+							"tools/visitor_ajax.php",
+							{
+								method : 'post',
+								parameters : {
+									event : 'updateProduitsDispo'
+								},
+								onComplete : function(transport) {
+									$('centre-nos_produits-produits_dispo').innerHTML = transport.responseText;
+									closeAllProducts();
+									//alert('revenu de updateProduitsDispo');
+								}
+								
 							});
 				}
 			});
 
-	new Ajax.Request(
-			"tools/visitor_ajax.php",
-			{
-				method : 'post',
-				parameters : {
-					event : 'updateProduitsDispo'
-				},
-				onComplete : function(transport) {
-					$('centre-nos_produits-produits_dispo').innerHTML = transport.responseText;
-					closeAllProducts();
-				}
-			});
+	
 
 }
 
-function clickMenuProditsDispo(id_cat) {
+function clickMenuProduitsDispo(id_cat) {
+	
+	//alert(' CatProd ');
+	
 	sel_cat = "ul#MenuProduitsDispoCat" + id_cat;
 	sel_prod = "div.MenuProduitsDispoProd" + id_cat;
 	all_cat = "ul.categories";
