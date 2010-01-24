@@ -5,6 +5,7 @@ if ( session_id() == '' ) { // no session has been started yet, which is needed 
 require_once("visitor_panier_functions.php");
 require_once('../visiteur/bean/Client.php');
 require_once("visitor_bdd_functions.php");
+require_once("visitor_mail_functions.php");
 require_once("config.php");
 require_once("../securimage/securimage.php");
 ouverture();
@@ -86,6 +87,7 @@ switch($ajax_event){
   		$addClient = false;
   		$addCommande = false;
   		$mail = "";
+  		$nouveauClient = false;
   		
   		if(($ajax_client_mail != "")&&($ajax_client_mdp != "")){
   			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_mdp);
@@ -95,6 +97,7 @@ switch($ajax_event){
   			}
   			$addCommande = true;
   			$mail = $ajax_client_mail;
+  			$nouveauClient = false;
   		}else{
   			if($ajax_nclient_mail == ""){
   				echo "Erreur dans le formulaire : un nouveau client doit au moins avoir un mail";
@@ -115,6 +118,7 @@ switch($ajax_event){
   			$addClient = true;
   			$addCommande = true;
   			$mail = $ajax_nclient_mail;
+  			$nouveauClient = true;
   			
   			
   			//TODO ajout autres champs obligatoires
@@ -137,6 +141,8 @@ switch($ajax_event){
   				echo "Erreur dans le formulaire : probleme interne pour l'ajout de la commande ";
   				break;
   			}
+  			envoiMailRecapCommande($nouveauClient);
+  			
   		}
   		
   		include('../visiteur/centre/commander/valid2.php');
