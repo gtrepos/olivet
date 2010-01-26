@@ -24,6 +24,22 @@ function panierCreation(){
 	return $ret;
 }
 
+
+/**
+ * 
+ */
+function panierPlot(){
+	echo(" panier : <br> ");
+	for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+		
+		$cond = $_SESSION['panier']['cond'][$i];
+		$id = $_SESSION['panier']['id'][$i];
+		$quantite = $_SESSION['panier']['quantite'][$i];
+		
+		echo(" $cond , $id , $quantite <br>");  
+//		$_SESSION['panier']['id'][$i] , $_SESSION['panier']['quantite'][$i] <br>");
+	}
+}
 /**
  * met à jour le panier
  * @param $cond 0 si c'est un produit_resa, 1 sinon
@@ -33,13 +49,15 @@ function panierCreation(){
  */
 function panierSetQuantite($cond, $id, $quantite){
 	if (panierCreation()){
-		$indexCondOuResa = array_search($id,  $_SESSION['panier']['id']);
-		if ($indexCondOuResa !== false){
-			if($cond !==  $_SESSION['panier']['cond'][$indexCondOuResa]){
-				echo "Un problème est survenu veuillez contacter l'administrateur du site.";
-			}
-			$_SESSION['panier']['quantite'][$indexCondOuResa] = $quantite ;
-		}else{
+		$found = false;
+		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+			if(($_SESSION['panier']['cond'][$i] == $cond) &&
+			($_SESSION['panier']['id'][$i] == $id)){
+				$_SESSION['panier']['quantite'][$i] = $quantite ;
+				$found = true;
+			} 
+		}
+		if(!$found){
 			array_push( $_SESSION['panier']['cond'],$cond);
 			array_push( $_SESSION['panier']['id'],$id);
 			array_push( $_SESSION['panier']['quantite'],$quantite);
@@ -173,15 +191,13 @@ function panierSelProdsResa(){
 
 function panierQuantiteProdsCond($id_cond){
 	if (panierCreation()){
-		$indexCondOuResa = array_search($id_cond, $_SESSION['panier']['id']);
-		if ($indexCondOuResa !== false){
-			if($_SESSION['panier']['cond'][$indexCondOuResa] != 1){
-				echo "ERROR panierquantiteProdsCond--1";
-			}
-			return $_SESSION['panier']['quantite'][$indexCondOuResa];
-		}else{
-			return 0;
+		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+			if(($_SESSION['panier']['cond'][$i] == 1) &&
+			($_SESSION['panier']['id'][$i] == $id_cond)){
+				return $_SESSION['panier']['quantite'][$i];
+			} 
 		}
+		return 0;
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}
@@ -193,15 +209,13 @@ function panierQuantiteProdsCond($id_cond){
  */
 function panierQuantiteProdsResa($id_prod_resa){
 	if (panierCreation()){
-		$indexCondOuResa = array_search($id_prod_resa, $_SESSION['panier']['id']);
-		if ($indexCondOuResa !== false){
-			if($_SESSION['panier']['cond'][$indexCondOuResa] != 0){
-				echo "ERROR panierquantiteProdsResa--1";
-			}
-			return $_SESSION['panier']['quantite'][$indexCondOuResa];
-		}else{
-			return 0;
+		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
+			if(($_SESSION['panier']['cond'][$i] == 0) &&
+			($_SESSION['panier']['id'][$i] == $id_prod_resa)){
+				return $_SESSION['panier']['quantite'][$i];
+			} 
 		}
+		return 0;
 	}else{
 		echo "Un problème est survenu veuillez contacter l'administrateur du site.";
 	}

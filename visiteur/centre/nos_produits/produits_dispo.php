@@ -9,6 +9,10 @@ foreach ($_POST as $key => $value) {
 }
 ?>
 
+<?php 
+//panierPlot() 
+?>
+
 <?php
 $globStruc = bddProdsDispo();
 echo "<h3>Produits actuellement disponibles</h3>";
