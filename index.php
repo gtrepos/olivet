@@ -33,11 +33,12 @@ require_once('tools/visitor_panier_functions.php');
 	<link rel="stylesheet" type="text/css" href="styles/myinfobulle.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/partenaires.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/recapitulatif.css" media="screen" />
-	<!-- google map API key : pour : http://fermeolivet.free.fr/
-	ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ
-	pour http://gaecolivet.free.fr
-	ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg-->
+	<!-- google map API key : 
+	http://fermeolivet.free.fr/ :	ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ
+	http://gaecolivet.free.fr : ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg
+	-->
 	<script	src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAAW9GyMK3xmJic7HkkJ6_FKhRgqac2kDoat0qdh_Gp70xojZjKPBS0aYcbexH1s9cAbRM8T_PeZX9xrg" type="text/javascript"></script>	
+	<script	src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg" type="text/javascript"></script>  
 	<script type="text/javascript" src="js/prototype.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
