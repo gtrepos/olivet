@@ -35,6 +35,7 @@ function popupPick(val) {
 			</tr>
 		</table>
 		<br>		
+<input type="button" name="annuler" title="Annuler" value="Annuler" onclick="window.location='index.php?page=produits'">		
 <input type="reset">
 <input type="button" name="Enregistrer" value="Enregistrer" title="Enregistrer" onclick="javascript:checkProduit()">		
 </form>

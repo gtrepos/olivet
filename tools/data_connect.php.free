@@ -1,7 +1,0 @@
-<?php
-$hostname="sql.free.fr";
-$database="gaecolivet";
-$login="gaecolivet";
-$password="geclsa35";
-$lang="fr";
-?>

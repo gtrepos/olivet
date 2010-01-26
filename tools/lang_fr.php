@@ -104,17 +104,17 @@ define("ADMIN_PRODUIT_RESA_SUPPRIMER","Supprimer");
 
 //gestion des conditionnements
 define("ADMIN_CONDITIONNEMENT_GESTION","Gestion des conditionnements");
-define("ADMIN_CONDITIONNEMENT_ID","Identifiant");
+define("ADMIN_CONDITIONNEMENT_ID","Id.");
 define("ADMIN_CONDITIONNEMENT_PRODUIT","Produit");
 define("ADMIN_CONDITIONNEMENT_NBSTOCK","Stock");
 define("ADMIN_CONDITIONNEMENT_NOUVEAUTE","Nouveauté");
 define("ADMIN_CONDITIONNEMENT_DIVISIBLE","Divisible");
 define("ADMIN_CONDITIONNEMENT_ETAT","Etat");
 define("ADMIN_CONDITIONNEMENT_PRIX_GLOBAL","Prix global");
-define("ADMIN_CONDITIONNEMENT_NOM","Nom du conditionnement");
-define("ADMIN_CONDITIONNEMENT_LIEN_PHOTO","Nom du conditionnement");
-define("ADMIN_CONDITIONNEMENT_QUANTITEPRODUIT","Quantité de produit");
+define("ADMIN_CONDITIONNEMENT_NOM","Nom conditionnement");
+define("ADMIN_CONDITIONNEMENT_QUANTITEPRODUIT","Quantité produit");
 define("ADMIN_CONDITIONNEMENT_PRIX","Prix conditionnement");
+define("ADMIN_CONDITIONNEMENT_REMISE","Remise");
 define("ADMIN_CONDITIONNEMENT_CREER","Créer un conditionnement");
 define("ADMIN_CONDITIONNEMENT_ACTIVER","Activer");
 define("ADMIN_CONDITIONNEMENT_DESACTIVER","Désactiver");
