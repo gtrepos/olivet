@@ -1,0 +1,4 @@
+PerlSetVar AuthFile pwd
+AuthName "Acces Restreint"
+AuthType Basic
+require valid-user
