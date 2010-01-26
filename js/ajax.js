@@ -400,17 +400,6 @@ function clickSetQuantite(cond, id) {
 				$('banniere-resume_panier').innerHTML = transport.responseText;
 			}
 		});
-		new Ajax.Request(
-				"tools/visitor_ajax.php",
-				{
-					method : 'post',
-					parameters : {
-						event : 'updateCommanderPanier'
-					},
-					onComplete : function(transport) {
-						$('centre-commander-mon_panier').innerHTML = transport.responseText;
-					}
-				});
 	} else {
 		alert('Vous devez saisir un nombre entre  0 et 100');
 		var moninput = document.getElementById(idInput);
