@@ -71,7 +71,7 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
+				     onBlur='javascript:clickSetQuantite(1,$cond_id,1);'/>";
 
 		echo "</td>";
 		echo "<td class='$classtd'>$prixTotalCond &euro;</td>";

@@ -68,7 +68,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 				echo "</td>";
 				echo "<td>";
 				echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
+				     onBlur='javascript:clickSetQuantite(1,$cond_id,0);'/>";
 				echo "</td>";
 				echo "</tr>";
 			}
