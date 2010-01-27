@@ -3,7 +3,7 @@ function affich_conditionnements ()
 {
   $requete=
 		"SELECT cond.cond_id, cat.categorie_produit_libelle, prod.produit_libelle, prod.produit_unite, prod.produit_prix_unite, cond.cond_nouveaute, cond.cond_etat, " .
-		"cond.cond_prix, cond.cond_nom, cond.cond_quantite_produit, cond.cond_a_stock, cond.cond_nb_stock, cond.cond_divisible " .
+		"cond.cond_prix, cond.cond_nom, cond.cond_quantite_produit, cond.cond_a_stock, cond.cond_nb_stock, cond.cond_divisible, cond.cond_remise " .
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
 		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit " .
   		"ORDER by cond.cond_id DESC";
@@ -25,6 +25,7 @@ function affich_conditionnements ()
 	$condAStock = $row[10];
 	$condNbStock = $row[11];
 	$divisible = $row[12];
+	$remise = $row[13];
 	
 	$etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
@@ -32,7 +33,7 @@ function affich_conditionnements ()
     $nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
     $divisibleLibelle = ($divisible==0) ? 'Non' : 'Oui';
     $prixCondLibelle = '(' . $condQuantiteProduit . '*' . $produitPrixUnite . ') + ' . $condPrix;
-	$prixGlobal = ($condQuantiteProduit * $produitPrixUnite) + $condPrix;
+	$prixGlobal = ($condQuantiteProduit * $produitPrixUnite) + $condPrix - $remise;
 	
 	//affichage de la ligne prodit
     echo "<tr id='prod_$idCond' onmouseout=\"restaureLigne('prod_$idCond');\" onmouseover=\"survolLigne('prod_$idCond');\">";
@@ -44,8 +45,9 @@ function affich_conditionnements ()
     echo "<td>$divisibleLibelle</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$prixGlobal €</td>";
-    echo "<td>$condQuantiteProduit $produitUnite</td>";
+    echo "<td>$condQuantiteProduit</td>";
     echo "<td>$condPrix €</td>";
+    echo "<td>$remise €</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkCondInCommande($idCond);
@@ -72,7 +74,7 @@ function affich_conditionnements ()
 function affich_modif_conditionnement ($id)
 {
   $requete=
-		"SELECT cond_id, cond_id_produit, cond_nouveaute, cond_prix, cond_nom, produit_photo, cond_quantite_produit, produit_libelle, cond_a_stock, cond_nb_stock, cond_divisible " .
+		"SELECT cond_id, cond_id_produit, cond_nouveaute, cond_prix, cond_nom, produit_photo, cond_quantite_produit, produit_libelle, cond_a_stock, cond_nb_stock, cond_divisible, cond_remise " .
 		"FROM conditionnement, produit " .
 		"WHERE cond_id = '$id' and cond_id_produit = produit_id";
   
@@ -91,6 +93,7 @@ function affich_modif_conditionnement ($id)
   	$aStock = $row[8];
   	$nbStock = $row[9];
   	$divisible = $row[10];
+  	$remise = $row[11];
   	
   	$checkedStock = '';
   	$readOnlyStock = '';
@@ -118,14 +121,15 @@ function affich_modif_conditionnement ($id)
 		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
 	echo "<tr><td>Divisble ? </td><td><input type='checkbox' id='divisible' name='divisible' $checkedDivisible/></td></tr>";
-	echo "<tr><td>Prix du conditionnement : </td><td><input type='text' id='prix_cond' name='prix_cond' value='$prixCond'/> € (Exemple : 1.50)</td></tr>";
+	echo "<tr><td>Prix du conditionnement : </td><td><input type='text' id='prix_cond' name='prix_cond' value='$prixCond'/> &euro; (Exemple : 1.50)</td></tr>";
 	echo "<tr><td>Quantite de produit : </td><td><input type='text' id='quantite_produit' name='quantite_produit' value='$quantiteProduit'/></td></tr>";
+	echo "<tr><td>Remise : </td><td><input type='text' id='remise' name='remise' value='$remise'/> &euro; (Exemple : 0.20)</td></tr>";
 	echo "</table>";
   }
   
 }
 
-function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $prix_cond, $quantiteProduit, $aStock, $nbStock, $divisible){
+function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $prix_cond, $quantiteProduit, $aStock, $nbStock, $divisible, $remise){
 	
 	if ($aStock == 'on') {
 		$aStock = 1;
@@ -148,13 +152,13 @@ function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $
 	$requete = "";
 	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO conditionnement (cond_id_produit, cond_nom, cond_nouveaute, cond_prix, cond_quantite_produit, cond_a_stock, cond_nb_stock, cond_divisible)" . 
-				   "VALUES ($idProduit, '$nom', $nouveaute, $prix_cond, $quantiteProduit, $aStock, $nbStock, $divisible)";
+		$requete = "INSERT INTO conditionnement (cond_id_produit, cond_nom, cond_nouveaute, cond_prix, cond_quantite_produit, cond_a_stock, cond_nb_stock, cond_divisible, cond_remise)" . 
+				   "VALUES ($idProduit, '$nom', $nouveaute, $prix_cond, $quantiteProduit, $aStock, $nbStock, $divisible, $remise)";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE conditionnement SET cond_id_produit = $idProduit, cond_nom = '$nom', cond_nouveaute = $nouveaute, " . 
-				   "cond_prix = $prix_cond, cond_quantite_produit = $quantiteProduit, cond_a_stock = $aStock, cond_nb_stock = $nbStock, cond_divisible = $divisible " .
+				   "cond_prix = $prix_cond, cond_quantite_produit = $quantiteProduit, cond_a_stock = $aStock, cond_nb_stock = $nbStock, cond_divisible = $divisible, cond_remise = $remise " .
 				   "WHERE cond_id = '$id'";		
 	}
 	

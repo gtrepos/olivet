@@ -1,39 +1,20 @@
 <br><font class=olivet><?php echo ADMIN_CONDITIONNEMENT_GESTION; ?></font><br><br>
 
-<table id=tableau cellspacing="0" cellspacing="0">
-	<tr>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_ID; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRODUIT; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NOM; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NBSTOCK; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_NOUVEAUTE; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_DIVISIBLE; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_ETAT; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX_GLOBAL; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_QUANTITEPRODUIT; ?></td>
-		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX; ?></td>		
-		<td class=caption>&nbsp;</td>
-	</tr>
-	<?php affich_conditionnements(); ?>
-</table>
-<table class=olivet width="90%" cellspacing="1" cellspacing="0">
-	<tr>
-		<td align="right" colspan="11"><a href="?page=conditionnements&action=creer"><?php echo ADMIN_CONDITIONNEMENT_CREER;?></a></td>
-	</tr>
-</table>
-
 <?php 
 if (isset($_GET['action'])){
 	$action=$_GET['action'];
 }
 else {
-	$action='creer';
+	$action='lister';
 }
 ?>
 
 <br><br>
 
 <?php
+
+if ($action=='lister') {include("lister_conditionnements.php");}
+
 if ($action=='creer') {include("creer_conditionnement.php");}
 
 if ($action=='modifier') {include("modifier_conditionnement.php");}
@@ -45,6 +26,7 @@ if ($action=='enregistrer') {
 	$divisible = "off";
 	$nbStock = -1;
 	$aStock = "off";
+	$remise = 0;
 	
 	if (isset($_POST['id'])) {
 		$id = $_POST['id'];
@@ -67,8 +49,13 @@ if ($action=='enregistrer') {
 		$nbStock = $_POST['nb_stock'];				
 	}
 	
+	if (isset($_POST['remise'])) {
+		if (trim($_POST['remise'])!='')
+		$remise = $_POST['remise'];
+	}
+	
 	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nouveaute, 
-								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock, $divisible);
+								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock, $divisible, $remise);
 }
 
 if ($action=='activer') {

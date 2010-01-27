@@ -7,7 +7,7 @@ else {
 		echo "produits : " . panierNbProdsCond() . "<br>";
 		echo "montant TTC : " . panierMontantTotalProdsCond() . " &nbsp;&euro; <br>";
 	}
-	if (panierNbProdsCond()>0) {
+	if (panierNbProdsResa()>0) {
 		echo "produits sur réservation : " . panierNbProdsResa() . "";
 	}
 }
