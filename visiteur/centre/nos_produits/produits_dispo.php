@@ -59,7 +59,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 				echo $cond_nom ."<br>";
 				echo "prix : " . number_format($cond_prix - $cond_remise, 2, '.', '')." &euro;<br>" ;
 				echo "quantité : <input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id);}'/>";
+				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id,0);}'/>";
 				echo "</td>";
 				echo "</tr>";
 			}
@@ -104,7 +104,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "<td>";
 										
 			echo "quantité : <input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
-			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id);}'/>";
+			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,0);}'/>";
 			echo "</td>";
 			echo "</tr>";
 

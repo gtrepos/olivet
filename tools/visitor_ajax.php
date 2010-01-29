@@ -162,7 +162,7 @@ switch($ajax_event){
   				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1);
   		}
   		if($addCommande){
-  			if(!bddAddCommande($mail)){
+  			if(!bddAddCommande($mail, $ajax_daterecup_commande)){
   				echo "Erreur dans le formulaire : probleme interne pour l'ajout de la commande ";
   				break;
   			}

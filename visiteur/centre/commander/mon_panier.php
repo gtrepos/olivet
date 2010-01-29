@@ -68,8 +68,7 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id);}'/>";
-
+				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id,1);}'/>";
 		echo "</td>";
 		echo "<td class='$classtd'>". number_format($prixTotalCond, 2, '.', '') . "&euro;</td>";
 		echo "</tr>";
@@ -138,7 +137,7 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 		echo "<td class='$classtd'>$produit_resa_descriptif_production</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
-			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id);}'/>";
+			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,1);}'/>";
 		echo "</td>";
 		echo "</tr>";
 	}

@@ -42,7 +42,7 @@ function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel
  * @param $mail
  * @return unknown_type
  */
-function bddAddCommande($mail){
+function bddAddCommande($mail, $daterecup){
 	//recup id client
 	$select = "SELECT client.client_reference ".
 		"FROM client ".
@@ -56,8 +56,8 @@ function bddAddCommande($mail){
 		return false;
 	}
 	//add commande
-	$requete = "INSERT INTO commande (commande_id_client) " .
-				"VALUES ('$client_id')";
+	$requete = "INSERT INTO commande (commande_id_client, commande_daterecuperation) " .
+				"VALUES ('$client_id', '$daterecup')";
 	$tmpres2 = mysql_query($requete) or die (mysql_error());
 	if($tmpres2 == ""){
 		return false;

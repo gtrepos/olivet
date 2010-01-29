@@ -345,6 +345,12 @@ function clickActualite() {
 	clickNavigation('actualites');
 }
 
+/**
+ * @deprecated
+ * @param cond
+ * @param id
+ * @return
+ */
 function clickSetNbArticles(cond, id) {
 
 	var nb_articles;
@@ -411,7 +417,16 @@ function checkDivisible(divisible, cond, id) {
 	return true;
 }
 
-function clickSetQuantite(cond, id) {
+/**
+ * met a jour la quantite d'un produit pour 
+ * dans le panier
+ * @param cond  egal 1 sic'est un produit conditionne 
+ * @param id l'id du produit 
+ * @param pageCommander egal 1 si la requete vient de la page commander
+ * @return
+ */
+function clickSetQuantite(cond, id, pageCommander) {
+
 	var idInput;
 	var qtProd;
 	if (cond == 1) {
@@ -434,6 +449,19 @@ function clickSetQuantite(cond, id) {
 			},
 			onComplete : function(transport) {
 				$('banniere-resume_panier').innerHTML = transport.responseText;
+				if(pageCommander){
+					new Ajax.Request(
+							"tools/visitor_ajax.php",
+							{
+								method : 'post',
+								parameters : {
+								event : 'updateCommanderPanier'
+							},
+							onComplete : function(transport) {
+								$('centre-commander-mon_panier').innerHTML = transport.responseText;
+							}
+							});
+				}
 			}
 		});
 	} else {
