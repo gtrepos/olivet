@@ -73,9 +73,6 @@ require ("fonctions/fn-produit-resa.php");
      if ($page=="produitsresa") {include ("produit/produits_resa.php");}
      if ($page=="partenaires") {include ("partenaire/partenaires.php");}
      
-     elseif ($page=="accueil") {include ("accueil.htm");}
-     else {include ("accueil.htm");}
-       
      ?>
       </div></td>
       <td  width="1%" style="border-left-style: dashed;border-left-width : 1px; border-color:#3b487f">&nbsp;</td>

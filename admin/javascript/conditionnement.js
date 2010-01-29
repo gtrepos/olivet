@@ -10,7 +10,6 @@ function valideFormConditionnement(){
 	var nom = $('nom').value.trim();
 	var nb_stock = $('nb_stock').value.trim();
 	var prix_cond = $('prix_cond').value.trim();
-	var quantite_produit = $('quantite_produit').value.trim();
 	
 	if (idProduit == -1){
 		alert("Vous devez renseigner un produit.");
@@ -49,21 +48,6 @@ function valideFormConditionnement(){
 		if(isAFloat == 'NaN'){
 			alert("Le prix du conditionnement doit être décimal.\nExemple : 1.50");
 			$('prix_cond').focus();
-			return false;
-		}
-	}
-	
-	if (quantite_produit == ''){
-		alert("Vous devez renseigner une quantite de produit.");
-		$('quantite_produit').focus();
-		return false;
-	}
-	
-	else {
-		var isAFloat = ""+parseFloat(quantite_produit);
-		if(isAFloat == 'NaN'){
-			alert("La quantité de produit doit être décimale.\nExemple : 1.50");
-			$('quantite_produit').focus();
 			return false;
 		}
 	}

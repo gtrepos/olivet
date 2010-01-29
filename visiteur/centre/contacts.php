@@ -14,7 +14,7 @@
 		GAEC à 3 voix<br>
 		L'Olivet<br>
 		35530 SERVON-SUR-VILAINE<br>
-		Tél : 02 99 55 28 69<br>
+		Tél : 06 62 09 27 62<br>
 		E-mail : fermeolivet@free.fr<br>
 		Site internet : http://fermeolivet.free.fr<br><br>
 	<li>Horaires d'ouverture</li>

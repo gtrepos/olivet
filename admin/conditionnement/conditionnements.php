@@ -27,6 +27,7 @@ if ($action=='enregistrer') {
 	$nbStock = -1;
 	$aStock = "off";
 	$remise = 0;
+	$tva = $_POST['tva'];
 	
 	if (isset($_POST['id'])) {
 		$id = $_POST['id'];
@@ -55,7 +56,7 @@ if ($action=='enregistrer') {
 	}
 	
 	enregistrer_conditionnement($_GET['mode'], $id, $_POST['idProduit'], $_POST['nom'], $nouveaute, 
-								$_POST['prix_cond'], $_POST['quantite_produit'], $aStock, $nbStock, $divisible, $remise);
+								$_POST['prix_cond'], $aStock, $nbStock, $divisible, $remise, $tva);
 }
 
 if ($action=='activer') {

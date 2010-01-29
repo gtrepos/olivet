@@ -2,9 +2,8 @@
 
 function bddNouveauxProduits(){
 	$requete=
-		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, c.categorie_produit_id, " .
-		"CONCAT(SUBSTRING(p.produit_descriptif_production, 1, 50),'...'), p.produit_etat, " .
-		"p.produit_unite FROM produit p, categorie_produit c, conditionnement cond " .
+		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, c.categorie_produit_id " .
+		"FROM produit p, categorie_produit c, conditionnement cond " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id AND cond.cond_id_produit = p.produit_id " .
 		"AND cond.cond_nouveaute = TRUE AND p.produit_etat = TRUE AND cond.cond_etat = TRUE ORDER by cond.cond_id DESC";
 
@@ -142,67 +141,14 @@ function bddCategorieMenu(){
 	return $resultats;
 
 }
-function bddProduitsConditionnes($cat_prod){
-	$requete=
-		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
-		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, p.produit_id_categorie ". 
-		"FROM  produit p, conditionnement cond ". 
-    	"WHERE p.produit_etat = true AND cond.cond_etat = true AND cond.cond_id_produit = p.produit_id and p.produit_id_categorie = $cat_prod ".
-		"ORDER by cond.cond_id DESC";
-	$resultats=mysql_query($requete) or die (mysql_error());
-	return $resultats;
-}
 
-/**
- * OBSOLETE
- * @return unknown_type
- */
-function bddProduitsConditionnesTous(){
-	$requete=
-		"SELECT cond.cond_id, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, " .
-		"p.produit_libelle, p.produit_unite, p.produit_prix_unite, ".
-		"p.produit_id_categorie, cond.cond_nb_stock ". 
-		"FROM  produit p, conditionnement cond " .
-    	"WHERE p.produit_etat = true AND cond.cond_etat = true AND cond.cond_id_produit = p.produit_id ".
-		"ORDER by cond.cond_id DESC";
-	$resultats=mysql_query($requete) or die (mysql_error());
-	return $resultats;
-}
 
-function bddConditionnements($id_prod){
-	$requete=
-		"SELECT cond.cond_nb_stock, cond.cond_nom, cond.cond_prix, cond.cond_quantite_produit, ".
-		"cond.cond_id ".
-		"FROM conditionnement cond " .
-    	"WHERE cond.cond_id_produit = $id_prod ".
-		"ORDER by cond.cond_id DESC";
-	$resultats=mysql_query($requete) or die (mysql_error());
-	return $resultats;
-}
-
-function bddProduitsDispo($id_cat){
-	$requete=
-		"SELECT DISTINCT p.produit_libelle, p.produit_unite, ". 
-		"p.produit_prix_unite, p.produit_id_categorie, ".
-	    "p.produit_descriptif_production, p.produit_photo, p.produit_id ".
-		"FROM produit p ".
-		"LEFT JOIN conditionnement cond ".
-		"ON p.produit_id=cond.cond_id_produit ".
-		"WHERE p.produit_etat = true and cond.cond_etat = true ".
-		"and cond.cond_nb_stock > 0 and  p.produit_id_categorie = $id_cat ".
-		"ORDER BY cond.cond_id DESC";
-	$resultats=mysql_query($requete) or die (mysql_error());
-	return $resultats;
-}
 function bddLigneProdCond($idproduitcond){
 	$requete=
 		"SELECT cond.cond_id, 
 		cond.cond_nom, 
-		cond.cond_prix, 
-		cond.cond_quantite_produit, 
+		cond.cond_prix, cond.cond_remise, 
 		p.produit_libelle, 
-		p.produit_unite, 
-		p.produit_prix_unite, 
 		p.produit_id_categorie ". 
 		"FROM  produit p, conditionnement cond " .
     	"WHERE cond.cond_id_produit = p.produit_id AND cond.cond_id = $idproduitcond ";	
@@ -230,12 +176,11 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_nom, ".
 	"produit.produit_photo, ".
 	"produit.produit_descriptif_production, ".
-	"produit.produit_unite, ".
-	"produit.produit_prix_unite, ".
 	"conditionnement.cond_prix, ".
-	"conditionnement.cond_quantite_produit, ".
+	"conditionnement.cond_remise, ".
 	"conditionnement.cond_a_stock, ".
-	"conditionnement.cond_nb_stock ".
+	"conditionnement.cond_nb_stock, ".
+	"conditionnement.cond_divisible ".
 	"FROM produit ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
@@ -300,24 +245,22 @@ function bddProdsDispo(){
 		$cond_nom = $row1[5];
 		$produit_photo = $row1[6];
 		$produit_descriptif_production = $row1[7];
-		$produit_unite = $row1[8];
-		$produit_prix_unite = $row1[9];
-		$cond_prix = $row1[10];
-		$cond_quantite_produit = $row1[11];
-		$cond_a_stock = $row1[12];
-		$cond_nb_stock = $row1[13];
-
+		$cond_prix = $row1[8];
+		$cond_remise = $row1[9];
+		$cond_a_stock = $row1[10];
+		$cond_nb_stock = $row1[11];
+		$cond_divisible = $row1[12];
+		
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_libelle"] = $produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_photo"] = $produit_photo;
-		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_unite"] = $produit_unite;
-		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_prix_unite"] = $produit_prix_unite;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_descriptif_production"] = $produit_descriptif_production;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nom"] = $cond_nom;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_prix"] = $cond_prix;
-		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_quantite_produit"] = $cond_quantite_produit;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_remise"] = $cond_remise;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_a_stock"] = $cond_a_stock;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nb_stock"] = $cond_nb_stock;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_divisible"] = $cond_divisible;
 
 	}
 
@@ -390,10 +333,10 @@ function bddCheckExistClient($mail){
 	return $retour;
 }
 
-function bddUpdateClient($reference,$civilite,$nom,$prenom,$mail,$adresse,$codepostal,$commune,$numerotel){
+function bddUpdateClient($reference,$civilite,$nom,$prenom,$mail,$adresse,$codepostal,$commune,$numerotel,$motdepasse){
 	$requete=$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', " .
 			"client_adresse = '$adresse', client_code_postal = '$codepostal', client_commune = '$commune', " .
-			"client_numero_tel = '$numerotel', client_email = '$mail', client_civilite = '$civilite' WHERE client_reference = '$reference'";
+			"client_numero_tel = '$numerotel', client_email = '$mail', client_civilite = '$civilite', client_code = '$motdepasse' WHERE client_reference = '$reference'";
 	$resultats=mysql_query($requete) or die (mysql_error());
 }
 

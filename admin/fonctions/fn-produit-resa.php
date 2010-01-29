@@ -98,7 +98,7 @@ function affich_modif_produit_resa ($id)
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
 	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
-	echo "<tr><td valign=\"top\">Descriptif de production : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
+	echo "<tr><td valign=\"top\">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Stock : </td><td><input type='checkbox' $checkedStock id='a_stock' name='a_stock' onclick='selectionneStock()'/> : " .
 		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";

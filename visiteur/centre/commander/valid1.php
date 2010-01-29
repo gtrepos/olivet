@@ -6,22 +6,22 @@
 
 <div class="mesinformations inscrit">
 <p style='font-size:1.5em;'>D&eacute;j&agrave; inscrit ?</p>
-<p><label>Email * :</label><input type=text id=client_mail size=30 value= <?php if(isset($ajax_client_mail)){echo "$ajax_client_mail";}?>></p>
-<p><label>Mot de passe * :</label><input type=password id=client_mdp size=30 value= <?php if(isset($ajax_client_mdp)){echo "$ajax_client_mdp";}?>></p>
+<p><label>Email * :</label><input type=text id=client_mail size=25 value= <?php if(isset($ajax_client_mail)){echo "$ajax_client_mail";}?>></p>
+<p><label>Mot de passe * :</label><input type=password id=client_mdp size=25 value= <?php if(isset($ajax_client_mdp)){echo "$ajax_client_mdp";}?>></p>
 <p><a href="javascript:clickNavigation('mesinfos')">Modifier mes informations</a></p>
 </div>
 
 <div class="mesinformations pasinscrit">
 <p style='font-size:1.5em;'>Pas encore inscrit ?</p>
-<p><label>E-mail * :</label><input type=text id=nclient_mail size=30 value= <?php if(isset($ajax_nclient_mail)){echo "$ajax_nclient_mail";}?>></p>
-<p><label>Mot de passe souhaité * :</label><input type=password id=nclient_mdp1 size=30 value= <?php if(isset($ajax_nclient_mdp1)){echo "$ajax_nclient_mdp1";}?>></p>
-<p><label>Répétition du mot de passe souhaité * : </label><input type=password id=nclient_mdp2 size=30 value= <?php if(isset($ajax_nclient_mdp2)){echo "$ajax_nclient_mdp2";}?>></p>
-<p><label>Nom * :</label><input type=text id=nclient_nom size=30 value= <?php if(isset($ajax_nclient_nom)){echo "$ajax_nclient_nom";}?>></p>
-<p><label>Pr&eacute;nom * :</label><input type=text id=nclient_prenom size=30 value= <?php if(isset($ajax_nclient_prenom)){echo "$ajax_nclient_prenom";}?>></p>
-<p><label>N&deg; Tel * :</label><input type=text id=nclient_tel size=30 value= <?php if(isset($ajax_nclient_tel)){echo "$ajax_nclient_tel";}?>></p>
-<p><label>Adresse :</label><input type=text id=nclient_adresse size=30 value= <?php if(isset($ajax_nclient_adresse)){echo "$ajax_nclient_adresse";}?>></p> 
-<p><label>Code Postal :</label><input type=text id=nclient_postal size=30 value= <?php if(isset($ajax_nclient_postal)){echo "$ajax_nclient_postal";}?>></p> 
-<p><label>Commune :</label><input type=text id=nclient_commune size=30 value= <?php if(isset($ajax_nclient_commune)){echo "$ajax_nclient_commune";}?>></p>
+<p><label>E-mail * :</label><input type=text id=nclient_mail size=25 value= <?php if(isset($ajax_nclient_mail)){echo "$ajax_nclient_mail";}?>></p>
+<p><label>Mot de passe * :</label><input type=password id=nclient_mdp1 size=25 value= <?php if(isset($ajax_nclient_mdp1)){echo "$ajax_nclient_mdp1";}?>></p>
+<p><label>Confirmation * : </label><input type=password id=nclient_mdp2 size=25 value= <?php if(isset($ajax_nclient_mdp2)){echo "$ajax_nclient_mdp2";}?>></p>
+<p><label>Nom * :</label><input type=text id=nclient_nom size=25 value= <?php if(isset($ajax_nclient_nom)){echo "$ajax_nclient_nom";}?>></p>
+<p><label>Pr&eacute;nom * :</label><input type=text id=nclient_prenom size=25 value= <?php if(isset($ajax_nclient_prenom)){echo "$ajax_nclient_prenom";}?>></p>
+<p><label>N&deg; Tel * :</label><input type=text id=nclient_tel size=25 value= <?php if(isset($ajax_nclient_tel)){echo "$ajax_nclient_tel";}?>></p>
+<p><label>Adresse :</label><input type=text id=nclient_adresse size=25 value= <?php if(isset($ajax_nclient_adresse)){echo "$ajax_nclient_adresse";}?>></p> 
+<p><label>Code Postal :</label><input type=text id=nclient_postal size=25 value= <?php if(isset($ajax_nclient_postal)){echo "$ajax_nclient_postal";}?>></p> 
+<p><label>Commune :</label><input type=text id=nclient_commune size=25 value= <?php if(isset($ajax_nclient_commune)){echo "$ajax_nclient_commune";}?>></p>
 </div>
 
 </div>
@@ -73,35 +73,35 @@ function selectDateRecup($daterecup){
 	if ($cejour == 'lundi') {
 		for ($i=1;$i<=5;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";	
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";	
 		}		
 	}
 	
 	if ($cejour == 'mardi') {
 		for ($i=3;$i<=4;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'mercredi') {
 		for ($i=2;$i<=3;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'jeudi') {
 		for ($i=1;$i<=2;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'vendredi') {
 		for ($i=4;$i<=8;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
@@ -109,14 +109,14 @@ function selectDateRecup($daterecup){
 		
 		for ($i=3;$i<=7;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";	
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";	
 		}
 	}
 	
 	if ($cejour == 'dimanche') {
 		for ($i=2;$i<=6;$i++){
 			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . strftime($outputAff, strtotime($expr)) . "</option>";
+			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}		
 	}	
 	

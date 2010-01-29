@@ -35,12 +35,11 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 	$cond_nom = $row1[5];
 	$produit_photo = $row1[6];
 	$produit_descriptif_production = $row1[7];
-	$produit_unite = $row1[8];
-	$produit_prix_unite = $row1[9];
-	$cond_prix = $row1[10];
-	$cond_quantite_produit = $row1[11];
-	$cond_a_stock = $row1[12];
-	$cond_nb_stock = $row1[13];
+	$cond_prix = $row1[8];
+	$cond_remise = $row1[9];
+	$cond_a_stock = $row1[10];
+	$cond_nb_stock = $row1[11];
+	$cond_divisible = $row1[12];
 	$nbprod++;
 	
 	if ($nbprod%2 == 1) {
@@ -51,8 +50,6 @@ while ($row1 = mysql_fetch_array($tmpres1)){
     	$classtd = '';
 	}
 	
-	
-
 	$quantite_panier = panierQuantiteProdsCond($cond_id);
 	if($quantite_panier > 0){
 
@@ -61,20 +58,20 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		}else{
 			$nbstock = 20;
 		}
-		$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
+		$prixUnitaireCond = number_format($cond_prix - $cond_remise, 2, '.', '');
 		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
 		echo "<th class='$classth'><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
-		.$produit_libelle."[".$cond_nom."]</a></td>";
+		.$produit_libelle."<br>".$cond_nom."</a></td>";
 		
 		//echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:clickSetQuantite(1,$cond_id);'/>";
+				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id);}'/>";
 
 		echo "</td>";
-		echo "<td class='$classtd'>$prixTotalCond &euro;</td>";
+		echo "<td class='$classtd'>". number_format($prixTotalCond, 2, '.', '') . "&euro;</td>";
 		echo "</tr>";
 	}
 	
@@ -83,7 +80,7 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 }
 echo "<tr>";
 echo "<th class='spec' colspan=3> Prix total </td>" ;
-echo "<td colspan=1>".panierMontantTotalProdsCond()." &euro;</td>";
+echo "<td colspan=1>".number_format(panierMontantTotalProdsCond(), 2, '.', '')." &euro;</td>";
 echo "</tr>";
 
 ?>
@@ -141,7 +138,7 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 		echo "<td class='$classtd'>$produit_resa_descriptif_production</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
-			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
+			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id);}'/>";
 		echo "</td>";
 		echo "</tr>";
 	}

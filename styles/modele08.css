@@ -177,9 +177,8 @@ body {
 	color:black;
 	margin: 4px 0 5px 0;
 	float:right;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	font-weight: bold;
-	font-family: Myriad Roman;
 }
 
 /* Menu de navigation */
@@ -323,7 +322,7 @@ body {
 .mesinformations label{
 	clear: left;
 	float: left;
-	width: 80px;
+	width: 120px;
 }
 
 .inscrit{
@@ -346,16 +345,17 @@ label{
 }
 
 a.bouton {
+  font-family:Verdana,"Bitstream Vera Sans","Lucida Grande",sans-serif;
+  font-size:10px;
   color: white;
-  background-color: #000080;
   text-decoration: none;
-  font-weight: bold;
   text-align: center;
   padding: 5px;
+  border:1px solid #F40707;
 }
 a.bouton:hover {
-  background-color: #6495ED;
-  background-image: url(aqua.jpg);
+  background-color: #CCFF99;
+  border:1px solid #F40707;
 }
 
 .separateurPointille{

@@ -10,10 +10,7 @@ require_once("config.php");
 require_once("../securimage/securimage.php");
 ouverture();
 
-
 $ajax_event = "$_POST[event]";
-
-
 
 switch($ajax_event){
 	case 'clickNavigation' :
@@ -69,12 +66,12 @@ switch($ajax_event){
   		$tmpvalid = $img->check("$_POST[securimage_code]");
 
   		$ajax_client_mail = trim("$_POST[client_mail]");
-  		$ajax_client_mdp = "$_POST[client_mdp]";
+  		$ajax_client_mdp = trim("$_POST[client_mdp]");
   		$ajax_nclient_mail = trim("$_POST[nclient_mail]");
   		$ajax_nclient_nom = trim("$_POST[nclient_nom]");
   		$ajax_nclient_prenom = trim("$_POST[nclient_prenom]");
-  		$ajax_nclient_mdp1 = "$_POST[nclient_mdp1]";
-  		$ajax_nclient_mdp2 = "$_POST[nclient_mdp2]";
+  		$ajax_nclient_mdp1 = trim("$_POST[nclient_mdp1]");
+  		$ajax_nclient_mdp2 = trim("$_POST[nclient_mdp2]");
   		$ajax_nclient_adresse = trim("$_POST[nclient_adresse]");
   		$ajax_nclient_postal = trim("$_POST[nclient_postal]");
   		$ajax_nclient_commune = trim("$_POST[nclient_commune]");
@@ -86,13 +83,25 @@ switch($ajax_event){
   		$mail = "";
   		$nouveauClient = false;
   		
-  		if(($ajax_client_mail != "")&&($ajax_client_mdp != "")){
+  		if(($ajax_client_mail != "")||($ajax_client_mdp != "")){
+  			
+  			if ($ajax_client_mail == "") {
+  				echo "Erreur dans le formulaire : veuillez préciser votre mail";
+  				break;
+  			}
+  			
+  			if ($ajax_client_mdp == "") {
+  				echo "Erreur dans le formulaire : veuillez préciser votre mot de passe";
+  				break;
+  			}
+  			
   			$tmpCheckClient = bddCheckClient($ajax_client_mail,$ajax_client_mdp);
 
   			if(!$tmpCheckClient){
   				echo "Erreur dans le formulaire : le client n'est pas reconnu";
   				break;
   			}
+  			
   			$addCommande = true;
   			$mail = $ajax_client_mail;
   			$nouveauClient = false;
@@ -111,11 +120,6 @@ switch($ajax_event){
   			}
   			if($ajax_nclient_tel == ""){
   				echo "Erreur dans le formulaire : veuillez préciser votre numéro de téléphone";
-  				break;
-  			}
-
-  			if($ajax_daterecup_commande == "-1"){
-  				echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
   				break;
   			}
 
@@ -144,6 +148,11 @@ switch($ajax_event){
   			break;
   		}
   		
+  		if($ajax_daterecup_commande == "-1"){
+  			echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
+  			break;
+  		}
+  		
   		if($tmpvalid == false) {
   			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
   			break;
@@ -158,7 +167,6 @@ switch($ajax_event){
   				break;
   			}
   			envoiMailRecapCommande($nouveauClient);
-  			
   		}
   		
   		include('../visiteur/centre/commander/valid2.php');
@@ -191,7 +199,10 @@ switch($ajax_event){
   				include('../visiteur/centre/client/formmodifclient.php');
   			}
   		}
-  		
+  		else {
+  			echo "Erreur dans le formulaire : vous devez spécifier un mail et un mot de passe";
+  			break;
+  		}
 		break;
 		
 	case 'clickCheckModifClient' :
@@ -205,6 +216,8 @@ switch($ajax_event){
   		$ajax_client_commune = trim("$_POST[client_commune]");
   		$ajax_client_tel = trim("$_POST[client_tel]");
   		$ajax_client_ref = "$_POST[client_ref]";
+  		$ajax_client_motpasse = trim("$_POST[client_motpasse]");
+  		$ajax_client_confmotpasse = trim("$_POST[client_confmotpasse]");
   		
   		if(($ajax_client_nom == "")){
   			echo "Erreur dans le formulaire : vous devez spécifier un nom";
@@ -222,10 +235,22 @@ switch($ajax_event){
   			echo "Erreur dans le formulaire : vous devez spécifier un numéro de téléphone";
   				break;
   		}
+  		if(($ajax_client_motpasse == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier un mot de passe";
+  				break;
+  		}
+  		if(($ajax_client_confmotpasse == "")){
+  			echo "Erreur dans le formulaire : vous devez spécifier une confirmation de mot de passe";
+  				break;
+  		}
+  		if(($ajax_client_confmotpasse != $ajax_client_motpasse)){
+  			echo "Erreur dans le formulaire : la confirmation n'est pas équivalente au mot de passe";
+  				break;
+  		}
   		
   			
   		bddUpdateClient($ajax_client_ref,$ajax_client_civilite,$ajax_client_nom,$ajax_client_prenom,$ajax_client_mail,
-  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel);
+  					$ajax_client_adresse,$ajax_client_postal,$ajax_client_commune,$ajax_client_tel,$ajax_client_motpasse);
   		include('../visiteur/centre/client/confirmmodifclient.php');
   		
 		break;		
