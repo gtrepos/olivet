@@ -1,5 +1,54 @@
 <?php
 
+
+function bddCommandeDateRecup($id_commande){
+	$requete = 
+	"SELECT commande.commande_daterecuperation " .
+	"FROM commande ".
+	"WHERE commande.commande_id = $id_commande ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
+
+function bddCommandeProdsResa($id_commande){
+	$requete = 
+	"SELECT produit_resa.produit_resa_libelle" .
+	" , produit_resa.produit_resa_descriptif_production ".
+	" , lien_commande_produit_resa.lcpr_quantite ".
+	"FROM produit_resa, lien_commande_produit_resa ".
+	"WHERE lien_commande_produit_resa.lcpr_id_commande = $id_commande ".
+	"AND lien_commande_produit_resa.lcpr_id_produit_resa = produit_resa.produit_resa_id ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
+function bddCommandeProdsConds($id_commande){
+	$requete = 
+	"SELECT produit.produit_libelle, conditionnement.cond_nom ".
+	" , conditionnement.cond_prix, conditionnement.cond_remise ".
+	" , lien_commande_cond.lcc_quantite ".
+	"FROM produit, conditionnement, lien_commande_cond ".
+	"WHERE lien_commande_cond.lcc_id_commande = $id_commande ".
+	"AND lien_commande_cond.lcc_id_cond = conditionnement.cond_id ".
+	"AND conditionnement.cond_id_produit = produit.produit_id ";
+	 
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
+function bddClientInfoFromCommande($id_commande){
+	$requete = 
+	"SELECT client.client_reference, client.client_nom, client.client_prenom".
+	" ,client.client_adresse, client.client_code_postal, client.client_commune ".
+	"FROM client, commande ".
+	"WHERE commande.commande_id = $id_commande ".
+	"AND client.client_reference = commande.commande_id_client";
+	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
 function bddNouveauxProduits(){
 	$requete=
 		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, c.categorie_produit_id " .

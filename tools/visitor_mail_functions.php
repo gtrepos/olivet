@@ -1,7 +1,7 @@
 <?php
 require('../FPDF/fpdf.php');
 
-class FactureGaecPDF extends FPDF
+class CommandeGaecPDF extends FPDF
 {
 	
 	//En-tête
@@ -29,16 +29,25 @@ class FactureGaecPDF extends FPDF
 	function BanniereFacture()
 	{
 		$this->SetFont('Arial','B',25);
-		$this->Cell(0,10,'FACTURE',0,0,'C',false);
+		$this->Cell(0,10,'COMMANDE',0,0,'C',false);
 		$this->Ln(15);//espace vertical
 	}
-	function TableClient()
+	function TableClient($id_commande)
 	{
 		$larg_colonne = 95;
 		$haut_line = 16;
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
 
+		$tmpres = bddClientInfoFromCommande($id_commande);
+		while ($row = mysql_fetch_array($tmpres)){
+			$client_reference = $row[0];
+			$client_nom = $row[1]; 
+			$client_prenom = $row[2];
+			$client_adresse = $row[3]; 
+			$client_code_postal = $row[4];
+			$client_commune = $row[5];
+		}
 		
 		setlocale (LC_TIME, 'fr_FR','fra');
 		
@@ -46,121 +55,119 @@ class FactureGaecPDF extends FPDF
 		
 		$this->Cell($larg_colonne,$haut_line,"Servon-Sur-Vilaine",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line,utf8_decode(
-			"Référence Client : " . "TODO clientID"),1,1,'L',false);
+			"Référence Client : $client_reference" ),1,1,'L',false);
 		$this->Cell($larg_colonne,$haut_line,"le $ladate",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line/2,utf8_decode(
-			"TODO clientNOM" . " " . "TODO clientPRENOM"),'LR',2,'L',false);
+			"$client_nom $client_prenom"),'LR',2,'L',false);
 		$this->Cell($larg_colonne,$haut_line/2,utf8_decode(
-			"TODO clientADDR"),'LR',1,'L',false);
+			"$client_adresse"),'LR',1,'L',false);
 		$this->Cell($larg_colonne,$haut_line,utf8_decode(
-			"Facture N°"."TODO COMMANDEID"),1,0,'L',false);
+			"Commande N° $id_commande"),1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line/2,utf8_decode(
-			"TODO clientCODE"." "."TODO clientCOMMUNE"),'LR',2,'L',false);
+			"$client_code_postal $client_commune"),'LR',2,'L',false);
 		$this->Cell($larg_colonne,$haut_line/2,"",'LRB',1,'L',false);
 		$this->Ln(15);//espace vertical
 		
 	}
-	function DetailFacture()
+	function DetailCommandeConds($id_commande)
 	{
 		$larg_page = 190;
 		$haut_line = 10;
-		$larg_col=array(5*$larg_page/20,
-		5*$larg_page/20,3*$larg_page/20,3*$larg_page/20,
-		2*$larg_page/20,2*$larg_page/20);
-	
+		$larg_col=array(
+		10*$larg_page/20,
+		5*$larg_page/20,
+		2*$larg_page/20,
+		3*$larg_page/20);
+		
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
 		//Headers
-		$this->Cell($larg_page,$haut_line,"DETAIL FACTURE",1,2,'C',false);
-		$this->Cell($larg_col[0],$haut_line,utf8_decode("Catégorie Produit"),1,0,'C',false);
-		$this->Cell($larg_col[1],$haut_line,"Nom Produit",1,0,'C',false);
+		$this->Cell($larg_page,$haut_line,utf8_decode("Produits commandés"),1,2,'C',false);
+		$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits"),1,0,'C',false);
+		$this->Cell($larg_col[1],$haut_line,utf8_decode("Prix unitaire"),1,0,'C',false);
 		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,0,'C',false);
-		$this->Cell($larg_col[3],$haut_line/2,"Prix unitaire",'LRT',2,'C',false);
-		$this->Cell($larg_col[3],$haut_line/2,"HT",'LRB',0,'C',false);
-		$this->SetXY($this->getX(),$this->getY()-$haut_line/2);
-		$this->Cell($larg_col[4],$haut_line,utf8_decode("Unité"),1,0,'C',false);
-		$this->Cell($larg_col[5],$haut_line/2,"Prix total",'LRT',2,'C',false);
-		$this->Cell($larg_col[5],$haut_line/2,"HT",'LRB',1,'C',false);
-		//Commandes
-//		$nbConditionnements = count($conditionnements);//10 c'est un peu pourave
-		
-		$i = 0;		
-		
-//		foreach ( $conditionnements as $conditionnement ) {
-//       		$border = 'LR';
-//			if($i == $nbConditionnements-1){
-				$border = 'LRB';	
-//			}
-//			$prixUnite = $conditionnement->prixConditionnement + 
-//				$conditionnement->produitPrixUnite * $conditionnement->quantiteProduit;
-			$prixUnite = "-11";
-			
+		$this->Cell($larg_col[3],$haut_line,utf8_decode("Prix"),1,1,'C',false);
+		//Commandes conditionnements
+		$prixTotalToutCond = 0;
+		$tmpres = bddCommandeProdsConds($id_commande);
+		while ($row = mysql_fetch_array($tmpres)){
+			$produit_libelle = $row[0];
+			$cond_nom = $row[1];
+			$cond_prix = $row[2];
+			$cond_remise = $row[3];
+			$lcc_quantite = $row[4];
+			$prixUnitaireCond = number_format($cond_prix - $cond_remise, 2, '.', '');
+			$prixTotalCond = $lcc_quantite * $prixUnitaireCond;
+			$prixTotalToutCond += $prixTotalCond; 
 			$this->Cell($larg_col[0],$haut_line,
-				utf8_decode("TODO LibCat"),$border,0,'C',false);
-			$this->Cell($larg_col[1],$haut_line,
-				utf8_decode("TODO condNom" . ' ' . "TODO Libprod"),$border,0,'C',false);
-			$this->Cell($larg_col[2],$haut_line,
-				"TODO condQt",$border,0,'C',false);
-			$this->Cell($larg_col[3],$haut_line,iconv("UTF-8", "CP1252", 
-				$prixUnite . ' €'),$border,0,'C',false);
-			$this->Cell($larg_col[4],$haut_line,
-				utf8_decode("TOTO prodUNITE"),$border,0,'C',false);
-			$this->Cell($larg_col[5],$haut_line,iconv("UTF-8", "CP1252", 
-				"TODO QTITR COND" . ' €'),$border,1,'C',false);
-			$i++;
-//		}
+				utf8_decode("$produit_libelle"),'LTR',1,'C',false);
+			$this->Cell($larg_col[0],$haut_line,
+				utf8_decode("$cond_nom"),'LBR',0,'C',false);
+			$this->SetXY($this->GetX(),$this->GetY()-$haut_line);
+			$this->Cell($larg_col[1],2*$haut_line,
+				utf8_decode("$prixUnitaireCond".' €'),1,0,'C',false);
+			$this->Cell($larg_col[2],2*$haut_line,
+				utf8_decode("$lcc_quantite "),1,0,'C',false);
+			$this->Cell($larg_col[3],2*$haut_line,
+				utf8_decode("$prixTotalCond ".' €'),1,1,'C',false);		
+		}
+		$this->Cell(($larg_col[0]+$larg_col[1]+$larg_col[2]),$haut_line,
+				utf8_decode("Prix total"),1,0,'C',false);
+			
+		$euroSymb = iconv("UTF-8", "ISO-8859-1", "£");
+		$this->Cell($larg_col[3],$haut_line,
+				utf8_decode("$prixTotalToutCond"." $euroSymb"),1,1,'C',false);
 		
 		$this->Ln(15);//espace vertical
-		
 	}
-	function Totaux()
+	
+	function DetailCommandeResa($id_commande)
 	{
 		$larg_page = 190;
-		$haut_line = 5; 
-		$dec_droite = 13*$larg_page/20 + 10;//compliqué : decal sur Prix unitaire TTC 
-		$larg_col=array(5*$larg_page/20,2*$larg_page/20);
+		$haut_line = 10;
+		$larg_col=array(
+		7*$larg_page/20,
+		11*$larg_page/20,
+		2*$larg_page/20);
+
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
-		$this->SetXY($dec_droite,$this->getY());
-		$this->Cell($larg_col[0],$haut_line,"TOTAL HT",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", "TODO prix TOT" . ' €'),1,1,'C',false);
-		$this->SetXY($dec_droite,$this->getY());
-		$this->Cell($larg_col[0],$haut_line,"Taux TVA",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,"19,6 %",1,1,'C',false);
-		$this->SetXY($dec_droite,$this->getY());
-		$this->Cell($larg_col[0],$haut_line,"TVA",1,0,'L',false);
-		$tvaFinale = -11 ; //number_format( (-11 * 19.6)/100 . ' €', 2 );
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", $tvaFinale . ' €'),1,1,'C',false);
-		$this->SetXY($dec_droite,$this->getY());
-		$this->Cell($larg_col[0],$haut_line,"TOTAL TTC",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", "TODO prix TOT" + $tvaFinale . ' €'),1,1,'C',false);
-		
+		//Headers
+		$this->Cell($larg_page,$haut_line,utf8_decode("Produits réservés"),1,2,'C',false);
+		$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits sur réservation"),1,0,'C',false);
+		$this->Cell($larg_col[1],$haut_line,utf8_decode("Description"),1,0,'C',false);
+		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,1,'C',false);
+		//Commandes sur réservation
+		$tmpres = bddCommandeProdsResa($id_commande);
+		while ($row = mysql_fetch_array($tmpres)){
+			$produit_resa_libelle= $row[0];
+			$produit_resa_descriptif_production = $row[1];
+			$lcpr_quantite = $row[2];
+			
+			$this->Cell($larg_col[0],$haut_line,
+				utf8_decode("$produit_resa_libelle"),1,0,'C',false);
+			$this->Cell($larg_col[1],$haut_line,
+				utf8_decode("$produit_resa_descriptif_production"),1,0,'C',false);
+			$this->Cell($larg_col[2],$haut_line,
+				utf8_decode("$lcpr_quantite"),1,1,'C',false);
+		}
 		$this->Ln(15);//espace vertical
+
 	}
-	function DatePaiement()
-	{
-		//Police Arial gras 15
-		$this->SetFont('Arial','',8);
-		$larg_col = 30;
-		$haut_line = 10;
-		$this->Cell($larg_col,$haut_line,"A REGLER",1,0,'L',false);
-		$tvaFinale = -11; //number_format( (-11 * 19.6)/100 . ' €', 2 );
-		$this->Cell($larg_col,$haut_line,iconv("UTF-8", "CP1252", "TODO prix TOT" + $tvaFinale . ' €'),1,0,'L',false);
-		$this->Cell($larg_col,$haut_line,"avant le : ",1,0,'L',false);
-		$dans18jours = date("d/m/Y", mktime(0, 0, 0, date("m"), date("d")+18,  date("Y")));
-		$this->Cell($larg_col,$haut_line,$dans18jours,1,0,'L',false);
-		$this->Ln(15);//espace vertical
-	 	
+	
+	function DateRecuperation($id_commande){
+		$tmpres = bddCommandeDateRecup($id_commande);
+		while ($row = mysql_fetch_array($tmpres)){
+			$commande_daterecuperation = $row[0];
+		}
+		$this->Text($this->GetX(),$this->GetY(), 
+		utf8_decode("Merci pour votre commande, nous vous attendons à la ferme d'Olivet le : "));
+		$this->Ln(5);//espace vertical
+		$outputAff = "%A %d %B %Y %T";
+		$this->Text($this->GetX(),$this->GetY(), 
+			strftime($outputAff,strtotime($commande_daterecuperation)));
 	}
-	function Agio()
-	{
-		$larg_col = 190;
-		$haut_line = 5;
-		
-		$message = utf8_decode("RAPPEL : en cas de dépassement de délai de règlement de facture, le GAEC à 3 voix se verra dans l'obligation de compter 2% d'agio sur la facture totale par jour de retard");
-		$this->MultiCell($larg_col,$haut_line,$message,0,'L',false);
-		
-	}
+	
 	//Pied de page
 	function Footer()
 	{
@@ -173,22 +180,22 @@ class FactureGaecPDF extends FPDF
 		//Numéro de page
 		$this->Cell(0,5,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 	}
+	
+	
 }
 
 function GenererUneFacture($idCommande){
 	
-	$pdf=new FactureGaecPDF();
+	$pdf=new CommandeGaecPDF();
 	
 	$pdf->AliasNbPages();
 	//construction page
 	$pdf->AddPage();
 	$pdf->BanniereFacture();
-	$pdf->TableClient();
-	$pdf->DetailFacture();
-	$pdf->Totaux();
-	$pdf->DatePaiement();
-	$pdf->Agio();
-	
+	$pdf->TableClient($idCommande);
+	$pdf->DetailCommandeConds($idCommande);
+	$pdf->DetailCommandeResa($idCommande);
+	$pdf->DateRecuperation($idCommande);
 	$pdf->Output('../tmp/recap'.$idCommande.'.pdf','F');
 }
 
