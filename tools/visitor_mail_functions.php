@@ -47,6 +47,8 @@ class CommandeGaecPDF extends FPDF
 			$client_adresse = $row[3]; 
 			$client_code_postal = $row[4];
 			$client_commune = $row[5];
+			$client_email = $row[6];
+			$client_code = $row[6];
 		}
 		
 		setlocale (LC_TIME, 'fr_FR','fra');
@@ -184,7 +186,7 @@ class CommandeGaecPDF extends FPDF
 	
 }
 
-function GenererUneFacture($idCommande){
+function genererUneCommande($idCommande){
 	
 	$pdf=new CommandeGaecPDF();
 	
@@ -196,34 +198,80 @@ function GenererUneFacture($idCommande){
 	$pdf->DetailCommandeConds($idCommande);
 	$pdf->DetailCommandeResa($idCommande);
 	$pdf->DateRecuperation($idCommande);
-	$pdf->Output('../tmp/recap'.$idCommande.'.pdf','F');
+	$filename = '../tmp/recap'.$idCommande.'.pdf';
+	$pdf->Output($filename,'F');
+	return $filename;
 }
+function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
+	require_once ("../Swift-4.0.4/lib/swift_required.php");
+	
+	$tmpres = bddClientInfoFromCommande($idCommande);
+	while ($row = mysql_fetch_array($tmpres)){
+		$client_reference = $row[0];
+		$client_nom = $row[1];
+		$client_prenom = $row[2];
+		$client_adresse = $row[3];
+		$client_code_postal = $row[4];
+		$client_commune = $row[5];
+		$client_email = $row[6];
+		$client_code = $row[7];
+	}
+	$tmpres = bddCommandeDateRecup($idCommande);
+	while ($row = mysql_fetch_array($tmpres)){
+		$commande_daterecuperation = $row[0];
+	}
+		
+	
+	$message_body = "Bonjour ".$client_prenom. " ".$client_nom.",\n\n";
+	if($nouveauClient == true){
+		$message_body .= " Nous vous confirmons votre première commande à la Ferme d'Olivet. \n";
+		$message_body .= " Vous pourrez désormais vous identfier avec les identifiants : \n";
+	}else{
+		$message_body .= " Nous vous confirmons votre nouvelle commande à la ferme d'olivet. \n";
+		$message_body .= " Pour rappel vous pouvez vous identifer avec les identifiants : \n";
+	}
+	$message_body .= "     Email : ".$client_email." \n";
+	$message_body .= "     Mot de passe : ".$client_code." \n\n";
+	
+	$message_body .= "Au nom de la ferme d'Olivet, merci pour votre commande.\n";
+	$outputAff = "%A %d %B %Y %T";
+	$message_body .= "Nous vous y attendons le ".
+		strftime($outputAff,strtotime($commande_daterecuperation))."\n\n";
+	$message_body .= " A bientôt, \n";
+	$message_body .= "La ferme d'Olivet";
+	
+	echo "mess boody : $message_body <br>";
+	
+	//MAIL
+	
+	//Create a message
+	$message = Swift_Message::newInstance('Récapitulatif commande '.$idCommande);
+	$message->setFrom(array('fermeolivet@free.fr' => 'Ferme d\'Olivet'));
+	$message->setTo(array('rtrepos@gmail.com', 'ronan.trepos@neuf.fr' => 'Ferme d\'Olivet'));//TODO
+//	$message->setContentType("text/html");
+	$message->setBody($message_body);
+	
+	//Create the attachment
+	$message->attach(Swift_Attachment::fromPath($pdfFilename));
+	//Create the Transport
+	$transport = Swift_MailTransport::newInstance();
+	//Create the Mailer using your created Transport
+	$mailer = Swift_Mailer::newInstance($transport);
+	//Send the message
+	$result = $mailer->send($message);
+	//remove tmp
+	if(file_exists('tmpSWIFT')){
+		unlink('tmpSWIFT');
+	}	
+}
+
 
 function envoiMailRecapCommande($nouveauClient, $idCommande){
 	
-	GenererUneFacture($idCommande);
+	$pdfFilename = genererUneCommande($idCommande);
+	envoyerMail($nouveauClient, $idCommande, $pdfFilename  );
 	
-//	//MAIL
-//	require_once ("../Swift-4.0.4/lib/swift_required.php");
-//	//Create a message
-//	$message = Swift_Message::newInstance('Récapitulatif commande');
-//	$message->setFrom(array('john@doe.com' => 'Ferme d\'Olivet'));
-//	$message->setTo(array('rtrepos@gmail.com'));
-//	$message->setContentType("text/html");
-//	$message->setBody('');
-//	
-//	//Create the attachment
-//	//$message->attach(Swift_Attachment::fromPath('tmp/facture.pdf'));
-//	//Create the Transport
-//	$transport = Swift_MailTransport::newInstance();
-//	//Create the Mailer using your created Transport
-//	$mailer = Swift_Mailer::newInstance($transport);
-//	//Send the message
-//	$result = $mailer->send($message);
-//	//remove tmp
-//	if(file_exists('tmpSWIFT')){
-//		unlink('tmpSWIFT');
-//	}
+
 }
 
 

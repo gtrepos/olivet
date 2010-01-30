@@ -82,7 +82,6 @@ switch($ajax_event){
   		$addClient = false;
   		$addCommande = false;
   		$mail = "";
-  		$nouveauClient = false;
   		
   		if(($ajax_client_mail != "")||($ajax_client_mdp != "")){
   			
@@ -105,7 +104,6 @@ switch($ajax_event){
   			
   			$addCommande = true;
   			$mail = $ajax_client_mail;
-  			$nouveauClient = false;
   		}else{
   			if($ajax_nclient_mail == ""){
   				echo "Erreur dans le formulaire : veuillez préciser votre mail";
@@ -139,7 +137,6 @@ switch($ajax_event){
   			$addClient = true;
   			$addCommande = true;
   			$mail = $ajax_nclient_mail;
-  			$nouveauClient = true;
   			
   			
   		}
@@ -168,7 +165,7 @@ switch($ajax_event){
   				echo "Erreur dans le formulaire : probleme interne pour l'ajout de la commande ";
   				break;
   			}
-  			envoiMailRecapCommande($nouveauClient, $idCommande);
+  			envoiMailRecapCommande($addClient, $idCommande);
   		}
   		
   		include('../visiteur/centre/commander/valid2.php');

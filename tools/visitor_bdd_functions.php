@@ -37,15 +37,41 @@ function bddCommandeProdsConds($id_commande){
 	return $resultats;
 }
 
+function SAVEbddClientInfoFromCommande($id_commande){
+//	$requete = 
+//	"SELECT client.client_reference, client.client_nom, client.client_prenom".
+//	" ,client.client_adresse, client.client_code_postal, client.client_commune ".
+//	" ,client.client_email , client.client_code  ".
+//	"FROM client, commande ".
+//	"WHERE client.client_reference = commande.commande_id_client ".
+//	"AND commande.commande_id = $id_commande";
+//	
+//	
+//	$resultats=mysql_query($requete) or die (mysql_error());
+//	return $resultats;
+}
+
 function bddClientInfoFromCommande($id_commande){
-	$requete = 
-	"SELECT client.client_reference, client.client_nom, client.client_prenom".
-	" ,client.client_adresse, client.client_code_postal, client.client_commune ".
-	"FROM client, commande ".
-	"WHERE commande.commande_id = $id_commande ".
-	"AND client.client_reference = commande.commande_id_client";
+//	$requete = 
+//	"SELECT c.client_reference, c.client_nom, c.client_prenom, ".
+//	"c.client_adresse, c.client_code_postal, c.client_commune, ".
+//	"c.client_email , c.client_code , co.commande_id, ".
+//	"FROM client c, commande co ".
+//	"WHERE c.client_reference = co.commande_id_client ".
+//	"AND co.commande_id = $id_commande";
 	
+	echo " IDCOMM --$id_commande-- <br>";
+	$requete=
+		"SELECT c.client_reference, c.client_nom, c.client_prenom, ".
+		"c.client_adresse, c.client_code_postal, c.client_commune, ".
+		"c.client_email , c.client_code, co.commande_id ".
+		"FROM client c, commande co ".
+		"WHERE co.commande_id = $id_commande ";
+		"AND c.client_reference = co.commande_id_client ";
 	$resultats=mysql_query($requete) or die (mysql_error());
+	
+
+	
 	return $resultats;
 }
 
