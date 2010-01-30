@@ -17,5 +17,5 @@
 
 <div style='clear:both;'>&nbsp;</div>
 <p>
-<a href="javascript:clickPasserCommande();" class="bouton">Passer la commande</a>
+<a href="javascript:clickPasserCommande();" class="bouton">Passer la commande</a> | <a href="javascript:clickNavigation('mesinfos');" class="bouton">Modifier mes informations</a>
 </p>

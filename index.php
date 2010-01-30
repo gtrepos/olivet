@@ -33,6 +33,7 @@ require_once('tools/visitor_panier_functions.php');
 	<link rel="stylesheet" type="text/css" href="styles/myinfobulle.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/partenaires.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/recapitulatif.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="styles/ferme.css" media="screen" />
 	<!-- google map API key : 
 	http://fermeolivet.free.fr/ :	ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ
 	http://gaecolivet.free.fr : ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg
@@ -42,7 +43,7 @@ require_once('tools/visitor_panier_functions.php');
 	<script type="text/javascript" src="js/prototype.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
-	<script type="text/javascript" src="js/menuderoulant.js"></script>
+	<script type="text/javascript" src="js/commun.js"></script>
 </head>
 
 <body>
@@ -65,7 +66,9 @@ require_once('tools/visitor_panier_functions.php');
 	<li class="gauche"><a href="javascript:clickNavigation('la_ferme')">La Ferme</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('nos_produits')">Nos	Produits</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('commander')">Commander</a></li>
+	<?php if (mysql_num_rows(bddActusGaec(false,false))>0 || mysql_num_rows(bddActusLoma(false,false))>0) { ?>
 	<li class="gauche"><a href="javascript:clickNavigation('actualites')">Actualités</a></li>
+	<?php } ?>
 	<li class="droite"><a href="javascript:clickNavigation('nous_contacter')">Nous contacter</a></li>
 </ul>
 </div>
@@ -88,12 +91,14 @@ require_once('tools/visitor_panier_functions.php');
 <?php include('visiteur/centre/partenaires.php'); ?>
 
 <h3>Agriculture biologique</h3>
-<img src="img/ab2.gif" alt="ab" title="Agriculture biologique"
+<div style="text-align:center">
+<img src="img/ab.gif" alt="ab" title="Agriculture biologique"
 	border="0">
-
-
-<p id="copyright"><a href="http://www.elephorm.com">Elephorm</a> et <a
-	href="http://www.alsacreations.com">Alsacréations</a></p>
+<img src="img/abeuro.gif" alt="abeuro" title="Agriculture biologique"
+	border="0">
+</div>
+<p id="copyright"><a href="http://www.elephorm.com" target="_blank">Elephorm</a> et <a
+	href="http://www.alsacreations.com" target="_blank">Alsacréations</a></p>
 </div>
 <!-- #secondaire --></div>
 <!-- ombre --></div>

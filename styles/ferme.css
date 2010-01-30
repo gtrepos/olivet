@@ -1,0 +1,12 @@
+.fermetitre{
+	font-weight:bold;   
+}
+
+.fermesoustitre{
+	margin-left: 1em;
+}
+
+.fermeparagraphe{
+	padding: 1em;
+	text-align: justify;  
+}

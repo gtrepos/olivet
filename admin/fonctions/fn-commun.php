@@ -4,10 +4,10 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   $sqlRemonteInactif = ($remonteInactif == true) ? '' : ' and p.produit_etat = 1 ';	
 	
   $requete=
-		"SELECT p.produit_id, p.produit_libelle, p.produit_unite, p.produit_prix_unite " .
+		"SELECT p.produit_id, p.produit_libelle, p.produit_descriptif_production " .
   		"FROM produit p, categorie_produit c " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id " . $sqlRemonteInactif .
-  		"ORDER by c.categorie_produit_id, p.produit_libelle DESC";
+  		"ORDER by c.categorie_produit_id DESC, p.produit_libelle DESC";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   
@@ -20,7 +20,7 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   {
   	$selected = "";
   	if ($row[0] == $select) $selected = "selected";
-  	echo "<OPTION value='$row[0]' $selected>$row[1]</OPTION>";
+  	echo "<OPTION value='$row[0]' $selected>$row[1] - $row[2]</OPTION>";
   }
   echo "</SELECT>";  
 }
@@ -36,5 +36,17 @@ $string .= $chaine[rand()%strlen($chaine)];
 }
 return $string;
 }
+
+function affiche_tva($select){
+  $selected55 = "";
+  $selected196 = "";
+  if ($select == '5.50') $selected55 = "selected";
+  if ($select == '19.60') $selected196 = "selected";
+  echo "<SELECT id='tva' name='tva'>";
+  echo "<OPTION value='5.5' $selected55>5.5 %</OPTION>";
+  echo "<OPTION value='19.6' $selected196>19.6 %</OPTION>";
+  echo "</SELECT>";  
+}
+
 
 ?>

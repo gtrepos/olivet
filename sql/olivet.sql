@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Dim 24 Janvier 2010 à 10:34
+-- Généré le : Ven 29 Janvier 2010 à 18:57
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -35,20 +35,12 @@ CREATE TABLE IF NOT EXISTS `actualite` (
   `actualite_type` varchar(4) NOT NULL DEFAULT 'GAEC' COMMENT 'type de l''actualite (GAEC pour gaec, LOMA pour local et/ou monde agricole',
   `actualite_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''actualité est une nouveauté',
   PRIMARY KEY (`actualite_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des actualites' AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des actualites' AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `actualite`
 --
 
-INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
-(6, 'my actuality', 'c''est la cote qui tue mon p''tit pote ?''''''', 1, '2009-07-09 12:13:38', '2009-12-30 17:51:48', 'GAEC', 0),
-(7, 'Deuxiême actu', '12345678910111213141516171819', 1, '2009-07-09 12:28:55', '2010-01-09 19:32:59', 'GAEC', 0),
-(9, 'new actu', 'description héhé', 1, '2009-08-17 10:32:40', '2010-01-09 19:32:53', 'LOMA', 0),
-(10, 'lib', 'sans apostrophe', 1, '2009-08-17 10:48:01', '2009-12-30 17:51:46', 'GAEC', 1),
-(11, 'libelle''coté', 'desc''coté''''''', 1, '2009-08-17 11:35:21', '2010-01-09 19:32:47', 'GAEC', 1),
-(12, 'test', 'desc', 1, '2009-09-19 17:48:31', '2009-12-30 17:51:43', 'GAEC', 1),
-(13, 'accentué''s', 'dtes', 1, '2009-12-28 18:12:22', '2010-01-09 19:32:38', 'LOMA', 1);
 
 -- --------------------------------------------------------
 
@@ -61,17 +53,23 @@ CREATE TABLE IF NOT EXISTS `categorie_produit` (
   `categorie_produit_libelle` varchar(100) NOT NULL COMMENT 'libelle de la categorie',
   `categorie_produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat de la categorie 0 = inactif, 1 = actif',
   PRIMARY KEY (`categorie_produit_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des categories de produits' AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des categories de produits' AUTO_INCREMENT=27 ;
 
 --
 -- Contenu de la table `categorie_produit`
 --
 
 INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libelle`, `categorie_produit_etat`) VALUES
-(3, 'Viandes', 1),
-(4, 'Produits laitiers', 1),
-(6, 'Légumes', 1),
-(7, 'Fruits', 1);
+(17, 'Huile', 1),
+(18, 'Farine', 1),
+(19, 'Miel', 1),
+(20, 'Boissons', 1),
+(21, 'Pain', 1),
+(22, 'Oeufs', 1),
+(23, 'Viandes', 1),
+(24, 'Fruits', 1),
+(25, 'Légumes', 1),
+(26, 'Produits laitiers', 1);
 
 -- --------------------------------------------------------
 
@@ -91,19 +89,20 @@ CREATE TABLE IF NOT EXISTS `client` (
   `client_email` varchar(100) NOT NULL COMMENT 'email du client',
   `client_code` varchar(10) NOT NULL COMMENT 'code aleatoire du client',
   PRIMARY KEY (`client_reference`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='liste des clients' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='liste des clients' AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`client_reference`, `client_civilite`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`, `client_code`) VALUES
-(4, 'mr', 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'azertyuiop'),
+(4, 'mr', 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'azerty'),
 (5, 'melle', 'Guillemin', 'Sandra', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com', '1234567890'),
 (6, 'mr', 'Trepos', 'Ronan', '8 r St Ferréol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
 (8, 'mme', 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
 (9, 'mr', 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
-(10, 'mme', 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1');
+(10, 'mme', 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1'),
+(11, NULL, 'qsd', 'qd', '', '', '', 'qds', 'gt', 'azerty');
 
 -- --------------------------------------------------------
 
@@ -119,18 +118,18 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_daterecuperation` timestamp NULL DEFAULT NULL COMMENT 'date de recuperation de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `commande`
 --
 
 INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_etat`, `commande_daterecuperation`) VALUES
-(37, 5, '2010-01-10 10:21:49', 'EC', NULL),
-(38, 4, '2010-01-10 10:22:15', 'EC', NULL),
-(39, 6, '2010-01-10 10:40:35', 'EC', NULL),
-(40, 8, '2010-01-10 11:17:47', 'EC', NULL),
-(41, 10, '2010-01-11 23:32:14', 'EC', NULL);
+(6, 4, '2010-01-29 17:18:05', 'EC', NULL),
+(7, 4, '2010-01-29 17:21:49', 'EC', NULL),
+(8, 4, '2010-01-29 17:31:26', 'EC', NULL),
+(9, 4, '2010-01-29 18:31:15', 'EC', NULL),
+(10, 4, '2010-01-29 18:33:06', 'EC', NULL);
 
 -- --------------------------------------------------------
 
@@ -145,27 +144,130 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `cond_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du conditionnement 0 = inactif 1 = actif ',
   `cond_prix` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix a ajouter pour le conditionnement',
   `cond_nom` varchar(50) DEFAULT NULL COMMENT 'nom du conditionnemment',
-  `cond_quantite_produit` decimal(6,3) NOT NULL COMMENT 'quantite de produit contenue dans le conditionnement',
   `cond_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'conditionnement soumis à stock 0 = non 1 = oui ',
   `cond_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce conditionnement en stock',
   `cond_divisible` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est ce que le conditionnement est divisible ?',
+  `cond_remise` decimal(5,3) NOT NULL DEFAULT '0.000' COMMENT 'remise',
+  `cond_tva` decimal(4,2) NOT NULL DEFAULT '5.50' COMMENT 'tva',
   PRIMARY KEY (`cond_id`),
   KEY `cond_produit_fk` (`cond_id_produit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits conditionnes' AUTO_INCREMENT=162 ;
 
 --
 -- Contenu de la table `conditionnement`
 --
 
-INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_quantite_produit`, `cond_a_stock`, `cond_nb_stock`, `cond_divisible`) VALUES
-(38, 33, 1, 1, '0.20', 'pot 50 cl', '0.500', 1, 59, 0),
-(39, 32, 0, 1, '0.10', 'sac de 10', '1.000', 1, 76, 0),
-(40, 34, 1, 1, '0.20', 'sac de 100', '1.000', 1, 148, 0),
-(41, 31, 0, 1, '0.30', '3 choux', '0.600', 1, 28, 0),
-(42, 31, 0, 1, '0.30', '2 choux', '0.400', 1, 25, 0),
-(43, 31, 0, 1, '0.30', '1 choux', '0.200', 1, 0, 0),
-(44, 31, 0, 1, '0.30', '4 choux', '0.800', 1, 24, 0),
-(46, 35, 1, 1, '0.20', 'litre de lait', '1.000', 0, -1, 1);
+INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `cond_etat`, `cond_prix`, `cond_nom`, `cond_a_stock`, `cond_nb_stock`, `cond_divisible`, `cond_remise`, `cond_tva`) VALUES
+(47, 36, 0, 0, '0.00', 'bouteille d''un litre', 0, -1, 0, '0.000', '5.50'),
+(48, 37, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
+(49, 38, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
+(50, 39, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
+(51, 40, 0, 1, '7.00', 'pot 1 kg.', 0, -1, 0, '0.000', '5.50'),
+(52, 40, 0, 1, '3.50', 'pot 500 gr.', 0, -1, 0, '0.000', '5.50'),
+(53, 41, 0, 0, '0.00', 'bouteille 1 litre', 0, -1, 0, '0.000', '5.50'),
+(54, 42, 0, 1, '2.20', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
+(55, 43, 0, 1, '3.80', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
+(56, 44, 0, 1, '3.60', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
+(57, 45, 0, 1, '3.60', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
+(58, 46, 0, 1, '3.70', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
+(59, 47, 0, 1, '3.90', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(60, 47, 0, 1, '2.00', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(61, 118, 0, 1, '3.80', '900 gr.', 0, -1, 0, '0.000', '5.50'),
+(62, 118, 0, 1, '1.70', '400 gr.', 0, -1, 0, '0.000', '5.50'),
+(63, 48, 0, 0, '0.00', '300 gr.', 0, -1, 0, '0.000', '5.50'),
+(64, 49, 0, 0, '0.00', '300 gr.', 0, -1, 0, '0.000', '5.50'),
+(65, 50, 0, 0, '0.00', '300 gr.', 0, -1, 0, '0.000', '5.50'),
+(66, 51, 0, 0, '0.00', '300 gr.', 0, -1, 0, '0.000', '5.50'),
+(67, 52, 0, 1, '1.80', '6 oeufs', 0, -1, 0, '0.000', '5.50'),
+(68, 52, 0, 1, '3.60', '12 oeufs', 0, -1, 0, '0.000', '5.50'),
+(69, 52, 0, 1, '0.30', 'vrac', 0, -1, 0, '0.000', '5.50'),
+(70, 53, 0, 1, '12.70', 'pot 1kg', 0, -1, 0, '0.000', '5.50'),
+(73, 55, 0, 1, '5.50', 'pot 180 gr.', 0, -1, 0, '0.000', '5.50'),
+(74, 56, 0, 1, '5.40', 'pot 180 gr.', 0, -1, 0, '0.000', '5.50'),
+(75, 57, 0, 1, '5.40', 'pot 190 gr.', 0, -1, 0, '0.000', '5.50'),
+(76, 58, 0, 1, '6.20', 'pot 200 gr.', 0, -1, 0, '0.000', '5.50'),
+(77, 59, 0, 1, '5.50', 'pot 200 gr.', 0, -1, 0, '0.000', '5.50'),
+(78, 60, 0, 1, '2.00', 'vrac au kg', 0, -1, 1, '0.000', '5.50'),
+(79, 61, 0, 1, '2.00', 'vrac au kg', 0, -1, 1, '0.000', '5.50'),
+(80, 62, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(81, 63, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(82, 64, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(83, 65, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(84, 66, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(85, 67, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(86, 68, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(87, 69, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(88, 70, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(89, 71, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(90, 72, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(91, 73, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(92, 74, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(93, 75, 0, 0, '0.00', 'vrac', 0, -1, 1, '0.000', '5.50'),
+(94, 76, 0, 0, '0.00', 'vrac', 0, -1, 0, '0.000', '5.50'),
+(96, 81, 0, 1, '4.50', 'vrac au kg', 0, -1, 1, '0.000', '5.50'),
+(97, 79, 0, 1, '1.20', 'vrac au kg', 0, -1, 1, '0.000', '5.50'),
+(98, 80, 0, 1, '1.20', 'vrac au kg', 0, -1, 1, '0.000', '5.50'),
+(99, 82, 0, 1, '0.70', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(100, 83, 0, 1, '0.70', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(101, 84, 0, 1, '0.70', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(102, 85, 0, 1, '0.70', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(103, 86, 0, 1, '0.65', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(104, 87, 0, 1, '0.50', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(105, 88, 0, 1, '0.65', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(106, 90, 0, 1, '0.45', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(107, 91, 0, 1, '2.80', '200 gr.', 0, -1, 0, '0.000', '5.50'),
+(108, 92, 0, 1, '2.80', '200 gr.', 0, -1, 0, '0.000', '5.50'),
+(109, 93, 0, 1, '2.80', '200 gr.', 0, -1, 0, '0.000', '5.50'),
+(110, 94, 0, 1, '2.20', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(111, 95, 0, 1, '2.10', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(112, 96, 0, 1, '2.15', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(113, 97, 0, 1, '2.10', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(114, 98, 0, 1, '2.00', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(115, 99, 0, 1, '0.50', '100 gr.', 0, -1, 0, '0.000', '5.50'),
+(117, 100, 0, 1, '1.60', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(118, 100, 0, 1, '3.10', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(119, 100, 0, 1, '6.00', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(120, 101, 0, 1, '1.90', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(121, 101, 0, 1, '3.70', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(122, 101, 0, 1, '7.20', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(123, 102, 0, 1, '2.20', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(124, 102, 0, 1, '4.30', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(125, 102, 0, 1, '8.30', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(126, 103, 0, 1, '1.60', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(127, 103, 0, 1, '3.00', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(128, 103, 0, 1, '5.80', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(129, 116, 0, 1, '2.40', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(130, 116, 0, 1, '4.60', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(131, 104, 0, 1, '1.80', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(132, 104, 0, 1, '3.60', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(133, 104, 0, 1, '7.00', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(134, 105, 0, 1, '2.10', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(135, 105, 0, 1, '4.20', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(136, 105, 0, 1, '8.20', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(137, 106, 0, 1, '2.10', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(138, 106, 0, 1, '4.20', '500 gr.', 0, -1, 0, '0.000', '5.50'),
+(139, 106, 0, 1, '8.20', '1 kg', 0, -1, 0, '0.000', '5.50'),
+(140, 107, 0, 1, '2.20', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(141, 107, 0, 1, '4.25', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(142, 108, 0, 1, '2.10', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(143, 108, 0, 1, '4.20', '250 gr.', 0, -1, 0, '0.000', '5.50'),
+(144, 109, 0, 1, '3.60', '25 cl', 0, -1, 0, '0.000', '5.50'),
+(145, 109, 0, 1, '7.00', '50 cl', 0, -1, 0, '0.000', '5.50'),
+(146, 109, 0, 1, '13.80', '1 l', 0, -1, 0, '0.000', '5.50'),
+(147, 110, 0, 1, '3.60', '25 cl', 0, -1, 0, '0.000', '5.50'),
+(148, 89, 0, 1, '0.55', '125 gr.', 0, -1, 0, '0.000', '5.50'),
+(149, 110, 0, 1, '7.00', '50 cl', 0, -1, 0, '0.000', '5.50'),
+(150, 110, 0, 1, '14.00', '1 l', 0, -1, 0, '0.000', '5.50'),
+(151, 117, 0, 1, '1.00', '1 litre', 0, -1, 0, '0.000', '5.50'),
+(153, 111, 0, 1, '1.80', '1 l', 0, -1, 0, '0.000', '5.50'),
+(154, 113, 0, 1, '0.90', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
+(155, 113, 0, 1, '0.80', '1 l', 0, -1, 0, '0.000', '5.50'),
+(156, 112, 0, 1, '0.85', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
+(157, 112, 0, 1, '1.70', '1 l', 0, -1, 0, '0.000', '5.50'),
+(158, 114, 0, 1, '0.80', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
+(159, 114, 0, 1, '1.60', '1 l', 0, -1, 0, '0.000', '5.50'),
+(160, 53, 0, 1, '10.70', '750 gr.', 0, -1, 0, '0.000', '5.50'),
+(161, 119, 0, 0, '0.00', '1 kg', 0, -1, 0, '0.000', '5.50');
 
 -- --------------------------------------------------------
 
@@ -205,11 +307,8 @@ CREATE TABLE IF NOT EXISTS `lien_commande_cond` (
 --
 
 INSERT INTO `lien_commande_cond` (`lcc_id_commande`, `lcc_id_cond`, `lcc_quantite`) VALUES
-(37, 39, 1),
-(38, 38, 1),
-(39, 40, 2),
-(40, 39, 1),
-(41, 39, 12);
+(7, 58, 1),
+(8, 58, 2);
 
 -- --------------------------------------------------------
 
@@ -230,11 +329,9 @@ CREATE TABLE IF NOT EXISTS `lien_commande_produit_resa` (
 --
 
 INSERT INTO `lien_commande_produit_resa` (`lcpr_id_commande`, `lcpr_id_produit_resa`, `lcpr_quantite`) VALUES
-(37, 36, 1),
-(38, 35, 1),
-(39, 37, 4),
-(40, 36, 1),
-(40, 37, 1);
+(6, 45, 2),
+(9, 45, 3),
+(10, 45, 3);
 
 -- --------------------------------------------------------
 
@@ -269,20 +366,12 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
   `partenaire_rang` int(11) NOT NULL COMMENT 'rang d''affichage du partenaire',
   `partenaire_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du partenaire 0 = inactif, 1 = actif ',
   PRIMARY KEY (`partenaire_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `partenaire`
 --
 
-INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`) VALUES
-(2, 'Partenaire 2', 'sa description est sommaire mais il fait du bon pâté', 'http://www.website1.fr', 1, 1),
-(3, 'test 2', 'desc', 'http://www.website2.com', 3, 1),
-(4, 'test', 'desc', 'http://www.website.com', 4, 1),
-(5, 'dsdq', 'qsd', 'http://www.website.com', 6, 1),
-(6, 'cote''s 21', 'desxcwwxcwxc', 'http://www.website.com', 5, 1),
-(8, 'parténaire', 'desc', 'http://www.pate2.fr', 7, 1),
-(9, 'newone', 'la desc', 'http://www.fromage.fr', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -296,23 +385,96 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_libelle` varchar(100) NOT NULL COMMENT 'libelle du produit',
   `produit_descriptif_production` text NOT NULL COMMENT 'descriptif de fabrication/production du produit',
   `produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
-  `produit_unite` varchar(100) NOT NULL COMMENT 'unite du produit (kg, litre etc...)',
-  `produit_prix_unite` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix du produit a l''unite',
   `produit_photo` varchar(100) NOT NULL COMMENT 'photo du produit',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=120 ;
 
 --
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_unite`, `produit_prix_unite`, `produit_photo`) VALUES
-(31, 6, 'choux fleur', 'à balancer sur les bâtiments administratifs de Rennes', 1, 'kg', '1.00', 'choux-fleur.JPG'),
-(32, 6, 'carrottes', 'poussent grâce au temps et au maraîcher', 1, 'kg', '0.20', '20.jpg'),
-(33, 4, 'creme fraiche', 'desc', 1, 'litre', '0.50', 'cremefraiche.gif'),
-(34, 7, 'pommes''caramel', 'pommier', 1, 'kg', '1.50', 'pomme_caramalisee.jpg'),
-(35, 4, 'lait', 'via les vaches', 1, 'litre', '1.00', 'Lait-bouteille.jpg');
+INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_photo`) VALUES
+(36, 17, 'Huile chanvre', 'Michel Blain', 1, 'logo200.gif'),
+(37, 18, 'Farine blé', 'Michel Blain', 1, 'logo200.gif'),
+(38, 18, 'Farine blé noir', 'Michel Blain', 1, 'logo200.gif'),
+(39, 18, 'Farine seigle', 'Michel Blain', 1, 'logo200.gif'),
+(40, 19, 'Miel', 'Jean-Yves Pelé', 1, 'logo200.gif'),
+(41, 20, 'Jus de pomme', 'Michel Blain', 1, 'logo200.gif'),
+(42, 20, 'Cidre', 'Etienne Lehuger', 1, 'logo200.gif'),
+(43, 20, 'Bière Rouge (ambrée)', 'Steven Guyader', 1, 'logo200.gif'),
+(44, 20, 'Bière Jaune (blonde)', 'Steven Guyader', 1, 'logo200.gif'),
+(45, 20, 'Bière Bleue (rousse)', 'Steven Guyader', 1, 'logo200.gif'),
+(46, 20, 'Bière Blanche (blanche)', 'Steven Guyader', 1, 'logo200.gif'),
+(47, 21, 'Pain semi complet', 'Sylvain Gauthier', 1, 'logo200.gif'),
+(48, 21, 'Pain sésame', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif'),
+(49, 21, 'Pain noisette', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif'),
+(50, 21, 'Pain raisin', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif'),
+(51, 21, 'Paint pépittes chocolat', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif'),
+(52, 22, 'Oeufs', 'Laurence Ronsoux', 1, 'logo200.gif'),
+(53, 23, 'Cassoulet', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
+(55, 23, 'Pâté à l''ail', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
+(56, 23, 'Pâté de campagne', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
+(57, 23, 'Rillettes de porc', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
+(58, 23, 'Rillettes de canard', 'Loïc Guérillon\r\n\r\n', 1, 'logo200.gif'),
+(59, 23, 'Terrine volaille poivre vert', 'Loïc Guérillon\r\n\r\n', 1, 'logo200.gif'),
+(60, 24, 'Pommes 1', 'Etienne Lehuger\r\n', 1, 'logo200.gif'),
+(61, 24, 'Pommes 2', 'Etienne Lehuger\r\n', 1, 'logo200.gif'),
+(62, 25, 'Oignons', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(63, 25, 'Echalotte', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(64, 25, 'Ail', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(65, 25, 'Courge musquée de Provences', 'GAEC Olivet\r\n', 0, 'logo200.gif'),
+(66, 25, 'Potiron', 'GAEC Olivet\r\n', 0, 'logo200.gif'),
+(67, 25, 'Potimaron', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(68, 25, 'Butter nut', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(69, 25, 'Carotte', 'Alan Testard\r\n', 0, 'logo200.gif'),
+(70, 25, 'Poivron', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(71, 25, 'Aubergine', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(72, 25, 'Concombre', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(73, 25, 'Tomate', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(74, 25, 'Epinard', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(75, 25, 'Mâche', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
+(76, 25, 'Salade', 'Arnaud Daligault\r\n\r\n', 0, 'logo200.gif'),
+(79, 25, 'Pomme de terre Désirée', 'Henry Beucher\r\n', 1, 'logo200.gif'),
+(80, 25, 'Pomme de terre Charlotte', 'Henry Beucher\r\n', 1, 'logo200.gif'),
+(81, 25, 'Poireaux', 'Jean-Charles Gruel\r\n', 1, 'logo200.gif'),
+(82, 26, 'Crème dessert caramel', 'GAEC Olivet', 1, 'logo200.gif'),
+(83, 26, 'Crème dessert café', 'GAEC Olivet', 1, 'logo200.gif'),
+(84, 26, 'Crème dessert vanille', 'GAEC Olivet', 1, 'logo200.gif'),
+(85, 26, 'Crème dessert chocolat', 'GAEC Olivet', 1, 'logo200.gif'),
+(86, 26, 'Yaourt brassé fruits', 'GAEC Olivet', 1, 'logo200.gif'),
+(87, 26, 'Yaourt brassé nature', 'GAEC Olivet', 1, 'logo200.gif'),
+(88, 26, 'Yaourt ferme fruits', 'GAEC Olivet', 1, 'logo200.gif'),
+(89, 26, 'Yaourt ferme vanille', 'GAEC Olivet', 1, 'logo200.gif'),
+(90, 26, 'Yaourt ferme nature', 'GAEC Olivet', 1, 'logo200.gif'),
+(91, 26, 'Fromage apéro orient', 'GAEC Olivet', 1, 'AperOlivet Orient.JPG'),
+(92, 26, 'Fromage apéro mexicain', 'GAEC Olivet', 1, 'AperOlivet Mexicain.JPG'),
+(93, 26, 'Fromage apéro ail et fines herbes', 'GAEC Olivet', 1, 'AperOlivet Ail & Fines Herbes.JPG'),
+(94, 26, 'Fromage frais paprika', 'GAEC Olivet', 1, 'logo200.gif'),
+(95, 26, 'Fromage frais cendré', 'GAEC Olivet', 1, 'logo200.gif'),
+(96, 26, 'Fromage frais herbes Provences', 'GAEC Olivet', 1, 'logo200.gif'),
+(97, 26, 'Fromage frais poivre', 'GAEC Olivet', 1, 'logo200.gif'),
+(98, 26, 'Fromage frais nature', 'GAEC Olivet', 1, 'logo200.gif'),
+(99, 26, 'P''tit olivet', 'GAEC Olivet', 1, 'Ptit Olivet.JPG'),
+(100, 26, 'Fromage blanc lisse 0%', 'GAEC Olivet', 1, 'logo200.gif'),
+(101, 26, 'Fromage blanc lisse 20%', 'GAEC Olivet', 1, 'logo200.gif'),
+(102, 26, 'Fromage blanc lisse 40%', 'GAEC Olivet', 1, 'logo200.gif'),
+(103, 26, 'Fromage blanc campagne 0%', 'GAEC Olivet', 1, 'logo200.gif'),
+(104, 26, 'Fromage blanc campagne 20%', 'GAEC Olivet', 1, 'logo200.gif'),
+(105, 26, 'Fromage blanc campagne 40%', 'GAEC Olivet', 1, 'logo200.gif'),
+(106, 26, 'Faisselle', 'GAEC Olivet', 1, 'Faisselle.JPG'),
+(107, 26, 'Beurre ½ sel', 'GAEC Olivet', 1, 'logo200.gif'),
+(108, 26, 'Beurre doux', 'GAEC Olivet', 1, 'logo200.gif'),
+(109, 26, 'Crème liquide', 'GAEC Olivet', 1, 'logo200.gif'),
+(110, 26, 'Crème épaisse', 'GAEC Olivet', 1, 'logo200.gif'),
+(111, 26, 'Lait ribot', 'GAEC Olivet', 1, 'logo200.gif'),
+(112, 26, 'Lait écrémé', 'GAEC Olivet', 1, 'logo200.gif'),
+(113, 26, 'Lait 1/2 écrémé', 'GAEC Olivet', 1, 'logo200.gif'),
+(114, 26, 'Lait entier', 'GAEC Olivet', 1, 'logo200.gif'),
+(116, 21, 'Pain 6 céréales', 'Sylvain Gauthier', 1, 'logo200.gif'),
+(117, 26, 'Bouteille verre', 'GAEC Olivet', 1, 'logo200.gif'),
+(118, 21, 'Pain semi complet', 'Johny Santo', 1, 'logo200.gif'),
+(119, 21, 'Pain semi complet', 'Laurent Gauthier', 1, 'logo200.gif');
 
 -- --------------------------------------------------------
 
@@ -332,17 +494,20 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
   `produit_resa_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le produit est une nouveaute ? 0 = non, 1 = oui',
   PRIMARY KEY (`produit_resa_id`),
   KEY `produit_resa_categorie_fk` (`produit_resa_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=46 ;
 
 --
 -- Contenu de la table `produit_resa`
 --
 
 INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_id_categorie`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
-(35, 3, 'caissette d''agneau', 'c''est clarisse qui fait', 1, 'Anima-Peluche-agneau-blanc-1702.jpg', 1, 9, 1),
-(36, 3, 'caissette de boeuf', 'c''est gérard le boss', 1, '323-tete-boeuf.jpg', 1, 13, 1),
-(37, 3, 'caissette de porc', 'la on sait pas trop d''où ca vient ?', 1, 'Photo-porc.gif', 1, 0, 0),
-(38, 3, 'chien', 'dans les rues', 1, 'le_chien_errant-300x225.jpg', 1, 12, 1);
+(39, 23, 'Chapon (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
+(40, 23, 'Oie (0 € le kg) ', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
+(41, 23, 'Dinde (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
+(42, 23, 'Pintade (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
+(43, 23, 'Poulet (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
+(44, 23, 'Caissette d''agneau (12,32 € le kg)', 'GAEC Olivet', 0, 'logo200.gif', 0, -1, 0),
+(45, 23, 'Caissette de boeuf (10,90 € le kg)', 'GAEC Olivet', 1, 'logo200.gif', 0, -1, 0);
 
 --
 -- Contraintes pour les tables exportées

@@ -83,12 +83,10 @@ function panierMontantTotalProdsCond(){
 						$cond_id = $row[0];
 						$cond_nom = $row[1];
 						$cond_prix= $row[2];
-						$cond_quantite_produit= $row[3];
+						$cond_remise= $row[3];
 						$produit_libelle= $row[4];
-						$produit_unite= $row[5];
-						$produit_prix_unite= $row[6];
-						$produit_id_categorie= $row[7];
-						$prixUnitaireCond = $cond_prix + ($cond_quantite_produit + $produit_prix_unite);
+						$produit_id_categorie= $row[5];
+						$prixUnitaireCond = $cond_prix - $cond_remise;
 						$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 						$total  = $total +  $prixTotalCond ;
 					}

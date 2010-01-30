@@ -21,7 +21,7 @@ var cfg_description = ""
 		+ "<tr><td valign='top'>"
 		+ "<div style='color: blue; font-size: 14px; font-weight:bold;'>"
 		+ "Ferme D'olivet" + "</div><br/>" + "Gaec à 3 voix, L'Olivet<br/>"
-		+ "35530 SERVON-SUR-VILAINE<br/>" + "02 99 55 28 69<br/>"
+		+ "35530 SERVON-SUR-VILAINE<br/>" + "06 62 09 27 62<br/>"
 		+ "<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"
 		+ "</td>" +
 		// "<td>"+
@@ -235,8 +235,8 @@ function clickValid1() {
 
 function clickCheckClient(){
 	
-	var client_mail = $F('client_mail');
-	var client_code = $F('client_code');
+	var client_mail = $('client_mail').value;
+	var client_code = $('client_code').value;
 	
 	new Ajax.Request('tools/visitor_ajax.php', 
 			{ 
@@ -289,6 +289,8 @@ function clickCheckModifClient(){
 	var client_commune = $F('client_commune');
 	var client_tel = $F('client_tel');
 	var client_ref = $F('client_ref');
+	var client_motpasse = $F('client_motpasse');
+	var client_confmotpasse = $F('client_confmotpasse');
 	
 	new Ajax.Request('tools/visitor_ajax.php', 
 			{ 
@@ -302,8 +304,9 @@ function clickCheckModifClient(){
 						client_postal: client_postal,
 						client_commune: client_commune, 
 						client_tel: client_tel,
-						client_ref: client_ref
-						
+						client_ref: client_ref,
+						client_motpasse: client_motpasse,
+						client_confmotpasse: client_confmotpasse						
 		            },
 		onComplete: manageClickCheckModifClient,
 		onFailure : function(){ alert('Something went wrong...') }
@@ -380,6 +383,40 @@ function clickSetNbArticles(cond, id) {
 				}
 			});
 }
+
+function checkDivisible(divisible, cond, id) {
+	var idInput;
+	var qtProd;
+	if (cond == 1) {
+		idInput = 'qtProd_1_' + id;
+
+	} else {
+		idInput = 'qtProd_0_' + id;
+	}
+	qtProd = $F(idInput);
+	//cas non divisible
+	if (!isNaN(qtProd) && qtProd.lastIndexOf('.')>0 && divisible == '0') {
+		alert('Ce produit n\'est pas divisible');
+		var moninput = $(idInput);
+		moninput.focus();
+		moninput.value = '0';
+		return false;
+	}
+	//cas divisible
+	if (!isNaN(qtProd) && qtProd.indexOf('.')>0 && divisible == '1') {
+		var decimales = qtProd.substr(qtProd.lastIndexOf('.')+1,qtProd.length);
+		if (decimales.length>2) {
+			alert('Ce produit est divisible mais votre saisie n\'est pas bonne.\nElle contient plus de 2 décimales.');
+			var moninput = $(idInput);
+			moninput.focus();
+			moninput.value = '0';
+			return false;
+		}
+	}
+	
+	return true;
+}
+
 /**
  * met a jour la quantite d'un produit pour 
  * dans le panier
@@ -389,6 +426,7 @@ function clickSetNbArticles(cond, id) {
  * @return
  */
 function clickSetQuantite(cond, id, pageCommander) {
+
 	var idInput;
 	var qtProd;
 	if (cond == 1) {
@@ -428,7 +466,7 @@ function clickSetQuantite(cond, id, pageCommander) {
 		});
 	} else {
 		alert('Vous devez saisir un nombre entre  0 et 100');
-		var moninput = document.getElementById(idInput);
+		var moninput = $(idInput);
 		moninput.focus();
 		moninput.value = '0';
 	}

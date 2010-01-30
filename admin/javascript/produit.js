@@ -9,8 +9,6 @@ function valideFormProduit(){
 	var idCategorie = $('idCategorie').value;
 	var libelle = $('libelle').value.trim();
 	var descriptif = $('descriptif').value.trim();
-	var unite = $('unite').value.trim();
-	var prix_unite = $('prix_unite').value.trim();
 	var photo = $('photo').value.trim();
 	
 	if (idCategorie == -1){
@@ -29,27 +27,6 @@ function valideFormProduit(){
 		alert("Vous devez renseigner un descriptif.");
 		$('descriptif').focus();
 		return false;
-	}
-	
-	if (unite == ''){
-		alert("Vous devez renseigner une unité.");
-		$('unite').focus();
-		return false;
-	}
-	
-	if (prix_unite == ''){
-		alert("Vous devez renseigner un prix à l'unité.");
-		$('prix_unite').focus();
-		return false;
-	}
-	
-	else {
-		var isAFloat = ""+parseFloat(prix_unite);
-		if(isAFloat == 'NaN'){
-			alert("Le prix à l'unité doit être décimal.\nExemple : 1.50");
-			$('prix_unite').focus();
-			return false;
-		}
 	}
 	
 	if (photo == ''){

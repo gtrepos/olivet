@@ -10,6 +10,9 @@
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Client : </td><td><?php liste_clients($_GET['refClient'], false);?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
+			<tr><td>Date de récupération : </td><td><input type="text" name="daterecup" id="daterecup" value="<?php echo $_GET['daterecup'];?>"/>
+				<input type="button" value="?" onclick="displayCalendar(document.forms[0].daterecup,'yyyy-mm-dd',this)"> </td></tr>
+			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Produit conditionné à ajouter :</td><td><?php affiche_conditionnements_pour_selection('-1', true, 'addCondCommande()');?></td></tr>
 			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr><td>Produit à la réservation à ajouter :</td><td><?php affiche_produitsresa_pour_selection('-1', true, 'addProduitResaCommande()');?></td></tr>

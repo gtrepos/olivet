@@ -10,22 +10,32 @@
 </p>
 <p>
 	<label>Nom * : </label>
-	<input type=text id=client_nom size=30
+	<input type=text id=client_nom size=25
 					   value= <?php echo $tmpCheckClient->nom;?>>
 </p>
 <p>
 	<label>Prénom * : </label>
-	<input type=text id=client_prenom size=30
+	<input type=text id=client_prenom size=25
 					   value= <?php echo $tmpCheckClient->prenom;?>>
 </p>
 <p>
 	<label>Email * :</label>
-	<input type=text id=client_mail size=30
+	<input type=text id=client_mail size=25
 					   value= <?php echo $tmpCheckClient->email;?>> 
 </p>
 <p>
+	<label>Mot de passe * :</label>
+	<input type=password id=client_motpasse size=25
+					   value= <?php echo $tmpCheckClient->mdp;?>> 
+</p>
+<p>
+	<label>Confirmation * :</label>
+	<input type=password id=client_confmotpasse size=25 maxlength=10
+					   value= <?php echo $tmpCheckClient->mdp;?>> 
+</p>
+<p>
 	<label>N&deg; Tel * : </label>
-	<input type=text id=client_tel size=30
+	<input type=text id=client_tel size=25
 					   value= "<?php echo $tmpCheckClient->numeroTel;?>">
 </p>
 <p>
@@ -34,16 +44,19 @@
 </p>
 <p>
 	<label>Code postal : </label>
-	<input type=text id=client_postal size=30
+	<input type=text id=client_postal size=25
 					   value= "<?php echo $tmpCheckClient->codePostal;?>"> 
 </p>
 <p>
 	<label>Commune : </label>
-	<input type=text id=client_commune size=30
+	<input type=text id=client_commune size=25
 					   value= "<?php echo $tmpCheckClient->commune;?>"> 
 </p>
 
 <input type=hidden id=client_ref value="<?php echo $tmpCheckClient->id;?>">
 
-<input type="button" value="envoyer"  onclick='javascript:clickCheckModifClient();'/>
 </form>
+
+<p>
+<a href="javascript:clickCheckModifClient();" class="bouton">Valider</a>
+</p>

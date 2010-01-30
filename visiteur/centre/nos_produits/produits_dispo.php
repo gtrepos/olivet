@@ -7,15 +7,14 @@ foreach ($_POST as $key => $value) {
 		ouverture();
 	}
 }
-?>
-
-<?php 
-//panierPlot() 
-?>
+?><?php//panierPlot()?>
+<h3>Nos produits</h3>
+<p>Vous pouvez consulter et commander nos produits, en cliquant sur une des catégorie présentées ci-dessous.</p>
+<p>Des produits 'sur réservation' vous seront proposés de manière périodique. Typiquement, les caissettes de viande sont des produits sur réservation. Pour ceux-ci, le GAEC vous informera de leur date de disponibilté directement par mail.</p>  
 
 <?php
 $globStruc = bddProdsDispo();
-echo "<h3>Produits actuellement disponibles</h3>";
+echo "<h3>Produits actuellement disponibles</h3><a href=\"javascript:clickNavigation('nos_produits');\">Voir toutes les catégories.</a>";
 echo "<ul class='menu_deroulant2'>";
 while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo "<li>";
@@ -29,27 +28,26 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_photo = $prodStruct["produit_photo"];
 			$produit_libelle = $prodStruct['produit_libelle'];
 			$produit_descriptif_production = $prodStruct['produit_descriptif_production'];
-			$produit_unite = $prodStruct['produit_unite'];
-			$produit_prix_unite = $prodStruct['produit_prix_unite'];
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
-			echo "<table border='1' style='border-collapse: separate; empty-cells: show;'>";
+			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
-			echo "<td rowspan=6>";
+			echo "<td rowspan=6 width='200px;'>";
 			echo "<img src='img/upload/$produit_photo' alt='texte alternatif' width='200' height='200'/>";
 			echo "</td>";
-			echo "<td valign = 'middle'>";
+			echo "<td valign = 'middle' align=center>";
 			echo "$produit_libelle : $produit_descriptif_production ";
 			echo "</td>";
 			echo "</tr>";
 			echo "<tr>";
 			echo "<td>";
-			echo "<table border='1' style='border-collapse: separate; empty-cells: show;'>";
+			echo "<table align=center CELLPADDING=10px CELLSPACING=10px>";
 			while (list($cond_id, $condStruct) = each($prodStruct["conditionnements"])) {
 				$cond_nom = $condStruct["cond_nom"];
-				$cond_quantite_produit = $condStruct["cond_quantite_produit"];
 				$cond_prix = $condStruct["cond_prix"];
+				$cond_remise = $condStruct["cond_remise"];
 				$cond_a_stock = $condStruct["cond_a_stock"];
 				$cond_nb_stock = $condStruct["cond_nb_stock"];
+				$cond_divisible = $condStruct["cond_divisible"];
 				$quantite_panier = panierQuantiteProdsCond($cond_id);
 				if($cond_a_stock = 1 ){
 					$nbstock = $cond_nb_stock;
@@ -57,18 +55,11 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 					$nbstock = 20;
 				}
 				echo "<tr>";
-				echo "<td>";
-				echo $cond_nom;
-				echo "</td>";
-				echo "<td>";
-				echo $cond_quantite_produit." ".$produit_unite ;
-				echo "</td>";
-				echo "<td>";
-				echo ($cond_prix + ($cond_quantite_produit + $produit_prix_unite))." &euro;" ;
-				echo "</td>";
-				echo "<td>";
-				echo "<input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
-				     onBlur='javascript:clickSetQuantite(1,$cond_id,0);'/>";
+				echo "<td style='border: 1px solid #CCFF99;'>";
+				echo $cond_nom ."<br>";
+				echo "prix : " . number_format($cond_prix - $cond_remise, 2, '.', '')." &euro;<br>" ;
+				echo "quantité : <input value=$quantite_panier id='qtProd_1_$cond_id' type='text' maxlength='5'
+				     onBlur='javascript:if(checkDivisible($cond_divisible, 1, $cond_id)){clickSetQuantite(1,$cond_id,0);}'/>";
 				echo "</td>";
 				echo "</tr>";
 			}
@@ -90,18 +81,18 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_resa_nb_stock= $prodResaStruct['produit_resa_nb_stock'];
 
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
-			echo "<table border='1' style='border-collapse: separate; empty-cells: show;'>";
+			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
-			echo "<td rowspan=6>";
-			echo "<img src='img/upload/$produit_resa_photo' alt='texte alternatif' width='200' height='200'/>";
+			echo "<td rowspan=6 width='200px;'>";
+			echo "<img src='img/upload/$produit_resa_photo' alt='GAEC Olivet' width='200' height='200'/>";
 			echo "</td>";
-			echo "<td valign = 'middle'>";
-			echo "$produit_resa_libelle : $produit_resa_descriptif_production."." A la réservation uniquement..";
+			echo "<td align=center valign = 'middle'>";
+			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
 			echo "</td>";
 			echo "</tr>";
 			echo "<tr>";
 			echo "<td>";
-			echo "<table border='1' style='border-collapse: separate; empty-cells: show;'>";
+			echo "<table align=center CELLPADDING=10px CELLSPACING=10px'>";
 
 			$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
 			if($produit_resa_a_stock = 1 ){
@@ -111,9 +102,9 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			}
 			echo "<tr>";
 			echo "<td>";
-				
-			echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
-			     onBlur='javascript:clickSetQuantite(0,$produit_resa_id);'/>";
+										
+			echo "quantité : <input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
+			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,0);}'/>";
 			echo "</td>";
 			echo "</tr>";
 

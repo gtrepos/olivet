@@ -9,9 +9,9 @@
 			<tr><td>Stock : </td><td><input type="checkbox" id="a_stock" name="a_stock" onclick="selectionneStock()"/> : <input type='text' id='nb_stock' name='nb_stock' readonly="readonly"/></td></tr>
 			<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute'/></td></tr>
 			<tr><td>Divisble ? </td><td><input type='checkbox' id='divisible' name='divisible'/></td></tr>
-			<tr><td>Prix du conditionnement : </td><td><input type='text' id='prix_cond' name='prix_cond'/> &euro; (Exemple : 1.50)</td></tr>
-			<tr><td>Quantité de produit : </td><td><input type='text' id='quantite_produit' name='quantite_produit'/></td></tr>
+			<tr><td>Prix vente TTC : </td><td><input type='text' id='prix_cond' name='prix_cond'/> &euro; (Exemple : 1.50)</td></tr>
 			<tr><td>Remise : </td><td><input type='text' id='remise' name='remise'/> &euro; (Exemple : 0.20)</td></tr>
+			<tr><td>TVA : </td><td><?php affiche_tva('5.50'); ?></td></tr>
 		</table>
 	</div>
 	<br>

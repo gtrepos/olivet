@@ -41,7 +41,7 @@ function affiche_etat_pour_commande($select){
 	echo "</SELECT>";
 }
 
-function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClient){
+function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClient, $dateRecup){
 	
 	//booleens nécessaires pour le commit
 	$resultCommande = false;
@@ -71,7 +71,7 @@ function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClie
 	begin(); // début de transaction
 	
 	//insert dans la table commande
-	$requeteCommande = "INSERT INTO commande (commande_id_client) VALUES ($refClient)";
+	$requeteCommande = "INSERT INTO commande (commande_id_client, commande_daterecuperation) VALUES ($refClient, '$dateRecup')";
 	$resultCommande = @mysql_query($requeteCommande);
 	
 	if ($resultCommande){
@@ -128,7 +128,7 @@ function creer_commande ($recapCommandeCond, $recapCommandeProduitResa, $refClie
 	}	
 }
 
-function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCommande, $refClient) {
+function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCommande, $refClient, $dateRecup) {
 	
 	//booleens nécessaires pour le commit
 	$resultCommande = false;
@@ -161,7 +161,7 @@ function modifier_commande ($recapCommandeCond, $recapCommandeProduitResa, $idCo
 	begin(); // début de transaction
 	
 	//insert dans la table commandes
-	$requeteCommande = "UPDATE commande SET commande_id_client = $refClient WHERE commande_id = $idCommande "  ;
+	$requeteCommande = "UPDATE commande SET commande_id_client = $refClient, commande_daterecuperation = '$dateRecup' WHERE commande_id = $idCommande "  ;
 	$resultCommande = @mysql_query($requeteCommande);
 	
 	if ($resultCommande){
@@ -292,6 +292,7 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
   	echo "<td>$row[0]</td>";
     echo "<td>$row[1] $row[2]</td>";
     echo "<td>$row[3]</td>";
+    echo "<td>$row[6]</td>";
     echo "<td align='center'><a title='$libelleEtat' href='#'><image src='images/$imgEtat' border=0/></a></td>";
     $resume = affiche_resume_commande($row[0]);
     $resumeLight = substr ($resume, 0, 100);
@@ -302,8 +303,9 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
 	echo "<td>".affiche_somme_commande($row[0]). " " . affiche_presence_produit_resa($row[0]) .  "</td>";  		 
   	echo "<td align=\"right\">";
     echo "<a title='générer la facture' href='javascript:genererFacture($row[0])'><image src='images/pdf.gif' border=0/></a> ";
-    echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[5]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
-    
+    if ($etat == 'EC') {
+    	echo "<a href=\"?page=commandes&action=modifier&idCommande=$row[0]&refClient=$row[5]&daterecup=$row[6]\">[".ADMIN_COMMANDE_MODIFIER."]</a>";
+    }
     if ($etat == 'EC') {
     	echo "<a href=\"\" onclick=\"alerteFacturationCommande('$row[0]')\">[".ADMIN_COMMANDE_FACTUREE."]</a>";
     }
@@ -322,7 +324,7 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
 
 function affiche_detail_commande($idCommande){
 	
-  $requeteCond = "SELECT cond_id, cond_nom, cond_prix, produit_libelle, produit_prix_unite, lcc_quantite FROM conditionnement, produit, lien_commande_cond " .
+  $requeteCond = "SELECT cond_id, cond_nom, cond_prix, produit_libelle, lcc_quantite FROM conditionnement, produit, lien_commande_cond " .
 			"WHERE lcc_id_cond = cond_id AND cond_id_produit = produit_id AND lcc_id_commande = " . $idCommande ;	
 
   $resultatsCond=mysql_query($requeteCond) or die (mysql_error());
@@ -334,8 +336,7 @@ function affiche_detail_commande($idCommande){
   	$condNom = $rowCond[1];
   	$condPrix = $rowCond[2];
   	$produitLibelle = $rowCond[3];
-  	$produitPrixUnite = $rowCond[4];
-  	$quantiteCondCommande = $rowCond[5];
+  	$quantiteCondCommande = $rowCond[4];
   	
 	echo "<tr id='tr_cond_$condId'>
 			<td>$produitLibelle [$condNom]</td>
@@ -368,7 +369,7 @@ function affiche_detail_commande($idCommande){
 function affiche_somme_commande($idCommande){
 	
   $requete=
-		"SELECT p.produit_prix_unite, cond.cond_prix, cond.cond_quantite_produit, " .
+		"SELECT cond.cond_prix, cond.cond_remise, " .
 		"lcc.lcc_quantite " .
 		"FROM produit p, lien_commande_cond lcc, conditionnement cond " .
 		"WHERE p.produit_id = cond.cond_id_produit AND cond.cond_id = lcc.lcc_id_cond AND lcc.lcc_id_commande = " . $idCommande . "";
@@ -379,19 +380,14 @@ function affiche_somme_commande($idCommande){
   
   while ($row = mysql_fetch_array($resultats))
   {
+  	$condPrix = $row[0];
+  	$condRemise = $row[1];
+  	$quantiteCondCommande = $row[2];
   	
-  	$prixProduitUnite = $row[0];
-  	$condPrix = $row[1];
-  	$condQuantiteProduit = $row[2];
-  	$quantiteCondCommande = $row[3];
-  	
-  	$prix += $quantiteCondCommande * ($prixProduitUnite * $condQuantiteProduit) 
-  			 + $quantiteCondCommande * $condPrix;  	
+  	$prix += $quantiteCondCommande * ($condPrix - $condRemise);  	
   }
   
-  
-  
-  return $prix . " €";
+  return number_format($prix, 2, '.', '') . " €";
   
 }
 
@@ -436,6 +432,11 @@ function supprimer_commande($idCommande) {
 	
 	$requeteDeleteCommande = "DELETE FROM commande where commande_id = '$idCommande'";
 	$resultDeleteCommande=mysql_query($requeteDeleteCommande) or die (mysql_error());
+	
+	echo $resultStock;
+	echo $resultDeleteLcc;
+	echo $resultDeleteCommande;
+	echo $resultDeleteLcpr;
 	
 	if ($resultDeleteLcc && $resultDeleteCommande && $resultDeleteLcpr) {
 		commit();
