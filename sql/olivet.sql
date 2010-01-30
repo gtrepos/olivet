@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Ven 29 Janvier 2010 à 18:57
+-- Généré le : Sam 30 Janvier 2010 à 10:12
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `client_email` varchar(100) NOT NULL COMMENT 'email du client',
   `client_code` varchar(10) NOT NULL COMMENT 'code aleatoire du client',
   PRIMARY KEY (`client_reference`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='liste des clients' AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='liste des clients' AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `client`
@@ -102,7 +102,8 @@ INSERT INTO `client` (`client_reference`, `client_civilite`, `client_nom`, `clie
 (8, 'mme', 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
 (9, 'mr', 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
 (10, 'mme', 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1'),
-(11, NULL, 'qsd', 'qd', '', '', '', 'qds', 'gt', 'azerty');
+(11, NULL, 'qsd', 'qd', '', '', '', 'qds', 'gt', 'azerty'),
+(12, 'mr', 'TREPOS', 'gt', '', '', '', '0617350001', 'gt@test.fr', 'azerty');
 
 -- --------------------------------------------------------
 
@@ -118,18 +119,15 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_daterecuperation` timestamp NULL DEFAULT NULL COMMENT 'date de recuperation de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `commande`
 --
 
 INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_etat`, `commande_daterecuperation`) VALUES
-(6, 4, '2010-01-29 17:18:05', 'EC', NULL),
-(7, 4, '2010-01-29 17:21:49', 'EC', NULL),
-(8, 4, '2010-01-29 17:31:26', 'EC', NULL),
-(9, 4, '2010-01-29 18:31:15', 'EC', NULL),
-(10, 4, '2010-01-29 18:33:06', 'EC', NULL);
+(12, 4, '2010-01-29 19:15:08', 'EC', '2010-02-02 00:00:00'),
+(14, 12, '2010-01-30 10:12:22', 'EC', '2010-02-03 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -297,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
 CREATE TABLE IF NOT EXISTS `lien_commande_cond` (
   `lcc_id_commande` int(11) NOT NULL COMMENT 'identifiant de commande',
   `lcc_id_cond` int(11) NOT NULL COMMENT 'identifiant de conditionnement',
-  `lcc_quantite` int(11) NOT NULL COMMENT 'quantite du conditionnement dans la commande',
+  `lcc_quantite` decimal(5,2) NOT NULL COMMENT 'quantite du conditionnement dans la commande',
   PRIMARY KEY (`lcc_id_commande`,`lcc_id_cond`),
   KEY `lcc_cond_fk` (`lcc_id_cond`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
@@ -307,8 +305,8 @@ CREATE TABLE IF NOT EXISTS `lien_commande_cond` (
 --
 
 INSERT INTO `lien_commande_cond` (`lcc_id_commande`, `lcc_id_cond`, `lcc_quantite`) VALUES
-(7, 58, 1),
-(8, 58, 2);
+(12, 58, '2.00'),
+(14, 96, '0.20');
 
 -- --------------------------------------------------------
 
@@ -329,9 +327,7 @@ CREATE TABLE IF NOT EXISTS `lien_commande_produit_resa` (
 --
 
 INSERT INTO `lien_commande_produit_resa` (`lcpr_id_commande`, `lcpr_id_produit_resa`, `lcpr_quantite`) VALUES
-(6, 45, 2),
-(9, 45, 3),
-(10, 45, 3);
+(12, 45, 3);
 
 -- --------------------------------------------------------
 
