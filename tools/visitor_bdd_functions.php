@@ -109,7 +109,7 @@ function bddAddCommande($mail){
 		}
 	}
 
-	return true;
+	return $commande_id;
 
 }
 
