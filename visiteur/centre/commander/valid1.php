@@ -19,6 +19,13 @@
 <p><label>Nom * :</label><input type=text id=nclient_nom size=25 value= <?php if(isset($ajax_nclient_nom)){echo "$ajax_nclient_nom";}?>></p>
 <p><label>Pr&eacute;nom * :</label><input type=text id=nclient_prenom size=25 value= <?php if(isset($ajax_nclient_prenom)){echo "$ajax_nclient_prenom";}?>></p>
 <p><label>N&deg; Tel * :</label><input type=text id=nclient_tel size=25 value= <?php if(isset($ajax_nclient_tel)){echo "$ajax_nclient_tel";}?>></p>
+<p><label>Civilité  :</label>
+	<select name=nclient_civilite id=nclient_civilite size=1>
+		<option value='-1'>-- Choisir une civilité --</option>
+		<option value='mme'>Madame</option>
+		<option value='melle'>Mademoiselle</option>
+		<option value='mr'>Monsieur</option>
+	</select></p>
 <p><label>Adresse :</label><input type=text id=nclient_adresse size=25 value= <?php if(isset($ajax_nclient_adresse)){echo "$ajax_nclient_adresse";}?>></p> 
 <p><label>Code Postal :</label><input type=text id=nclient_postal size=25 value= <?php if(isset($ajax_nclient_postal)){echo "$ajax_nclient_postal";}?>></p> 
 <p><label>Commune :</label><input type=text id=nclient_commune size=25 value= <?php if(isset($ajax_nclient_commune)){echo "$ajax_nclient_commune";}?>></p>

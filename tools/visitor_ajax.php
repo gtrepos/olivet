@@ -77,7 +77,8 @@ switch($ajax_event){
   		$ajax_nclient_commune = trim("$_POST[nclient_commune]");
   		$ajax_nclient_tel = trim("$_POST[nclient_tel]");
   		$ajax_daterecup_commande = "$_POST[daterecup_commande]";
-
+		$ajax_nclient_civilite = "$_POST[nclient_civilite]";
+		
   		$addClient = false;
   		$addCommande = false;
   		$mail = "";
@@ -159,7 +160,7 @@ switch($ajax_event){
   		}
   		if($addClient){
   			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
-  				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1);
+  				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1, $ajax_nclient_civilite);
   		}
   		if($addCommande){
   			$idCommande = bddAddCommande($mail, $ajax_daterecup_commande);

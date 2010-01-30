@@ -30,9 +30,9 @@ function bddActusGaec($nouveaute, $descriptif){
 	return $resultats;
 }
 
-function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel, $email, $mdp){
-	$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email, client_code) " .
-				"VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email', '$mdp')";		 
+function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel, $email, $mdp, $civilite){
+	$requete = "INSERT INTO client (client_nom, client_prenom, client_adresse, client_code_postal, client_commune, client_numero_tel, client_email, client_code, client_civilite) " .
+				"VALUES ('$nom', '$prenom', '$adresse', '$codepostal', '$commune', '$numerotel', '$email', '$mdp', '$civilite')";		 
 	$result=mysql_query($requete) or die (mysql_error());
 }
 

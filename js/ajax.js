@@ -206,6 +206,7 @@ function clickValid1() {
 	var nclient_commune = $F('nclient_commune');
 	var nclient_tel = $F('nclient_tel');
 	var daterecup_commande = $F('daterecup_commande');
+	var nclient_civilite = $F('nclient_civilite');
 	
 	new Ajax.Request('tools/visitor_ajax.php', {
 		method : 'post',
@@ -223,7 +224,8 @@ function clickValid1() {
 			nclient_postal : nclient_postal,
 			nclient_commune : nclient_commune,
 			nclient_tel : nclient_tel,
-			daterecup_commande : daterecup_commande
+			daterecup_commande : daterecup_commande,
+			nclient_civilite : nclient_civilite
 		},
 		onComplete : manageClickValid1,
 		onFailure : function() {
