@@ -166,12 +166,16 @@ switch($ajax_event){
   				break;
   			}
   			envoiMailRecapCommande($addClient, $idCommande);
+  			panierVider();
   		}
   		
   		include('../visiteur/centre/commander/valid2.php');
 		break;
 	case 'clickViderPanier' :
 		panierVider();
+		include('../visiteur/droite/resume_panier.php');
+		break;
+	case 'updateResumePanier':
 		include('../visiteur/droite/resume_panier.php');
 		break;
 	case 'updateCaptcha' :

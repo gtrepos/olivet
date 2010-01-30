@@ -240,7 +240,6 @@ function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
 	$message_body .= " A bientôt, \n";
 	$message_body .= "La ferme d'Olivet";
 	
-	echo "mess boody : $message_body <br>";
 	
 	//MAIL
 	

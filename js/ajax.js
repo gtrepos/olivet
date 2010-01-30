@@ -137,6 +137,7 @@ function manageClickValid1(transport) {
 			},
 			onComplete : function(transport) {
 				$('commander-captcha').innerHTML = transport.responseText;
+				
 			},
 			onFailure : function() {
 				alert('Something went wrong...')
@@ -144,6 +145,15 @@ function manageClickValid1(transport) {
 		});
 	} else {
 		$('principal').innerHTML = transport.responseText;
+		new Ajax.Request("tools/visitor_ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'updateResumePanier'
+			},
+			onComplete : function(transport) {
+				$('banniere-resume_panier').innerHTML = transport.responseText;
+			}
+		});
 	}
 }
 

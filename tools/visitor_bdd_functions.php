@@ -60,7 +60,6 @@ function bddClientInfoFromCommande($id_commande){
 //	"WHERE c.client_reference = co.commande_id_client ".
 //	"AND co.commande_id = $id_commande";
 	
-	echo " IDCOMM --$id_commande-- <br>";
 	$requete=
 		"SELECT c.client_reference, c.client_nom, c.client_prenom, ".
 		"c.client_adresse, c.client_code_postal, c.client_commune, ".
@@ -149,8 +148,7 @@ function bddAddCommande($mail, $daterecup){
 		return false;
 	}
 
-	echo " COMMANDE $commande_id -- ";
-
+	
 	//add prod conditionnes
 	$prodsConds = panierSelProdsCond();
 	if($prodsConds != false){
