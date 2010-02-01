@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Dim 31 Janvier 2010 à 18:59
+-- Généré le : Lun 01 Février 2010 à 23:47
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -35,12 +35,17 @@ CREATE TABLE IF NOT EXISTS `actualite` (
   `actualite_type` varchar(4) NOT NULL DEFAULT 'GAEC' COMMENT 'type de l''actualite (GAEC pour gaec, LOMA pour local et/ou monde agricole',
   `actualite_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''actualité est une nouveauté',
   PRIMARY KEY (`actualite_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des actualites' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des actualites' AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `actualite`
 --
 
+INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
+(3, 'Actu GAEC', 'Actu GAEC<br>\r\nActu GAEC<br>\r\nActu GAEC', 1, '2010-02-01 20:05:56', '2010-02-01 20:05:56', 'GAEC', 1),
+(4, 'Actu locale', 'Actu locale<br>\r\nActu locale<br>\r\nActu locale<br>\r\nActu locale', 1, '2010-02-01 20:06:13', '2010-02-01 20:06:13', 'LOMA', 1),
+(5, 'Actu GAEC 2', 'Actu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>', 1, '2010-02-01 20:09:11', '2010-02-01 20:09:11', 'GAEC', 1),
+(6, 'Actu locale2', 'locale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>', 1, '2010-02-01 20:09:40', '2010-02-01 20:09:40', 'LOMA', 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +168,7 @@ INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `
 (48, 37, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
 (49, 38, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
 (50, 39, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
-(51, 40, 0, 1, '7.00', 'pot 1 kg.', 0, -1, 0, '0.000', '5.50'),
+(51, 40, 1, 1, '7.00', 'pot 1 kg.', 0, -1, 0, '0.000', '5.50'),
 (52, 40, 0, 1, '3.50', 'pot 500 gr.', 0, -1, 0, '0.000', '5.50'),
 (53, 41, 0, 0, '0.00', 'bouteille 1 litre', 0, -1, 0, '0.000', '5.50'),
 (54, 42, 0, 1, '2.20', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
@@ -258,15 +263,15 @@ INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `
 (147, 110, 0, 1, '3.60', '25 cl', 0, -1, 0, '0.000', '5.50'),
 (148, 89, 0, 1, '0.55', '125 gr.', 0, -1, 0, '0.000', '5.50'),
 (149, 110, 0, 1, '7.00', '50 cl', 0, -1, 0, '0.000', '5.50'),
-(150, 110, 0, 1, '14.00', '1 l', 0, -1, 0, '0.000', '5.50'),
+(150, 110, 0, 1, '14.00', '1 litre', 0, -1, 0, '0.000', '5.50'),
 (151, 117, 0, 1, '1.00', '1 litre', 0, -1, 0, '0.000', '5.50'),
-(153, 111, 0, 1, '1.80', '1 l', 0, -1, 0, '0.000', '5.50'),
+(153, 111, 0, 1, '1.80', '1 litre', 0, -1, 0, '0.000', '5.50'),
 (154, 113, 0, 1, '0.90', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
-(155, 113, 0, 1, '0.80', '1 l', 0, -1, 0, '0.000', '5.50'),
+(155, 113, 0, 1, '0.80', '1 litre', 0, -1, 0, '0.000', '5.50'),
 (156, 112, 0, 1, '0.85', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
-(157, 112, 0, 1, '1.70', '1 l', 0, -1, 0, '0.000', '5.50'),
+(157, 112, 0, 1, '1.70', '1 litre', 0, -1, 0, '0.000', '5.50'),
 (158, 114, 0, 1, '0.80', 'vrac au litre', 0, -1, 0, '0.000', '5.50'),
-(159, 114, 0, 1, '1.60', '1 l', 0, -1, 0, '0.000', '5.50'),
+(159, 114, 1, 1, '1.60', '1 litre', 0, -1, 0, '0.000', '5.50'),
 (160, 53, 0, 1, '10.70', '750 gr.', 0, -1, 0, '0.000', '5.50'),
 (161, 119, 0, 0, '0.00', '1 kg', 0, -1, 0, '0.000', '5.50');
 
@@ -367,13 +372,17 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
   `partenaire_siteweb` varchar(100) NOT NULL COMMENT 'adresse du site web du partenaire',
   `partenaire_rang` int(11) NOT NULL COMMENT 'rang d''affichage du partenaire',
   `partenaire_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du partenaire 0 = inactif, 1 = actif ',
+  `partenaire_logo` varchar(100) DEFAULT NULL COMMENT 'logo du partenaire',
   PRIMARY KEY (`partenaire_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `partenaire`
 --
 
+INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`, `partenaire_logo`) VALUES
+(2, 'Accueil Paysan', 'Accueil paysan', 'http://www.accueil-paysan.com/', 1, 1, 'Logo_accueil_paysan.gif '),
+(3, 'FRAB', 'Agrobio Bretagne', 'http://www.agrobio-bretagne.org/', 2, 1, NULL);
 
 -- --------------------------------------------------------
 
