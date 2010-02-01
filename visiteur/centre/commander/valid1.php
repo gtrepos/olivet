@@ -71,7 +71,7 @@ function selectDateRecup($daterecup){
 	commande passée le vendredi, samedi, dimanche : récupération du mardi au samedi de la semaine d'après.*/
 	
 	$cejour = strftime("%A");
-	$outputAff = "%A %d %B %Y %T";
+	$outputAff = "%A %d %B %Y";
 	$outputVal = "%Y-%m-%d";
 	
 	$retour = "<select size=1 id=daterecup_commande>";

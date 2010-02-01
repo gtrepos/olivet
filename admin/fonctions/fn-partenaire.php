@@ -41,7 +41,7 @@ function affich_partenaires ()
 
 function affich_modif_partenaire ($id)
 {
-  $requete="SELECT partenaire_id, partenaire_libelle, partenaire_descriptif, partenaire_siteweb, partenaire_rang FROM partenaire where partenaire_id = '$id'";
+  $requete="SELECT partenaire_id, partenaire_libelle, partenaire_descriptif, partenaire_siteweb, partenaire_rang, partenaire_logo FROM partenaire where partenaire_id = '$id'";
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
@@ -50,6 +50,7 @@ function affich_modif_partenaire ($id)
 	$descriptif = $row[2];
 	$siteweb = $row[3];
 	$rang = $row[4];  	
+	$photo = $row[5];
   	
 	echo "<table>";
 	echo "<tr><td colspan='2'>Modification du partenaire <b>'$libelle'</b></tr>";
@@ -59,18 +60,19 @@ function affich_modif_partenaire ($id)
 	echo "<tr><td valign=\"top\">Descriptif du partenaire : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' value='$rang'/></td></tr>";
 	echo "<tr><td>Site web : </td><td><input type='text' id='siteweb' name='siteweb' value=\"$siteweb\"/></td></tr>";
+	echo "<tr><td>Nom logo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_partenaire'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
 	echo "</table>";
   }
 }
 
-function enregistrer_partenaire($mode, $id, $libelle, $descriptif, $siteweb, $rang){
+function enregistrer_partenaire($mode, $id, $libelle, $descriptif, $siteweb, $rang, $photo){
 	$requete = "";
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO partenaire (partenaire_libelle, partenaire_descriptif, partenaire_siteweb, partenaire_rang) VALUES ('$libelle', '$descriptif', '$siteweb', '$rang')";		 
+		$requete = "INSERT INTO partenaire (partenaire_libelle, partenaire_descriptif, partenaire_siteweb, partenaire_rang, partenaire_logo) VALUES ('$libelle', '$descriptif', '$siteweb', '$rang', '$photo')";		 
 	}
 	else if ($mode == 'modification'){
 		$requete = 
-			"UPDATE partenaire SET partenaire_libelle = '$libelle', partenaire_descriptif = '$descriptif', partenaire_siteweb = '$siteweb', partenaire_rang = '$rang' " .
+			"UPDATE partenaire SET partenaire_libelle = '$libelle', partenaire_descriptif = '$descriptif', partenaire_siteweb = '$siteweb', partenaire_rang = '$rang', partenaire_logo = '$photo' " .
 			"WHERE partenaire_id = '$id'";
 	}
 	$result=mysql_query($requete) or die (mysql_error());

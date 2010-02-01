@@ -35,7 +35,7 @@ if ($action=='creer') {include("creer_partenaire.php");}
 if ($action=='modifier') {include("modifier_partenaire.php");}
 
 if ($action=='enregistrer') {
-	enregistrer_partenaire($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['siteweb'], $_POST['rang']);	
+	enregistrer_partenaire($_GET['mode'], $_POST['id'], $_POST['libelle'], $_POST['descriptif'], $_POST['siteweb'], $_POST['rang'], $_POST['photo']);	
 }
 
 if ($action=='activer') {

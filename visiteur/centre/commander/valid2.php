@@ -1,11 +1,14 @@
 <?php
 
-$outputAff = "%A %d %B %Y %T";
+$outputAff = "%A %d %B %Y";
 $daterecup = utf8_encode(strftime($outputAff, strtotime($ajax_daterecup_commande))) ;
-echo "Merci pour votre commande : <br>";
+echo "<h3>Merci pour votre commande</h3>";
 echo "<ul>";
 echo "<li>";
 echo "  un mail vous a été envoyé à l'adresse : $mail ";
+echo "</li>";
+echo "<li>";
+echo "  vous pouvez télécharger le récapitulatif de votre commande <a href='../tmp/recap'ici.";
 echo "</li>";
 echo "<li>";
 echo "  nous vous attendons à la ferme pour le  $daterecup";

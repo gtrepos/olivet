@@ -1,5 +1,5 @@
 <form name="form_actualite" action='index.php?page=actualites&action=enregistrer&mode=creation' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkActu);">
+	  onsubmit="return false;">
 	<div style='position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'une nouvelle actualité<td></tr>

@@ -5,7 +5,7 @@
 else {
 	if (panierNbProdsCond()>0) {
 		echo "produits : " . panierNbProdsCond() . "<br>";
-		echo "montant TTC : " . panierMontantTotalProdsCond() . " &nbsp;&euro; <br>";
+		echo "montant TTC : " .number_format(panierMontantTotalProdsCond(), 2, '.', ''). " &nbsp;&euro; <br>";
 	}
 	if (panierNbProdsResa()>0) {
 		echo "produits sur réservation : " . panierNbProdsResa() . "";

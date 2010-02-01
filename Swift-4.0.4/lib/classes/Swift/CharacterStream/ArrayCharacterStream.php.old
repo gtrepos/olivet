@@ -209,8 +209,8 @@ class Swift_CharacterStream_ArrayCharacterStream
 
     $startLength = $this->_charReader->getInitialByteSize();
 
-  //  $fp = fopen('php://memory', 'w+b');
-    $fp = fopen('tmpSWIFT', 'w+b');//RONAN
+    //$fp = fopen('php://memory', 'w+b');
+    $fp = fopen('tmp/tmpSWIFT', 'w+b');//RONAN
     fwrite($fp, $chars);
     unset($chars);
     fseek($fp, 0, SEEK_SET);

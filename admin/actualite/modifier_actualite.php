@@ -1,5 +1,5 @@
 <form name="form_actualite" action='index.php?page=actualites&action=enregistrer&mode=modification' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkActu);">
+	  onsubmit="return false;">
 <?php
 $id = $_GET['id'];
 affich_modif_actu($id);

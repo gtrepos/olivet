@@ -21,8 +21,8 @@ class CommandeGaecPDF extends FPDF
 		$this->Cell($dec_gauche_coord,$hauteur/6,utf8_decode("Gaec à 3 voix"),0,2,'L',false);
 		$this->Cell($dec_gauche_coord,$hauteur/6,"L'Olivet",0,2,'L',false);
 		$this->Cell($dec_gauche_coord,$hauteur/6,"35530 SERVON-SUR-VILAINE",0,2,'L',false);
-		$this->Cell($dec_gauche_coord,$hauteur/6,"Tel",0,2,'L',false);
-		$this->Cell($dec_gauche_coord,$hauteur/6,"Mail",0,2,'L',false);
+		$this->Cell($dec_gauche_coord,$hauteur/6,"Tel : 06 62 09 27 62",0,2,'L',false);
+		$this->Cell($dec_gauche_coord,$hauteur/6,"Mail : fermeolivet@free.fr",0,2,'L',false);
 		$this->Cell($dec_gauche_coord,$hauteur/6,"Site web : http://fermeolivet.free.fr",0,0,'L',false);
 		$this->Ln(15);//espace vertical
 	}
@@ -32,14 +32,15 @@ class CommandeGaecPDF extends FPDF
 		$this->Cell(0,10,'COMMANDE',0,0,'C',false);
 		$this->Ln(15);//espace vertical
 	}
-	function TableClient($id_commande)
+	function TableClient($id_commande, $email)
 	{
 		$larg_colonne = 95;
 		$haut_line = 16;
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
 
-		$tmpres = bddClientInfoFromCommande($id_commande);
+		//$tmpres = bddClientInfoFromCommande($id_commande);
+		$tmpres = bddClientInfoFromEmail($email);
 		while ($row = mysql_fetch_array($tmpres)){
 			$client_reference = $row[0];
 			$client_nom = $row[1]; 
@@ -53,7 +54,7 @@ class CommandeGaecPDF extends FPDF
 		
 		setlocale (LC_TIME, 'fr_FR','fra');
 		
-		$ladate = strftime("%A %d %B %Y %T %H:%M:%S"); 
+		$ladate = strftime("%A %d %B %Y");
 		
 		$this->Cell($larg_colonne,$haut_line,"Servon-Sur-Vilaine",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line,utf8_decode(
@@ -99,7 +100,7 @@ class CommandeGaecPDF extends FPDF
 			$cond_remise = $row[3];
 			$lcc_quantite = $row[4];
 			$prixUnitaireCond = number_format($cond_prix - $cond_remise, 2, '.', '');
-			$prixTotalCond = $lcc_quantite * $prixUnitaireCond;
+			$prixTotalCond = number_format($lcc_quantite * $prixUnitaireCond, 2, '.', '');
 			$prixTotalToutCond += $prixTotalCond; 
 			$this->Cell($larg_col[0],$haut_line,
 				utf8_decode("$produit_libelle"),'LTR',1,'C',false);
@@ -107,18 +108,18 @@ class CommandeGaecPDF extends FPDF
 				utf8_decode("$cond_nom"),'LBR',0,'C',false);
 			$this->SetXY($this->GetX(),$this->GetY()-$haut_line);
 			$this->Cell($larg_col[1],2*$haut_line,
-				utf8_decode("$prixUnitaireCond".' €'),1,0,'C',false);
+				utf8_decode("$prixUnitaireCond". ' ' . chr(128)),1,0,'C',false);
 			$this->Cell($larg_col[2],2*$haut_line,
 				utf8_decode("$lcc_quantite "),1,0,'C',false);
 			$this->Cell($larg_col[3],2*$haut_line,
-				utf8_decode("$prixTotalCond ".' €'),1,1,'C',false);		
+				utf8_decode("$prixTotalCond ". ' ' . chr(128)),1,1,'C',false);		
 		}
 		$this->Cell(($larg_col[0]+$larg_col[1]+$larg_col[2]),$haut_line,
 				utf8_decode("Prix total"),1,0,'C',false);
 			
-		$euroSymb = iconv("UTF-8", "ISO-8859-1", "£");
+		$euroSymb = chr(128);
 		$this->Cell($larg_col[3],$haut_line,
-				utf8_decode("$prixTotalToutCond"." $euroSymb"),1,1,'C',false);
+				utf8_decode(number_format($prixTotalToutCond, 2, '.', '')." $euroSymb"),1,1,'C',false);
 		
 		$this->Ln(15);//espace vertical
 	}
@@ -165,7 +166,7 @@ class CommandeGaecPDF extends FPDF
 		$this->Text($this->GetX(),$this->GetY(), 
 		utf8_decode("Merci pour votre commande, nous vous attendons à la ferme d'Olivet le : "));
 		$this->Ln(5);//espace vertical
-		$outputAff = "%A %d %B %Y %T";
+		$outputAff = "%A %d %B %Y";
 		$this->Text($this->GetX(),$this->GetY(), 
 			strftime($outputAff,strtotime($commande_daterecuperation)));
 	}
@@ -178,7 +179,7 @@ class CommandeGaecPDF extends FPDF
 		//Police Arial italique 8
 		$this->SetFont('Arial','I',8);
 		$this->Cell(0,5,utf8_decode("GAEC à 3 voix - L'Olivet - 35530 SERVON SUR VILAINE"),0,2,'C');
-		$this->Cell(0,5,"SIRET 000000000",0,0,'C');
+		$this->Cell(0,5,"SIRET 492 503 438 00011",0,0,'C');
 		//Numéro de page
 		$this->Cell(0,5,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 	}
@@ -186,7 +187,7 @@ class CommandeGaecPDF extends FPDF
 	
 }
 
-function genererUneCommande($idCommande){
+function genererUneCommande($idCommande, $email){
 	
 	$pdf=new CommandeGaecPDF();
 	
@@ -194,7 +195,7 @@ function genererUneCommande($idCommande){
 	//construction page
 	$pdf->AddPage();
 	$pdf->BanniereFacture();
-	$pdf->TableClient($idCommande);
+	$pdf->TableClient($idCommande, $email);
 	$pdf->DetailCommandeConds($idCommande);
 	$pdf->DetailCommandeResa($idCommande);
 	$pdf->DateRecuperation($idCommande);
@@ -202,10 +203,22 @@ function genererUneCommande($idCommande){
 	$pdf->Output($filename,'F');
 	return $filename;
 }
-function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
+function envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  ){
 	require_once ("../Swift-4.0.4/lib/swift_required.php");
 	
-	$tmpres = bddClientInfoFromCommande($idCommande);
+	$client_reference = "";
+	$client_nom = "";
+	$client_prenom = "";
+	$client_adresse = "";
+	$client_code_postal = "";
+	$client_commune = "";
+	$client_email = "";
+	$client_code = "";
+	
+	//$tmpres = bddClientInfoFromCommande($idCommande);
+	
+	$tmpres = bddClientInfoFromEmail($email);
+	
 	while ($row = mysql_fetch_array($tmpres)){
 		$client_reference = $row[0];
 		$client_nom = $row[1];
@@ -225,7 +238,7 @@ function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
 	$message_body = "Bonjour ".$client_prenom. " ".$client_nom.",\n\n";
 	if($nouveauClient == true){
 		$message_body .= " Nous vous confirmons votre première commande à la Ferme d'Olivet. \n";
-		$message_body .= " Vous pourrez désormais vous identfier avec les identifiants : \n";
+		$message_body .= " Vous pourrez désormais vous identifier avec les identifiants : \n";
 	}else{
 		$message_body .= " Nous vous confirmons votre nouvelle commande à la ferme d'olivet. \n";
 		$message_body .= " Pour rappel vous pouvez vous identifer avec les identifiants : \n";
@@ -234,7 +247,7 @@ function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
 	$message_body .= "     Mot de passe : ".$client_code." \n\n";
 	
 	$message_body .= "Au nom de la ferme d'Olivet, merci pour votre commande.\n";
-	$outputAff = "%A %d %B %Y %T";
+	$outputAff = "%A %d %B %Y";
 	$message_body .= "Nous vous y attendons le ".
 		strftime($outputAff,strtotime($commande_daterecuperation))."\n\n";
 	$message_body .= " A bientôt, \n";
@@ -246,7 +259,8 @@ function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
 	//Create a message
 	$message = Swift_Message::newInstance('Récapitulatif commande '.$idCommande);
 	$message->setFrom(array('fermeolivet@free.fr' => 'Ferme d\'Olivet'));
-	$message->setTo(array('rtrepos@gmail.com', 'ronan.trepos@neuf.fr' => 'Ferme d\'Olivet'));//TODO
+	//$message->setTo(array('rtrepos@gmail.com', 'ronan.trepos@neuf.fr' => 'Ferme d\'Olivet'));//TODO
+	$message->setTo(array($client_email, 'fermeolivet@free.fr', 'gwenael.trepos@gmail.com'));//TODO
 //	$message->setContentType("text/html");
 	$message->setBody($message_body);
 	
@@ -265,10 +279,10 @@ function envoyerMail($nouveauClient, $idCommande, $pdfFilename  ){
 }
 
 
-function envoiMailRecapCommande($nouveauClient, $idCommande){
+function envoiMailRecapCommande($nouveauClient, $email, $idCommande){
 	
-	$pdfFilename = genererUneCommande($idCommande);
-	envoyerMail($nouveauClient, $idCommande, $pdfFilename  );
+	$pdfFilename = genererUneCommande($idCommande, $email);
+	envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  );
 	
 
 }

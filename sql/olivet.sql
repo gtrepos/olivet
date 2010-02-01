@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 30 Janvier 2010 à 10:12
+-- Généré le : Dim 31 Janvier 2010 à 18:59
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `commande_daterecuperation` timestamp NULL DEFAULT NULL COMMENT 'date de recuperation de la commande',
   PRIMARY KEY (`commande_id`),
   KEY `commande_client_fk` (`commande_id_client`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des commandes' AUTO_INCREMENT=18 ;
 
 --
 -- Contenu de la table `commande`
@@ -127,7 +127,10 @@ CREATE TABLE IF NOT EXISTS `commande` (
 
 INSERT INTO `commande` (`commande_id`, `commande_id_client`, `commande_datecreation`, `commande_etat`, `commande_daterecuperation`) VALUES
 (12, 4, '2010-01-29 19:15:08', 'EC', '2010-02-02 00:00:00'),
-(14, 12, '2010-01-30 10:12:22', 'EC', '2010-02-03 00:00:00');
+(14, 12, '2010-01-30 10:12:22', 'EC', '2010-02-03 00:00:00'),
+(15, 4, '2010-01-31 18:47:04', 'EC', '2010-02-02 00:00:00'),
+(16, 4, '2010-01-31 18:48:11', 'EC', '2010-02-02 00:00:00'),
+(17, 4, '2010-01-31 18:52:09', 'EC', '2010-02-03 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -306,7 +309,10 @@ CREATE TABLE IF NOT EXISTS `lien_commande_cond` (
 
 INSERT INTO `lien_commande_cond` (`lcc_id_commande`, `lcc_id_cond`, `lcc_quantite`) VALUES
 (12, 58, '2.00'),
-(14, 96, '0.20');
+(14, 96, '0.20'),
+(15, 58, '1.00'),
+(16, 58, '1.00'),
+(17, 78, '2.50');
 
 -- --------------------------------------------------------
 

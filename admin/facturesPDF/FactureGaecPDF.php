@@ -48,7 +48,7 @@ class FactureGaecPDF extends FPDF
 		
 		setlocale (LC_TIME, 'fr_FR','fra');
 		
-		$ladate = strftime("%A %d %B %Y %T"); 
+		$ladate = strftime("%A %d %B %Y"); 
 		
 		$this->Cell($larg_colonne,$haut_line,"Servon-Sur-Vilaine",1,0,'L',false);
 		$this->Cell($larg_colonne,$haut_line,utf8_decode("Référence Client : " . $client->id),1,1,'L',false);
@@ -113,8 +113,8 @@ class FactureGaecPDF extends FPDF
 				$this->Cell($larg_col[0],$haut_line,utf8_decode($conditionnement->libelleCategorie),$border,0,'C',false);
 				$this->Cell($larg_col[1],$haut_line,utf8_decode($libelleCond),$border,0,'C',false);
 				$this->Cell($larg_col[2],$haut_line,$conditionnement->quantiteConditionnement,$border,0,'C',false);
-				$this->Cell($larg_col[3],$haut_line,iconv("UTF-8", "CP1252", $prixUnite . ' €'),$border,0,'C',false);
-				$this->Cell($larg_col[5] + $larg_col[4],$haut_line,iconv("UTF-8", "CP1252", $prixTotalCond . ' €'),$border,1,'C',false);
+				$this->Cell($larg_col[3],$haut_line,$prixUnite . ' ' . chr(128),$border,0,'C',false);
+				$this->Cell($larg_col[5] + $larg_col[4],$haut_line,$prixTotalCond . ' ' . chr(128),$border,1,'C',false);
 			}
 			
 			else {
@@ -126,9 +126,9 @@ class FactureGaecPDF extends FPDF
 				$this->SetXY($larg_col[0] + $larg_col[1] + 10,$ligne_depart);
 				$this->MultiCell($larg_col[2], 10, $conditionnement->quantiteConditionnement, $border, C, 0);
 				$this->SetXY($larg_col[0] + $larg_col[1] + $larg_col[2] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[3], 10, iconv("UTF-8", "CP1252", $prixUnite . ' €'), $border, C, 0);
+				$this->MultiCell($larg_col[3], 10, $prixUnite . ' ' . chr(128), $border, C, 0);
 				$this->SetXY($larg_col[0] + $larg_col[1] + $larg_col[2] + $larg_col[3] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[5] + $larg_col[4], 10, iconv("UTF-8", "CP1252", $prixTotalCond . ' €'), $border, C, 0);
+				$this->MultiCell($larg_col[5] + $larg_col[4], 10, $prixTotalCond . ' ' . chr(128), $border, C, 0);
 			}
 			 
 			$i++;
@@ -152,16 +152,16 @@ class FactureGaecPDF extends FPDF
 		$this->SetFont('Arial','',10);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TOTAL TTC",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", $prixTotal . ' €'),1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line,$prixTotal . ' ' . chr(128),1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"dont TVA 5,5%",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", $totalTVA55 . ' €'),1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line, $totalTVA55 . ' ' . chr(128),1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"dont TVA 19,6%",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", $totalTVA196 . ' €'),1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line,$totalTVA196 . ' ' . chr(128),1,1,'C',false);
 		$this->SetXY($dec_droite,$this->getY());
 		$this->Cell($larg_col[0],$haut_line,"TOTAL HT",1,0,'L',false);
-		$this->Cell($larg_col[1],$haut_line,iconv("UTF-8", "CP1252", $prixTotal - $totalTVA55 - $totalTVA196 . ' €'),1,1,'C',false);
+		$this->Cell($larg_col[1],$haut_line, $prixTotal - $totalTVA55 - $totalTVA196 . ' ' . chr(128),1,1,'C',false);
 		
 		$this->Ln(15);//espace vertical
 	}
@@ -172,7 +172,7 @@ class FactureGaecPDF extends FPDF
 		$larg_col = 30;
 		$haut_line = 10;
 		$this->Cell($larg_col,$haut_line,"A REGLER",1,0,'L',false);
-		$this->Cell($larg_col,$haut_line,iconv("UTF-8", "CP1252", number_format($facture->prixTotal, 2, '.', '') . ' €'),1,0,'L',false);
+		$this->Cell($larg_col,$haut_line, number_format($facture->prixTotal, 2, '.', '') . ' ' . chr(128),1,0,'L',false);
 		$this->Cell($larg_col,$haut_line,"avant le : ",1,0,'L',false);
 		$dans18jours = date("d/m/Y", mktime(0, 0, 0, date("m"), date("d")+18,  date("Y")));
 		$this->Cell($larg_col,$haut_line,$dans18jours,1,0,'L',false);

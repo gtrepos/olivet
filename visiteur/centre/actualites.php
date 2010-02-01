@@ -1,27 +1,29 @@
-<h3>Actualités du GAEC :</h3>
-<p>
 <?php 
-	$tmpres = bddActusGaec(false, true);
+$tmpres = bddActusGaec(false, true);
+if (mysql_num_rows($tmpres)>0) {
+	echo "<h3>Actualités du GAEC :</h3>";
+	echo "<p>";
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
 		echo "<b>".$row[1]."</b> (postée le $row[2])";
 		echo "<br/>";
-		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".$row[4]."</div>";
+		echo "<div class='encadreActu'>".$row[4]."</div>";
 		echo "<br/>";
 	}
-?>
-</p>
-	
-<h3>Actualités locales et du monde agricole :</h3>
-<p>
-<?php 
-	$tmpres = bddActusLoma(false, true);
+	echo "</p>";
+}
+
+$tmpres = bddActusLoma(false, true);
+if (mysql_num_rows($tmpres)>0) {	
+	echo "<h3>Actualités locales et du monde agricole :</h3>";
+	echo "<p>";
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo $row[2] ." : " . $row[1];
+		echo "<b>".$row[1]."</b> (postée le $row[2])";
 		echo "<br/>";
-		echo "<div style='border:1px solid #D7DCD2;margin:10px 20px;padding:1px;'>".$row[4]."</div>";
+		echo "<div class='encadreActu'>".$row[4]."</div>";
 		echo "<br/>";
 	}
+	echo "</p>";
+}
 ?>
-</p>

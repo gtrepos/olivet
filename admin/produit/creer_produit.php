@@ -28,7 +28,7 @@ function popupPick(val) {
 			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
 			<tr><td valign="top">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
 			<tr>
-				<td>Photo : </td>
+				<td>Nom photo : </td>
 				<td><input name="photo" id="photo"> <a href="#" onclick="popupActivate(document.forms['form_produit'].photo,'anchor');return false;" name="anchor" id="anchor">Choisir un fichier</a></td>
 			</tr>
 		</table>

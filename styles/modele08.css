@@ -335,7 +335,7 @@ body {
 	float:left;
 	border-left:1px dashed red;
 	padding-left:1em;
-	width: 49%;
+	width: 48%;
 }
 
 label{
@@ -363,4 +363,10 @@ a.bouton:hover {
 	border-top:1px dashed red;
 	margin-top:1em;
 	margin-bottom:1em;
+}
+
+.encadreActu {
+	border:1px solid #D7DCD2;
+	margin:10px 20px;
+	padding:2px;
 }

@@ -74,6 +74,32 @@ function bddClientInfoFromCommande($id_commande){
 	return $resultats;
 }
 
+function bddClientInfoFromEmail($email){
+//	$requete = 
+//	"SELECT c.client_reference, c.client_nom, c.client_prenom, ".
+//	"c.client_adresse, c.client_code_postal, c.client_commune, ".
+//	"c.client_email , c.client_code , co.commande_id, ".
+//	"FROM client c, commande co ".
+//	"WHERE c.client_reference = co.commande_id_client ".
+//	"AND co.commande_id = $id_commande";
+	
+	$requete=
+		"SELECT c.client_reference, c.client_nom, c.client_prenom, ".
+		"c.client_adresse, c.client_code_postal, c.client_commune, ".
+		"c.client_email , c.client_code ".
+		"FROM client c ".
+		"WHERE c.client_email = '$email' ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	
+
+	
+	return $resultats;
+}
+
+
+
+
+
 function bddNouveauxProduits(){
 	$requete=
 		"SELECT p.produit_id, c.categorie_produit_libelle, cond.cond_nom, p.produit_libelle, c.categorie_produit_id " .
@@ -415,7 +441,7 @@ function bddUpdateClient($reference,$civilite,$nom,$prenom,$mail,$adresse,$codep
 
 function bddPartenaires(){
 	$requete=
-		"SELECT partenaire_libelle, partenaire_descriptif, partenaire_siteweb ". 
+		"SELECT partenaire_libelle, partenaire_descriptif, partenaire_siteweb, partenaire_logo ". 
 		"FROM  partenaire " .
     	"WHERE partenaire_etat = 1 ".
 		"ORDER BY partenaire_rang, partenaire_libelle ";	

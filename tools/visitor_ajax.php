@@ -165,7 +165,7 @@ switch($ajax_event){
   				echo "Erreur dans le formulaire : probleme interne pour l'ajout de la commande ";
   				break;
   			}
-  			envoiMailRecapCommande($addClient, $idCommande);
+  			envoiMailRecapCommande($addClient, $mail, $idCommande);
   			panierVider();
   		}
   		

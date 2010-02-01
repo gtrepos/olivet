@@ -63,7 +63,7 @@ require_once('tools/visitor_panier_functions.php');
 <ul>
 	<li class="gauche"><a href="javascript:clickNavigation('accueil')">Accueil</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('la_ferme')">La Ferme</a></li>
-	<li class="gauche"><a href="javascript:clickNavigation('nos_produits')">Nos	Produits</a></li>
+	<li class="gauche"><a href="javascript:clickNavigation('nos_produits')">Les	Produits</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('commander')">Commander</a></li>
 	<?php if (mysql_num_rows(bddActusGaec(false,false))>0 || mysql_num_rows(bddActusLoma(false,false))>0) { ?>
 	<li class="gauche"><a href="javascript:clickNavigation('actualites')">Actualités</a></li>
@@ -85,7 +85,6 @@ require_once('tools/visitor_panier_functions.php');
 <h3>Mon panier</h3>
 <div id='banniere-resume_panier'><?php include('visiteur/droite/resume_panier.php'); ?>
 </div>
-<h3>Partenaires</h3>
 
 <?php include('visiteur/centre/partenaires.php'); ?>
 

@@ -8,8 +8,9 @@ foreach ($_POST as $key => $value) {
 	}
 }
 ?><?php//panierPlot()?>
-<h3>Nos produits</h3>
+<h3>Les produits</h3>
 <p>Vous pouvez consulter et commander nos produits, en cliquant sur une des catégorie présentées ci-dessous.</p>
+<p>Il vous suffit de saisir une quantité pour alimenter votre panier.</p>
 <p>Des produits 'sur réservation' vous seront proposés de manière périodique. Typiquement, les caissettes de viande sont des produits sur réservation. Pour ceux-ci, le GAEC vous informera de leur date de disponibilté directement par mail.</p>  
 
 <?php

@@ -9,8 +9,7 @@
 
 <div id="centerpage_contacts_leftID">
  <ul class="centerpage_contacts_menu1CL">	
-	<li>Nous contacter</li>
-		Ferme d'Olivet<br>
+	<li>Ferme d'Olivet</li>
 		GAEC à 3 voix<br>
 		L'Olivet<br>
 		35530 SERVON-SUR-VILAINE<br>
@@ -18,9 +17,8 @@
 		E-mail : fermeolivet@free.fr<br>
 		Site internet : http://fermeolivet.free.fr<br><br>
 	<li>Horaires d'ouverture</li>
-		Du mardi au jeudi : de 16h à 19h<br>
-		Le vendredi : de 14h à 19h30<br>
-		Le samedi : de 9h à 14h<br>
+		Du mardi au vendredi : de 16h30 à 19h30<br>
+		Le samedi : de 9h à 13h30<br>
    		Fermé les jours fériés<br>
  </ul>
 </div>
