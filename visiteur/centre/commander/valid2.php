@@ -8,7 +8,7 @@ echo "<li>";
 echo "  un mail vous a été envoyé à l'adresse : $mail ";
 echo "</li>";
 echo "<li>";
-echo "  vous pouvez télécharger le récapitulatif de votre commande <a href='../tmp/recap'ici.";
+echo "  vous pouvez télécharger le récapitulatif de votre commande <a href='../tmp/recap$idCommande.pdf' target='_blank'>ici</a>.";
 echo "</li>";
 echo "<li>";
 echo "  nous vous attendons à la ferme pour le  $daterecup";

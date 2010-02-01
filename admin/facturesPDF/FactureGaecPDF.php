@@ -65,9 +65,11 @@ class FactureGaecPDF extends FPDF
 	{
 		$larg_page = 190;
 		$haut_line = 10;
-		$larg_col=array(5*$larg_page/20,
-		5*$larg_page/20,3*$larg_page/20,3*$larg_page/20,
-		2*$larg_page/20,2*$larg_page/20);
+		$larg_col=array(
+		10*$larg_page/20,
+		5*$larg_page/20,
+		2*$larg_page/20,
+		3*$larg_page/20);
 		
 		$conditionnements = $facture->conditionnements;
 		$commande = $facture->commande;
@@ -75,16 +77,12 @@ class FactureGaecPDF extends FPDF
 		//Police Arial gras 15
 		$this->SetFont('Arial','',10);
 		//Headers
-		$this->Cell($larg_page,$haut_line,"DETAIL FACTURE",1,2,'C',false);
-		$this->Cell($larg_col[0],$haut_line,utf8_decode("Catégorie Produit"),1,0,'C',false);
-		$this->Cell($larg_col[1],$haut_line,"Nom Produit",1,0,'C',false);
+		$this->Cell($larg_page,$haut_line,utf8_decode("Produits commandés"),1,2,'C',false);
+		$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits"),1,0,'C',false);
+		$this->Cell($larg_col[1],$haut_line,utf8_decode("Prix unitaire"),1,0,'C',false);
 		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,0,'C',false);
-		$this->Cell($larg_col[3],$haut_line/2,"Prix unitaire",'LRT',2,'C',false);
-		$this->Cell($larg_col[3],$haut_line/2,"TTC",'LRB',0,'C',false);
-		$this->SetXY($this->getX(),$this->getY()-$haut_line/2);
-		//$this->Cell($larg_col[4],$haut_line,utf8_decode("Unité"),1,0,'C',false);
-		$this->Cell($larg_col[5] + $larg_col[4],$haut_line/2,"Prix total",'LRT',2,'C',false);
-		$this->Cell($larg_col[5] + $larg_col[4],$haut_line/2,"TTC",'LRB',1,'C',false);
+		$this->Cell($larg_col[3],$haut_line,utf8_decode("Prix"),1,1,'C',false);
+		
 		//Commandes
 		$nbConditionnements = count($conditionnements);//10 c'est un peu pourave
 		
@@ -99,38 +97,19 @@ class FactureGaecPDF extends FPDF
 			$prixUnite = number_format($conditionnement->prixConditionnement - $conditionnement->remiseConditionnement, 2, '.', '');
 			$prixTotalCond = number_format($conditionnement->quantiteConditionnement * $prixUnite, 2, '.', '');
 			
-			$libelleCond = $conditionnement->nomConditionnement . ' ' . $conditionnement->libelleProduit;
+			$this->Cell($larg_col[0],$haut_line,
+				utf8_decode($conditionnement->libelleProduit),'LTR',1,'C',false);
+			$this->Cell($larg_col[0],$haut_line,
+				utf8_decode($conditionnement->nomConditionnement),'LBR',0,'C',false);
+			$this->SetXY($this->GetX(),$this->GetY()-$haut_line);
+			$this->Cell($larg_col[1],2*$haut_line,
+				utf8_decode($prixUnite. ' ' . chr(128)),1,0,'C',false);
+			$this->Cell($larg_col[2],2*$haut_line,
+				utf8_decode($conditionnement->quantiteConditionnement),1,0,'C',false);
+			$this->Cell($larg_col[3],2*$haut_line,
+				utf8_decode($prixTotalCond . ' ' . chr(128)),1,1,'C',false);	
 			
-			$multiligne = false;
-			
-			if (strlen($libelleCond)>23) {
-				$haut_line = $haut_line*2;
-				$multiligne = true;
-			}
-
-			if (!$multiligne) {
-				/* cas libelle ok */
-				$this->Cell($larg_col[0],$haut_line,utf8_decode($conditionnement->libelleCategorie),$border,0,'C',false);
-				$this->Cell($larg_col[1],$haut_line,utf8_decode($libelleCond),$border,0,'C',false);
-				$this->Cell($larg_col[2],$haut_line,$conditionnement->quantiteConditionnement,$border,0,'C',false);
-				$this->Cell($larg_col[3],$haut_line,$prixUnite . ' ' . chr(128),$border,0,'C',false);
-				$this->Cell($larg_col[5] + $larg_col[4],$haut_line,$prixTotalCond . ' ' . chr(128),$border,1,'C',false);
-			}
-			
-			else {
-				/* cas libelle trop long, on met sur deux lignes */
-				$ligne_depart = $this->GetY();
-				$this->MultiCell($larg_col[0], 10, utf8_decode($conditionnement->libelleCategorie), $border, C, 0);
-				$this->SetXY($larg_col[0] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[1], 5, utf8_decode($conditionnement->nomConditionnement)."\n".utf8_decode($conditionnement->libelleProduit), $border, C, 0);
-				$this->SetXY($larg_col[0] + $larg_col[1] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[2], 10, $conditionnement->quantiteConditionnement, $border, C, 0);
-				$this->SetXY($larg_col[0] + $larg_col[1] + $larg_col[2] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[3], 10, $prixUnite . ' ' . chr(128), $border, C, 0);
-				$this->SetXY($larg_col[0] + $larg_col[1] + $larg_col[2] + $larg_col[3] + 10,$ligne_depart);
-				$this->MultiCell($larg_col[5] + $larg_col[4], 10, $prixTotalCond . ' ' . chr(128), $border, C, 0);
-			}
-			 
+						 
 			$i++;
 		}
 		
