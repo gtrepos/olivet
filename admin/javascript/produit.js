@@ -23,11 +23,11 @@ function valideFormProduit(){
 		return false;
 	}
 	
-	if (descriptif == ''){
+	/*if (descriptif == ''){
 		alert("Vous devez renseigner un descriptif.");
 		$('descriptif').focus();
 		return false;
-	}
+	}*/
 	
 	if (photo == ''){
 		alert("Vous devez renseigner une photo.");

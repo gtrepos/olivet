@@ -20,7 +20,7 @@ function popupPick(val) {
 </script>
 
 <form name="form_produit_resa" action='index.php?page=produitsresa&action=enregistrer&mode=modification' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkProduitResa);">
+	  onsubmit="return false;">
 <?php
 $id = $_GET['id'];
 affich_modif_produit_resa($id);

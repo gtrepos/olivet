@@ -36,7 +36,7 @@ function affich_produits ()
     $isInConditionnement = checkProduitInConditionnement($row[0]);
     
     if ($isInCommande) echo "[Commande]";
-    
+    if ($isInConditionnement) echo " [conditionnement]";
     if ($etat==0) {
     	echo " <a href=\"?page=produits&action=activer&id=$idproduit\">[".ADMIN_PRODUIT_ACTIVER."]</a>";	
     }
@@ -49,9 +49,6 @@ function affich_produits ()
     if (!$isInCommande && !$isInConditionnement) {
     	echo " <a href=\"\" onclick=\"alerteSuppressionProduit('$idproduit','".addslashes($libelleProduit)."')\">[".ADMIN_PRODUIT_SUPPRIMER."]</a>";	
     }
-    
-    if ($isInCommande) echo " commande ";
-    if ($isInConditionnement) echo " conditionnement ";
     
     echo "</td>";
     echo "</tr>";
@@ -82,8 +79,8 @@ function affich_modif_produit ($id)
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
 	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
-	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
-	echo "<tr><td valign=\"top\">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
+	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\" size=70/></td></tr>";
+	echo "<tr><td valign=\"top\">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
 	echo "</table>";
   }

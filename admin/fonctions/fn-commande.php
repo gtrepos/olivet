@@ -288,11 +288,22 @@ function liste_commandes ($idClient, $idCommande, $dateInf, $dateSup, $idConditi
 	    break;
 	}
 
+	$dateCreation = $row[3];
+	$dateRecup = $row[6];
+
+	setlocale (LC_TIME, 'fr_FR','fra');
+		
+	$outputAffDateCreation = "%A %d %B %Y %T";
+	$outputAffDateRecup = "%A %d %B %Y";
+	
+	$dateCreation = strftime($outputAffDateCreation,strtotime($dateCreation));
+	$dateRecup = strftime($outputAffDateRecup,strtotime($dateRecup));
+
   	echo "<tr id='commande_$row[0]' onmouseout=\"restaureLigne('commande_$row[0]');\" onmouseover=\"survolLigne('commande_$row[0]');\">";
   	echo "<td>$row[0]</td>";
     echo "<td>$row[1] $row[2]</td>";
-    echo "<td>$row[3]</td>";
-    echo "<td>$row[6]</td>";
+    echo "<td>" . utf8_encode($dateCreation) . "</td>";
+    echo "<td>" . utf8_encode($dateRecup) . "</td>";
     echo "<td align='center'><a title='$libelleEtat' href='#'><image src='images/$imgEtat' border=0/></a></td>";
     $resume = affiche_resume_commande($row[0]);
     $resumeLight = substr ($resume, 0, 100);

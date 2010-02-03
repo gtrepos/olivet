@@ -20,7 +20,7 @@ function popupPick(val) {
 </script>
 
 <form name="form_produit_resa" action='index.php?page=produitsresa&action=enregistrer&mode=creation' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkProduitResa);">
+	  onsubmit="return false;">
 		<table>
 			<tr><td colspan="2"><?php echo "Création d'un nouveau produit à la réservation"; ?></tr>
 			<tr><td colspan="2">&nbsp;</tr>

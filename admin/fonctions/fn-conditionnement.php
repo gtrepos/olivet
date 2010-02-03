@@ -7,7 +7,7 @@ function affich_conditionnements ()
 		"cond.cond_tva, cat.categorie_produit_id, prod.produit_descriptif_production " .
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
 		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit " .
-  		"ORDER by cat.categorie_produit_id DESC, cond.cond_id DESC";
+  		"ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -39,12 +39,12 @@ function affich_conditionnements ()
     echo "<td>$idCond</td>";
     echo "<td>$libelleProd - $libelledesc</td>";
     echo "<td>$condNom</td>";
-    echo "<td>$stockLibelle</td>";
+    /*echo "<td>$stockLibelle</td>";*/
     echo "<td>$nouveauteLibelle</td>";
     echo "<td>$divisibleLibelle</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$condPrix €</td>";
-    echo "<td>$remise €</td>";
+    /*echo "<td>$remise €</td>";*/
     echo "<td>$prixGlobal €</td>";
     echo "<td>$tva</td>";
     echo "<td align=\"right\">";

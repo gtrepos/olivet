@@ -1,5 +1,5 @@
 <form name="form_conditionnement" action='index.php?page=conditionnements&action=enregistrer&mode=modification' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkConditionnement);">
+	  onsubmit="return false;">
 <?php
 $id = $_GET['id'];
 affich_modif_conditionnement($id);

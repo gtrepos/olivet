@@ -1,5 +1,5 @@
 <form name="form_conditionnement" action='index.php?page=conditionnements&action=enregistrer&mode=creation' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkConditionnement);">
+	  onsubmit="return false;">
 	<div style='position:relative;'>
 		<table>
 			<tr><td colspan="2">Création d'un nouveau conditionnement</tr>

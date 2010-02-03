@@ -20,13 +20,13 @@ function popupPick(val) {
 </script>
 
 <form name="form_produit" action='index.php?page=produits&action=enregistrer&mode=creation' method="post"
-	  onsubmit="return false;" onkeypress="javascript:gestionToucheEntree(event,checkProduit);">
+	  onsubmit="return false;">
 		<table>
 			<tr><td colspan="2"><?php echo "Création d'un nouveau produit"; ?></tr>
 			<tr><td colspan="2">&nbsp;</tr>
 			<tr><td>Catégorie : </td><td><?php liste_categories('-1',false);?></td></tr> 
-			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
-			<tr><td valign="top">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
+			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' size=70/></td></tr>
+			<tr><td valign="top">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
 			<tr>
 				<td>Nom photo : </td>
 				<td><input name="photo" id="photo"> <a href="#" onclick="popupActivate(document.forms['form_produit'].photo,'anchor');return false;" name="anchor" id="anchor">Choisir un fichier</a></td>

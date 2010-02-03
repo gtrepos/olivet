@@ -64,7 +64,7 @@ class FactureGaecPDF extends FPDF
 	function DetailFacture($facture)
 	{
 		$larg_page = 190;
-		$haut_line = 10;
+		$haut_line = 8;
 		$larg_col=array(
 		10*$larg_page/20,
 		5*$larg_page/20,
