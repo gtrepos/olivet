@@ -158,7 +158,8 @@ function supprimer_produit_resa($id){
 function checkProduitResaInCommande($id) {
 	//on ne peut pas supprimer un produit qui a été référencé dans une commande.
 	$requeteCheckInCommande = "SELECT distinct p.produit_resa_libelle, p.produit_resa_id FROM lien_commande_produit_resa lcpr, commande com, produit_resa p " .
-			"WHERE lcpr.lcpr_id_commande = com.commande_id AND lcpr.lcpr_id_produit_resa = p.produit_resa_id AND p.produit_resa_id = '$id'";
+			"WHERE lcpr.lcpr_id_commande = com.commande_id AND lcpr.lcpr_id_produit_resa = p.produit_resa_id AND p.produit_resa_id = '$id' " .
+			"and now() < com.commande_daterecuperation";
 	
 	$result=mysql_query($requeteCheckInCommande) or die (mysql_error());
 	

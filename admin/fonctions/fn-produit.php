@@ -122,7 +122,8 @@ function supprimer_produit($id){
 function checkProduitInCommande($id) {
 	//on ne peut pas supprimer un produit qui a été référencé dans une commande.
 	$requeteCheckInCommande = "SELECT distinct p.produit_libelle, p.produit_id FROM lien_commande_cond lcc, commande com, produit p, conditionnement cond " .
-			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND p.produit_id = cond.cond_id_produit AND p.produit_id = '$id'";
+			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND p.produit_id = cond.cond_id_produit AND p.produit_id = '$id' " .
+			"and now() < com.commande_daterecuperation";
 	
 	$result=mysql_query($requeteCheckInCommande) or die (mysql_error());
 	

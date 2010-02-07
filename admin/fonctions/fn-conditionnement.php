@@ -184,7 +184,7 @@ function supprimer_conditionnement($id) {
 function checkCondInCommande($id) {
 	//on ne peut pas supprimer ou modifier un conditionnement qui a été référencé dans une commande.
 	$requeteCheckInCommande = "SELECT distinct cond.cond_nom, cond.cond_id FROM lien_commande_cond lcc, commande com, conditionnement cond " .
-			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND cond.cond_id = '$id'";
+			"WHERE lcc.lcc_id_commande = com.commande_id AND lcc.lcc_id_cond = cond.cond_id AND cond.cond_id = '$id' and now() < com.commande_daterecuperation";
 	
 	$result=mysql_query($requeteCheckInCommande) or die (mysql_error());
 	
