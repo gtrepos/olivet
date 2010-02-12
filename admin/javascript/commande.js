@@ -140,7 +140,7 @@ function valideCommande(){
 					return false;
 				}
 				else {
-					if (!verifieNombre($(quantites[i].id))){
+					if (isNaN($(quantites[i].id).value)){
 						alert("La quantité doit être un nombre.");
 						$(quantites[i].id).focus();
 						return false;
