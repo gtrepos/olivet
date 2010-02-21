@@ -13,7 +13,7 @@ En agriculture durable nous gérons nos champs en essayant au maximum de respect
 
 <h3><a href="javascript:showHide('nosactivites')" style='color:#F40707;'>Des hommes et des femmes passionnés par leur métier</a></h3>
 <div id='nosactivites'>
-<p>Le GAEC est aujourd'hui composé de 3 personnes, toutes fortement impliquées dans le milieu agricole local, et toutes passionnées par leur activité.</p>
+<p>Le GAEC est aujourd'hui composé de 3 personnes, toutes fortement impliquées dans le milieu agricole local et passionnées par leur activité.</p>
 <p>Par l'intermédiaire de ce site web, nous souhaitons transmettre leur savoir faire. Prenez le temps de lire ces quelques explications, cela vous donnera encore plus envie de venir voir ce qui se passe sur place !</p> 
 
 <div class='ombre ombrepersonne'>
