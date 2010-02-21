@@ -279,7 +279,8 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_remise, ".
 	"conditionnement.cond_a_stock, ".
 	"conditionnement.cond_nb_stock, ".
-	"conditionnement.cond_divisible ".
+	"conditionnement.cond_divisible, ".
+	"produit.produit_rang ".
 	"FROM produit ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
@@ -290,6 +291,7 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_etat = 1 AND ".
 	"(conditionnement.cond_nb_stock > 0 OR conditionnement.cond_a_stock = 0) ".
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
+	"produit.produit_rang, ".
 	"produit.produit_libelle, ".
 	"conditionnement.cond_nom ";
 
@@ -314,7 +316,8 @@ function bddProdsResaDispo(){
 	"produit_resa.produit_resa_photo, ".
 	"produit_resa.produit_resa_descriptif_production, ".
 	"produit_resa.produit_resa_a_stock, ".
-	"produit_resa.produit_resa_nb_stock ".
+	"produit_resa.produit_resa_nb_stock, ".
+	"produit_resa.produit_resa_rang ".
 	"FROM produit_resa ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit_resa.produit_resa_id_categorie = categorie_produit.categorie_produit_id ".
@@ -322,6 +325,7 @@ function bddProdsResaDispo(){
 	"produit_resa.produit_resa_etat = 1 AND ".
 	"(produit_resa.produit_resa_nb_stock > 0 OR produit_resa.produit_resa_a_stock = 0) ".
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
+	"produit_resa.produit_resa_rang, ".
 	"produit_resa.produit_resa_libelle";
 
 	$resultats=mysql_query($requete) or die (mysql_error());

@@ -96,6 +96,11 @@ require_once('tools/visitor_panier_functions.php');
 <img src="img/abeuro.gif" alt="abeuro" title="Agriculture biologique"
 	border="0">
 </div>
+
+<h3>Horaires d'ouverture</h3>
+<p style='color:black;'>Du mardi au vendredi<br>de 16h30 à 19h30<br>
+Le samedi<br>de 9h00 à 13h00<br>
+Fermé les jours fériés<br></p>
 <p id="copyright"><a href="http://www.elephorm.com" target="_blank">Elephorm</a> et <a
 	href="http://www.alsacreations.com" target="_blank">Alsacréations</a></p>
 </div>

@@ -11,6 +11,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_PHOTO; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RANG; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php affich_produits(); ?>
@@ -21,6 +22,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_PHOTO; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RANG; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
 </table>

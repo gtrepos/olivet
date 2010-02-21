@@ -28,9 +28,11 @@ if (mysql_num_rows($tmpres)>0) {
 $tmpres = bddActusGaec(true, false);
 if (mysql_num_rows($tmpres)>0) {
 	echo "<h3>Actualités du GAEC :</h3><p>";
+	setlocale (LC_TIME, 'fr_FR','fra');
+	$outputAffDatePost = "%A %d %B %Y";
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo $row[2]." : "
+		echo "postée le " . utf8_encode(strftime($outputAffDatePost,strtotime($row[2]))) . " : "
 		."<a href='javascript:clickActualite()'>$row[1]</a>";
 		echo "<br/>";
 	}
@@ -42,9 +44,11 @@ if (mysql_num_rows($tmpres)>0) {
 $tmpres = bddActusLoma(true, false);
 if (mysql_num_rows($tmpres)>0) {	
 	echo "<h3>Actualités locales et du monde agricole :</h3><p>";
+	setlocale (LC_TIME, 'fr_FR','fra');
+	$outputAffDatePost = "%A %d %B %Y";
 	while ($row = mysql_fetch_array($tmpres)){
 		echo "<img src='img/flecheactu.gif'/> ";
-		echo $row[2]." : "
+		echo "postée le " . utf8_encode(strftime($outputAffDatePost,strtotime($row[2]))) . " : "
 		."<a href='javascript:clickActualite()'>$row[1]</a>";
 		echo "<br/>";
 	}

@@ -4,10 +4,11 @@
 function affich_produits_resa ()
 {
   $requete=
-		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat, p.produit_resa_a_stock, p.produit_resa_nb_stock, p.produit_resa_nouveaute, c.categorie_produit_libelle " .
+		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat, p.produit_resa_a_stock, p.produit_resa_nb_stock, p.produit_resa_nouveaute, c.categorie_produit_libelle, " .
+		"p.produit_resa_rang, c.categorie_produit_id " .
 		"FROM produit_resa p, categorie_produit c " .
 		"WHERE p.produit_resa_id_categorie = c.categorie_produit_id " .
-		"ORDER by p.produit_resa_id DESC";
+		"ORDER by c.categorie_produit_libelle, p.produit_resa_rang, p.produit_resa_libelle";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -23,6 +24,7 @@ function affich_produits_resa ()
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
 	$nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
 	$stockLibelle = ($aStock==0) ? 'Aucun' : $nbStock;
+	$rang = $row[7];
 	
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
@@ -32,6 +34,7 @@ function affich_produits_resa ()
     echo "<td>$stockLibelle</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$nouveauteLibelle</td>";
+    echo "<td>$rang</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkProduitResaInCommande($row[0]);
@@ -60,7 +63,8 @@ function affich_produits_resa ()
 function affich_modif_produit_resa ($id)
 {
   $requete=
-		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, produit_resa_id_categorie " .
+		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, produit_resa_a_stock, produit_resa_nb_stock, " .
+		"produit_resa_nouveaute, produit_resa_id_categorie, produit_resa_rang " .
 		"FROM produit_resa " .
 		"WHERE produit_resa_id = '$id' ";
   
@@ -76,6 +80,7 @@ function affich_modif_produit_resa ($id)
   	$nbStock = $row[5];
   	$nouveaute = $row[6];
   	$idCategorie = $row[7];
+  	$rang = $row[8];
   	
   	$checkedStock = '';
   	$readOnlyStock = '';
@@ -103,11 +108,12 @@ function affich_modif_produit_resa ($id)
 		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit_resa'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
+	echo "<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' value=\"$rang\"/></td></tr>";
 	echo "</table>";
   }
 }
 
-function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock){
+function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock, $rang){
 	
 	if ($aStock == 'on') {
 		$aStock = 1;
@@ -125,13 +131,13 @@ function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descripti
 	
 	if ($mode == 'creation'){
 		$requete = "INSERT INTO produit_resa (produit_resa_id_categorie, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, " .
-				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute)" . 
-				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute)";
+				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, produit_resa_rang)" . 
+				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute, $rang)";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE produit_resa SET produit_resa_id_categorie = $idCategorie, produit_resa_libelle = '$libelle', produit_resa_descriptif_production = '$descriptif', produit_resa_photo = '$photo', " .
-				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute " . 
+				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute, produit_resa_rang = $rang " . 
 				   "WHERE produit_resa_id = '$id'";
 	}
 	

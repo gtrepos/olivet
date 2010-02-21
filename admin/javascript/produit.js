@@ -10,6 +10,7 @@ function valideFormProduit(){
 	var libelle = $('libelle').value.trim();
 	var descriptif = $('descriptif').value.trim();
 	var photo = $('photo').value.trim();
+	var rang = $('rang').value.trim();
 	
 	if (idCategorie == -1){
 		alert("Vous devez renseigner une catégorie de produits.");
@@ -23,15 +24,15 @@ function valideFormProduit(){
 		return false;
 	}
 	
-	/*if (descriptif == ''){
-		alert("Vous devez renseigner un descriptif.");
-		$('descriptif').focus();
-		return false;
-	}*/
-	
 	if (photo == ''){
 		alert("Vous devez renseigner une photo.");
 		$('photo').focus();
+		return false;
+	}
+	
+	if (rang == '' || isNaN(rang)){
+		alert("Le rang n'est pas renseigné ou ce n'est pas un nombre.");
+		$('rang').focus();
 		return false;
 	}
 	

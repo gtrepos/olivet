@@ -4,10 +4,11 @@
 function affich_produits ()
 {
   $requete=
-		"SELECT p.produit_id, c.categorie_produit_libelle, p.produit_libelle, p.produit_etat, p.produit_photo, p.produit_descriptif_production, c.categorie_produit_id " .
+		"SELECT p.produit_id, c.categorie_produit_libelle, p.produit_libelle, p.produit_etat, p.produit_photo, p.produit_descriptif_production, c.categorie_produit_id, p.produit_rang," .
+		"c.categorie_produit_libelle " .
 		"FROM produit p, categorie_produit c " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id " .
-  		"ORDER by c.categorie_produit_id DESC, p.produit_id DESC";
+  		"ORDER by c.categorie_produit_libelle, p.produit_rang, p.produit_libelle";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -20,7 +21,7 @@ function affich_produits ()
     $desc = $row[5];
     $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
-	
+	$rang = $row[7];
 	
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
@@ -30,6 +31,7 @@ function affich_produits ()
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$photo</td>";
     echo "<td>$desc</td>";
+    echo "<td>$rang</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkProduitInCommande($row[0]);
@@ -59,7 +61,7 @@ function affich_produits ()
 function affich_modif_produit ($id)
 {
   $requete=
-		"SELECT produit_id, produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo " .
+		"SELECT produit_id, produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang " .
 		"FROM produit " .
 		"WHERE produit_id = '$id' ";
   
@@ -72,6 +74,7 @@ function affich_modif_produit ($id)
   	$libelle = $row[2];
   	$descriptif = $row[3];
   	$photo = $row[4];
+  	$rang = $row[5];
   	
   	echo "<table>";
 	echo "<tr><td colspan='2'>Modification du produit <b>'$libelle'</b></tr>";
@@ -82,20 +85,22 @@ function affich_modif_produit ($id)
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\" size=70/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
+	echo "<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' value=\"$rang\" size=10/></td></tr>";
 	echo "</table>";
   }
 }
 
-function enregistrer_produit($mode, $id, $idCategorie, $libelle, $descriptif, $photo){
+function enregistrer_produit($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $rang){
 	$requete = "";
 	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO produit (produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo)" . 
-				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo')";
+		$requete = "INSERT INTO produit (produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang)" . 
+				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $rang)";
 	}
 	
 	else if ($mode == 'modification'){
-		$requete = "UPDATE produit SET produit_id_categorie = $idCategorie, produit_libelle = '$libelle', produit_descriptif_production = '$descriptif', produit_photo = '$photo' " .
+		$requete = "UPDATE produit SET produit_id_categorie = $idCategorie, produit_libelle = '$libelle', produit_descriptif_production = '$descriptif', produit_photo = '$photo'," .
+				   "produit_rang = $rang " .
 				   "WHERE produit_id = '$id'";
 	}
 	

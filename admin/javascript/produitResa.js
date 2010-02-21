@@ -11,6 +11,7 @@ function valideFormProduitResa(){
 	var descriptif = $('descriptif').value.trim();
 	var photo = $('photo').value.trim();
 	var nb_stock = $('nb_stock').value.trim();
+	var rang = $('rang').value.trim();
 	
 	if (idCategorie == -1){
 		alert("Vous devez renseigner une catégorie de produits.");
@@ -49,6 +50,13 @@ function valideFormProduitResa(){
 		$('photo').focus();
 		return false;
 	}
+	
+	if (rang == '' || isNaN(rang)){
+		alert("Le rang n'est pas renseigné ou ce n'est pas un nombre.");
+		$('rang').focus();
+		return false;
+	}
+	
 	
 	return true;
 	
