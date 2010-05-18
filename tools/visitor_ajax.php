@@ -31,6 +31,9 @@ switch($ajax_event){
 			case 'actualites' :
 				include('../visiteur/centre/actualites.php');
 				break;
+			case 'magasin' :
+				include('../visiteur/centre/magasin.php');
+				break;	
 			case 'nous_contacter' :
 				include('../visiteur/centre/contacts.php');
 				break;

@@ -49,15 +49,6 @@ function valideFormPartenaire(){
 	return true;
 }
 
-function verifieSiteweb(champ){
-	var verif = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-	if (verif.exec(champ.value) == null){
-		champ.focus();
-		return false;
-	}
-	return true;
-}
-
 function alerteSuppressionPartenaire(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer le partenaire \'' + libelle + '\' ('+id+') ?')){
 		location.href = 'index.php?page=partenaires&action=supprimer&id='+id;

@@ -137,8 +137,8 @@ class CommandeGaecPDF extends FPDF
 		$this->SetFont('Arial','',10);
 		//Headers
 		$this->Cell($larg_page,$haut_line,utf8_decode("Produits réservés"),1,2,'C',false);
-		$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits sur réservation"),1,0,'C',false);
-		$this->Cell($larg_col[1],$haut_line,utf8_decode("Description"),1,0,'C',false);
+		$this->Cell($larg_col[0]+$larg_col[1],$haut_line,utf8_decode("Libellé"),1,0,'C',false);
+		/*$this->Cell($larg_col[1],$haut_line,utf8_decode("Description"),1,0,'C',false);*/
 		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,1,'C',false);
 		//Commandes sur réservation
 		$tmpres = bddCommandeProdsResa($id_commande);
@@ -147,10 +147,10 @@ class CommandeGaecPDF extends FPDF
 			$produit_resa_descriptif_production = $row[1];
 			$lcpr_quantite = $row[2];
 			
-			$this->Cell($larg_col[0],$haut_line,
+			$this->Cell($larg_col[0]+$larg_col[1],$haut_line,
 				utf8_decode("$produit_resa_libelle"),1,0,'C',false);
-			$this->Cell($larg_col[1],$haut_line,
-				utf8_decode("$produit_resa_descriptif_production"),1,0,'C',false);
+			/*$this->Cell($larg_col[1],$haut_line,
+				utf8_decode("$produit_resa_descriptif_production"),1,0,'C',false);*/
 			$this->Cell($larg_col[2],$haut_line,
 				utf8_decode("$lcpr_quantite"),1,1,'C',false);
 		}
@@ -260,7 +260,8 @@ function envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  ){
 	$message = Swift_Message::newInstance('Récapitulatif commande '.$idCommande);
 	$message->setFrom(array('fermeolivet@free.fr' => 'Ferme d\'Olivet'));
 	//$message->setTo(array('rtrepos@gmail.com', 'ronan.trepos@neuf.fr' => 'Ferme d\'Olivet'));//TODO
-	$message->setTo(array($client_email, 'fermeolivet@free.fr', 'gwenael.trepos@gmail.com'));//TODO
+	$message->setTo(array($client_email));//TODO
+	$message->setBcc(array('fermeolivet@free.fr', 'gwenael.trepos@gmail.com'));
 //	$message->setContentType("text/html");
 	$message->setBody($message_body);
 	

@@ -9,7 +9,7 @@ if (mysql_num_rows($tmpres)>0) {
 		echo "<img src='img/flecheactu.gif'/> ";
 		echo "<b>".$row[1]."</b> (postée le " . utf8_encode(strftime($outputAffDatePost,strtotime($row[2]))) . ")";
 		echo "<br/>";
-		echo "<div class='encadreActu'>".$row[4]."</div>";
+		echo "<div class='encadreActu'>".nl2br($row[4])."</div>";
 		echo "<br/>";
 	}
 	echo "</p>";
@@ -25,7 +25,7 @@ if (mysql_num_rows($tmpres)>0) {
 		echo "<img src='img/flecheactu.gif'/> ";
 		echo "<b>".$row[1]."</b> (postée le ". utf8_encode(strftime($outputAffDatePost,strtotime($row[2]))) .")";
 		echo "<br/>";
-		echo "<div class='encadreActu'>".$row[4]."</div>";
+		echo "<div class='encadreActu'>".nl2br($row[4])."</div>";
 		echo "<br/>";
 	}
 	echo "</p>";

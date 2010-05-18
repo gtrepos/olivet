@@ -5,8 +5,10 @@ jQuery.noConflict();
 // Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur
 var cfg_adress = 'Olivet, 35000 Servon Sur Vilaine';
 
+var cfg_adress_prod = 'Liffré, 35';
+
 // Largeur de la carte
-var cfg_largeur = '500px';
+var cfg_largeur = '600px';
 
 // Hauteur de la carte
 var cfg_hauteur = '400px';
@@ -41,7 +43,7 @@ var geocoder;
 
 // Function appellée au chargement de la page web
 // Créee et configure la carte
-function loadMyMap() {
+function loadMyMap(hideOlivet) {
 
 	// Teste si le navigateur est compatible avec l'API Gmaps
 
@@ -74,8 +76,14 @@ function loadMyMap() {
      //Pour switcher entre les différentes vues (sattelite, plan, hybride)
      map.addControl(new GMapTypeControl());                       
     
-     // On centre la carte sur votre adresse
-     centerMapOnAdress(cfg_adress);
+     // On centre la carte sur une adresse
+     if (hideOlivet) {
+    	 centerMapOnAdress(cfg_adress_prod, hideOlivet); 	 
+     }
+     else {
+    	 centerMapOnAdress(cfg_adress, hideOlivet);
+     }
+     
  }else{
  	divMap.innerHTML = "Votre navigateur ne permet pas l\'affichage de carte Google Maps : ";
  }
@@ -85,7 +93,7 @@ function loadMyMap() {
 // Centre une carte sur une adresse
 // Geocode l'adresse
 // Message d'erreur si adresse non trouvé
-function centerMapOnAdress(adresse) {
+function centerMapOnAdress(adresse, hideOlivet) {
 
 	if (!adresse.length)
 		alert('Remplir la variable adresse');
@@ -98,30 +106,38 @@ function centerMapOnAdress(adresse) {
 				alert('Adresse : ' + addresse + " introuvable");
 			} else {
 
-				// Centre la carte sur l'adresse
-			map.setCenter(point, cfg_zoomLevel);
-
-			// On créer un marqueur à l'adresse spécifiée
-			var marker = new GMarker(point);
-
-			var textePopUp = cfg_description;
-
-			// Si il y a une description
-			if (textePopUp.length) {
-
-				// Affiche un popup lors du clic sur le marqueur
-				GEvent.addListener(marker, "click", function() {
+				
+				
+			// Centre la carte sur l'adresse
+				
+			if (!hideOlivet)	
+				map.setCenter(point, cfg_zoomLevel);
+			else 
+				map.setCenter(point, 9);	
+			
+			if (!hideOlivet) {
+				// On créer un marqueur à l'adresse spécifiée
+				var marker = new GMarker(point);
+	
+				var textePopUp = cfg_description;
+	
+				// Si il y a une description
+				if (textePopUp.length) {
+	
+					// Affiche un popup lors du clic sur le marqueur
+					GEvent.addListener(marker, "click", function() {
+						marker.openInfoWindowHtml(textePopUp);
+					});
+					// Affiche le marqueur
+					map.addOverlay(marker);
+	
+					// Par défaut on affiche le popup tout de suite sans attendre un
+					// clic
+					// Désactiver en commentant la ligne
 					marker.openInfoWindowHtml(textePopUp);
-				});
-				// Affiche le marqueur
-				map.addOverlay(marker);
-
-				// Par défaut on affiche le popup tout de suite sans attendre un
-				// clic
-				// Désactiver en commentant la ligne
-				marker.openInfoWindowHtml(textePopUp);
-			} else
-				map.addOverlay(marker); // Affiche le marqueur
+				} else
+					map.addOverlay(marker); // Affiche le marqueur
+			}	
 		}
 	});
 
@@ -169,9 +185,22 @@ function clickNavigation(menu) {
 		onComplete : function(transport) {
 			switch (menu) {
 			case 'accueil':
+				$('principal').innerHTML = transport.responseText;
+				break;
 			case 'la_ferme':
+				$('principal').innerHTML = transport.responseText;
+				break;
+			case 'magasin':
+				$('principal').innerHTML = transport.responseText;
+				loadMyMap(true);
+				addProducteursMarkers();
+				break;
 			case 'commander':
+				$('principal').innerHTML = transport.responseText;
+				break;
 			case 'actualites':
+				$('principal').innerHTML = transport.responseText;
+				break;
 			case 'mesinfos':
 				$('principal').innerHTML = transport.responseText;
 				break;
@@ -182,21 +211,21 @@ function clickNavigation(menu) {
 			case 'nous_contacter':
 				$('principal').innerHTML = transport.responseText;
 				// Au chargement de la page on affiche la carte
-		loadMyMap();
-		// window.onload=loadMyMap;
-		// A la fermeture de la page on libère la mémoire allouée à la carte
-		// window.onunload=GUnload;
-		break;
-	default:
-		alert('Something went wrong... ' + menu);
+				loadMyMap(false);
+				// window.onload=loadMyMap;
+				// A la fermeture de la page on libère la mémoire allouée à la carte
+				// window.onunload=GUnload;
+				break;
+			default:
+				alert('Something went wrong... ' + menu);
+		
+				break;
+			}
 
-		break;
-	}
-
-},
-onFailure : function() {
-	alert('Something went wrong...');
-}
+			},
+		onFailure : function() {
+			alert('Something went wrong...');
+		}
 	});
 
 }
@@ -574,6 +603,51 @@ function closeAllProducts() {
 	all_prod = "div.products";
 	jQuery(all_prod).hide();
 	jQuery(all_cat).attr("open", "false");
+}
+
+//Creates a marker whose info window displays the given number
+function createMarker(point, html, title, image)
+{
+	var icon = new GIcon(); 
+	icon.image = image;
+	icon.iconSize = new GSize(12, 20);
+	icon.iconAnchor = new GPoint(6, 20);
+	icon.infoWindowAnchor = new GPoint(5, 1);
+	var options = { 
+			title: title,
+			icon: icon
+	};
+	var marker = new GMarker(point, options);
+	GEvent.addListener(marker, "click", function() {marker.openInfoWindowHtml(html);});
+	return marker;
+};
+
+function addProducteursMarkers(){
+	var url = './visiteur/centre/magasin/getInfosProducteurs.php';
+	jQuery.getJSON(url, gestionProducteursMarkers);
+}
+
+function gestionProducteursMarkers(data)
+{
+    var length = data.length;
+    var str = '';
+    for (var x = 0; x < length; x += 1) {
+        str += "<p><img hspace=5 align=left src='img/upload/" + data[x].picto + "'></p><a href='javascript:showHide(\"producteur_" + data[x].id + "\")'>"+data[x].libelle+"</a>";
+        str += "<div class='fermeparagraphe' style='display:none' id='producteur_"+data[x].id+"'><table width=100%><tr><td><b>Adresse : </b>" + data[x].adresse + "<br>" + data[x].descriptif + "</td><td>"; 
+        if (data[x].photo != '') {
+        	str += "<img hspace=5 align=right src='img/upload/" + data[x].photo + "'>";
+        }
+        str += "</td></tr></table></div>";
+        str += "<br>" 
+        var content = data[x].libelle + "<br>" + data[x].adresse + "<br>" + data[x].descriptif; 
+    	var point = new GLatLng(data[x].latitude,data[x].longitude);
+    	var title = data[x].libelle;
+    	var image = 'img/upload/' + data[x].picto;
+    	var marker = createMarker(point, content, title, image);
+    	
+    	map.addOverlay(marker);
+    }
+    jQuery('#resultat').append(str);    
 }
 
 jQuery(document)

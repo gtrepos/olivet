@@ -154,4 +154,22 @@ define("ADMIN_COMMANDE_MODIFIER","Modifier");
 define("ADMIN_COMMANDE_SUPPRIMER","Supprimer");
 define("ADMIN_COMMANDE_FACTUREE","Facturée ?");
 define("ADMIN_COMMANDE_ENCOURS","En cours ?");
+
+//gestion des producteurs
+define("ADMIN_PRODUCTEUR_GESTION","Gestion des producteurs");
+define("ADMIN_PRODUCTEUR_ID","Identifiant");
+define("ADMIN_PRODUCTEUR_LIBELLE","Libellé");
+define("ADMIN_PRODUCTEUR_ADRESSE","Adresse");
+define("ADMIN_PRODUCTEUR_LATITUDE","Latitude");
+define("ADMIN_PRODUCTEUR_LONGITUDE","Longitude");
+define("ADMIN_PRODUCTEUR_DESCRIPTIF","Descriptif");
+define("ADMIN_PRODUCTEUR_ETAT","Etat");
+define("ADMIN_PRODUCTEUR_RANG","Rang");
+define("ADMIN_PRODUCTEUR_CREER","Créer un producteur");
+define("ADMIN_PRODUCTEUR_ACTIVER","Activer");
+define("ADMIN_PRODUCTEUR_DESACTIVER","Désactiver");
+define("ADMIN_PRODUCTEUR_MODIFIER","Modifier");
+define("ADMIN_PRODUCTEUR_SUPPRIMER","Supprimer");
+
+
 ?>

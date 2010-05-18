@@ -23,6 +23,52 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo $catStruct["categorie_produit_libelle"];
 	echo "</a>";
 	echo "<div id='MenuProduitsDispoCat$categorie_produit_id' class='categories' open=false>";
+	
+	//Produits resa
+	if(array_key_exists("produits_resa",$catStruct)){
+		while (list($produit_resa_id, $prodResaStruct) = each($catStruct["produits_resa"])) {
+			$produit_resa_photo = $prodResaStruct["produit_resa_photo"];
+			$produit_resa_libelle = $prodResaStruct['produit_resa_libelle'];
+			$produit_resa_descriptif_production = $prodResaStruct['produit_resa_descriptif_production'];
+			$produit_resa_a_stock= $prodResaStruct['produit_resa_a_stock'];
+			$produit_resa_nb_stock= $prodResaStruct['produit_resa_nb_stock'];
+
+			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
+			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
+			echo "<tr>";
+			echo "<td rowspan=6 width='200px;' align='center'>";
+			echo "<img src='img/upload/$produit_resa_photo' alt=\"$produit_resa_libelle : $produit_resa_descriptif_production\" title=\"$produit_resa_libelle : $produit_resa_descriptif_production\"/>";
+			echo "</td>";
+			echo "<td align=center valign = 'middle'>";
+			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
+			echo "</td>";
+			echo "</tr>";
+			echo "<tr>";
+			echo "<td>";
+			echo "<table align=center CELLPADDING=10px CELLSPACING=10px'>";
+
+			$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
+			if($produit_resa_a_stock = 1 ){
+				$nbstock = $produit_resa_nb_stock;
+			}else{
+				$nbstock = 20;
+			}
+			echo "<tr>";
+			echo "<td>";
+										
+			echo "quantité : <input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
+			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,0);}'/>";
+			echo "</td>";
+			echo "</tr>";
+
+			echo "</table>";
+			echo "</td>";
+			echo "</tr>";
+			echo "</table>";
+			echo "</div>";
+		}
+	}
+	
 	//produits conditionnés
 	if(array_key_exists("produits_cond",$catStruct)){
 		while (list($produit_id, $prodStruct) = each($catStruct["produits_cond"])) {
@@ -32,8 +78,8 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
-			echo "<td rowspan=6 width='200px;'>";
-			echo "<img src='img/upload/$produit_photo' alt='texte alternatif' width='200' height='200'/>";
+			echo "<td rowspan=6 width='200px;' align='center'>";
+			echo "<img src='img/upload/$produit_photo' alt=\"$produit_libelle : $produit_descriptif_production\" title=\"$produit_libelle : $produit_descriptif_production\"/>";
 			echo "</td>";
 			echo "<td valign = 'middle' align=center>";
 			echo "$produit_libelle : $produit_descriptif_production ";
@@ -71,51 +117,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "</div>";
 		}
 	}
-
-	//Produits resa
-	if(array_key_exists("produits_resa",$catStruct)){
-		while (list($produit_resa_id, $prodResaStruct) = each($catStruct["produits_resa"])) {
-			$produit_resa_photo = $prodResaStruct["produit_resa_photo"];
-			$produit_resa_libelle = $prodResaStruct['produit_resa_libelle'];
-			$produit_resa_descriptif_production = $prodResaStruct['produit_resa_descriptif_production'];
-			$produit_resa_a_stock= $prodResaStruct['produit_resa_a_stock'];
-			$produit_resa_nb_stock= $prodResaStruct['produit_resa_nb_stock'];
-
-			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
-			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
-			echo "<tr>";
-			echo "<td rowspan=6 width='200px;'>";
-			echo "<img src='img/upload/$produit_resa_photo' alt='GAEC Olivet' width='200' height='200'/>";
-			echo "</td>";
-			echo "<td align=center valign = 'middle'>";
-			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
-			echo "</td>";
-			echo "</tr>";
-			echo "<tr>";
-			echo "<td>";
-			echo "<table align=center CELLPADDING=10px CELLSPACING=10px'>";
-
-			$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
-			if($produit_resa_a_stock = 1 ){
-				$nbstock = $produit_resa_nb_stock;
-			}else{
-				$nbstock = 20;
-			}
-			echo "<tr>";
-			echo "<td>";
-										
-			echo "quantité : <input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
-			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,0);}'/>";
-			echo "</td>";
-			echo "</tr>";
-
-			echo "</table>";
-			echo "</td>";
-			echo "</tr>";
-			echo "</table>";
-			echo "</div>";
-		}
-	}
+	
 	echo "</div>";
 	echo "</li>";
 }

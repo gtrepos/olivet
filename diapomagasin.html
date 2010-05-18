@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>GAEC à 3 voix, la ferme d'Olivet</title>
+<link rel="stylesheet" type="text/css" href="styles/jquery.panorama.css" />
+<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.panorama.js"></script>
+
+<style  type="text/css">
+	#pagediapo {
+		text-align: center;
+		color: white;
+	}
+	#pagediapo .panorama-viewport {
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("img.mypanorama").panorama({
+				 viewport_width: 600,
+                 viewport_height: 412,
+                 speed: 50000,
+                 direction: 'left',
+                 control_display: 'no'
+         });
+});
+</script>
+
+</head>
+<body>
+<div id="pagediapo">
+	<img src="img/diaporama.jpg" class="mypanorama" height="412">
+</div>
+</body>
+</html>

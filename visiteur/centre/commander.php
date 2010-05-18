@@ -2,8 +2,8 @@
 <div align=left class="conditions"> 
 	<p>Les commandes sont a récupérer à la ferme d'Olivet. Pour des raisons de temps de préparation des commandes, merci de prendre en compte les contraintes suivantes :</p>
 	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le lundi, la récupération sera possible du mardi au samedi de la semaine en cours.</p>
-	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le mardi, le mercredi ou le jeudi, la récupération sera possible du vendredi au samedi de la semaine en cours.</p>
-	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le vendredi, le samedi ou le dimanche, la récupération sera possible du mardi au samedi de la semaine d'après.</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le mardi, le mercredi, le jeudi ou le vendredi, la récupération sera possible le jour j si la commande est faite <u>avant 16h</u> ou jusqu'au samedi de la semaine en cours.</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le samedi ou le dimanche, la récupération sera possible du mardi au samedi de la semaine d'après.</p>
 	<p>Merci pour votre compréhension.</p>
 </div>
 

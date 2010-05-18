@@ -67,10 +67,11 @@ function selectDateRecup($daterecup){
 	setlocale (LC_TIME, 'fr_FR','fra');
 	
 	/*commande passée le lundi : récupération du mardi au samedi de la semaine en cours.
-	commande passée le mardi, mercredi, jeudi : récupération du vendredi au samedi de la semaine en cours.
-	commande passée le vendredi, samedi, dimanche : récupération du mardi au samedi de la semaine d'après.*/
+	commande passée le mardi, mercredi, jeudi, vendredi : récupération le jour j si commande avant 16h ou jusqu'au samedi de la semaine en cours.
+	commande passée le samedi, dimanche : récupération du mardi au samedi de la semaine d'après.*/
 	
 	$cejour = strftime("%A");
+	$heureCourante = strftime("%H");
 	$outputAff = "%A %d %B %Y";
 	$outputVal = "%Y-%m-%d";
 	
@@ -85,28 +86,44 @@ function selectDateRecup($daterecup){
 	}
 	
 	if ($cejour == 'mardi') {
-		for ($i=3;$i<=4;$i++){
+		$i=1;
+		if ($heureCourante<16) {
+			$i=0;
+		}
+		for ($i;$i<=4;$i++){
 			$expr = '+'.$i.' day';
 			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'mercredi') {
-		for ($i=2;$i<=3;$i++){
+		$i=1;
+		if ($heureCourante<16) {
+			$i=0;
+		}
+		for ($i;$i<=3;$i++){
 			$expr = '+'.$i.' day';
 			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'jeudi') {
-		for ($i=1;$i<=2;$i++){
+		$i=1;
+		if ($heureCourante<16) {
+			$i=0;
+		}
+		for ($i;$i<=2;$i++){
 			$expr = '+'.$i.' day';
 			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}
 	}
 	
 	if ($cejour == 'vendredi') {
-		for ($i=4;$i<=8;$i++){
+		$i=1;
+		if ($heureCourante<16) {
+			$i=0;
+		}
+		for ($i;$i<=1;$i++){
 			$expr = '+'.$i.' day';
 			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
 		}

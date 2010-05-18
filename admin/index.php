@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="./javascript/produit.js"></script>
 	<script type="text/javascript" src="./javascript/produitResa.js"></script>
 	<script type="text/javascript" src="./javascript/partenaire.js"></script>
+	<script type="text/javascript" src="./javascript/producteur.js"></script>
 	<script type="text/javascript" src="./javascript/commande.js"></script>
 	<script type="text/javascript" src="./javascript/conditionnement.js"></script>
 	<script type="text/javascript" src="../js/prototype.js"></script>
@@ -35,6 +36,7 @@ require ("fonctions/fn-produit.php");
 require ("fonctions/fn-conditionnement.php");
 require ("fonctions/fn-partenaire.php");
 require ("fonctions/fn-produit-resa.php");
+require ("fonctions/fn-producteur.php");
 ?>
 
 <div align="center">
@@ -56,6 +58,7 @@ require ("fonctions/fn-produit-resa.php");
       	<a href="?page=conditionnements">Liste des conditionnements</a><br><br>
       	<a href="?page=produitsresa">Liste des produits à la réservation</a><br><br>
       	<a href="?page=partenaires">Partenaires</a><br><br>
+      	<a href="?page=producteurs">Producteurs</a><br><br>
       </td>
       <td valign="top" colspan="2"><div align="center">
 
@@ -72,6 +75,7 @@ require ("fonctions/fn-produit-resa.php");
      if ($page=="conditionnements") {include ("conditionnement/conditionnements.php");}
      if ($page=="produitsresa") {include ("produit/produits_resa.php");}
      if ($page=="partenaires") {include ("partenaire/partenaires.php");}
+     if ($page=="producteurs") {include ("producteur/producteurs.php");}
      
      ?>
       </div></td>

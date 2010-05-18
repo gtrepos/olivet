@@ -1,7 +1,7 @@
 <?php
 function affich_actualites ()
 {
-  $requete="SELECT actualite_id, actualite_libelle, CONCAT(SUBSTRING(actualite_descriptif, 1, 20),'...'), actualite_datecreation, actualite_datemodification, actualite_type, actualite_nouveaute, actualite_etat FROM actualite ORDER by actualite_id DESC";
+  $requete="SELECT actualite_id, actualite_libelle, actualite_descriptif, actualite_datecreation, actualite_datemodification, actualite_type, actualite_nouveaute, actualite_etat FROM actualite ORDER by actualite_id DESC";
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
@@ -18,7 +18,7 @@ function affich_actualites ()
     echo "<tr id='actu_$row[0]' onmouseout=\"restaureLigne('actu_$row[0]');\" onmouseover=\"survolLigne('actu_$row[0]');\">";
     echo "<td>$row[0]</td>";
     echo "<td>$row[1]</td>";
-    echo "<td>$row[2]</td>";
+    echo "<td>".nl2br($row[2])."</td>";
     echo "<td>$row[3]</td>";
     echo "<td>$row[4]</td>";
     echo "<td>$typeLibelle</td>";

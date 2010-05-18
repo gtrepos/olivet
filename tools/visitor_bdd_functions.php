@@ -348,6 +348,7 @@ function bddProdsDispo(){
 		$cond_nom = $row1[5];
 		$produit_photo = $row1[6];
 		$produit_descriptif_production = $row1[7];
+		$produit_descriptif_production = nl2br($produit_descriptif_production);
 		$cond_prix = $row1[8];
 		$cond_remise = $row1[9];
 		$cond_a_stock = $row1[10];
@@ -376,6 +377,7 @@ function bddProdsDispo(){
 		$produit_resa_libelle =  $row2[3];
 		$produit_resa_photo =  $row2[4];
 		$produit_resa_descriptif_production =  $row2[5];
+		$produit_resa_descriptif_production = nl2br($produit_resa_descriptif_production);
 		$produit_resa_a_stock =  $row2[6];
 		$produit_resa_nb_stock =  $row2[7];
 
@@ -453,5 +455,14 @@ function bddPartenaires(){
 	return $resultats;
 }
 
+function bddProducteurs(){
+	$requete=
+		"SELECT producteur_libelle, producteur_descriptif, producteur_siteweb, producteur_logo ". 
+		"FROM  producteur " .
+    	"WHERE producteur_etat = 1 ".
+		"ORDER BY producteur_rang, producteur_libelle ";	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
 
 ?>

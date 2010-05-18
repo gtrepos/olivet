@@ -19,8 +19,8 @@ require_once('tools/visitor_panier_functions.php');
 <title>GAEC à 3 voix, la ferme d'Olivet</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='language' content='fr'>
-	<meta name='Description' content='La ferme d''Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits'>
-	<meta name='Keywords' content='Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits'>
+	<meta name='Description' content="La ferme d'Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits">
+	<meta name='Keywords' content="Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits">
 	<meta name="GOOGLEBOT" content="index,follow">
 	<meta name='robots' content='index,follow'>
 	<meta name='author' content='Ferme d''Olivet'>
@@ -30,8 +30,6 @@ require_once('tools/visitor_panier_functions.php');
 	<!-- La feuille de styles "base.css" doit etre appelle en premier. -->
 	<link rel="stylesheet" type="text/css" href="styles/base.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="styles/modele08.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="styles/infobulle.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="styles/myinfobulle.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/partenaires.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/recapitulatif.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/ferme.css" media="screen" />
@@ -39,7 +37,7 @@ require_once('tools/visitor_panier_functions.php');
 	http://fermeolivet.free.fr/ :	ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ
 	http://gaecolivet.free.fr : ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg
 	-->
-	<script	src=" http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg" type="text/javascript"></script>  
+	<script	src="http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg" type="text/javascript"></script>  
 	<script type="text/javascript" src="js/prototype.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
@@ -64,12 +62,13 @@ require_once('tools/visitor_panier_functions.php');
 <ul>
 	<li class="gauche"><a href="javascript:clickNavigation('accueil')">Accueil</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('la_ferme')">La Ferme</a></li>
+	<li class="gauche"><a href="javascript:clickNavigation('magasin')">Le magasin</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('nos_produits')">Les	Produits</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('commander')">Commander</a></li>
 	<?php if (mysql_num_rows(bddActusGaec(false,false))>0 || mysql_num_rows(bddActusLoma(false,false))>0) { ?>
 	<li class="gauche"><a href="javascript:clickNavigation('actualites')">Actualités</a></li>
 	<?php } ?>
-	<li class="droite"><a href="javascript:clickNavigation('nous_contacter')">Nous contacter</a></li>
+	<li class="droite"><a href="javascript:clickNavigation('nous_contacter')">Infos pratiques</a></li>
 </ul>
 </div>
 <!-- #navigation --></div>

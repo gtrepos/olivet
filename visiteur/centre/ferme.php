@@ -116,7 +116,7 @@ Nous proposons aussi périodiquement des merguez et des agneaux pour méchoui, n
 </div>
 <div class='descpersonne'>
 <p>Sandra Guillemin, responsable transformation produits laitiers <br>et vente à la ferme</p>
-<!--<p><a href='documents/transfoolivet.pdf' target='_blank'><div class='ensavoirplus'>Descriptif de l'activité</div></a></p>-->
+<p><a href='documents/produitslaitiersolivet.pdf' target='_blank'><div class='ensavoirplus'>Descriptif de l'activité</div></a></p>
 </div>
 <div style='clear:both'></div>
 <div class='fermetitre'>Quelques mots sur l'activité transformation et vente à la ferme</div>
@@ -124,14 +124,107 @@ Nous proposons aussi périodiquement des merguez et des agneaux pour méchoui, n
 <div class='fermeparagraphe' style='display:none' id='transfo_matiere'>Le lait est pauvre en matière grasse et riche en protéines (très bonne fromageabilité). Les animaux nourris à l'herbe donnent un lait plus riche en acides gras insaturés et notamment en omégas 3. 
 </div>
 <div class='fermesoustitre'><a href="javascript:showHide('transfo_produits')">Les produits</a></div>
-<div class='fermeparagraphe' style='display:none' id='transfo_produits'>Une gamme variée, avec des produits phare, comme le fromage blanc campagne, les faisselles et le yaourt nature onctueux. Un goût d'enfance pour les plus grands et une découverte savoureuse pour les plus petits.</div>
+<div class='fermeparagraphe' style='display:none' id='transfo_produits'>
+<h4 style='color:#F40707'>Le Lait</h4>
+<p>
+<img src='img/lait.gif' align='right' hspace=5/>
+<h5>Entier (tous les jours)</h5>
+Autrement appelé le « Vrai Lait », sorti tout droit du pis de la vache et prêt à consommer. Ce lait est idéal pour faire les gâteaux, les crêpes, dans la purée ou encore les gratins.
+<h5>Demi écrémé (tous les jours)</h5>
+Un peu moins riche en matières grasses que le lait entier, il est également prêt à consommer. Idéal pour mettre dans les céréales du petit déjeuner.
+<br><br>
+<i><b>NB :</b></i> il est recommandé de le faire bouillir chez soi pour une meilleure conservation. A conserver à 4°C maximum.
+</p>
 
-<!--<div style='clear:both'></div>
-<div class='ombre ombrepersonne'>
-<div class='personne'><img src='img/sylvain.gif'/></div>
+<h4 style='color:#F40707'>La crème et le beurre</h4>
+<p>
+<img src='img/crem-frai.png' align='right' hspace=5/>
+<h5>Crème fraîche épaisse (tous les jours)</h5>
+Obtenue à partir du lait entier écrémé. Elle s’épaissie grâce à un ensemencement en ferment adaptés qui lui donne un léger goût fruité. Elle est idéale pour tous vos plats en sauce, dans les mousses et remplace efficacement le mascarpone dans le tiramisu.
+<br><br><br>
+</p>
+<p>
+<img src='img/beurre.jpg' align='right' hspace=5/>
+<h5>Beurre ½ sel (fabrication le jeudi)</h5>
+Il est réalisé dans une baratte à partir de crème fraîche ensemencée, puis moulé à la main dans des moules en bois. Au printemps, lorsque l’herbe a repris sa croissance et que les vaches s’en régalent, le beurre développe d’agréables arômes. En effet, en fonction de la saison et donc de l’alimentation des vaches, les arômes du beurre varient. Le beurre est le produit le plus révélateur des changements de saison. Peut être utilisé aussi bien cru qu’en cuisson.
+<br><br> 
+<i><b>NB :</b></i> à conserver à 6°C maximum.
+</p> 
+
+<h4 style='color:#F40707'>Les caillés</h4>
+<p>
+<img src='img/fromageblanccampagne.png' align='right' hspace=5/>
+<h5>Fromage blanc campagne (fabrication le lundi)</h5>
+Autrement appelé « caillé », « caille » ou « caillebotte », il est obtenu en ajoutant au lait de la présure et des ferments. Son aspect un peu grumeleux lui donne son caractère authentique. Il faut 2 jours pour le fabriqué : 1 jour pour le caillage et 1 jour pour l’égouttage et le conditionnement. En fonction des goûts, il est soit entier, demi-écrémé ou écrémé. A conserver à 6°C maximum. Il peut être consommé aussi bien nature, sucré ou salé et peut également rentrer dans la composition de la sauce du poulet tandoori.
+</p>
+<p>
+<img src='img/fromageblanclisse.png' align='right' hspace=5/>
+<h5>Fromage blanc lisse (fabrication le lundi)</h5>
+Il est obtenu de la même manière que le fromage blanc campagne à laquelle on ajoute une étape de battage pour le rendre lisse ce qui le rend plus accessible pour les plus jeunes. En fonction des goûts, il est soit entier, demi-écrémé ou écrémé. A conserver à 6°C maximum. Il peut être consommé aussi bien nature, salé ou sucré avec de la confiture ou un bon coulis de fruit.
+<br><br>
+</p>
+<p>
+<img src='img/faisselle.png' align='right' hspace=5/>
+<h5>Faisselle (fabrication le lundi)</h5>
+Elle est obtenue en ajoutant au lait entier de la présure et des ferments. Il faut 2 jours pour la fabriquer : 1 jour pour le caillage et quelques heures pour l’égouttage. Elle est conditionnée dans des moules à faisselle, ce qui permet de lui conserver toute sa fraîcheur. A conserver à 6°C maximum. Idéale pour le dessert, elle peut être sucrée, nappée de confiture, de coulis ou de crème fraîche.
+<br><br><br>
+</p>
+<p>
+<img src='img/ptitolivet.png' align='right' hspace=5/>
+<h5>P’tit Olivet (fabrication le lundi)</h5>
+Le petit suisse maison. Il est obtenu en mélangeant au lait de la présure et des ferments. Il demande 2 jours de fabrication : 1 jour pour le caillage et 1 jour pour l’égouttage. Ce qui lui donne cette texture et ce goût particuliers c’est la crème fraîche douce et parfumée. A conserver à 6°C maximum. Se consomme en dessert ou au goûter où il ravira les plus jeunes avec un peu de sucre. 
+</p>
+
+<h4 style='color:#F40707'>Les fromages</h4>
+<h5>Fromage frais (fabrication le lundi)</h5>
+Il est obtenu en mélangeant au lait entier de la présure et des ferments. Il demande 4 jours de fabrication : 1 jour pour le caillage et 3 jours pour l’égouttage (2 jours en moule et 1 sur une grille d’égouttage). De la durée d’égouttage va dépendre la qualité de sa texture. En fonction des goûts, il est soit nature soit aromatisé.  Se consomme au fromage sur un morceau de pain paysan.
+<br><br>
+<i><b>NB :</b></i> à conserver à 6°C maximum.
+<div style='text-align:center; margin-top:1em;'>
+<img src='img/fromagesfrais.png'/>
 </div>
-<div class='descpersonne'><p>Sylvain responsable des fruits et légumes, volailles<br>Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<a href='documents/maraichageolivet.pdf' target='_blank'><div class='ensavoirplus'>Descriptif de l'activité</div></a>
-</div>-->
+<h5>Apér’Olivet (fabrication le lundi)</h5>
+Il est obtenu en mélangeant au lait entier de la présure et des ferments. Il demande 2 jours de fabrication : 1 jour pour le caillage et 1 jour pour l’égouttage. Il est battu avant d’être aromatisé. Idéal au moment de l’apéritif pour napper des toasts, peut également se consommer au fromage.
+<br><br>
+<i><b>NB :</b></i> à conserver à 6°C maximum.
+<table align=center>
+	<tr>
+		<td><img src='img/aperolivetmex.png'/></td>
+		<td><img src='img/aperolivetpaprica.png'/></td>
+		<td><img src='img/aperolivetailfinesherbes.png'/></td>
+	</tr>
+</table>
+
+<h4 style='color:#F40707'>Les desserts</h4>
+<p>
+<img src='img/yaourtbrassenature.png' align='right' hspace=5/>
+<h5>Yaourt brassé nature (fabrication le mardi)</h5>
+Un yaourt onctueux obtenu en mélangeant au lait entier des ferments permettant de révéler les saveurs particulières du lait. Il est placé en étuve pendant quelques heures avant d’être battu et conditionné en pot. Peut se consommer aussi bien tel quel en dessert ou au goûter, que rentrer dans la composition de sauces au yaourt pour l’apéritif, ou encore dans la recette du fameux gâteau au yaourt.
+</p>
+
+<h5>Yaourts brassés fruits (fabrication le mardi)</h5>
+Au yaourt brassé nature sont ajoutées des préparations de fruits soigneusement choisies qui accompagnent agréablement la saveur du yaourt nature. Se déguste à toute heure.
+<br><br>
+<i><b>NB :</b></i> à conserver à 6°C maximum.
+<table align=center>
+	<tr>
+		<td><img src='img/yaourtbrasseabricot.png'/></td>
+		<td><img src='img/yaourtbrassefraise.png'/></td>
+		<td><img src='img/yaourtbrasseframboise.png'/></td>
+		<td><img src='img/yaourtbrassefruitsdesbois.png'/></td>
+	</tr>
+</table>
+
+<h5>Crème dessert (fabrication le mercredi et le jeudi)</h5>
+De savoureux desserts fondant élaborés à partir de lait entier et de crème fraîche. Ce dessert ravit aussi bien les petits que les grands.
+<br><br>
+<i><b>NB :</b></i> à conserver à 6°C maximum.
+<table align=center>
+	<tr>
+		<td><img src='img/cremedessertvanille.png'/></td>
+		<td><img src='img/cremedessertchocolat.png'/></td>		
+	</tr>
+</table>
+
 </div>
 

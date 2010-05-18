@@ -65,3 +65,12 @@ String.prototype.startsWith = function(str)
 
 String.prototype.endsWith = function(str)
 {return (this.match(str+"$")==str)}
+
+function verifieSiteweb(champ){
+	var verif = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+	if (verif.exec(champ.value) == null){
+		champ.focus();
+		return false;
+	}
+	return true;
+}

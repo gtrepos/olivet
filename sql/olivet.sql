@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 01 Février 2010 à 23:47
+-- Généré le : Mar 18 Mai 2010 à 23:37
 -- Version du serveur: 5.1.30
 -- Version de PHP: 5.2.8
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `actualite` (
   `actualite_datecreation` datetime NOT NULL COMMENT 'date de creation de l''actualite',
   `actualite_datemodification` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'date de modification de l''actualite',
   `actualite_type` varchar(4) NOT NULL DEFAULT 'GAEC' COMMENT 'type de l''actualite (GAEC pour gaec, LOMA pour local et/ou monde agricole',
-  `actualite_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''actualité est une nouveauté',
+  `actualite_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''actualitÃ© est une nouveautÃ©',
   PRIMARY KEY (`actualite_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des actualites' AUTO_INCREMENT=7 ;
 
@@ -42,10 +42,10 @@ CREATE TABLE IF NOT EXISTS `actualite` (
 --
 
 INSERT INTO `actualite` (`actualite_id`, `actualite_libelle`, `actualite_descriptif`, `actualite_etat`, `actualite_datecreation`, `actualite_datemodification`, `actualite_type`, `actualite_nouveaute`) VALUES
-(3, 'Actu GAEC', 'Actu GAEC<br>\r\nActu GAEC<br>\r\nActu GAEC', 1, '2010-02-01 20:05:56', '2010-02-01 20:05:56', 'GAEC', 1),
-(4, 'Actu locale', 'Actu locale<br>\r\nActu locale<br>\r\nActu locale<br>\r\nActu locale', 1, '2010-02-01 20:06:13', '2010-02-01 20:06:13', 'LOMA', 1),
-(5, 'Actu GAEC 2', 'Actu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>\r\nActu GAEC 2<br>', 1, '2010-02-01 20:09:11', '2010-02-01 20:09:11', 'GAEC', 1),
-(6, 'Actu locale2', 'locale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>\r\nlocale<br>', 1, '2010-02-01 20:09:40', '2010-02-01 20:09:40', 'LOMA', 1);
+(3, 'Actu GAEC', 'Actu GAEC\r\nActu GAEC\r\nActu GAEC', 1, '2010-02-01 20:05:56', '2010-04-23 10:49:51', 'GAEC', 1),
+(4, 'Actu locale', 'Actu locale\r\nActu locale\r\nActu locale\r\nActu locale', 1, '2010-02-01 20:06:13', '2010-04-23 10:49:45', 'LOMA', 1),
+(5, 'Actu GAEC 2', 'Actu GAEC 2\r\nActu GAEC 2\r\nActu GAEC 2', 1, '2010-02-01 20:09:11', '2010-04-23 10:49:34', 'GAEC', 1),
+(6, 'Actu locale2', 'localÃ©\r\nlocale\r\nlocale', 1, '2010-02-01 20:09:40', '2010-04-23 10:48:41', 'LOMA', 1);
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,7 @@ INSERT INTO `categorie_produit` (`categorie_produit_id`, `categorie_produit_libe
 (22, 'Oeufs', 1),
 (23, 'Viandes', 1),
 (24, 'Fruits', 1),
-(25, 'Légumes', 1),
+(25, 'LÃ©gumes', 1),
 (26, 'Produits laitiers', 1);
 
 -- --------------------------------------------------------
@@ -103,10 +103,10 @@ CREATE TABLE IF NOT EXISTS `client` (
 INSERT INTO `client` (`client_reference`, `client_civilite`, `client_nom`, `client_prenom`, `client_adresse`, `client_code_postal`, `client_commune`, `client_numero_tel`, `client_email`, `client_code`) VALUES
 (4, 'mr', 'Trepos', 'Gwen', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '06 17 35 00 01', 'gwenael.trepos@gmail.com', 'azerty'),
 (5, 'melle', 'Guillemin', 'Sandra', '2 rue des Vignes', '35530', 'Servon sur Vilaine', '02 15 45  45 48', 's_guillemin@hotmail.com', '1234567890'),
-(6, 'mr', 'Trepos', 'Ronan', '8 r St Ferréol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
+(6, 'mr', 'Trepos', 'Ronan', '8 r St FerrÃ©ol', '31000', 'Toulouse', '02 15 45  45 48', 'ronan.trepos@gmail.com', '1a2b3c4d5e'),
 (8, 'mme', 'Guillemin', 'Nicole', '', '', '', '02 12 12 12 12', 'nicole.guillemin@test.fr', 'rbghefklib'),
-(9, 'mr', 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
-(10, 'mme', 'TREPOS', 'Michèle', '38 rue du clos des vignes', '35690', 'Acigné', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1'),
+(9, 'mr', 'Trepos', 'Raymond', '38 rue du clos des vignes', '35690', 'AcignÃ©', '02 99 62 25 24', 'raymond.trepos@test.fr', 'uc98dgwv9r'),
+(10, 'mme', 'TREPOS', 'MichÃ¨le', '38 rue du clos des vignes', '35690', 'AcignÃ©', '02 99 62 25 24', 'michele.trepos@test.fr', 'thx78sa9k1'),
 (11, NULL, 'qsd', 'qd', '', '', '', 'qds', 'gt', 'azerty'),
 (12, 'mr', 'TREPOS', 'gt', '', '', '', '0617350001', 'gt@test.fr', 'azerty');
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `cond_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du conditionnement 0 = inactif 1 = actif ',
   `cond_prix` decimal(5,2) NOT NULL DEFAULT '0.00' COMMENT 'prix a ajouter pour le conditionnement',
   `cond_nom` varchar(50) DEFAULT NULL COMMENT 'nom du conditionnemment',
-  `cond_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'conditionnement soumis à stock 0 = non 1 = oui ',
+  `cond_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'conditionnement soumis Ã  stock 0 = non 1 = oui ',
   `cond_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce conditionnement en stock',
   `cond_divisible` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est ce que le conditionnement est divisible ?',
   `cond_remise` decimal(5,3) NOT NULL DEFAULT '0.000' COMMENT 'remise',
@@ -170,7 +170,7 @@ INSERT INTO `conditionnement` (`cond_id`, `cond_id_produit`, `cond_nouveaute`, `
 (50, 39, 0, 0, '0.00', 'paquet', 0, -1, 0, '0.000', '5.50'),
 (51, 40, 1, 1, '7.00', 'pot 1 kg.', 0, -1, 0, '0.000', '5.50'),
 (52, 40, 0, 1, '3.50', 'pot 500 gr.', 0, -1, 0, '0.000', '5.50'),
-(53, 41, 0, 0, '0.00', 'bouteille 1 litre', 0, -1, 0, '0.000', '5.50'),
+(53, 41, 0, 1, '0.00', 'bouteille 1 litre', 0, -1, 0, '0.000', '5.50'),
 (54, 42, 0, 1, '2.20', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
 (55, 43, 0, 1, '3.80', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
 (56, 44, 0, 1, '3.60', 'bouteille 75 cl', 0, -1, 0, '0.000', '19.60'),
@@ -357,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `parametrage` (
 --
 
 INSERT INTO `parametrage` (`parametre`, `valeur`) VALUES
-('condition_vente', 'Merci de passer vos commandes avant le mardi soir et de venir les chercher sur l''exploitation à partir du vendredi midi jusqu''au samedi midi.\r\nMerci pour votre compréhension.');
+('condition_vente', 'Merci de passer vos commandes avant le mardi soir et de venir les chercher sur l''exploitation Ã  partir du vendredi midi jusqu''au samedi midi.\r\nMerci pour votre comprÃ©hension.');
 
 -- --------------------------------------------------------
 
@@ -374,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
   `partenaire_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du partenaire 0 = inactif, 1 = actif ',
   `partenaire_logo` varchar(100) DEFAULT NULL COMMENT 'logo du partenaire',
   PRIMARY KEY (`partenaire_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `partenaire`
@@ -383,6 +383,49 @@ CREATE TABLE IF NOT EXISTS `partenaire` (
 INSERT INTO `partenaire` (`partenaire_id`, `partenaire_libelle`, `partenaire_descriptif`, `partenaire_siteweb`, `partenaire_rang`, `partenaire_etat`, `partenaire_logo`) VALUES
 (2, 'Accueil Paysan', 'Accueil paysan', 'http://www.accueil-paysan.com/', 1, 1, 'Logo_accueil_paysan.gif '),
 (3, 'FRAB', 'Agrobio Bretagne', 'http://www.agrobio-bretagne.org/', 2, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `producteur`
+--
+
+CREATE TABLE IF NOT EXISTS `producteur` (
+  `producteur_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identifiant du producteur',
+  `producteur_libelle` varchar(100) NOT NULL COMMENT 'libelle du producteur',
+  `producteur_adresse` varchar(100) DEFAULT NULL COMMENT 'adresse du producteur',
+  `producteur_latitude` varchar(20) NOT NULL COMMENT 'latitude google map',
+  `producteur_longitude` varchar(20) NOT NULL COMMENT 'longitude google map',
+  `producteur_descriptif` text NOT NULL COMMENT 'descriptif du producteur',
+  `producteur_rang` int(11) NOT NULL COMMENT 'rang d''affichage du producteur',
+  `producteur_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du producteur 0 = inactif, 1 = actif ',
+  `producteur_picto` varchar(100) NOT NULL COMMENT 'Photo du producteur',
+  `producteur_photo` varchar(100) DEFAULT NULL COMMENT 'photo du producteur',
+  PRIMARY KEY (`producteur_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+--
+-- Contenu de la table `producteur`
+--
+
+INSERT INTO `producteur` (`producteur_id`, `producteur_libelle`, `producteur_adresse`, `producteur_latitude`, `producteur_longitude`, `producteur_descriptif`, `producteur_rang`, `producteur_etat`, `producteur_picto`, `producteur_photo`) VALUES
+(3, 'Beucher Henry', 'Les Forges	53240 Montflours', '48.177956', '-0.728906', '<b>Jour livraison : </b>mardi<br><b>Produits : </b>pommes de terre', 1, 1, 'mm_20_black.png', ''),
+(4, 'Blin Michel / SantÃ´s Johny', 'La BaronniÃ¨re - St Melaine 35220 Chateaubourg', '48.11814', '-1.373388', '<hr>Blin Michel<br><b>Produits : </b>jus de pommes - farine - huile<br><hr>Santos Johny<br><b>Jour de livraison : </b>vendredi ou samedi<br><b>Produits : </b>pain', 2, 1, 'mm_20_blue.png', ''),
+(5, 'Daligault Arnaud', 'La Janaie 35520 Montreuil le gast', '48.255113', '-1.722493', '<b>Produits : </b>lÃ©gumes', 3, 1, 'mm_20_brown.png', ''),
+(6, 'Ferme de la Cour (Gauthier Laurent, Langlois Nathalie) / Gauthier Sylvain', 'ChaumÃ©rÃ© 35113 DomagnÃ©', '48.041017', '-1.423486', '<hr>Ferme de la cour<br>Gauthier Laurent <b>Jour de livraison : </b>jeudi aprÃ¨s midi <b>Produits : </b>pain<br>Langlois Nathalie <b>Produits : </b>caissette veaux<br><hr>Gauthier Sylvain <b>Jour de livraison : </b>mardi aprÃ¨s midi <b>Produits : </b>pain', 4, 1, 'mm_20_gray.png', ''),
+(8, 'Guerillon LoÃ¯c', 'La MolliÃ¨re 35580 Guignen', '47.95737', '-1.897368', '<b>Produits : </b>terrine - rillettes', 6, 1, 'mm_20_green.png', ''),
+(9, 'Brasserie de l''Ombre (Guyader Steven)', 'L''Ombre 35750 Iffendic', '48.145766', '-2.019089', '<b>Produits : </b>biÃ¨res', 7, 1, 'mm_20_orange.png', ''),
+(10, 'EARL les Vergers de l''Ille (Lehuger Etienne)', 'La FouinardiÃ¨re 35760 St GrÃ©goire', '48.166436', '-1.704812', '<b>Produits : </b>cidre - pommes', 9, 1, 'mm_20_red.png', ''),
+(11, 'PelÃ© Jean-Yves', '3 rue de Coquerelle 35690 AcignÃ©', '48.136924', '-1.527035', '<b>Produits : </b>miel', 10, 1, 'mm_20_white.png', ''),
+(12, 'GAEC du Pressoir (Piel StÃ©phanie)', '2 Place de la poste 22830 Plouasne', '48.300357', '-2.006641', '<b>Produits : </b>charcuterie', 11, 1, 'mm_20_yellow.png', ''),
+(13, 'PriÃ© Jean-FranÃ§ois', 'La RuÃ©e 35360 Boisgervilly', '48.152681', '-2.070633', '<b>Produits : </b>lÃ©gumes', 12, 1, 'mm_20_black.png', ''),
+(14, 'Renault Marie-Bernard', 'Le grand chÃ¨ne - ChaumÃ©rÃ©	35113 DomagnÃ©', '48.042265', '-1.419082', '<b>Produits : </b>volailles - panier', 13, 1, 'mm_20_blue.png', ''),
+(15, 'Ronsoux Laurence', 'La Bazouge du dÃ©sert', '48.443664', '-1.106014', '<b>Jour de livraison : </b>mercredi<br><b>Produits : </b>oeufs', 14, 1, 'mm_20_brown.png', ''),
+(16, 'Rupin Paul', 'Les Monts 35150 PirÃ© sur Seiche', '48.035913', '-1.441022', '<b>Produits : </b>rillettes', 15, 1, 'mm_20_orange.png', ''),
+(18, 'Testard Alan', 'La PerriÃ¨re 35690 AcignÃ©', '48.146088', '-1.558503', '<b>Jour de livraison : </b>mercredi<br><b>Produits : </b>lÃ©gumes', 17, 1, 'mm_20_gray.png', ''),
+(19, 'La galette BrÃ©cÃ©enne - Vincent Chantal', 'Centre commercial ''Le Tilleul'' 35530 BrÃ©cÃ©', '48.110762', '-1.483251', '<b>Jour de livraison : </b>vendredi<br><b>Produits : </b>galettes - crÃªpes', 18, 1, 'mm_20_red.png', ''),
+(20, 'Persehais Sophie', '35580 Baulon', '47.984981', '-1.93265', '<b>Produits : </b>plantes aromatiques et mÃ©dicinales', 19, 1, 'mm_20_white.png', ''),
+(21, 'Bertin Annie', '35140 Vendel', '48.29924', '-1.309862', '<b>Produits : </b>lÃ©gumes', 20, 1, 'mm_20_yellow.png', '');
 
 -- --------------------------------------------------------
 
@@ -397,6 +440,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `produit_descriptif_production` text NOT NULL COMMENT 'descriptif de fabrication/production du produit',
   `produit_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
   `produit_photo` varchar(100) NOT NULL COMMENT 'photo du produit',
+  `produit_rang` int(11) NOT NULL COMMENT 'rang d affichage du produit',
   PRIMARY KEY (`produit_id`),
   KEY `produit_categorie_fk` (`produit_id_categorie`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits' AUTO_INCREMENT=120 ;
@@ -405,87 +449,87 @@ CREATE TABLE IF NOT EXISTS `produit` (
 -- Contenu de la table `produit`
 --
 
-INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_photo`) VALUES
-(36, 17, 'Huile chanvre', 'Michel Blain', 1, 'logo200.gif'),
-(37, 18, 'Farine blé', 'Michel Blain', 1, 'logo200.gif'),
-(38, 18, 'Farine blé noir', 'Michel Blain', 1, 'logo200.gif'),
-(39, 18, 'Farine seigle', 'Michel Blain', 1, 'logo200.gif'),
-(40, 19, 'Miel', 'Jean-Yves Pelé', 1, 'logo200.gif'),
-(41, 20, 'Jus de pomme', 'Michel Blain', 1, 'logo200.gif'),
-(42, 20, 'Cidre', 'Etienne Lehuger', 1, 'logo200.gif'),
-(43, 20, 'Bière Rouge (ambrée)', 'Steven Guyader', 1, 'logo200.gif'),
-(44, 20, 'Bière Jaune (blonde)', 'Steven Guyader', 1, 'logo200.gif'),
-(45, 20, 'Bière Bleue (rousse)', 'Steven Guyader', 1, 'logo200.gif'),
-(46, 20, 'Bière Blanche (blanche)', 'Steven Guyader', 1, 'logo200.gif'),
-(47, 21, 'Pain semi complet', 'Sylvain Gauthier', 1, 'logo200.gif'),
-(48, 21, 'Pain sésame', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif'),
-(49, 21, 'Pain noisette', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif'),
-(50, 21, 'Pain raisin', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif'),
-(51, 21, 'Paint pépittes chocolat', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif'),
-(52, 22, 'Oeufs', 'Laurence Ronsoux', 1, 'logo200.gif'),
-(53, 23, 'Cassoulet', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
-(55, 23, 'Pâté à l''ail', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
-(56, 23, 'Pâté de campagne', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
-(57, 23, 'Rillettes de porc', 'GAEC du Pressoir\r\n', 1, 'logo200.gif'),
-(58, 23, 'Rillettes de canard', 'Loïc Guérillon\r\n\r\n', 1, 'logo200.gif'),
-(59, 23, 'Terrine volaille poivre vert', 'Loïc Guérillon\r\n\r\n', 1, 'logo200.gif'),
-(60, 24, 'Pommes 1', 'Etienne Lehuger\r\n', 1, 'logo200.gif'),
-(61, 24, 'Pommes 2', 'Etienne Lehuger\r\n', 1, 'logo200.gif'),
-(62, 25, 'Oignons', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(63, 25, 'Echalotte', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(64, 25, 'Ail', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(65, 25, 'Courge musquée de Provences', 'GAEC Olivet\r\n', 0, 'logo200.gif'),
-(66, 25, 'Potiron', 'GAEC Olivet\r\n', 0, 'logo200.gif'),
-(67, 25, 'Potimaron', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(68, 25, 'Butter nut', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(69, 25, 'Carotte', 'Alan Testard\r\n', 0, 'logo200.gif'),
-(70, 25, 'Poivron', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(71, 25, 'Aubergine', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(72, 25, 'Concombre', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(73, 25, 'Tomate', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(74, 25, 'Epinard', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(75, 25, 'Mâche', 'Arnaud Daligault\r\n', 0, 'logo200.gif'),
-(76, 25, 'Salade', 'Arnaud Daligault\r\n\r\n', 0, 'logo200.gif'),
-(79, 25, 'Pomme de terre Désirée', 'Henry Beucher\r\n', 1, 'logo200.gif'),
-(80, 25, 'Pomme de terre Charlotte', 'Henry Beucher\r\n', 1, 'logo200.gif'),
-(81, 25, 'Poireaux', 'Jean-Charles Gruel\r\n', 1, 'logo200.gif'),
-(82, 26, 'Crème dessert caramel', 'GAEC Olivet', 1, 'logo200.gif'),
-(83, 26, 'Crème dessert café', 'GAEC Olivet', 1, 'logo200.gif'),
-(84, 26, 'Crème dessert vanille', 'GAEC Olivet', 1, 'logo200.gif'),
-(85, 26, 'Crème dessert chocolat', 'GAEC Olivet', 1, 'logo200.gif'),
-(86, 26, 'Yaourt brassé fruits', 'GAEC Olivet', 1, 'logo200.gif'),
-(87, 26, 'Yaourt brassé nature', 'GAEC Olivet', 1, 'logo200.gif'),
-(88, 26, 'Yaourt ferme fruits', 'GAEC Olivet', 1, 'logo200.gif'),
-(89, 26, 'Yaourt ferme vanille', 'GAEC Olivet', 1, 'logo200.gif'),
-(90, 26, 'Yaourt ferme nature', 'GAEC Olivet', 1, 'logo200.gif'),
-(91, 26, 'Fromage apéro orient', 'GAEC Olivet', 1, 'AperOlivet Orient.JPG'),
-(92, 26, 'Fromage apéro mexicain', 'GAEC Olivet', 1, 'AperOlivet Mexicain.JPG'),
-(93, 26, 'Fromage apéro ail et fines herbes', 'GAEC Olivet', 1, 'AperOlivet Ail & Fines Herbes.JPG'),
-(94, 26, 'Fromage frais paprika', 'GAEC Olivet', 1, 'logo200.gif'),
-(95, 26, 'Fromage frais cendré', 'GAEC Olivet', 1, 'logo200.gif'),
-(96, 26, 'Fromage frais herbes Provences', 'GAEC Olivet', 1, 'logo200.gif'),
-(97, 26, 'Fromage frais poivre', 'GAEC Olivet', 1, 'logo200.gif'),
-(98, 26, 'Fromage frais nature', 'GAEC Olivet', 1, 'logo200.gif'),
-(99, 26, 'P''tit olivet', 'GAEC Olivet', 1, 'Ptit Olivet.JPG'),
-(100, 26, 'Fromage blanc lisse 0%', 'GAEC Olivet', 1, 'logo200.gif'),
-(101, 26, 'Fromage blanc lisse 20%', 'GAEC Olivet', 1, 'logo200.gif'),
-(102, 26, 'Fromage blanc lisse 40%', 'GAEC Olivet', 1, 'logo200.gif'),
-(103, 26, 'Fromage blanc campagne 0%', 'GAEC Olivet', 1, 'logo200.gif'),
-(104, 26, 'Fromage blanc campagne 20%', 'GAEC Olivet', 1, 'logo200.gif'),
-(105, 26, 'Fromage blanc campagne 40%', 'GAEC Olivet', 1, 'logo200.gif'),
-(106, 26, 'Faisselle', 'GAEC Olivet', 1, 'Faisselle.JPG'),
-(107, 26, 'Beurre ½ sel', 'GAEC Olivet', 1, 'logo200.gif'),
-(108, 26, 'Beurre doux', 'GAEC Olivet', 1, 'logo200.gif'),
-(109, 26, 'Crème liquide', 'GAEC Olivet', 1, 'logo200.gif'),
-(110, 26, 'Crème épaisse', 'GAEC Olivet', 1, 'logo200.gif'),
-(111, 26, 'Lait ribot', 'GAEC Olivet', 1, 'logo200.gif'),
-(112, 26, 'Lait écrémé', 'GAEC Olivet', 1, 'logo200.gif'),
-(113, 26, 'Lait 1/2 écrémé', 'GAEC Olivet', 1, 'logo200.gif'),
-(114, 26, 'Lait entier', 'GAEC Olivet', 1, 'logo200.gif'),
-(116, 21, 'Pain 6 céréales', 'Sylvain Gauthier', 1, 'logo200.gif'),
-(117, 26, 'Bouteille verre', 'GAEC Olivet', 1, 'logo200.gif'),
-(118, 21, 'Pain semi complet', 'Johny Santo', 1, 'logo200.gif'),
-(119, 21, 'Pain semi complet', 'Laurent Gauthier', 1, 'logo200.gif');
+INSERT INTO `produit` (`produit_id`, `produit_id_categorie`, `produit_libelle`, `produit_descriptif_production`, `produit_etat`, `produit_photo`, `produit_rang`) VALUES
+(36, 17, 'Huile chanvre', 'Michel Blain', 1, 'logo200.gif', 0),
+(37, 18, 'Farine blÃ©', 'Michel Blain', 1, 'logo200.gif', 0),
+(38, 18, 'Farine blÃ© noir', 'Michel Blain', 1, 'logo200.gif', 0),
+(39, 18, 'Farine seigle', 'Michel Blain', 1, 'logo200.gif', 0),
+(40, 19, 'Miel', 'Jean-Yves PelÃ©', 1, 'logo200.gif', 0),
+(41, 20, 'Jus de pomme', 'Michel Blain', 1, 'jus pomme.jpg', 0),
+(42, 20, 'Cidre', 'Etienne Lehuger', 1, 'cidre.jpg', 2),
+(43, 20, 'BiÃ¨re Rouge (ambrÃ©e)', 'Steven Guyader', 1, 'logo200.gif', 0),
+(44, 20, 'BiÃ¨re Jaune (blonde)', 'Steven Guyader', 1, 'logo200.gif', 0),
+(45, 20, 'BiÃ¨re Bleue (rousse)', 'Steven Guyader\r\navec un saut de ligne', 1, 'logo200.gif', 0),
+(46, 20, 'BiÃ¨re Blanche (blanche)', 'Steven Guyader', 1, 'logo200.gif', 1),
+(47, 21, 'Pain semi complet', 'Sylvain Gauthier', 1, 'logo200.gif', 0),
+(48, 21, 'Pain sÃ©same', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif', 0),
+(49, 21, 'Pain noisette', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif', 0),
+(50, 21, 'Pain raisin', 'Laurent Gauthier et Nathalie Langlois \r\n', 1, 'logo200.gif', 0),
+(51, 21, 'Paint pÃ©pittes chocolat', 'Laurent Gauthier et Nathalie Langlois\r\n', 1, 'logo200.gif', 0),
+(52, 22, 'Oeufs', 'Laurence Ronsoux', 1, 'logo200.gif', 0),
+(53, 23, 'Cassoulet', 'GAEC du Pressoir\r\n', 1, 'logo200.gif', 0),
+(55, 23, 'PÃ¢tÃ© Ã  l''ail', 'GAEC du Pressoir\r\n', 1, 'logo200.gif', 0),
+(56, 23, 'PÃ¢tÃ© de campagne', 'GAEC du Pressoir\r\n', 1, 'logo200.gif', 0),
+(57, 23, 'Rillettes de porc', 'GAEC du Pressoir\r\n', 1, 'logo200.gif', 0),
+(58, 23, 'Rillettes de canard', 'LoÃ¯c GuÃ©rillon\r\n\r\n', 1, 'logo200.gif', 0),
+(59, 23, 'Terrine volaille poivre vert', 'LoÃ¯c GuÃ©rillon\r\n\r\n', 1, 'logo200.gif', 0),
+(60, 24, 'Pommes 1', 'Etienne Lehuger\r\n', 1, 'logo200.gif', 0),
+(61, 24, 'Pommes 2', 'Etienne Lehuger\r\n', 1, 'logo200.gif', 0),
+(62, 25, 'Oignons', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(63, 25, 'Echalotte', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(64, 25, 'Ail', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(65, 25, 'Courge musquÃ©e de Provences', 'GAEC Olivet\r\n', 0, 'logo200.gif', 0),
+(66, 25, 'Potiron', 'GAEC Olivet\r\n', 0, 'logo200.gif', 0),
+(67, 25, 'Potimaron', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(68, 25, 'Butter nut', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(69, 25, 'Carotte', 'Alan Testard\r\n', 0, 'logo200.gif', 0),
+(70, 25, 'Poivron', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(71, 25, 'Aubergine', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(72, 25, 'Concombre', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(73, 25, 'Tomate', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(74, 25, 'Epinard', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(75, 25, 'MÃ¢che', 'Arnaud Daligault\r\n', 0, 'logo200.gif', 0),
+(76, 25, 'Salade', 'Arnaud Daligault\r\n\r\n', 0, 'logo200.gif', 0),
+(79, 25, 'Pomme de terre DÃ©sirÃ©e', 'Henry Beucher\r\n', 1, 'logo200.gif', 0),
+(80, 25, 'Pomme de terre Charlotte', 'Henry Beucher\r\n', 1, 'logo200.gif', 0),
+(81, 25, 'Poireaux', 'Jean-Charles Gruel\r\n', 1, 'logo200.gif', 0),
+(82, 26, 'CrÃ¨me dessert caramel', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(83, 26, 'CrÃ¨me dessert cafÃ©', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(84, 26, 'CrÃ¨me dessert vanille', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(85, 26, 'CrÃ¨me dessert chocolat', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(86, 26, 'Yaourt brassÃ© fruits', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(87, 26, 'Yaourt brassÃ© nature', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(88, 26, 'Yaourt ferme fruits', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(89, 26, 'Yaourt ferme vanille', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(90, 26, 'Yaourt ferme nature', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(91, 26, 'Fromage apÃ©ro orient', 'GAEC Olivet', 1, 'AperOlivet Orient.JPG', 0),
+(92, 26, 'Fromage apÃ©ro mexicain', 'GAEC Olivet', 1, 'AperOlivet Mexicain.JPG', 0),
+(93, 26, 'Fromage apÃ©ro ail et fines herbes', 'GAEC Olivet', 1, 'AperOlivet Ail & Fines Herbes.JPG', 0),
+(94, 26, 'Fromage frais paprika', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(95, 26, 'Fromage frais cendrÃ©', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(96, 26, 'Fromage frais herbes Provences', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(97, 26, 'Fromage frais poivre', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(98, 26, 'Fromage frais nature', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(99, 26, 'P''tit olivet', 'GAEC Olivet', 1, 'Ptit Olivet.JPG', 0),
+(100, 26, 'Fromage blanc lisse 0%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(101, 26, 'Fromage blanc lisse 20%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(102, 26, 'Fromage blanc lisse 40%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(103, 26, 'Fromage blanc campagne 0%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(104, 26, 'Fromage blanc campagne 20%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(105, 26, 'Fromage blanc campagne 40%', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(106, 26, 'Faisselle', 'GAEC Olivet', 1, 'Faisselle.JPG', 0),
+(107, 26, 'Beurre Â½ sel', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(108, 26, 'Beurre doux', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(109, 26, 'CrÃ¨me liquide', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(110, 26, 'CrÃ¨me Ã©paisse', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(111, 26, 'Lait ribot', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(112, 26, 'Lait Ã©crÃ©mÃ©', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(113, 26, 'Lait 1/2 Ã©crÃ©mÃ©', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(114, 26, 'Lait entier', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(116, 21, 'Pain 6 cÃ©rÃ©ales', 'Sylvain Gauthier', 1, 'logo200.gif', 0),
+(117, 26, 'Bouteille verre', 'GAEC Olivet', 1, 'logo200.gif', 0),
+(118, 21, 'Pain semi complet', 'Johny Santo', 1, 'logo200.gif', 0),
+(119, 21, 'Pain semi complet', 'Laurent Gauthier', 1, 'logo200.gif', 0);
 
 -- --------------------------------------------------------
 
@@ -500,25 +544,27 @@ CREATE TABLE IF NOT EXISTS `produit_resa` (
   `produit_resa_descriptif_production` text NOT NULL COMMENT 'descriptif de fabrication/production du produit',
   `produit_resa_etat` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'etat du produit 0 = inactif 1 = actif ',
   `produit_resa_photo` varchar(100) NOT NULL COMMENT 'photo du produit',
-  `produit_resa_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'produit soumis à stock 0 = non 1 = oui ',
+  `produit_resa_a_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'produit soumis Ã  stock 0 = non 1 = oui ',
   `produit_resa_nb_stock` int(11) NOT NULL DEFAULT '0' COMMENT 'nombre de ce produit en stock',
   `produit_resa_nouveaute` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'est-ce que le produit est une nouveaute ? 0 = non, 1 = oui',
+  `produit_resa_rang` int(11) NOT NULL COMMENT 'rang d affichage du produit',
   PRIMARY KEY (`produit_resa_id`),
   KEY `produit_resa_categorie_fk` (`produit_resa_id_categorie`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='liste des produits a la reservation' AUTO_INCREMENT=47 ;
 
 --
 -- Contenu de la table `produit_resa`
 --
 
-INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_id_categorie`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`) VALUES
-(39, 23, 'Chapon (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
-(40, 23, 'Oie (0 € le kg) ', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
-(41, 23, 'Dinde (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
-(42, 23, 'Pintade (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
-(43, 23, 'Poulet (0 € le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0),
-(44, 23, 'Caissette d''agneau (12,32 € le kg)', 'GAEC Olivet', 0, 'logo200.gif', 0, -1, 0),
-(45, 23, 'Caissette de boeuf (10,90 € le kg)', 'GAEC Olivet', 1, 'logo200.gif', 0, -1, 0);
+INSERT INTO `produit_resa` (`produit_resa_id`, `produit_resa_id_categorie`, `produit_resa_libelle`, `produit_resa_descriptif_production`, `produit_resa_etat`, `produit_resa_photo`, `produit_resa_a_stock`, `produit_resa_nb_stock`, `produit_resa_nouveaute`, `produit_resa_rang`) VALUES
+(39, 23, 'Chapon (0 â‚¬ le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0, 0),
+(40, 23, 'Oie (0 â‚¬ le kg) ', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0, 0),
+(41, 23, 'Dinde (0 â‚¬ le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0, 0),
+(42, 23, 'Pintade (0 â‚¬ le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0, 0),
+(43, 23, 'Poulet (0 â‚¬ le kg)', 'Marie-B Renault\r\n', 0, 'logo200.gif', 0, -1, 0, 0),
+(44, 23, 'Caissette d''agneau (12,32 â‚¬ le kg)', 'GAEC Olivet', 1, 'logo200.gif', 0, -1, 0, 2),
+(45, 23, 'Caissette de boeuf (10,90 â‚¬ le kg)', 'GAEC Olivet', 1, 'logo200.gif', 0, -1, 0, 1),
+(46, 19, 'qsdqsd', 'qsdqsd', 0, 'sqd', 0, -1, 0, 0);
 
 --
 -- Contraintes pour les tables exportées
