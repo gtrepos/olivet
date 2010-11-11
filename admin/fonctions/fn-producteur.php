@@ -39,7 +39,7 @@ function affich_producteurs()
     }
     echo " <a href=\"?page=producteurs&action=modifier&id=$id\">[".ADMIN_PRODUCTEUR_MODIFIER."]</a>";
     echo " <a href=\"\" onclick=\"alerteSuppressionProducteur('$id','".addslashes($libelle)."')\">[".ADMIN_PRODUCTEUR_SUPPRIMER."]</a>";
-    echo "</td>";
+    echo "<A NAME='ancre_$id'></td>";
     echo "</tr>";
   }
 }

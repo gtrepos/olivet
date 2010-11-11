@@ -1,4 +1,4 @@
-<br><font class=olivet><?php echo ADMIN_COMMANDE_GESTION; ?></font><br><br>
+<font class=olivet><?php echo ADMIN_COMMANDE_GESTION; ?></font><br><br>
 <?php 
 if (isset($_GET['action'])){
 	$action=$_GET['action'];

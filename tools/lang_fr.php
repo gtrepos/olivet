@@ -171,5 +171,6 @@ define("ADMIN_PRODUCTEUR_DESACTIVER","Désactiver");
 define("ADMIN_PRODUCTEUR_MODIFIER","Modifier");
 define("ADMIN_PRODUCTEUR_SUPPRIMER","Supprimer");
 
+define("ADMIN_GESTION_IMAGES","Gestion des images");
 
 ?>

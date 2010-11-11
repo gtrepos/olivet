@@ -1,4 +1,4 @@
-<br><font class=olivet><?php echo ADMIN_ACTUALITE_GESTION; ?></font>
+<font class=olivet><?php echo ADMIN_ACTUALITE_GESTION; ?></font>
 
 <?php 
 if (isset($_GET['action'])){

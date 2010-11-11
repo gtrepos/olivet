@@ -1,4 +1,4 @@
-<br><font class=olivet><?php echo ADMIN_PARTENAIRE_GESTION; ?></font><br><br>
+<font class=olivet><?php echo ADMIN_PARTENAIRE_GESTION; ?></font><br><br>
 
 <table id=tableau cellspacing="0" cellspacing="0">
 	<tr>

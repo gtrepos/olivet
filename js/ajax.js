@@ -23,7 +23,7 @@ var cfg_description = ""
 		+ "<tr><td valign='top'>"
 		+ "<div style='color: blue; font-size: 14px; font-weight:bold;'>"
 		+ "Ferme D'olivet" + "</div><br/>" + "Gaec à 3 voix, L'Olivet<br/>"
-		+ "35530 SERVON-SUR-VILAINE<br/>" + "06 62 09 27 62<br/>"
+		+ "35530 SERVON-SUR-VILAINE<br/>" + "06 98 39 27 62<br/>"
 		+ "<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"
 		+ "</td>" +
 		// "<td>"+
@@ -173,6 +173,22 @@ function manageClickValid1(transport) {
 	}
 }
 
+function clickFerme() {
+	clickNavigation('la_ferme');
+}
+
+function clickProduits() {
+	clickNavigation('nos_produits');
+}
+
+function clickCommander() {
+	clickNavigation('commander');
+}
+
+function clickNousContacter() {
+	clickNavigation('nous_contacter');
+}
+
 function clickNavigation(menu) {
 
 	new Ajax.Request('tools/visitor_ajax.php', {
@@ -182,6 +198,7 @@ function clickNavigation(menu) {
 			event : 'clickNavigation',
 			menu : menu
 		},
+		onLoading : function(){$('principal').innerHTML = 'Chargement en cours, merci de patienter quelques instants ...';}, 
 		onComplete : function(transport) {
 			switch (menu) {
 			case 'accueil':

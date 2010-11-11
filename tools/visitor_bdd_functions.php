@@ -97,7 +97,13 @@ function bddClientInfoFromEmail($email){
 }
 
 
-
+function afficheAccueil(){
+	$requete=
+		"SELECT valeur FROM parametrage where parametre='accueil'";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	$row = mysql_fetch_array($resultats);
+	return $row[0];
+}
 
 
 function bddNouveauxProduits(){

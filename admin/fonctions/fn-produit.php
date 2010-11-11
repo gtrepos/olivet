@@ -52,7 +52,7 @@ function affich_produits ()
     	echo " <a href=\"\" onclick=\"alerteSuppressionProduit('$idproduit','".addslashes($libelleProduit)."')\">[".ADMIN_PRODUIT_SUPPRIMER."]</a>";	
     }
     
-    echo "</td>";
+    echo "<A NAME='ancre_$idproduit'></A></td>";
     echo "</tr>";
   }
 }

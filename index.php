@@ -16,7 +16,7 @@ require_once('tools/visitor_panier_functions.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-<title>GAEC à 3 voix, la ferme d'Olivet</title>
+<title>La ferme d'Olivet</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='language' content='fr'>
 	<meta name='Description' content="La ferme d'Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits">
@@ -100,8 +100,6 @@ require_once('tools/visitor_panier_functions.php');
 <p style='color:black;'>Du mardi au vendredi<br>de 16h30 à 19h30<br>
 Le samedi<br>de 9h00 à 13h00<br>
 Fermé les jours fériés<br></p>
-<p id="copyright"><a href="http://www.elephorm.com" target="_blank">Elephorm</a> et <a
-	href="http://www.alsacreations.com" target="_blank">Alsacréations</a></p>
 </div>
 <!-- #secondaire --></div>
 <!-- ombre --></div>

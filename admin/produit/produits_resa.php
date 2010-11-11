@@ -1,5 +1,5 @@
-<br><font class=olivet><?php echo ADMIN_PRODUIT_RESA_GESTION; ?></font><br><br>
-
+<font class=olivet><?php echo ADMIN_PRODUIT_RESA_GESTION; ?></font>
+<br><br>
 <table id=tableau cellspacing="0" cellspacing="0">
 	<tr>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ID; ?></td>

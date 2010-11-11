@@ -65,7 +65,7 @@ function affich_conditionnements ()
     	echo " <a href=\"\" onclick=\"alerteSuppressionConditionnement('$row[0]','".addslashes($condNom)."')\">[".ADMIN_CONDITIONNEMENT_SUPPRIMER."]</a>";
     }
     
-    echo "</td>";
+    echo "<A NAME='ancre_$row[0]'></A></td>";
     echo "</tr>";
   }
 }

@@ -1,4 +1,4 @@
-<br><font class=olivet><?php echo ADMIN_PRODUCTEUR_GESTION; ?></font><br><br>
+<font class=olivet><?php echo ADMIN_PRODUCTEUR_GESTION; ?></font><br><br>
 
 <table id=tableau cellspacing="0" cellspacing="0">
 	<tr>
@@ -51,5 +51,7 @@ if ($action=='supprimer') {
 	supprimer_producteur($_GET['id']);
 }
 
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=producteurs';</script>";
+if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') {
+	echo "<script type='text/javascript'>window.location='index.php?page=producteurs#ancre_".$_GET['id']."';</script>";
+}
 ?>

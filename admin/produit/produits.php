@@ -1,5 +1,4 @@
-<br><font class=olivet><?php echo ADMIN_PRODUIT_GESTION; ?></font><br><br>
-
+<font class=olivet><?php echo ADMIN_PRODUIT_GESTION; ?></font>
 
 <?php 
 if (isset($_GET['action'])){
@@ -42,7 +41,9 @@ if ($action=='supprimer') {
 	supprimer_produit($_GET['id']);
 }
 
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=produits';</script>";
+if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') {
+	echo "<script type='text/javascript'>window.location='index.php?page=produits#ancre_".$_GET['id']."';</script>";
+}
 
 ?>
 

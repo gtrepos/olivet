@@ -1,4 +1,5 @@
-<br><font class=olivet><?php echo ADMIN_CLIENT_GESTION; ?></font>
+<font class=olivet><?php echo ADMIN_CLIENT_GESTION; ?></font>
+<br><br>
 
 <?php 
 if (isset($_GET['action'])){
@@ -7,11 +8,7 @@ if (isset($_GET['action'])){
 else {
 	$action='lister';
 }
-?>
 
-<br><br>
-
-<?php
 
 if ($action=='lister') {include("lister_clients.php");}
 

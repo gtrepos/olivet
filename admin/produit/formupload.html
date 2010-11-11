@@ -1,11 +1,20 @@
 <html>
 <head>
-	<meta http-equiv="Content-Language" content="fr">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Administration</title>
+<meta http-equiv="Content-Language" content="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Administration</title>
 </head>
 <body>
-<form action="../fonctions/upload_file.php" method="post" enctype="multipart/form-data"><table><tr><td><input type="file" size=50 name="file" id="file" /><input type="submit" name="Transférer" value="Transférer" /></td></tr></table></form>
+<form action="../fonctions/upload_images.php"
+	method="post" enctype="multipart/form-data">
+<table>
+	<tr>
+		<td><input type="file" size=50 name="file" id="file" /><input
+			type="submit" name="Transférer" value="Transférer" /></td>
+	</tr>
+</table>
+<input id="retour" name="retour" value="produit"/>
+</form>
 </body>
-</html>	
+</html>
 
