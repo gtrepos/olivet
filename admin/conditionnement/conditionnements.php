@@ -72,7 +72,17 @@ if ($action=='supprimer') {
 }
 
 if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') { 
-	echo "<script type='text/javascript'>window.location='index.php?page=conditionnements#ancre_".$_GET['id']."'</script>";
+	
+	$id = "";
+	
+	if (isset($_POST['id'])) {
+		$id = $_POST['id'];
+	}
+	else if (isset($_GET['id'])) {
+		$id = $_GET['id'];
+	};
+	
+	echo "<script type='text/javascript'>window.location='index.php?page=conditionnements#ancre_".$id."'</script>";
 }
 
 ?>

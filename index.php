@@ -98,7 +98,7 @@ require_once('tools/visitor_panier_functions.php');
 
 <h3>Horaires d'ouverture</h3>
 <p style='color:black;'>Du mardi au vendredi<br>de 16h30 à 19h30<br>
-Le samedi<br>de 9h00 à 13h00<br>
+Le samedi<br>de 9h30 à 13h00<br>
 Fermé les jours fériés<br></p>
 </div>
 <!-- #secondaire --></div>

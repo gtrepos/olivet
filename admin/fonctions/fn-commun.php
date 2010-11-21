@@ -20,7 +20,7 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   {
   	$selected = "";
   	if ($row[0] == $select) $selected = "selected";
-  	echo "<OPTION value='$row[0]' $selected>$row[1] - $row[2]</OPTION>";
+  	echo "<OPTION value='$row[0]' $selected>$row[1]</OPTION>";
   }
   echo "</SELECT>";  
 }
