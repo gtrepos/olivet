@@ -9,7 +9,8 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_NOUVEAUTE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_RANG; ?></td>
-		<td class=caption><?php echo ADMIN_PRODUIT_RESA_DATE_LIVRAISON; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RESA_DATE_LIMITE_COMMANDE; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RESA_DATE_RETRAIT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_DATE_LIMITE; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
@@ -17,7 +18,7 @@
 </table>
 <table class=olivet width="90%" cellspacing="1" cellspacing="0">
 	<tr>
-		<td align="right" colspan="10"><a href="?page=produitsresa&action=creer"><?php echo ADMIN_PRODUIT_RESA_CREER;?></a></td>
+		<td align="right" colspan="11"><a href="?page=produitsresa&action=creer"><?php echo ADMIN_PRODUIT_RESA_CREER;?></a></td>
 	</tr>
 </table>
 
@@ -62,7 +63,7 @@ if ($action=='enregistrer') {
 	}
 	
 	enregistrer_produit_resa($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], $nouveaute, $aStock, $nbStock, 
-		$_POST['rang'], $_POST['dateRecup'], $_POST['dateLimite']);	
+		$_POST['rang'], $_POST['dateRecup'], $_POST['dateLimite'], $_POST['dateLimiteCommande']);	
 }
 
 if ($action=='activer') {

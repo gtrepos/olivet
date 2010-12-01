@@ -165,6 +165,13 @@ switch($ajax_event){
   			break;
   		}
   		
+  		$messageDateRecupIncompatible = bddCheckDateRecupVsDateLimiteCommande();
+  		if($messageDateRecupIncompatible!=null) {
+  			echo "Erreur dans le formulaire : ".$messageDateRecupIncompatible;
+  			break;
+  		}
+  		
+  		
   		if($addClient){
   			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
   				$ajax_nclient_commune, $ajax_nclient_tel, $ajax_nclient_mail, $ajax_nclient_mdp1, $ajax_nclient_civilite);

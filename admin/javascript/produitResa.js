@@ -14,6 +14,7 @@ function valideFormProduitResa(){
 	var rang = $('rang').value.trim();
 	var dateRecup = $('dateRecup').value.trim();
 	var dateLimite = $('dateLimite').value.trim();
+	var dateLimiteCommande = $('dateLimiteCommande').value.trim();
 	
 	if (idCategorie == -1){
 		alert("Vous devez renseigner une catégorie de produits.");
@@ -59,33 +60,51 @@ function valideFormProduitResa(){
 		return false;
 	}
 	
+	if (dateLimiteCommande == '') {
+		alert("La date limite de commande n'est pas renseignée.");
+		$('dateLimiteCommande').focus();
+		return false;
+	}
+	
+	if (!validateDate(dateLimiteCommande,'W','A')) {
+		alert("La date limite de commande n'est pas une date valide");
+		$('dateLimiteCommande').focus();
+		return false;
+	}
+	
 	if (dateRecup == '') {
-		alert("La date de livraison n'est pas renseignée.");
+		alert("La date de retrait en magasin n'est pas renseignée.");
 		$('dateRecup').focus();
 		return false;
 	}
 	
 	if (!validateDate(dateRecup,'W','A')) {
-		alert("La date de livraison n'est pas une date valide");
+		alert("La date de retrait en magasin n'est pas une date valide");
 		$('dateRecup').focus();
 		return false;
 	}
 	
 	if (dateLimite == '') {
-		alert("La date limite de récupération n'est pas renseignée.");
+		alert("La date limite de retrait n'est pas renseignée.");
 		$('dateLimite').focus();
 		return false;
 	}
 	
 	if (!validateDate(dateLimite,'W','A')) {
-		alert("La date limite de récupération n'est pas une date valide");
+		alert("La date limite de retrait n'est pas une date valide");
 		$('dateLimite').focus();
 		return false;
 	}
 	
 	if (!estDateSuperieure(dateRecup,dateLimite)) {
-		alert("La date limite de récupération est inférieure ou égale à la date de livraison.");
+		alert("La date limite de retrait en magasin doit être supérieure à la date de retrait en magasin.");
 		$('dateLimite').focus();
+		return false;
+	}
+	
+	if (!estDateSuperieure(dateLimiteCommande,dateRecup) && !estDateEgale(dateLimiteCommande,dateRecup)) {
+		alert("La date limite de commande doit être inférieure ou égale à la date de retrait en magasin.");
+		$('dateLimiteCommande').focus();
 		return false;
 	}
 	

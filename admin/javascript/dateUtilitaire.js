@@ -11,9 +11,15 @@ function estDateSuperieure(pDateDebut, pDateFin) {
 	if (fCompareDate(pDateDebut,pDateFin)>0) {
 		return true;
 	}
-	else {
-		return false;
+	return false;
+}
+
+function estDateEgale(pDateDebut, pDateFin) {
+	if (fCompareDate(pDateDebut,pDateFin)==0) {
+		return true;
 	}
+	return false;
+	
 }
 
 function formatDateSql(pDate) {

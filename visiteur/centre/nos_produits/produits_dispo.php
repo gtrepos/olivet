@@ -34,6 +34,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_resa_nb_stock= $prodResaStruct['produit_resa_nb_stock'];
 			$produit_resa_date_recuperation= $prodResaStruct['produit_resa_date_recuperation'];
 			$produit_resa_date_limite_recuperation= $prodResaStruct['produit_resa_date_limite_recuperation'];
+			$produit_resa_date_limite_commande= $prodResaStruct['produit_resa_date_limite_commande'];
 
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
@@ -43,8 +44,8 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "</td>";
 			echo "<td align=center valign = 'middle'>";
 			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
-			echo "<br>Date de retrait en magasin : $produit_resa_date_recuperation";
-			echo "<br>Date limite de retrait : $produit_resa_date_limite_recuperation";
+			echo "<br>Date limite de commande : $produit_resa_date_limite_commande inclu";
+			echo "<br>Dates de retrait en magasin : du $produit_resa_date_recuperation <br>au $produit_resa_date_limite_recuperation inclu";
 			echo "</td>";
 			echo "</tr>";
 			echo "<tr>";

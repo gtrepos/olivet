@@ -334,7 +334,8 @@ function bddProdsResaDispo(){
 	"produit_resa.produit_resa_nb_stock, ".
 	"produit_resa.produit_resa_rang, ".
 	"produit_resa.produit_resa_date_recuperation, ".
-	"produit_resa.produit_resa_date_limite_recuperation ".
+	"produit_resa.produit_resa_date_limite_recuperation, ".
+	"produit_resa.produit_resa_date_limite_commande ".
 	"FROM produit_resa ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit_resa.produit_resa_id_categorie = categorie_produit.categorie_produit_id ".
@@ -401,6 +402,7 @@ function bddProdsDispo(){
 		$produit_resa_nb_stock =  $row2[7];
 		$produit_resa_date_recuperation = dateUsFr($row2[9]) ;
 		$produit_resa_date_limite_recuperation = dateUsFr($row2[10]);
+		$produit_resa_date_limite_commande = dateUsFr($row2[11]);
 
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_libelle"] = $produit_resa_libelle;
@@ -410,6 +412,7 @@ function bddProdsDispo(){
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_nb_stock"] = $produit_resa_nb_stock;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_recuperation"] = $produit_resa_date_recuperation;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_limite_recuperation"] = $produit_resa_date_limite_recuperation;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_limite_commande"] = $produit_resa_date_limite_commande;
 	}
 	return $globStruc;
 }
@@ -555,6 +558,29 @@ function bddCheckDateRecupVsJoursDispos($dateRecup) {
 	}
 	return null;
 }
+
+function bddCheckDateRecupVsDateLimiteCommande() {
+	$aujourdhui = mktime(0,0,0,date("m" ),date("d" ),date("Y"));//demain
+	$produitsResa = panierSelProdsResa();
+	if ($produitsResa!=null) {
+		$requete="SELECT p.produit_resa_date_limite_commande, p.produit_resa_libelle FROM produit_resa p WHERE p.produit_resa_id = ";
+		foreach ( $produitsResa as $prodResa ) {
+			$requete = $requete.$prodResa["id"];
+			$resultats=mysql_query($requete) or die (mysql_error());
+			if (mysql_num_rows($resultats)>0) {
+				while ($row = mysql_fetch_array($resultats)){
+					$dateLimiteCommandeTs = strtotime($row[0]);
+					if ($aujourdhui > $dateLimiteCommandeTs) {
+						return "Le produit '".$row[1]."' ne peut pas être réservé. \nIl a une date limite de commande fixée au ".dateUsFr($row[0]." inclu.");
+					}				
+				}
+			}
+		}
+		return null;
+	}
+	return null;
+}
+
 
 function getJourSemaine($dateUs) {
 	$leJour = date('l', strtotime($dateUs));
