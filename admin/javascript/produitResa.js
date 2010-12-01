@@ -12,6 +12,8 @@ function valideFormProduitResa(){
 	var photo = $('photo').value.trim();
 	var nb_stock = $('nb_stock').value.trim();
 	var rang = $('rang').value.trim();
+	var dateRecup = $('dateRecup').value.trim();
+	var dateLimite = $('dateLimite').value.trim();
 	
 	if (idCategorie == -1){
 		alert("Vous devez renseigner une catégorie de produits.");
@@ -57,6 +59,35 @@ function valideFormProduitResa(){
 		return false;
 	}
 	
+	if (dateRecup == '') {
+		alert("La date de livraison n'est pas renseignée.");
+		$('dateRecup').focus();
+		return false;
+	}
+	
+	if (!validateDate(dateRecup,'W','A')) {
+		alert("La date de livraison n'est pas une date valide");
+		$('dateRecup').focus();
+		return false;
+	}
+	
+	if (dateLimite == '') {
+		alert("La date limite de récupération n'est pas renseignée.");
+		$('dateLimite').focus();
+		return false;
+	}
+	
+	if (!validateDate(dateLimite,'W','A')) {
+		alert("La date limite de récupération n'est pas une date valide");
+		$('dateLimite').focus();
+		return false;
+	}
+	
+	if (!estDateSuperieure(dateRecup,dateLimite)) {
+		alert("La date limite de récupération est inférieure ou égale à la date de livraison.");
+		$('dateLimite').focus();
+		return false;
+	}
 	
 	return true;
 	

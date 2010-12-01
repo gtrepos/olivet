@@ -15,7 +15,7 @@ function bddCommandeProdsResa($id_commande){
 	$requete = 
 	"SELECT produit_resa.produit_resa_libelle" .
 	" , produit_resa.produit_resa_descriptif_production ".
-	" , lien_commande_produit_resa.lcpr_quantite ".
+	" , lien_commande_produit_resa.lcpr_quantite, produit_resa.produit_resa_date_recuperation, produit_resa_date_limite_recuperation ".
 	"FROM produit_resa, lien_commande_produit_resa ".
 	"WHERE lien_commande_produit_resa.lcpr_id_commande = $id_commande ".
 	"AND lien_commande_produit_resa.lcpr_id_produit_resa = produit_resa.produit_resa_id ";
@@ -162,8 +162,16 @@ function bddAddCommande($mail, $daterecup){
 		return false;
 	}
 	//add commande
-	$requete = "INSERT INTO commande (commande_id_client, commande_daterecuperation) " .
-				"VALUES ('$client_id', '$daterecup')";
+	
+	$requete = null;
+	if ($daterecup != null) {
+		$requete = "INSERT INTO commande (commande_id_client, commande_daterecuperation) " .
+				"VALUES ('$client_id', '$daterecup')";	
+	}
+	else {
+		$requete = "INSERT INTO commande (commande_id_client) " .
+				"VALUES ('$client_id')";
+	}
 	$tmpres2 = mysql_query($requete) or die (mysql_error());
 	if($tmpres2 == ""){
 		return false;
@@ -286,7 +294,8 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_a_stock, ".
 	"conditionnement.cond_nb_stock, ".
 	"conditionnement.cond_divisible, ".
-	"produit.produit_rang ".
+	"produit.produit_rang," .
+	"produit.produit_jours_dispos ".
 	"FROM produit ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
@@ -323,7 +332,9 @@ function bddProdsResaDispo(){
 	"produit_resa.produit_resa_descriptif_production, ".
 	"produit_resa.produit_resa_a_stock, ".
 	"produit_resa.produit_resa_nb_stock, ".
-	"produit_resa.produit_resa_rang ".
+	"produit_resa.produit_resa_rang, ".
+	"produit_resa.produit_resa_date_recuperation, ".
+	"produit_resa.produit_resa_date_limite_recuperation ".
 	"FROM produit_resa ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit_resa.produit_resa_id_categorie = categorie_produit.categorie_produit_id ".
@@ -360,11 +371,13 @@ function bddProdsDispo(){
 		$cond_a_stock = $row1[10];
 		$cond_nb_stock = $row1[11];
 		$cond_divisible = $row1[12];
+		$produit_jours_dispos = $row1[14];
 		
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_libelle"] = $produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_photo"] = $produit_photo;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_descriptif_production"] = $produit_descriptif_production;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_jours_dispos"] = $produit_jours_dispos;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nom"] = $cond_nom;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_prix"] = $cond_prix;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_remise"] = $cond_remise;
@@ -386,6 +399,8 @@ function bddProdsDispo(){
 		$produit_resa_descriptif_production = nl2br($produit_resa_descriptif_production);
 		$produit_resa_a_stock =  $row2[6];
 		$produit_resa_nb_stock =  $row2[7];
+		$produit_resa_date_recuperation = dateUsFr($row2[9]) ;
+		$produit_resa_date_limite_recuperation = dateUsFr($row2[10]);
 
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_libelle"] = $produit_resa_libelle;
@@ -393,6 +408,8 @@ function bddProdsDispo(){
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_descriptif_production"] = $produit_resa_descriptif_production;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_a_stock"] = $produit_resa_a_stock;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_nb_stock"] = $produit_resa_nb_stock;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_recuperation"] = $produit_resa_date_recuperation;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_limite_recuperation"] = $produit_resa_date_limite_recuperation;
 	}
 	return $globStruc;
 }
@@ -469,6 +486,133 @@ function bddProducteurs(){
 		"ORDER BY producteur_rang, producteur_libelle ";	
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
+}
+
+function dateUsFr($dateUs) {
+	if ($dateUs != null) {
+		$dateUsExplode = explode("-", $dateUs);
+		return $dateUsExplode[2] . "/" . $dateUsExplode[1] . "/" . $dateUsExplode[0];
+	}
+}
+
+function afficheJoursDispos($concat) {
+	$retour = "";
+	if ($concat!=null) {
+		$joursDispoExplode = explode("|",$concat);
+		foreach ( $joursDispoExplode as $jourDispo ) {
+			switch ($jourDispo) {
+			case 2:
+			    $retour = $retour."mardi ";
+			    break;
+			case 3:
+			    $retour = $retour."mercredi ";
+			    break;
+			case 4:
+			    $retour = $retour."jeudi ";
+			    break;
+			case 5:
+			    $retour = $retour."vendredi ";
+			    break;
+			case 6:
+			    $retour = $retour."samedi ";
+			    break; 
+			 default:
+    			$retour = $retour."";
+			}
+		 
+		}
+	}
+	
+	if ($retour == 'mardi mercredi jeudi vendredi samedi ') {
+		return "";
+	}
+	
+	return $retour;	
+}
+
+function bddCheckDateRecupVsJoursDispos($dateRecup) {
+	$jourSemaine = getJourSemaine($dateRecup);
+	$nbJourSemaine = date('w', strtotime($dateRecup));
+	$produitsCond = panierSelProdsCond();
+	if ($produitsCond!=null) {
+		$requete=
+		"SELECT p.produit_jours_dispos, p.produit_libelle, c.cond_nom FROM produit p, conditionnement c " .
+		"WHERE p.produit_id = c.cond_id_produit AND c.cond_id = ";	
+		
+		foreach ( $produitsCond as $prod) {
+			$requete = $requete.$prod["id"];
+			$resultats=mysql_query($requete) or die (mysql_error());
+			if (mysql_num_rows($resultats)>0) {
+				while ($row = mysql_fetch_array($resultats)){
+					$joursDisposTab=explode("|",$row[0]);
+					if (!in_array($nbJourSemaine,$joursDisposTab)) {
+						return "Le produit '".$row[1]."' n'est pas disponible le ".$jourSemaine.".\nDisponibilité : " . getDisponibilite($joursDisposTab);
+					}
+				}
+			}
+		}
+		return null;
+	}
+	return null;
+}
+
+function getJourSemaine($dateUs) {
+	$leJour = date('l', strtotime($dateUs));
+	
+	switch ($leJour) {
+		case "Monday":
+    		return "lundi";
+    		break;
+		case "Tuesday":
+    		return "mardi";
+    		break;
+		case "Wednesday":
+			return "mercredi";
+    		break;
+    	case "Thursday":
+    		return "jeudi";
+    		break;	
+		case "Friday":
+    		return "vendredi";
+    		break;
+    	case "Saturday":
+    		return "samedi";
+    		break;	
+		case "Sunday":
+    		return "dimanche";
+    		break;
+    	default:
+    		return "";	
+	}
+}
+
+function getDisponibilite($arrayJoursDispo) {
+	$retour = "";
+	if ($arrayJoursDispo!=null) {
+		foreach ( $arrayJoursDispo as $jourDispo ) {
+			switch ($jourDispo) {
+			case 2:
+			    $retour = $retour."mardi ";
+			    break;
+			case 3:
+			    $retour = $retour."mercredi ";
+			    break;
+			case 4:
+			    $retour = $retour."jeudi ";
+			    break;
+			case 5:
+			    $retour = $retour."vendredi ";
+			    break;
+			case 6:
+			    $retour = $retour."samedi ";
+			    break; 
+			 default:
+    			$retour = $retour."";
+			}
+		 
+		}
+	}
+	return $retour;
 }
 
 ?>

@@ -23,7 +23,9 @@
 	<script type="text/javascript" src="./javascript/PopupWindow.js"></script>
 	<script type="text/javascript" src="./javascript/overlib.js"></script>
 	<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
-	<script src="./accueil/accueil.js" type="text/javascript"></script>
+	<script type="text/javascript" src="./accueil/accueil.js"></script>
+	<script type="text/javascript" src="./javascript/date.js"></script>
+	<script type="text/javascript" src="./javascript/dateUtilitaire.js"></script>
 </head>
 
 <body class="olivet">
@@ -31,7 +33,7 @@
 
 <?php
 require ("../tools/config.php") ;
-require ("fonctions/fn-commun.php"); 
+require ("fonctions/fn-commun.php");
 require ("fonctions/fn-commande.php");
 require ("fonctions/fn-client.php");
 require ("fonctions/fn-actualite.php");

@@ -72,103 +72,123 @@ class CommandeGaecPDF extends FPDF
 		$this->Ln(15);//espace vertical
 		
 	}
-	function DetailCommandeConds($id_commande)
+	function DetailCommandeConds($idCommande)
 	{
-		$larg_page = 190;
-		$haut_line = 8;
-		$larg_col=array(
-		10*$larg_page/20,
-		5*$larg_page/20,
-		2*$larg_page/20,
-		3*$larg_page/20);
-		
-		//Police Arial gras 15
-		$this->SetFont('Arial','',10);
-		//Headers
-		$this->Cell($larg_page,$haut_line,utf8_decode("Produits commandés"),1,2,'C',false);
-		$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits"),1,0,'C',false);
-		$this->Cell($larg_col[1],$haut_line,utf8_decode("Prix unitaire"),1,0,'C',false);
-		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,0,'C',false);
-		$this->Cell($larg_col[3],$haut_line,utf8_decode("Prix"),1,1,'C',false);
-		//Commandes conditionnements
-		$prixTotalToutCond = 0;
-		$tmpres = bddCommandeProdsConds($id_commande);
-		while ($row = mysql_fetch_array($tmpres)){
-			$produit_libelle = $row[0];
-			$cond_nom = $row[1];
-			$cond_prix = $row[2];
-			$cond_remise = $row[3];
-			$lcc_quantite = $row[4];
-			$prixUnitaireCond = number_format($cond_prix - $cond_remise, 2, '.', '');
-			$prixTotalCond = number_format($lcc_quantite * $prixUnitaireCond, 2, '.', '');
-			$prixTotalToutCond += $prixTotalCond; 
-			$this->Cell($larg_col[0],$haut_line,
-				utf8_decode("$produit_libelle"),'LTR',1,'C',false);
-			$this->Cell($larg_col[0],$haut_line,
-				utf8_decode("$cond_nom"),'LBR',0,'C',false);
-			$this->SetXY($this->GetX(),$this->GetY()-$haut_line);
-			$this->Cell($larg_col[1],2*$haut_line,
-				utf8_decode("$prixUnitaireCond". ' ' . chr(128)),1,0,'C',false);
-			$this->Cell($larg_col[2],2*$haut_line,
-				utf8_decode("$lcc_quantite "),1,0,'C',false);
-			$this->Cell($larg_col[3],2*$haut_line,
-				utf8_decode("$prixTotalCond ". ' ' . chr(128)),1,1,'C',false);		
-		}
-		$this->Cell(($larg_col[0]+$larg_col[1]+$larg_col[2]),$haut_line,
-				utf8_decode("Prix total"),1,0,'C',false);
+		$produitsCond = bddCommandeProdsConds($idCommande);
+		$nbProduitsCond = mysql_num_rows($produitsCond);
+		if ($nbProduitsCond>0) {
+			$larg_page = 190;
+			$haut_line = 8;
+			$larg_col=array(
+			10*$larg_page/20,
+			5*$larg_page/20,
+			2*$larg_page/20,
+			3*$larg_page/20);
 			
-		$euroSymb = chr(128);
-		$this->Cell($larg_col[3],$haut_line,
-				utf8_decode(number_format($prixTotalToutCond, 2, '.', '')." $euroSymb"),1,1,'C',false);
-		
-		$this->Ln(15);//espace vertical
+			//Police Arial gras 15
+			$this->SetFont('Arial','',10);
+			//Headers
+			$this->Cell($larg_page,$haut_line,utf8_decode("Produits commandés"),1,2,'C',false);
+			$this->Cell($larg_col[0],$haut_line,utf8_decode("Produits"),1,0,'C',false);
+			$this->Cell($larg_col[1],$haut_line,utf8_decode("Prix unitaire"),1,0,'C',false);
+			$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,0,'C',false);
+			$this->Cell($larg_col[3],$haut_line,utf8_decode("Prix"),1,1,'C',false);
+			//Commandes conditionnements
+			$prixTotalToutCond = 0;
+			
+			while ($row = mysql_fetch_array($produitsCond)){
+				$produit_libelle = $row[0];
+				$cond_nom = $row[1];
+				$cond_prix = $row[2];
+				$cond_remise = $row[3];
+				$lcc_quantite = $row[4];
+				$prixUnitaireCond = number_format($cond_prix - $cond_remise, 2, '.', '');
+				$prixTotalCond = number_format($lcc_quantite * $prixUnitaireCond, 2, '.', '');
+				$prixTotalToutCond += $prixTotalCond; 
+				$this->Cell($larg_col[0],$haut_line,
+					utf8_decode("$produit_libelle"),'LTR',1,'C',false);
+				$this->Cell($larg_col[0],$haut_line,
+					utf8_decode("$cond_nom"),'LBR',0,'C',false);
+				$this->SetXY($this->GetX(),$this->GetY()-$haut_line);
+				$this->Cell($larg_col[1],2*$haut_line,
+					utf8_decode("$prixUnitaireCond". ' ' . chr(128)),1,0,'C',false);
+				$this->Cell($larg_col[2],2*$haut_line,
+					utf8_decode("$lcc_quantite "),1,0,'C',false);
+				$this->Cell($larg_col[3],2*$haut_line,
+					utf8_decode("$prixTotalCond ". ' ' . chr(128)),1,1,'C',false);		
+			}
+			$this->Cell(($larg_col[0]+$larg_col[1]+$larg_col[2]),$haut_line,
+					utf8_decode("Prix total"),1,0,'C',false);
+				
+			$euroSymb = chr(128);
+			$this->Cell($larg_col[3],$haut_line,
+					utf8_decode(number_format($prixTotalToutCond, 2, '.', '')." $euroSymb"),1,1,'C',false);
+			
+			$this->Ln(15);//espace vertical
+			
+			$tmpres = bddCommandeDateRecup($idCommande);
+			while ($row = mysql_fetch_array($tmpres)){
+				$commande_daterecuperation = $row[0];
+			}
+			if ($commande_daterecuperation!=null) {
+				$this->Text($this->GetX(),$this->GetY(), 
+					utf8_decode("Merci pour votre commande, nous vous attendons à la ferme d'Olivet le : "));
+				$this->Ln(5);//espace vertical
+				$outputAff = "%A %d %B %Y";
+				$this->Text($this->GetX(),$this->GetY(), 
+					strftime($outputAff,strtotime($commande_daterecuperation)));
+				$this->Ln(15);//espace vertical
+			}
+			
+			
+		}
 	}
 	
-	function DetailCommandeResa($id_commande)
+	function DetailCommandeResa($idCommande)
 	{
-		$larg_page = 190;
-		$haut_line = 10;
-		$larg_col=array(
-		7*$larg_page/20,
-		11*$larg_page/20,
-		2*$larg_page/20);
-
-		//Police Arial gras 15
-		$this->SetFont('Arial','',10);
-		//Headers
-		$this->Cell($larg_page,$haut_line,utf8_decode("Produits réservés"),1,2,'C',false);
-		$this->Cell($larg_col[0]+$larg_col[1],$haut_line,utf8_decode("Libellé"),1,0,'C',false);
-		/*$this->Cell($larg_col[1],$haut_line,utf8_decode("Description"),1,0,'C',false);*/
-		$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,1,'C',false);
-		//Commandes sur réservation
-		$tmpres = bddCommandeProdsResa($id_commande);
-		while ($row = mysql_fetch_array($tmpres)){
-			$produit_resa_libelle= $row[0];
-			$produit_resa_descriptif_production = $row[1];
-			$lcpr_quantite = $row[2];
-			
-			$this->Cell($larg_col[0]+$larg_col[1],$haut_line,
-				utf8_decode("$produit_resa_libelle"),1,0,'C',false);
-			/*$this->Cell($larg_col[1],$haut_line,
-				utf8_decode("$produit_resa_descriptif_production"),1,0,'C',false);*/
-			$this->Cell($larg_col[2],$haut_line,
-				utf8_decode("$lcpr_quantite"),1,1,'C',false);
-		}
-		$this->Ln(15);//espace vertical
-
-	}
+		$produitsResa = bddCommandeProdsResa($idCommande);
+		$nbProduitsResa = mysql_num_rows($produitsResa);
+		if ($nbProduitsResa>0) {
+			$larg_page = 190;
+			$haut_line = 10;
+			$larg_col=array(
+			7*$larg_page/20,
+			11*$larg_page/20,
+			2*$larg_page/20);
 	
-	function DateRecuperation($id_commande){
-		$tmpres = bddCommandeDateRecup($id_commande);
-		while ($row = mysql_fetch_array($tmpres)){
-			$commande_daterecuperation = $row[0];
+			//Police Arial gras 15
+			$this->SetFont('Arial','',10);
+			//Headers
+			$this->Cell($larg_page,$haut_line,utf8_decode("Produits réservés"),1,2,'C',false);
+			/*$this->Cell($larg_col[0]+$larg_col[1],$haut_line,utf8_decode("Libellé"),1,0,'C',false);*/
+			/*$this->Cell($larg_col[1],$haut_line,utf8_decode("Description"),1,0,'C',false);*/
+			
+			$this->Cell($larg_col[0],$haut_line,utf8_decode("Libellé"),1,0,'C',false);
+			$this->Cell($larg_col[1],$haut_line,utf8_decode("Dates de retrait *"),1,0,'C',false);
+			$this->Cell($larg_col[2],$haut_line,utf8_decode("Quantité"),1,1,'C',false);
+			//Commandes sur réservation
+			while ($row = mysql_fetch_array($produitsResa)){
+				$produit_resa_libelle= $row[0];
+				$produit_resa_descriptif_production = $row[1];
+				$lcpr_quantite = $row[2];
+				$datesRetrait = "du ".dateUsFr($row[3])." au ".dateUsFr($row[4]);
+				/*$this->Cell($larg_col[0]+$larg_col[1],$haut_line,
+					utf8_decode("$produit_resa_libelle"),1,0,'C',false);*/
+				/*$this->Cell($larg_col[1],$haut_line,
+					utf8_decode("$produit_resa_descriptif_production"),1,0,'C',false);*/
+					
+				$this->Cell($larg_col[0],$haut_line,
+					utf8_decode("$produit_resa_libelle"),1,0,'C',false);	
+				$this->Cell($larg_col[1],$haut_line,
+					utf8_decode("$datesRetrait"),1,0,'C',false);
+				$this->Cell($larg_col[2],$haut_line,
+					utf8_decode("$lcpr_quantite"),1,1,'C',false);
+			}
+			$this->Ln(15);//espace vertical
+			$this->Ln(5);//espace vertical
+			$this->Text($this->GetX(),$this->GetY(), 
+				utf8_decode("* Attention : pour vos produits sur réservation, veuillez prendre note des dates de retrait en magasin."));
 		}
-		$this->Text($this->GetX(),$this->GetY(), 
-		utf8_decode("Merci pour votre commande, nous vous attendons à la ferme d'Olivet le : "));
-		$this->Ln(5);//espace vertical
-		$outputAff = "%A %d %B %Y";
-		$this->Text($this->GetX(),$this->GetY(), 
-			strftime($outputAff,strtotime($commande_daterecuperation)));
 	}
 	
 	//Pied de page
@@ -198,7 +218,6 @@ function genererUneCommande($idCommande, $email){
 	$pdf->TableClient($idCommande, $email);
 	$pdf->DetailCommandeConds($idCommande);
 	$pdf->DetailCommandeResa($idCommande);
-	$pdf->DateRecuperation($idCommande);
 	$filename = '../tmp/recap'.$idCommande.'.pdf';
 	$pdf->Output($filename,'F');
 	return $filename;
@@ -248,8 +267,13 @@ function envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  ){
 	
 	$message_body .= "Au nom de la ferme d'Olivet, merci pour votre commande.\n";
 	$outputAff = "%A %d %B %Y";
-	$message_body .= "Nous vous y attendons le ".
-		strftime($outputAff,strtotime($commande_daterecuperation))."\n\n";
+	
+	//dans le cas d'une commande ne contenant que des produits sur réservation, la date de récupération peut être null
+	if ($commande_daterecuperation!=null) {
+		$message_body .= "Nous vous y attendons le ".
+			strftime($outputAff,strtotime($commande_daterecuperation))."\n\n";
+	}
+		
 	$message_body .= " A bientôt, \n";
 	$message_body .= "La ferme d'Olivet";
 	
@@ -281,11 +305,8 @@ function envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  ){
 
 
 function envoiMailRecapCommande($nouveauClient, $email, $idCommande){
-	
 	$pdfFilename = genererUneCommande($idCommande, $email);
 	envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  );
-	
-
 }
 
 

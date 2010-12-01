@@ -1,11 +1,10 @@
 <?php
 
-
 function affich_produits_resa ()
 {
   $requete=
 		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat, p.produit_resa_a_stock, p.produit_resa_nb_stock, p.produit_resa_nouveaute, c.categorie_produit_libelle, " .
-		"p.produit_resa_rang, c.categorie_produit_id " .
+		"p.produit_resa_rang, c.categorie_produit_id, p.produit_resa_date_recuperation, p.produit_resa_date_limite_recuperation " .
 		"FROM produit_resa p, categorie_produit c " .
 		"WHERE p.produit_resa_id_categorie = c.categorie_produit_id " .
 		"ORDER by c.categorie_produit_libelle, p.produit_resa_rang, p.produit_resa_libelle";
@@ -25,7 +24,9 @@ function affich_produits_resa ()
 	$nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
 	$stockLibelle = ($aStock==0) ? 'Aucun' : $nbStock;
 	$rang = $row[7];
-	
+	$dateRecup = $row[9];
+	$dateLimite = $row[10];
+	 
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
     echo "<td>$idproduit</td>";
@@ -35,6 +36,8 @@ function affich_produits_resa ()
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$nouveauteLibelle</td>";
     echo "<td>$rang</td>";
+    echo "<td>".dateUsFr($dateRecup)."</td>";
+    echo "<td>".dateUsFr($dateLimite)."</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkProduitResaInCommande($row[0]);
@@ -64,7 +67,7 @@ function affich_modif_produit_resa ($id)
 {
   $requete=
 		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, produit_resa_a_stock, produit_resa_nb_stock, " .
-		"produit_resa_nouveaute, produit_resa_id_categorie, produit_resa_rang " .
+		"produit_resa_nouveaute, produit_resa_id_categorie, produit_resa_rang, produit_resa_date_recuperation, produit_resa_date_limite_recuperation " .
 		"FROM produit_resa " .
 		"WHERE produit_resa_id = '$id' ";
   
@@ -81,6 +84,11 @@ function affich_modif_produit_resa ($id)
   	$nouveaute = $row[6];
   	$idCategorie = $row[7];
   	$rang = $row[8];
+  	$dateRecup = $row[9];
+  	$dateLimite = $row[10];
+  	
+  	$dateRecup = dateUsFr($dateRecup);
+	$dateLimite = dateUsFr($dateLimite);
   	
   	$checkedStock = '';
   	$readOnlyStock = '';
@@ -109,11 +117,14 @@ function affich_modif_produit_resa ($id)
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit_resa'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
 	echo "<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' value=\"$rang\"/></td></tr>";
+	echo "<tr><td>Date de retrait en magasin : </td><td><input type='text' id='dateRecup' name='dateRecup' value=\"$dateRecup\"/></td></tr>";
+	echo "<tr><td>Date limite de retrait : </td><td><input type='text' id='dateLimite' name='dateLimite' value=\"$dateLimite\"/></td></tr>";
 	echo "</table>";
   }
 }
 
-function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock, $rang){
+function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock, $rang, 
+		$dateRecup, $dateLimite){
 	
 	if ($aStock == 'on') {
 		$aStock = 1;
@@ -127,17 +138,21 @@ function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descripti
 		$nouveaute = 0;
 	}	
 	
+	$dateRecup = dateFrUs($dateRecup);
+	$dateLimite = dateFrUs($dateLimite);
+	
 	$requete = "";
 	
 	if ($mode == 'creation'){
 		$requete = "INSERT INTO produit_resa (produit_resa_id_categorie, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, " .
-				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, produit_resa_rang)" . 
-				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute, $rang)";
+				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, produit_resa_rang, produit_resa_date_recuperation, produit_resa_date_limite_recuperation)" . 
+				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute, $rang, '$dateRecup', '$dateLimite')";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE produit_resa SET produit_resa_id_categorie = $idCategorie, produit_resa_libelle = '$libelle', produit_resa_descriptif_production = '$descriptif', produit_resa_photo = '$photo', " .
-				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute, produit_resa_rang = $rang " . 
+				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute, produit_resa_rang = $rang, " .
+				   "produit_resa_date_recuperation = '$dateRecup', produit_resa_date_limite_recuperation = '$dateLimite' " . 
 				   "WHERE produit_resa_id = '$id'";
 	}
 	

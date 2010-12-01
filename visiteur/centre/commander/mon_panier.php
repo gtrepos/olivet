@@ -94,6 +94,7 @@ echo "</tr>";
   <tr>
     <th scope="col">Produits sur réservation</th>
     <th scope="col">Description</th>
+    <th scope="col">Retrait au magasin</th>
     <th scope="col">Quantité</th>	
   </tr>
 
@@ -115,6 +116,9 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 	$produit_resa_descriptif_production =  $row2[5];
 	$produit_resa_a_stock =  $row2[6];
 	$produit_resa_nb_stock =  $row2[7];
+	$produit_resa_date_recuperation = dateUsFr($row2[9]);
+	$produit_resa_date_limite_recuperation = dateUsFr($row2[10]);
+	$disponibilite = "du ".$produit_resa_date_recuperation." au ".$produit_resa_date_limite_recuperation;
 	
 	if ($nbresa%2 == 1) {
     	$classth = 'specalt';
@@ -135,6 +139,7 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 		echo "<tr>";
 		echo "<th class='$classth'>$produit_resa_libelle</td>";
 		echo "<td class='$classtd'>$produit_resa_descriptif_production</td>";
+		echo "<td class='$classtd'>$disponibilite</td>";
 		echo "<td class='$classtd'>";
 		echo "<input value=$quantite_panier id='qtProd_0_$produit_resa_id' type='text' maxlength='5'
 			     onBlur='javascript:if(checkDivisible(0, 0, $produit_resa_id)){clickSetQuantite(0,$produit_resa_id,1);}'/>";

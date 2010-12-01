@@ -261,7 +261,7 @@ function clickValid1() {
 	var nclient_postal = $F('nclient_postal');
 	var nclient_commune = $F('nclient_commune');
 	var nclient_tel = $F('nclient_tel');
-	var daterecup_commande = $F('daterecup_commande');
+	var daterecup_commande = $('daterecup_commande')!=null ? $F('daterecup_commande') : null;
 	var nclient_civilite = $F('nclient_civilite');
 	
 	new Ajax.Request('tools/visitor_ajax.php', {

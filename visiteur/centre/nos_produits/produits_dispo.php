@@ -32,6 +32,8 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_resa_descriptif_production = $prodResaStruct['produit_resa_descriptif_production'];
 			$produit_resa_a_stock= $prodResaStruct['produit_resa_a_stock'];
 			$produit_resa_nb_stock= $prodResaStruct['produit_resa_nb_stock'];
+			$produit_resa_date_recuperation= $prodResaStruct['produit_resa_date_recuperation'];
+			$produit_resa_date_limite_recuperation= $prodResaStruct['produit_resa_date_limite_recuperation'];
 
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
@@ -41,6 +43,8 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "</td>";
 			echo "<td align=center valign = 'middle'>";
 			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
+			echo "<br>Date de retrait en magasin : $produit_resa_date_recuperation";
+			echo "<br>Date limite de retrait : $produit_resa_date_limite_recuperation";
 			echo "</td>";
 			echo "</tr>";
 			echo "<tr>";
@@ -75,6 +79,7 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_photo = $prodStruct["produit_photo"];
 			$produit_libelle = $prodStruct['produit_libelle'];
 			$produit_descriptif_production = $prodStruct['produit_descriptif_production'];
+			$produit_jours_dispos = $prodStruct['produit_jours_dispos'];
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
@@ -82,7 +87,11 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			echo "<img src='img/upload/$produit_photo' alt=\"$produit_libelle : $produit_descriptif_production\" title=\"$produit_libelle : $produit_descriptif_production\"/>";
 			echo "</td>";
 			echo "<td valign = 'middle' align=center>";
-			echo "$produit_libelle : $produit_descriptif_production ";
+			echo "$produit_libelle : $produit_descriptif_production";
+			$dispo = afficheJoursDispos($produit_jours_dispos);
+			if ($dispo!="") {
+			echo "<br>Disponibilité : ".afficheJoursDispos($produit_jours_dispos);
+			}
 			echo "</td>";
 			echo "</tr>";
 			echo "<tr>";

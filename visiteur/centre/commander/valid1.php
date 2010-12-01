@@ -35,16 +35,7 @@
 
 <div class='separateurPointille'>&nbsp;</div>
 
-<div style='clear:both;margin-bottom:1em;margin-top:1em;' >
-Date de récupération de la commande * :
-<?php 
-	$daterecup = "";
-	if(isset($ajax_daterecup_commande)){
-		$daterecup = $ajax_daterecup_commande;
-	}
-	echo selectDateRecup($daterecup);
-?>
-</div>
+<?php echo afficheDateRecup()?> 
 
 <div id="commander-captcha" style="float:left;margin-right:1em;margin-bottom:1em;">
 <?php include('captcha.php');?> 
@@ -149,4 +140,25 @@ function selectDateRecup($daterecup){
 	return $retour;
 	
 }
+
+function afficheDateRecup() {
+	
+	if (panierNbProdsCond() > 0) {
+		echo "<div style='clear:both;margin-bottom:1em;margin-top:1em;' ><table><tr>" .
+			 "<td>Date de récupération de la commande * :";
+		if (panierNbProdsResa() > 0) {
+			echo "<br /><p style='font-size:0.7em;''>(hors produits sur réservation)<p>";	
+		}	 
+		echo "</td>";
+		echo "<td style='vertical-align:top;'>";
+		$daterecup = "";
+		if(isset($ajax_daterecup_commande)){
+			$daterecup = $ajax_daterecup_commande;
+		}
+		echo selectDateRecup($daterecup);
+		echo "</td></tr></table></div>";
+	}
+
+}
+
 ?>

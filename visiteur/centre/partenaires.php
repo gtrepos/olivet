@@ -14,7 +14,7 @@
 			echo "<a href=\"$siteweb\" $target title=\"$row[1]\">". $row[0] ."</a>";
 			if ($logo!=null && strlen($logo)>0) {
 				echo "<div>";	
-				echo "<img src='img/upload/$logo' width=50 height=50/>";
+				echo "<img src='img/upload/$logo'/>";
 				echo "</div>";
 			}
 			echo "</p>";

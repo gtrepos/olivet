@@ -48,5 +48,19 @@ function affiche_tva($select){
   echo "</SELECT>";  
 }
 
+function dateUsFr($dateUs) {
+	if ($dateUs != null) {
+		$dateUsExplode = explode("-", $dateUs);
+		return $dateUsExplode[2] . "/" . $dateUsExplode[1] . "/" . $dateUsExplode[0];
+	}
+}
+
+function dateFrUs($dateFr) {
+	if ($dateFr != null) {
+		$dateFrExplode = explode("/", $dateFr);
+		return $dateFrExplode[2] . "-" . $dateFrExplode[1] . "-" . $dateFrExplode[0];
+	}
+}
+
 
 ?>

@@ -36,8 +36,31 @@ function valideFormProduit(){
 		return false;
 	}
 	
+	if (!prepareJoursDispo()){
+		alert("Vous devez choisir au moins un jour dispo.");
+		return false;
+	}
+	
 	return true;
 	
+}
+
+function prepareJoursDispo(){
+	var valeur = document.form_produit.jourDispo;
+    var tmp="";
+    for (var i=0;i < valeur.length; i++) {    
+    	if ( valeur[i].checked ) {
+    		tmp+=valeur[i].value+"|";
+    	}
+    }
+    if (tmp!="") {
+    	$('concatJoursDispos').value=tmp;
+    	return true;
+    }
+    else {
+    	return false;
+    }
+    
 }
 
 function alerteSuppressionProduit(id, libelle){

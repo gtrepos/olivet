@@ -34,6 +34,8 @@ function popupPick(val) {
 				<td><input name="photo" id="photo"> <a href="#" onclick="popupActivate(document.forms['form_produit_resa'].photo,'anchor');return false;" name="anchor" id="anchor">Choisir un fichier</a></td>
 			</tr>
 			<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' value="0"/></td></tr>
+			<tr><td>Date de retrait en magasin : </td><td><input type='text' id='dateRecup' name='dateRecup'/>&nbsp;format : JJ/MM/AAAA</td></tr>
+			<tr><td>Date limite de retrait : </td><td><input type='text' id='dateLimite' name='dateLimite'/>&nbsp;format : JJ/MM/AAAA</td></tr>
 		</table>
 		<br>		
 <input type="reset">

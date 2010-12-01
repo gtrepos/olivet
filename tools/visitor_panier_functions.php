@@ -141,7 +141,7 @@ function panierNbProduits(){
 
 function panierSelProdsCond(){
 	if (panierCreation()){
-		$prodConds = false;
+		$prodsConds = false;
 		$nb = 0;
 		for($i=0;$i<count($_SESSION['panier']['cond']);$i++){
 			if($_SESSION['panier']['cond'][$i] == 1){
