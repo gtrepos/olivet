@@ -538,15 +538,14 @@ function bddCheckDateRecupVsJoursDispos($dateRecup) {
 	$nbJourSemaine = date('w', strtotime($dateRecup));
 	$produitsCond = panierSelProdsCond();
 	if ($produitsCond!=null) {
-		$requete=
+		$requeteBaseCond=
 		"SELECT p.produit_jours_dispos, p.produit_libelle, c.cond_nom FROM produit p, conditionnement c " .
 		"WHERE p.produit_id = c.cond_id_produit AND c.cond_id = ";	
-		
 		foreach ( $produitsCond as $prod) {
-			$requete = $requete.$prod["id"];
-			$resultats=mysql_query($requete) or die (mysql_error());
-			if (mysql_num_rows($resultats)>0) {
-				while ($row = mysql_fetch_array($resultats)){
+			$requeteCond = $requeteBaseCond.$prod["id"];
+			$resultatsCond=mysql_query($requeteCond) or die (mysql_error());
+			if (mysql_num_rows($resultatsCond)>0) {
+				while ($row = mysql_fetch_array($resultatsCond)){
 					$joursDisposTab=explode("|",$row[0]);
 					if (!in_array($nbJourSemaine,$joursDisposTab)) {
 						return "Le produit '".$row[1]."' n'est pas disponible le ".$jourSemaine.".\nDisponibilité : " . getDisponibilite($joursDisposTab);
@@ -563,15 +562,15 @@ function bddCheckDateRecupVsDateLimiteCommande() {
 	$aujourdhui = mktime(0,0,0,date("m" ),date("d" ),date("Y"));//demain
 	$produitsResa = panierSelProdsResa();
 	if ($produitsResa!=null) {
-		$requete="SELECT p.produit_resa_date_limite_commande, p.produit_resa_libelle FROM produit_resa p WHERE p.produit_resa_id = ";
+		$requeteResaBase="SELECT p.produit_resa_date_limite_commande, p.produit_resa_libelle FROM produit_resa p WHERE p.produit_resa_id = ";
 		foreach ( $produitsResa as $prodResa ) {
-			$requete = $requete.$prodResa["id"];
-			$resultats=mysql_query($requete) or die (mysql_error());
-			if (mysql_num_rows($resultats)>0) {
-				while ($row = mysql_fetch_array($resultats)){
+			$requeteResa = $requeteResaBase.$prodResa["id"];
+			$resultatsResa=mysql_query($requeteResa) or die (mysql_error());
+			if (mysql_num_rows($resultatsResa)>0) {
+				while ($row = mysql_fetch_array($resultatsResa)){
 					$dateLimiteCommandeTs = strtotime($row[0]);
 					if ($aujourdhui > $dateLimiteCommandeTs) {
-						return "Le produit '".$row[1]."' ne peut pas être réservé. \nIl a une date limite de commande fixée au ".dateUsFr($row[0]." inclu.");
+						return "Le produit '".$row[1]."' ne peut pas être réservé. \nIl a une date limite de commande fixée au ".dateUsFr($row[0])." inclu.";
 					}				
 				}
 			}

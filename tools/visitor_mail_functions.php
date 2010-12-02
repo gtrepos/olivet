@@ -171,7 +171,7 @@ class CommandeGaecPDF extends FPDF
 				$produit_resa_libelle= $row[0];
 				$produit_resa_descriptif_production = $row[1];
 				$lcpr_quantite = $row[2];
-				$datesRetrait = "du ".dateUsFr($row[3])." au ".dateUsFr($row[4]);
+				$datesRetrait = "du ".dateUsFr($row[3])." au ".dateUsFr($row[4])." inclu";
 				/*$this->Cell($larg_col[0]+$larg_col[1],$haut_line,
 					utf8_decode("$produit_resa_libelle"),1,0,'C',false);*/
 				/*$this->Cell($larg_col[1],$haut_line,
