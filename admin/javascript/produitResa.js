@@ -96,8 +96,8 @@ function valideFormProduitResa(){
 		return false;
 	}
 	
-	if (!estDateSuperieure(dateRecup,dateLimite)) {
-		alert("La date limite de retrait en magasin doit être supérieure à la date de retrait en magasin.");
+	if (estDateInferieure(dateRecup,dateLimite)) {
+		alert("La date limite de retrait en magasin doit être supérieure ou égale à la date de retrait en magasin.");
 		$('dateLimite').focus();
 		return false;
 	}
