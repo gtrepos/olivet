@@ -11,7 +11,7 @@
 		Site internet : http://fermeolivet.free.fr<br><br>
 	<li>Horaires d'ouverture</li>
 		Du mardi au vendredi : de 16h30 à 19h30<br>
-		Le samedi : de 9h30 à 13h00<br>
+		Le samedi : de 10h à 12h30<br>
    		Fermé les jours fériés<br>
  </ul>
 </div>

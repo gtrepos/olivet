@@ -116,6 +116,18 @@ function bddNouveauxProduits(){
 	$resultats=mysql_query($requete) or die (mysql_error());
 	return $resultats;
 }
+
+function bddNouveauxProduitsResa(){
+	$requete = 
+		"SELECT p.produit_resa_id, c.categorie_produit_libelle, p.produit_resa_libelle, c.categorie_produit_id " .
+		"FROM produit_resa p, categorie_produit c " .
+		"WHERE p.produit_resa_id_categorie = c.categorie_produit_id " .
+		"AND p.produit_resa_nouveaute = TRUE AND p.produit_resa_etat = TRUE ORDER by p.produit_resa_id DESC";
+	
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+}
+
 function bddActusGaec($nouveaute, $descriptif){
 	$select = "SELECT actualite_id, actualite_libelle, ".
 				 "actualite_datecreation, actualite_datemodification ";

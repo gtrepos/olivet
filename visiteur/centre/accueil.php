@@ -3,12 +3,10 @@
 ?>
 
 <?php
-
 $tmpres = bddNouveauxProduits();
 if (mysql_num_rows($tmpres)>0) {
 	echo "<h3>Zoom produits : </h3><p>";
 	while ($row = mysql_fetch_array($tmpres)){
-		$produit_id = $row[0];
 		$categorie_produit_libelle = $row[1];
 		$cond_nom = $row[2];
 		$produit_libelle = $row[3];
@@ -17,6 +15,23 @@ if (mysql_num_rows($tmpres)>0) {
 		.$categorie_produit_libelle. " > " 
 		.$produit_libelle. " > " 
 		.$cond_nom."</a>";
+		echo "<br/>";
+	}
+	echo "</p>";	
+}	
+?>
+
+<?php
+$tmpres = bddNouveauxProduitsResa();
+if (mysql_num_rows($tmpres)>0) {
+	echo "<h3>Zoom produits sur réservation : </h3><p>";
+	while ($row = mysql_fetch_array($tmpres)){
+		$categorie_produit_libelle = $row[1];
+		$produit_resa_libelle = $row[2];
+		$categorie_produit_id = $row[3];
+		echo "<a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$categorie_produit_libelle. " > " 
+		.$produit_resa_libelle."</a>";
 		echo "<br/>";
 	}
 	echo "</p>";	
