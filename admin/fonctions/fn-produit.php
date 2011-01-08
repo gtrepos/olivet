@@ -4,12 +4,18 @@
 function affich_produits ()
 {
   $requete=
-		"SELECT p.produit_id, c.categorie_produit_libelle, p.produit_libelle, p.produit_etat, p.produit_photo, p.produit_descriptif_production, c.categorie_produit_id, p.produit_rang," .
-		"c.categorie_produit_libelle, produit_jours_dispos " .
-		"FROM produit p, categorie_produit c " .
-		"WHERE p.produit_id_categorie = c.categorie_produit_id " .
-  		"ORDER by c.categorie_produit_libelle, p.produit_rang, p.produit_libelle";
-  		
+		"SELECT produit_id, categorie_produit_libelle, produit_libelle, produit_etat, produit_photo, produit_descriptif_production, " .
+		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, producteur_libelle " .
+		"FROM produit, categorie_produit, producteur " .
+		"WHERE produit_id_categorie = categorie_produit_id and produit_id_producteur = producteur_id " .
+		"GROUP BY categorie_produit_libelle, produit_libelle " .
+		"UNION " .
+  		"SELECT produit_id, categorie_produit_libelle, produit_libelle, produit_etat, produit_photo, produit_descriptif_production, " .
+  		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, 'Aucun producteur désigné' " .
+		"FROM produit, categorie_produit " .
+		"WHERE produit_id_categorie = categorie_produit_id and produit_id_producteur is NULL " .
+		"GROUP BY categorie_produit_libelle, produit_libelle";
+  
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
   {
@@ -18,11 +24,11 @@ function affich_produits ()
     $libelleProduit = $row[2];
     $etat = $row[3];
     $photo = $row[4];
-    $desc = $row[5];
     $etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
 	$rang = $row[7];
 	$joursDispo = $row[9];
+	$producteur = $row[10];
 	
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
@@ -30,7 +36,7 @@ function affich_produits ()
     echo "<td>$libelleCategorie</td>";
     echo "<td>$libelleProduit</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
-    echo "<td>$desc</td>";
+    echo "<td>$producteur</td>";
     echo "<td>$rang</td>";
     echo "<td>".afficheJoursDispos($joursDispo)."</td>";
     echo "<td align=\"right\">";
@@ -62,7 +68,7 @@ function affich_produits ()
 function affich_modif_produit ($id)
 {
   $requete=
-		"SELECT produit_id, produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang, produit_jours_dispos " .
+		"SELECT produit_id, produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang, produit_jours_dispos, produit_id_producteur " .
 		"FROM produit " .
 		"WHERE produit_id = '$id' ";
   
@@ -77,6 +83,7 @@ function affich_modif_produit ($id)
   	$photo = $row[4];
   	$rang = $row[5];
   	$joursDispo = $row[6];
+  	$idProducteur = $row[7];
   	$joursDispoExplode = explode("|",$joursDispo);
   	$checkMardi = in_array(2,$joursDispoExplode) ? "checked=true":"";
   	$checkMercredi = in_array(3,$joursDispoExplode) ? "checked=true":"";
@@ -90,6 +97,7 @@ function affich_modif_produit ($id)
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
 	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
+	echo "<tr><td>Producteur : </td><td>";echo liste_producteurs($idProducteur);echo "</td></tr>";
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\" size=70/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Nom photo : </td><td><input type='text' id='photo' name='photo' value='$photo'/> <a href=\"#\" onclick=\"popupActivate(document.forms['form_produit'].photo,'anchor');return false;\" name=\"anchor\" id=\"anchor\">Choisir un fichier</a></td></tr>";
@@ -106,17 +114,21 @@ function affich_modif_produit ($id)
   }
 }
 
-function enregistrer_produit($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $rang, $concatJoursDispos){
+function enregistrer_produit($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $rang, $concatJoursDispos, $idProducteur){
 	$requete = "";
 	
+	if ($idProducteur == '-1') {
+		$idProducteur = 'NULL';
+	}
+	
 	if ($mode == 'creation'){
-		$requete = "INSERT INTO produit (produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang, produit_jours_dispos)" . 
-				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $rang, '$concatJoursDispos')";
+		$requete = "INSERT INTO produit (produit_id_categorie, produit_libelle, produit_descriptif_production, produit_photo, produit_rang, produit_jours_dispos, produit_id_producteur)" . 
+				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $rang, '$concatJoursDispos', $idProducteur)";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE produit SET produit_id_categorie = $idCategorie, produit_libelle = '$libelle', produit_descriptif_production = '$descriptif', produit_photo = '$photo'," .
-				   "produit_rang = $rang, produit_jours_dispos = '$concatJoursDispos' " .
+				   "produit_rang = $rang, produit_jours_dispos = '$concatJoursDispos', produit_id_producteur = $idProducteur " .
 				   "WHERE produit_id = '$id'";
 	}
 	

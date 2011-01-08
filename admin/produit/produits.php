@@ -26,7 +26,8 @@ if ($action=='enregistrer') {
 		$id = $_POST['id'];
 	};
 	
-	enregistrer_produit($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], $_POST['rang'], $_POST['concatJoursDispos']);	
+	enregistrer_produit($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], 
+		$_POST['rang'], $_POST['concatJoursDispos'], $_POST['idProducteur']);	
 }
 
 if ($action=='activer') {

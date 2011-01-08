@@ -5,7 +5,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ID; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_CATEGORIE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_LIBELLE; ?></td>
-		<td class=caption><?php echo ADMIN_PRODUIT_RESA_NBSTOCK; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_RESA_PRODUCTEUR; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_ETAT; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_NOUVEAUTE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RESA_RANG; ?></td>
@@ -63,7 +63,7 @@ if ($action=='enregistrer') {
 	}
 	
 	enregistrer_produit_resa($_GET['mode'], $id, $_POST['idCategorie'], $_POST['libelle'], $_POST['descriptif'], $_POST['photo'], $nouveaute, $aStock, $nbStock, 
-		$_POST['rang'], $_POST['dateRecup'], $_POST['dateLimite'], $_POST['dateLimiteCommande']);	
+		$_POST['rang'], $_POST['dateRecup'], $_POST['dateLimite'], $_POST['dateLimiteCommande'], $_POST['idProducteur']);	
 }
 
 if ($action=='activer') {

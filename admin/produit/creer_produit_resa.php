@@ -24,9 +24,10 @@ function popupPick(val) {
 		<table>
 			<tr><td colspan="2"><?php echo "Création d'un nouveau produit à la réservation"; ?></tr>
 			<tr><td colspan="2">&nbsp;</tr>
-			<tr><td>Catégorie : </td><td><?php liste_categories('-1',false);?></td></tr>
+			<tr><td>Catégorie : </td><td><?php liste_categories('-1');?></td></tr>
+			<tr><td>Producteur : </td><td><?php liste_producteurs('-1');?></td></tr>
 			<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle'/></td></tr>
-			<tr><td valign="top">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
+			<tr><td valign="top">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'></textarea></td></tr>
 			<tr><td>Stock : </td><td><input type="checkbox" id="a_stock" name="a_stock" onclick="selectionneStock()"/> : <input type='text' id='nb_stock' name='nb_stock' readonly="readonly"/></td></tr>
 			<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute'/></td></tr>
 			<tr>

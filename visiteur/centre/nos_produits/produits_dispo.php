@@ -35,15 +35,25 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_resa_date_recuperation= $prodResaStruct['produit_resa_date_recuperation'];
 			$produit_resa_date_limite_recuperation= $prodResaStruct['produit_resa_date_limite_recuperation'];
 			$produit_resa_date_limite_commande= $prodResaStruct['produit_resa_date_limite_commande'];
+			$produit_resa_producteur= $prodResaStruct['produit_resa_producteur'];
+			
+			$libelle = $produit_resa_libelle;
+			if ($produit_resa_producteur!=null) {
+				$libelle = $libelle . " : " . $produit_resa_producteur;
+			}
 
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
 			echo "<td rowspan=6 width='200px;' align='center'>";
-			echo "<img src='img/upload/$produit_resa_photo' alt=\"$produit_resa_libelle : $produit_resa_descriptif_production\" title=\"$produit_resa_libelle : $produit_resa_descriptif_production\"/>";
+			echo "<img src='img/upload/$produit_resa_photo' alt=\"$libelle\" title=\"$libelle\"/>";
 			echo "</td>";
 			echo "<td align=center valign = 'middle'>";
-			echo "$produit_resa_libelle : $produit_resa_descriptif_production."."<br><b>Sur réservation uniquement</b>";
+			echo "$libelle";
+			if ($produit_resa_descriptif_production!=null) {
+				echo "<br>$produit_resa_descriptif_production";
+			}
+			echo "<br><b>Sur réservation uniquement</b>";
 			echo "<br>Date limite de commande : $produit_resa_date_limite_commande inclu";
 			echo "<br>Dates de retrait en magasin : du $produit_resa_date_recuperation <br>au $produit_resa_date_limite_recuperation inclu";
 			echo "</td>";
@@ -81,14 +91,24 @@ while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 			$produit_libelle = $prodStruct['produit_libelle'];
 			$produit_descriptif_production = $prodStruct['produit_descriptif_production'];
 			$produit_jours_dispos = $prodStruct['produit_jours_dispos'];
+			$produit_producteur = $prodStruct['produit_producteur'];
+			
+			$libelle = $produit_libelle;
+			if ($produit_producteur!=null) {
+				$libelle = $libelle . " : " . $produit_producteur;
+			}
+			
 			echo "<div class='MenuProduitsDispoProd$categorie_produit_id products'>";
 			echo "<table style='border: 1px solid #F40707; margin-bottom:1em;' width=100% height='200'>";
 			echo "<tr>";
 			echo "<td rowspan=6 width='200px;' align='center'>";
-			echo "<img src='img/upload/$produit_photo' alt=\"$produit_libelle : $produit_descriptif_production\" title=\"$produit_libelle : $produit_descriptif_production\"/>";
+			echo "<img src='img/upload/$produit_photo' alt=\"$libelle\" title=\"$libelle\"/>";
 			echo "</td>";
 			echo "<td valign = 'middle' align=center>";
-			echo "$produit_libelle : $produit_descriptif_production";
+			echo "$libelle";
+			if ($produit_descriptif_production!=null) {
+				echo "<br>$produit_descriptif_production";
+			}
 			$dispo = afficheJoursDispos($produit_jours_dispos);
 			if ($dispo!="") {
 			echo "<br>Disponibilité : ".afficheJoursDispos($produit_jours_dispos);

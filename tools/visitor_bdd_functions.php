@@ -307,7 +307,8 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_nb_stock, ".
 	"conditionnement.cond_divisible, ".
 	"produit.produit_rang," .
-	"produit.produit_jours_dispos ".
+	"produit.produit_jours_dispos, ".
+	"produit.produit_id_producteur ".
 	"FROM produit ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
@@ -347,7 +348,8 @@ function bddProdsResaDispo(){
 	"produit_resa.produit_resa_rang, ".
 	"produit_resa.produit_resa_date_recuperation, ".
 	"produit_resa.produit_resa_date_limite_recuperation, ".
-	"produit_resa.produit_resa_date_limite_commande ".
+	"produit_resa.produit_resa_date_limite_commande," .
+	"produit_resa.produit_resa_id_producteur ".
 	"FROM produit_resa ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit_resa.produit_resa_id_categorie = categorie_produit.categorie_produit_id ".
@@ -385,12 +387,15 @@ function bddProdsDispo(){
 		$cond_nb_stock = $row1[11];
 		$cond_divisible = $row1[12];
 		$produit_jours_dispos = $row1[14];
+		$idProducteur = $row1[15];
+		$libelleProducteur = getLibelleProducteur($idProducteur);
 		
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_libelle"] = $produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_photo"] = $produit_photo;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_descriptif_production"] = $produit_descriptif_production;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_jours_dispos"] = $produit_jours_dispos;
+		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["produit_producteur"] = $libelleProducteur;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_nom"] = $cond_nom;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_prix"] = $cond_prix;
 		$globStruc[$categorie_produit_id]["produits_cond"][$produit_id]["conditionnements"][$cond_id]["cond_remise"] = $cond_remise;
@@ -415,6 +420,8 @@ function bddProdsDispo(){
 		$produit_resa_date_recuperation = dateUsFr($row2[9]) ;
 		$produit_resa_date_limite_recuperation = dateUsFr($row2[10]);
 		$produit_resa_date_limite_commande = dateUsFr($row2[11]);
+		$idProducteur = $row2[12];
+		$libelleProducteur = getLibelleProducteur($idProducteur);
 
 		$globStruc[$categorie_produit_id]["categorie_produit_libelle"] = $categorie_produit_libelle;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_libelle"] = $produit_resa_libelle;
@@ -425,8 +432,22 @@ function bddProdsDispo(){
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_recuperation"] = $produit_resa_date_recuperation;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_limite_recuperation"] = $produit_resa_date_limite_recuperation;
 		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_date_limite_commande"] = $produit_resa_date_limite_commande;
+		$globStruc[$categorie_produit_id]["produits_resa"][$produit_resa_id]["produit_resa_producteur"] = $libelleProducteur;
 	}
 	return $globStruc;
+}
+
+function getLibelleProducteur($idProducteur){
+	if ($idProducteur!=null) {
+		$requete = "SELECT producteur_libelle FROM producteur where producteur_id = $idProducteur";
+		$resultats=mysql_query($requete) or die (mysql_error());
+		while ($row = mysql_fetch_array($resultats)){
+			return $row[0];	
+		}
+	}
+	else {
+		return null;
+	}
 }
 
 

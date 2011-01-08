@@ -9,7 +9,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_CATEGORIE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_LIBELLE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_ETAT; ?></td>
-		<td class=caption><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_PRODUCTEUR; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RANG; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_JOURS_DISPOS; ?></td>
 		<td class=caption>&nbsp;</td>
@@ -20,7 +20,7 @@
 		<td class=caption><?php echo ADMIN_PRODUIT_CATEGORIE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_LIBELLE; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_ETAT; ?></td>
-		<td class=caption><?php echo ADMIN_PRODUIT_DESCRIPTIF; ?></td>
+		<td class=caption><?php echo ADMIN_PRODUIT_PRODUCTEUR; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_RANG; ?></td>
 		<td class=caption><?php echo ADMIN_PRODUIT_JOURS_DISPOS; ?></td>
 		<td class=caption>&nbsp;</td>

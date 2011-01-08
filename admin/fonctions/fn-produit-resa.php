@@ -3,11 +3,19 @@
 function affich_produits_resa ()
 {
   $requete=
-		"SELECT p.produit_resa_id, p.produit_resa_libelle, p.produit_resa_etat, p.produit_resa_a_stock, p.produit_resa_nb_stock, p.produit_resa_nouveaute, c.categorie_produit_libelle, " .
-		"p.produit_resa_rang, c.categorie_produit_id, p.produit_resa_date_recuperation, p.produit_resa_date_limite_recuperation, p.produit_resa_date_limite_commande " .
-		"FROM produit_resa p, categorie_produit c " .
-		"WHERE p.produit_resa_id_categorie = c.categorie_produit_id " .
-		"ORDER by c.categorie_produit_libelle, p.produit_resa_rang, p.produit_resa_libelle";
+		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_etat, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, " .
+		"categorie_produit_libelle, produit_resa_rang, categorie_produit_id, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
+		"produit_resa_date_limite_commande, producteur_libelle " .
+		"FROM produit_resa, categorie_produit, producteur " .
+		"WHERE produit_resa_id_categorie = categorie_produit_id and produit_resa_id_producteur = producteur_id " .
+		"GROUP BY categorie_produit_libelle, produit_resa_libelle " .
+		"UNION " .
+		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_etat, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, " .
+		"categorie_produit_libelle, produit_resa_rang, categorie_produit_id, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
+		"produit_resa_date_limite_commande, 'Aucun producteur désigné' " .
+		"FROM produit_resa, categorie_produit " .
+		"WHERE produit_resa_id_categorie = categorie_produit_id and produit_resa_id_producteur is NULL " .
+		"GROUP BY categorie_produit_libelle, produit_resa_libelle " ;
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -27,13 +35,14 @@ function affich_produits_resa ()
 	$dateRecup = $row[9];
 	$dateLimite = $row[10];
 	$dateLimiteCommande = $row[11];
+	$producteur = $row[12];
 	 
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
     echo "<td>$idproduit</td>";
     echo "<td>$libelleCategorie</td>";
     echo "<td>$libelleProduit</td>";
-    echo "<td>$stockLibelle</td>";
+    echo "<td>$producteur</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$nouveauteLibelle</td>";
     echo "<td>$rang</td>";
@@ -69,7 +78,8 @@ function affich_modif_produit_resa ($id)
 {
   $requete=
 		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, produit_resa_a_stock, produit_resa_nb_stock, " .
-		"produit_resa_nouveaute, produit_resa_id_categorie, produit_resa_rang, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, produit_resa_date_limite_commande " .
+		"produit_resa_nouveaute, produit_resa_id_categorie, produit_resa_rang, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, produit_resa_date_limite_commande," .
+		"produit_resa_id_producteur " .
 		"FROM produit_resa " .
 		"WHERE produit_resa_id = '$id' ";
   
@@ -89,6 +99,7 @@ function affich_modif_produit_resa ($id)
   	$dateRecup = $row[9];
   	$dateLimite = $row[10];
   	$dateLimiteCommande = $row[11];
+  	$idProducteur = $row[12];
   	
   	$dateRecup = dateUsFr($dateRecup);
 	$dateLimite = dateUsFr($dateLimite);
@@ -114,8 +125,9 @@ function affich_modif_produit_resa ($id)
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
 	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
+	echo "<tr><td>Producteur : </td><td>";echo liste_producteurs($idProducteur);echo "</td></tr>";
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\"/></td></tr>";
-	echo "<tr><td valign=\"top\">Producteur : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
+	echo "<tr><td valign=\"top\">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";
 	echo "<tr><td>Stock : </td><td><input type='checkbox' $checkedStock id='a_stock' name='a_stock' onclick='selectionneStock()'/> : " .
 		 "<input type='text' id='nb_stock' name='nb_stock' $readOnlyStock value='$nbStock'/></td></tr>";
 	echo "<tr><td>Afficher en tant que nouveauté ? </td><td><input type='checkbox' id='nouveaute' name='nouveaute' $checkedNouveaute/></td></tr>";
@@ -129,7 +141,7 @@ function affich_modif_produit_resa ($id)
 }
 
 function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descriptif, $photo, $nouveaute, $aStock, $nbStock, $rang, 
-		$dateRecup, $dateLimite, $dateLimiteCommande){
+		$dateRecup, $dateLimite, $dateLimiteCommande, $idProducteur){
 	
 	if ($aStock == 'on') {
 		$aStock = 1;
@@ -147,19 +159,24 @@ function enregistrer_produit_resa($mode, $id, $idCategorie, $libelle, $descripti
 	$dateLimite = dateFrUs($dateLimite);
 	$dateLimiteCommande = dateFrUs($dateLimiteCommande);
 	
+	if ($idProducteur == '-1') {
+		$idProducteur = 'NULL';
+	}
+	
 	$requete = "";
 	
 	if ($mode == 'creation'){
 		$requete = "INSERT INTO produit_resa (produit_resa_id_categorie, produit_resa_libelle, produit_resa_descriptif_production, produit_resa_photo, " .
 				   "produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, produit_resa_rang, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
-				   "produit_resa_date_limite_commande)" . 
-				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute, $rang, '$dateRecup', '$dateLimite', '$dateLimiteCommande')";
+				   "produit_resa_date_limite_commande, produit_resa_id_producteur)" . 
+				   "VALUES ($idCategorie, '$libelle', '$descriptif', '$photo', $aStock, $nbStock, $nouveaute, $rang, '$dateRecup', '$dateLimite', '$dateLimiteCommande', $idProducteur)";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE produit_resa SET produit_resa_id_categorie = $idCategorie, produit_resa_libelle = '$libelle', produit_resa_descriptif_production = '$descriptif', produit_resa_photo = '$photo', " .
 				   "produit_resa_a_stock = $aStock, produit_resa_nb_stock = $nbStock, produit_resa_nouveaute = $nouveaute, produit_resa_rang = $rang, " .
-				   "produit_resa_date_recuperation = '$dateRecup', produit_resa_date_limite_recuperation = '$dateLimite', produit_resa_date_limite_commande = '$dateLimiteCommande' " . 
+				   "produit_resa_date_recuperation = '$dateRecup', produit_resa_date_limite_recuperation = '$dateLimite', produit_resa_date_limite_commande = '$dateLimiteCommande', " .
+				   "produit_resa_id_producteur = $idProducteur " . 
 				   "WHERE produit_resa_id = '$id'";
 	}
 	

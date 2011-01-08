@@ -106,4 +106,19 @@ function supprimer_producteur($id){
 	$requete = "DELETE FROM producteur where producteur_id = '$id'";
 	$result=mysql_query($requete) or die (mysql_error());
 }
+
+function liste_producteurs($select){
+	$requete="SELECT producteur_id, producteur_libelle FROM producteur WHERE producteur_etat = 1 ORDER by producteur_libelle";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	echo "<SELECT id='idProducteur' name='idProducteur'>";
+	echo "<OPTION value='-1'>-- Sélectionner un producteur --</OPTION>";
+	while ($row = mysql_fetch_array($resultats))
+  	{
+  		$selected = "";
+  		if ($row[0] == $select) $selected = "selected"; 
+    	echo "<OPTION value='$row[0]' $selected>$row[1]</OPTION>";
+  	}
+  	echo "</SELECT>";
+}
+
 ?>
