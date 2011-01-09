@@ -4,7 +4,7 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   $sqlRemonteInactif = ($remonteInactif == true) ? '' : ' and p.produit_etat = 1 ';	
 	
   $requete=
-		"SELECT p.produit_id, p.produit_libelle, p.produit_descriptif_production " .
+		"SELECT p.produit_id, p.produit_libelle, p.produit_id_producteur " .
   		"FROM produit p, categorie_produit c " .
 		"WHERE p.produit_id_categorie = c.categorie_produit_id " . $sqlRemonteInactif .
   		"ORDER by c.categorie_produit_id DESC, p.produit_libelle DESC";
@@ -20,7 +20,14 @@ function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   {
   	$selected = "";
   	if ($row[0] == $select) $selected = "selected";
-  	echo "<OPTION value='$row[0]' $selected>$row[1]</OPTION>";
+  	$libelleProd = $row[1];
+  	$idProducteur = $row[2];
+  	$libelleProducteur = getLibelleProducteur($idProducteur);
+	$libelleCompletProduit = $libelleProd;
+  	if ($idProducteur!=null) {
+		$libelleCompletProduit = $libelleCompletProduit . " - " . $libelleProducteur;
+	}
+  	echo "<OPTION value='$row[0]' $selected>$libelleCompletProduit</OPTION>";
   }
   echo "</SELECT>";  
 }
@@ -62,5 +69,17 @@ function dateFrUs($dateFr) {
 	}
 }
 
+function getLibelleProducteur($idProducteur){
+	if ($idProducteur!=null) {
+		$requete = "SELECT producteur_libelle FROM producteur where producteur_id = $idProducteur";
+		$resultats=mysql_query($requete) or die (mysql_error());
+		while ($row = mysql_fetch_array($resultats)){
+			return $row[0];	
+		}
+	}
+	else {
+		return null;
+	}
+}
 
 ?>

@@ -4,7 +4,7 @@ function affich_conditionnements ()
   $requete=
 		"SELECT cond.cond_id, cat.categorie_produit_libelle, prod.produit_libelle, cond.cond_nouveaute, cond.cond_etat, " .
 		"cond.cond_prix, cond.cond_nom, cond.cond_a_stock, cond.cond_nb_stock, cond.cond_divisible, cond.cond_remise, " .
-		"cond.cond_tva, cat.categorie_produit_id, prod.produit_descriptif_production " .
+		"cond.cond_tva, cat.categorie_produit_id, prod.produit_id_producteur " .
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
 		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit " .
   		"ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
@@ -25,7 +25,13 @@ function affich_conditionnements ()
 	$divisible = $row[9];
 	$remise = $row[10];
 	$tva = $row[11];
-	$libelledesc = $row[13];
+	$idProducteur = $row[13];
+	$libelleProducteur = getLibelleProducteur($idProducteur);
+	$libelleCompletProduit = $libelleProd;
+	
+	if ($idProducteur!=null) {
+		$libelleCompletProduit = $libelleCompletProduit . " - " . $libelleProducteur;
+	}
 	
 	$etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
@@ -37,7 +43,7 @@ function affich_conditionnements ()
 	//affichage de la ligne prodit
     echo "<tr id='prod_$idCond' onmouseout=\"restaureLigne('prod_$idCond');\" onmouseover=\"survolLigne('prod_$idCond');\">";
     echo "<td>$idCond</td>";
-    echo "<td>$libelleProd - $libelledesc</td>";
+    echo "<td>$libelleCompletProduit</td>";
     echo "<td>$condNom</td>";
     /*echo "<td>$stockLibelle</td>";*/
     echo "<td>$nouveauteLibelle</td>";

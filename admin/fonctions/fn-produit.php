@@ -5,16 +5,10 @@ function affich_produits ()
 {
   $requete=
 		"SELECT produit_id, categorie_produit_libelle, produit_libelle, produit_etat, produit_photo, produit_descriptif_production, " .
-		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, producteur_libelle " .
-		"FROM produit, categorie_produit, producteur " .
-		"WHERE produit_id_categorie = categorie_produit_id and produit_id_producteur = producteur_id " .
-		"GROUP BY categorie_produit_libelle, produit_libelle " .
-		"UNION " .
-  		"SELECT produit_id, categorie_produit_libelle, produit_libelle, produit_etat, produit_photo, produit_descriptif_production, " .
-  		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, 'Aucun producteur désigné' " .
+		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, produit_id_producteur " .
 		"FROM produit, categorie_produit " .
-		"WHERE produit_id_categorie = categorie_produit_id and produit_id_producteur is NULL " .
-		"GROUP BY categorie_produit_libelle, produit_libelle";
+		"WHERE produit_id_categorie = categorie_produit_id " .
+		"ORDER BY categorie_produit_libelle, produit_rang";
   
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -28,7 +22,12 @@ function affich_produits ()
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
 	$rang = $row[7];
 	$joursDispo = $row[9];
-	$producteur = $row[10];
+	$idProducteur = $row[10];
+	$libelleProducteur = getLibelleProducteur($idProducteur);
+	
+	if ($idProducteur==null){
+		$libelleProducteur = 'Aucun producteur désigné';
+	}
 	
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
@@ -36,7 +35,7 @@ function affich_produits ()
     echo "<td>$libelleCategorie</td>";
     echo "<td>$libelleProduit</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
-    echo "<td>$producteur</td>";
+    echo "<td>$libelleProducteur</td>";
     echo "<td>$rang</td>";
     echo "<td>".afficheJoursDispos($joursDispo)."</td>";
     echo "<td align=\"right\">";

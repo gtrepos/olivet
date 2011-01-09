@@ -5,17 +5,10 @@ function affich_produits_resa ()
   $requete=
 		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_etat, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, " .
 		"categorie_produit_libelle, produit_resa_rang, categorie_produit_id, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
-		"produit_resa_date_limite_commande, producteur_libelle " .
-		"FROM produit_resa, categorie_produit, producteur " .
-		"WHERE produit_resa_id_categorie = categorie_produit_id and produit_resa_id_producteur = producteur_id " .
-		"GROUP BY categorie_produit_libelle, produit_resa_libelle " .
-		"UNION " .
-		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_etat, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, " .
-		"categorie_produit_libelle, produit_resa_rang, categorie_produit_id, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
-		"produit_resa_date_limite_commande, 'Aucun producteur désigné' " .
+		"produit_resa_date_limite_commande, produit_resa_id_producteur " .
 		"FROM produit_resa, categorie_produit " .
-		"WHERE produit_resa_id_categorie = categorie_produit_id and produit_resa_id_producteur is NULL " .
-		"GROUP BY categorie_produit_libelle, produit_resa_libelle " ;
+		"WHERE produit_resa_id_categorie = categorie_produit_id " .
+		"ORDER BY categorie_produit_libelle, produit_resa_libelle ";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))
@@ -35,14 +28,18 @@ function affich_produits_resa ()
 	$dateRecup = $row[9];
 	$dateLimite = $row[10];
 	$dateLimiteCommande = $row[11];
-	$producteur = $row[12];
-	 
+	$idProducteur = $row[12];
+	$libelleProducteur = getLibelleProducteur($idProducteur);
+	
+	if ($idProducteur==null){
+		$libelleProducteur = 'Aucun producteur désigné';
+	}
 	//affichage de la ligne produit
     echo "<tr id='prod_$idproduit' onmouseout=\"restaureLigne('prod_$idproduit');\" onmouseover=\"survolLigne('prod_$idproduit');\">";
     echo "<td>$idproduit</td>";
     echo "<td>$libelleCategorie</td>";
     echo "<td>$libelleProduit</td>";
-    echo "<td>$producteur</td>";
+    echo "<td>$libelleProducteur</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$nouveauteLibelle</td>";
     echo "<td>$rang</td>";
