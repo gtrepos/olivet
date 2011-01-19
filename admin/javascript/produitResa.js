@@ -96,13 +96,13 @@ function valideFormProduitResa(){
 		return false;
 	}
 	
-	if (estDateInferieure(dateRecup,dateLimite)) {
+	if (estDateInferieure(dateLimite,dateRecup)) {
 		alert("La date limite de retrait en magasin doit être supérieure ou égale à la date de retrait en magasin.");
 		$('dateLimite').focus();
 		return false;
 	}
 	
-	if (!estDateSuperieure(dateLimiteCommande,dateRecup) && !estDateEgale(dateLimiteCommande,dateRecup)) {
+	if (estDateSuperieure(dateLimiteCommande,dateRecup)) {
 		alert("La date limite de commande doit être inférieure ou égale à la date de retrait en magasin.");
 		$('dateLimiteCommande').focus();
 		return false;
