@@ -1,13 +1,18 @@
 <?php
-function affich_conditionnements ()
+function affich_conditionnements ($idProduit)
 {
   $requete=
 		"SELECT cond.cond_id, cat.categorie_produit_libelle, prod.produit_libelle, cond.cond_nouveaute, cond.cond_etat, " .
 		"cond.cond_prix, cond.cond_nom, cond.cond_a_stock, cond.cond_nb_stock, cond.cond_divisible, cond.cond_remise, " .
 		"cond.cond_tva, cat.categorie_produit_id, prod.produit_id_producteur " .
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
-		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit " .
-  		"ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
+		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit ";
+  
+  if ($idProduit != null && $idProduit != -1) {
+  	$requete = $requete . " AND prod.produit_id = '" . $idProduit . "'" ;
+  }
+  	
+  $requete = $requete . " ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))

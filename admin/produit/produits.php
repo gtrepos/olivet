@@ -12,7 +12,9 @@ else {
 <br><br>
 
 <?php
-if ($action=='lister') {include("lister_produits.php");}
+if ($action=='lister') {
+	include("lister_produits.php");
+}
 
 if ($action=='creer') {include("creer_produit.php");}
 

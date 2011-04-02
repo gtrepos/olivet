@@ -1,14 +1,19 @@
 <?php
 
 
-function affich_produits ()
+function affich_produits ($idCategorie)
 {
   $requete=
 		"SELECT produit_id, categorie_produit_libelle, produit_libelle, produit_etat, produit_photo, produit_descriptif_production, " .
 		"categorie_produit_id, produit_rang, categorie_produit_libelle, produit_jours_dispos, produit_id_producteur " .
 		"FROM produit, categorie_produit " .
-		"WHERE produit_id_categorie = categorie_produit_id " .
-		"ORDER BY categorie_produit_libelle, produit_rang";
+		"WHERE produit_id_categorie = categorie_produit_id ";
+
+  if ($idCategorie != null && $idCategorie != -1) {
+  	$requete = $requete . " AND categorie_produit_id = '" . $idCategorie . "'" ;
+  }		
+
+  $requete = $requete . " ORDER BY categorie_produit_libelle, produit_rang";
   
   $resultats=mysql_query($requete) or die (mysql_error());
   while ($row = mysql_fetch_array($resultats))

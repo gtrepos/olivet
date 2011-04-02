@@ -1,7 +1,7 @@
 <?php
 function affiche_produits_pour_selection($select, $remonteInactif, $fnOnChange){
   
-  $sqlRemonteInactif = ($remonteInactif == true) ? '' : ' and p.produit_etat = 1 ';	
+  $sqlRemonteInactif = ($remonteInactif == true) ? '' : ' and p.produit_etat = 1 ';
 	
   $requete=
 		"SELECT p.produit_id, p.produit_libelle, p.produit_id_producteur " .
