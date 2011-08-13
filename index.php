@@ -16,10 +16,10 @@ require_once('tools/visitor_panier_functions.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-<title>La ferme d'Olivet</title>
+<title>La Ferme d'Olivet</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv='language' content='fr'>
-	<meta name='Description' content="La ferme d'Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits">
+	<meta name='Description' content="La Ferme d'Olivet - Site officiel - Servon, Olivet, Ferme, Bio, Actualités, Produits">
 	<meta name='Keywords' content="Servon, Olivet, Site officiel, Ferme, Bio, Actualités, Produits">
 	<meta name="GOOGLEBOT" content="index,follow">
 	<meta name='robots' content='index,follow'>
@@ -33,13 +33,14 @@ require_once('tools/visitor_panier_functions.php');
 	<link rel="stylesheet" type="text/css" href="styles/partenaires.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/recapitulatif.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="styles/ferme.css" media="screen" />
-	<!-- google map API key : 
-	http://fermeolivet.free.fr/ :	ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ
-	http://gaecolivet.free.fr : ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg
-	-->
-	<script	src="http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAA0Pdh_8EET-n72xP7OCU9VRTFDZFcyfLWBobWIx1qDZjkNxE3HBTPI13wNF6BYVEaxM-0X9xjzs0Acg" type="text/javascript"></script>  
+	<link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.8.11.custom.css" media="screen" />
+	<?php include("googleMap.php"); ?>
+	<script	src="http://maps.google.com/?file=api&amp;v=2.x&amp;key=ABQIAAAASki4stJtJM6pFLg7NiCJSBSFNPR8qUy5LlztrteYkgDBd3SwJhT0xjOg_KyOByCOxNK7aYDpFTzPoQ" type="text/javascript"></script>  
 	<script type="text/javascript" src="js/prototype.js"></script>
-	<script type="text/javascript" src="js/jquery-1.3.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.core.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/commun.js"></script>
 </head>
@@ -64,7 +65,9 @@ require_once('tools/visitor_panier_functions.php');
 	<li class="gauche"><a href="javascript:clickNavigation('la_ferme')">La Ferme</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('magasin')">Le magasin</a></li>
 	<li class="gauche"><a href="javascript:clickNavigation('nos_produits')">Les	Produits</a></li>
+	<?php if (isCommandePossible()) {?>
 	<li class="gauche"><a href="javascript:clickNavigation('commander')">Commander</a></li>
+	<?php } ?>
 	<?php if (mysql_num_rows(bddActusGaec(false,false))>0 || mysql_num_rows(bddActusLoma(false,false))>0) { ?>
 	<li class="gauche"><a href="javascript:clickNavigation('actualites')">Actualités</a></li>
 	<?php } ?>
@@ -86,7 +89,76 @@ require_once('tools/visitor_panier_functions.php');
 <div id='banniere-resume_panier'><?php include('visiteur/droite/resume_panier.php'); ?>
 </div>
 
-<?php include('visiteur/centre/partenaires.php'); ?>
+<?php
+$tmpres = bddNouveauxProduits();
+if (mysql_num_rows($tmpres)>0) {
+	echo "<h3>Zoom produits</h3><p>";
+	while ($row = mysql_fetch_array($tmpres)){
+		$categorie_produit_libelle = $row[1];
+		$cond_nom = $row[2];
+		$produit_libelle = $row[3];
+		$categorie_produit_id = $row[4];
+		echo "<img src='img/flecheactu.gif'/> ";
+		echo "<a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$produit_libelle."</a>";
+		echo "<br/>";
+	}
+	echo "</p>";	
+}	
+?>
+
+<?php
+$tmpres = bddNouveauxProduitsResa();
+if (mysql_num_rows($tmpres)>0) {
+	echo "<h3>Zoom produits sur réservation</h3><p>";
+	while ($row = mysql_fetch_array($tmpres)){
+		$categorie_produit_libelle = $row[1];
+		$produit_resa_libelle = $row[2];
+		$categorie_produit_id = $row[3];
+		echo "<img src='img/flecheactu.gif'/> ";
+		echo "<a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
+		.$produit_resa_libelle."</a>";
+		echo "<br/>";
+	}
+	echo "</p>";	
+}	
+?>
+
+
+<?php 
+$tmpres = bddActusGaec(true, false);
+if (mysql_num_rows($tmpres)>0) {
+	echo "<h3>Actualités du GAEC</h3><p>";
+	setlocale (LC_TIME, 'fr_FR','fra');
+	$outputAffDatePost = "%A %d %B %Y";
+	while ($row = mysql_fetch_array($tmpres)){
+		echo "<img src='img/flecheactu.gif'/> ";
+		echo "<a href='javascript:clickActualite()'>$row[1]</a>";
+		echo "<br/>";
+	}
+	echo "</p>";
+}	
+?>
+
+<?php 
+$tmpres = bddActusLoma(true, false);
+if (mysql_num_rows($tmpres)>0) {	
+	echo "<h3>Actualités locales et du monde agricole</h3><p>";
+	setlocale (LC_TIME, 'fr_FR','fra');
+	$outputAffDatePost = "%A %d %B %Y";
+	while ($row = mysql_fetch_array($tmpres)){
+		echo "<img src='img/flecheactu.gif'/> ";
+		echo "<a href='javascript:clickActualite()'>$row[1]</a>";
+		echo "<br/>";
+	}
+	echo "</p>";
+}	
+?>
+
+<h3>Horaires d'ouverture</h3>
+<p style='color:black;'>Le vendredi<br>de 16h00 à 19h30<br>
+Le samedi<br>de 10h à 12h30<br>
+Fermé les jours fériés<br></p>
 
 <h3>Agriculture biologique</h3>
 <div style="text-align:center">
@@ -96,10 +168,9 @@ require_once('tools/visitor_panier_functions.php');
 	border="0">
 </div>
 
-<h3>Horaires d'ouverture</h3>
-<p style='color:black;'>Du mardi au vendredi<br>de 16h30 à 19h30<br>
-Le samedi<br>de 10h à 12h30<br>
-Fermé dimanche, lundi et jours fériés<br></p>
+<?php include('visiteur/centre/partenaires.php'); ?>
+
+
 </div>
 <!-- #secondaire --></div>
 <!-- ombre --></div>

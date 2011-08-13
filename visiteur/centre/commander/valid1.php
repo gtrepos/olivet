@@ -37,11 +37,11 @@
 
 <?php echo afficheDateRecup()?> 
 
-<div id="commander-captcha" style="float:left;margin-right:1em;margin-bottom:1em;">
-<?php include('captcha.php');?> 
-</div>
 <div style='float:left;'>
-<p>Code antispam * :  <input type="text" name="code" id="securimage_code"/></p>
+<p>Code de sécurité * :  <input type="text" name="code" id="securimage_code"/></p>
+</div>
+<div id="commander-captcha" style="float:left;margin-left:1em;margin-bottom:1em;">
+<?php include('captcha.php');?> 
 </div>
 
 <div class='separateurPointille'>&nbsp;</div>
@@ -53,94 +53,6 @@
 </form>	
 
 <?php 
-function selectDateRecup($daterecup){
-	
-	setlocale (LC_TIME, 'fr_FR','fra');
-	
-	/*commande passée le lundi : récupération du mardi au samedi de la semaine en cours.
-	commande passée le mardi, mercredi, jeudi, vendredi : récupération le jour j si commande avant 16h ou jusqu'au samedi de la semaine en cours.
-	commande passée le samedi, dimanche : récupération du mardi au samedi de la semaine d'après.*/
-	
-	$cejour = strftime("%A");
-	$heureCourante = strftime("%H");
-	$outputAff = "%A %d %B %Y";
-	$outputVal = "%Y-%m-%d";
-	
-	$retour = "<select size=1 id=daterecup_commande>";
-	$retour = $retour."<option value='-1'>-- Indiquez une date --</option>";
-	
-	if ($cejour == 'lundi') {
-		for ($i=1;$i<=5;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";	
-		}		
-	}
-	
-	if ($cejour == 'mardi') {
-		$i=1;
-		if ($heureCourante<16) {
-			$i=0;
-		}
-		for ($i;$i<=4;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
-		}
-	}
-	
-	if ($cejour == 'mercredi') {
-		$i=1;
-		if ($heureCourante<16) {
-			$i=0;
-		}
-		for ($i;$i<=3;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
-		}
-	}
-	
-	if ($cejour == 'jeudi') {
-		$i=1;
-		if ($heureCourante<16) {
-			$i=0;
-		}
-		for ($i;$i<=2;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
-		}
-	}
-	
-	if ($cejour == 'vendredi') {
-		$i=1;
-		if ($heureCourante<16) {
-			$i=0;
-		}
-		for ($i;$i<=1;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
-		}
-	}
-	
-	if ($cejour == 'samedi') {
-		
-		for ($i=3;$i<=7;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";	
-		}
-	}
-	
-	if ($cejour == 'dimanche') {
-		for ($i=2;$i<=6;$i++){
-			$expr = '+'.$i.' day';
-			$retour = $retour."<option value='" . strftime($outputVal, strtotime($expr)) . "'> " . utf8_encode(strftime($outputAff, strtotime($expr))) . "</option>";
-		}		
-	}	
-	
-	$retour = $retour . "</select>";
-	
-	return $retour;
-	
-}
-
 function afficheDateRecup() {
 	
 	if (panierNbProdsCond() > 0) {
@@ -155,7 +67,7 @@ function afficheDateRecup() {
 		if(isset($ajax_daterecup_commande)){
 			$daterecup = $ajax_daterecup_commande;
 		}
-		echo selectDateRecup($daterecup);
+		echo "<input type='text' id='daterecup_commande' readonly='readonly'>";
 		echo "</td></tr></table></div>";
 	}
 

@@ -1,3 +1,7 @@
+<?php if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+	session_start();
+}
+?>
 <font class=olivet><?php echo ADMIN_CONDITIONNEMENT_GESTION; ?></font>
 
 <?php 
@@ -13,7 +17,12 @@ else {
 
 <?php
 
-if ($action=='lister') {include("lister_conditionnements.php");}
+if ($action=='lister') {
+	if (isset($_GET['idCategorie'])){
+		$_SESSION['idCategorie'] = $_GET['idCategorie'];
+	}
+	include("lister_conditionnements.php");
+}
 
 if ($action=='creer') {include("creer_conditionnement.php");}
 

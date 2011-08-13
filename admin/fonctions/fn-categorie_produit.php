@@ -70,10 +70,13 @@ function supprimer_categorie($id){
 	$result=mysql_query($requete) or die (mysql_error());
 }
 
-function liste_categories($select){
+function liste_categories($select, $redirect){
 	$requete="SELECT categorie_produit_id, categorie_produit_libelle FROM categorie_produit WHERE categorie_produit_etat = 1 ORDER by categorie_produit_libelle";
 	$resultats=mysql_query($requete) or die (mysql_error());
-	echo "<SELECT id='idCategorie' name='idCategorie'>";
+	echo "<SELECT id='idCategorie' name='idCategorie'";
+	if ($redirect!=null) {
+		echo " onchange=\"changeCategorieProduits(this.value, '$redirect');\">";
+	}
 	echo "<OPTION value='-1'>-- Sélectionner une catégorie --</OPTION>";
 	while ($row = mysql_fetch_array($resultats))
   	{

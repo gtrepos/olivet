@@ -2,9 +2,10 @@
 //une fonction $ qui remplace document.getElementById, alors que jQuery la propose également
 jQuery.noConflict();
 
-// Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur
+// Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur, dans la page Infos pratiques
 var cfg_adress = 'Olivet, 35000 Servon Sur Vilaine';
 
+//Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur, dans la page Producteurs
 var cfg_adress_prod = 'Liffré, 35';
 
 // Largeur de la carte
@@ -23,16 +24,10 @@ var cfg_description = ""
 		+ "<tr><td valign='top'>"
 		+ "<div style='color: blue; font-size: 14px; font-weight:bold;'>"
 		+ "Ferme D'olivet" + "</div><br/>" + "Gaec à 3 voix, L'Olivet<br/>"
-		+ "35530 SERVON-SUR-VILAINE<br/>" + "06 98 39 27 62<br/>"
+		+ "35530 SERVON-SUR-VILAINE<br/>" + "06 62 09 27 62<br/>"
 		+ "<a href='http://fermeolivet.free.fr'>http://fermeolivet.free.fr</a>"
-		+ "</td>" +
-		// "<td>"+
-		// "<img
-		// src='http://www.business-in-europe.com/fr/visuals/new-voie-express.gif'"
-		// +
-		// "border='0' alt='Photo' vspace='5' align='right' />"+
-		// "</td>"+
-		"</tr></table>";
+		+ "</td></tr>"
+		+ "</table>";
 
 // Variable globale pour l'objet GMAP2
 var map;
@@ -48,7 +43,7 @@ function loadMyMap(hideOlivet) {
 	// Teste si le navigateur est compatible avec l'API Gmaps
 
 	// Affecte la carte à la div  "map_olivet" (voir tout en bas)
-     var divMap    = document.getElementById("map_olivet");
+     var divMap = document.getElementById("map_olivet");
              
  if (GBrowserIsCompatible()) {
         
@@ -105,18 +100,19 @@ function centerMapOnAdress(adresse, hideOlivet) {
 			if (!point) {
 				alert('Adresse : ' + addresse + " introuvable");
 			} else {
-
-				
 				
 			// Centre la carte sur l'adresse
 				
-			if (!hideOlivet)	
+			if (!hideOlivet) {	
+				point = new GLatLng('48.106636','-1.465368');
 				map.setCenter(point, cfg_zoomLevel);
-			else 
-				map.setCenter(point, 9);	
+			} else { 
+				map.setCenter(point, 9);
+			}	
 			
 			if (!hideOlivet) {
 				// On créer un marqueur à l'adresse spécifiée
+				
 				var marker = new GMarker(point);
 	
 				var textePopUp = cfg_description;
@@ -320,12 +316,79 @@ function clickPasserCommande() {
 				alert(transport.responseText);
 			} else {
 				$('principal').innerHTML = transport.responseText;
+				
+				var maintenant = new Date(); 
+				minDatePicker = "0";
+				
+				//si commande après 15h30 le vendredi, date de récupération possible seulement le lendemain.
+				if (maintenant.getDay()==5) {
+					if ((maintenant.getHours()==15 && maintenant.getMinutes()>30) || maintenant.getHours()>15) {
+						minDatePicker = "+1";
+					}
+				}
+				
+				//si commande le samedi, date de récupération possible le vendredi suivant
+				if (maintenant.getDay()==6) {
+					minDatePicker = "+6";
+				}
+				
+				jQuery(function() {
+					jQuery.datepicker.setDefaults( jQuery.datepicker.regional[ "fr" ] );
+					jQuery( "#daterecup_commande" ).datepicker({ minDate: minDatePicker, maxDate: "+2M", beforeShowDay:filtreJoursRecup });
+				});
 			}
 		}
 	// onFailure : function() {
 			// alert('Something went wrong...');
 			// }
 			});
+}
+
+/*jour compris entre vendredi et samedi
+ * pas un jour ferie */
+
+function filtreJoursRecup(datePicker) {
+	var day = datePicker.getDay();
+	var retour = (day>4&&day<=6) && !isJourFerie(datePicker); 
+	return[retour,""];
+}
+
+function isJourFerie(datePicker){
+	var joursFeries = JoursFeries(datePicker.getFullYear());
+	for (i=0;i<joursFeries.length;i++) {
+		if (isDateEquivalente(datePicker,joursFeries[i])) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function JoursFeries (an){
+    var JourAn = new Date(an, "00", "01");
+    var FeteTravail = new Date(an, "04", "01");
+    var Victoire1945 = new Date(an, "04", "08");
+    var FeteNationale = new Date(an,"06", "14");
+    var Assomption = new Date(an, "07", "15");
+    var Toussaint = new Date(an, "10", "01");
+    var Armistice = new Date(an, "10", "11");
+    var Noel = new Date(an, "11", "25");
+    
+    var G = an%19;
+    var C = Math.floor(an/100);
+    var H = (C - Math.floor(C/4) - Math.floor((8*C+13)/25) + 19*G + 15)%30;
+    var I = H - Math.floor(H/28)*(1 - Math.floor(H/28)*Math.floor(29/(H + 1))*Math.floor((21 - G)/11));
+    var J = (an*1 + Math.floor(an/4) + I + 2 - C + Math.floor(C/4))%7;
+    var L = I - J;
+    var MoisPaques = 3 + Math.floor((L + 40)/44);
+    var JourPaques = L + 28 - 31*Math.floor(MoisPaques/4);
+    var Paques = new Date(an, MoisPaques-1, JourPaques);
+    var LundiPaques = new Date(an, MoisPaques-1, JourPaques+1);
+    var Ascension = new Date(an, MoisPaques-1, JourPaques+39);
+    var Pentecote = new Date(an, MoisPaques-1, JourPaques+49);
+    var LundiPentecote = new Date(an, MoisPaques-1, JourPaques+50);
+    
+    return new Array(JourAn, Paques, LundiPaques, FeteTravail, Victoire1945, Ascension, Pentecote, LundiPentecote, FeteNationale, Assomption, Toussaint, Armistice, Noel);
+    
 }
 
 function manageClickCheckClient(transport) {
@@ -452,6 +515,16 @@ function checkDivisible(divisible, cond, id) {
 		idInput = 'qtProd_0_' + id;
 	}
 	qtProd = $F(idInput);
+	
+	//impossible de saisir une virgule
+	if (qtProd.lastIndexOf(',')>0) {
+		alert("Veuillez remplacer la virgule (,) par un point (.)");
+		var moninput = $(idInput);
+		moninput.focus();
+		moninput.value = '0';
+		return false;
+	}
+	
 	//cas non divisible
 	if (!isNaN(qtProd) && qtProd.lastIndexOf('.')>0 && divisible == '0') {
 		alert('Ce produit n\'est pas divisible');
@@ -523,7 +596,7 @@ function clickSetQuantite(cond, id, pageCommander) {
 			}
 		});
 	} else {
-		alert('Vous devez saisir un nombre entre  0 et 100');
+		alert('Vous devez saisir un nombre entre 0 et 100');
 		var moninput = $(idInput);
 		moninput.focus();
 		moninput.value = '0';

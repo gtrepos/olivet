@@ -13,7 +13,7 @@ En agriculture durable nous gérons nos champs en essayant au maximum de respect
 
 <h3><a href="javascript:showHide('nosactivites')" style='color:#F40707;'>Des hommes et des femmes passionnés par leur métier</a></h3>
 <div id='nosactivites'>
-<p>Le GAEC est aujourd'hui composé de 3 personnes, toutes fortement impliquées dans le milieu agricole local et passionnées par leur activité.</p>
+<p>Le GAEC est aujourd'hui composé de 2 personnes, toutes fortement impliquées dans le milieu agricole local et passionnées par leur activité.</p>
 <p>Par l'intermédiaire de ce site web, nous souhaitons transmettre leur savoir faire. Prenez le temps de lire ces quelques explications, cela vous donnera encore plus envie de venir voir ce qui se passe sur place !</p> 
 
 <div class='ombre ombrepersonne'>
@@ -59,7 +59,7 @@ La santé des animaux est d'abord vue sous l'angle de sa préservation : respect
 <div class='fermeparagraphe' style='display:none' id='vaches_caractere'>
 Comme il est dit plus haut un des aspects de la race Brune des Alpes est son caractère doux. Comme de plus les veaux ont un contact individualisé et régulier avec nous, cela produit des animaux  très familiers, voire un peu « pot de colle ». Par contre entre elles la hiérarchie est très rigide et est remise en cause de temps à autre par de petites bagarres. A ce propos à 8 ou 10 jours les cellules qui produisent les cornes sont détruites par brulage (ce qui constitue la méthode la moins traumatisante d'écornage). Les cornes constituent un danger pour les animaux entre eux, dans la mesure où ils ne sont plus à l'attache l'hiver et pour nous parce que les vaches laitières sont des animaux avec lesquels nous sommes en contact tous les jours et que le danger ne vient pas principalement d'une vache « méchante » mais au contraire d'un animal très familier qui n'a pas conscience de sa force.
 </div>
-<div style='clear:both'>&nbsp;</div>
+<!--<div style='clear:both'>&nbsp;</div>
 <div class='ombre ombrepersonne'>
 <div class='personne'><img src='img/clarisse.gif'/></div>
 </div>
@@ -110,6 +110,7 @@ Une caissette représente un demi-agneau, elle contient donc :
 La caissette pèse entre 6 et 7 kg, à peu près l’équivalent d’un tiroir de congélateur.
 Nous proposons aussi périodiquement des merguez et des agneaux pour méchoui, n’hésitez pas à nous demander !
 </div>
+-->
 <div style='clear:both'>&nbsp;</div>
 <div class='ombre ombrepersonne'>
 <div class='personne'><img src='img/sandra.gif'/></div>

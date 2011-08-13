@@ -501,7 +501,7 @@ function facturer_commande($idCommande) {
 	
 	begin(); // début de transaction
 	
-	$requeteUpdateEtat = "UPDATE commande SET commande_etat = 'FA' WHERE commande_id = '$idCommande'";
+	$requeteUpdateEtat = "UPDATE commande SET commande_etat = 'FA' WHERE commande_id = $idCommande";
 	$resultUpdateEtat=mysql_query($requeteUpdateEtat) or die (mysql_error());
 	
 	$requeteInsertFacture = "INSERT INTO facture (facture_id_commande) values ($idCommande)";

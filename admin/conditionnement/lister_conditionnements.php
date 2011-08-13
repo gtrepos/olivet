@@ -1,16 +1,22 @@
-<?php
-	$idProduitFiltre = -1;
-	if (isset($_POST['idProduit'])){
-		$idProduitFiltre=$_POST['idProduit'];
+<?php 
+	if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+		session_start();
 	}
+	$idCategorieFiltre = -1;
+	if (isset($_SESSION['idCategorie'])){
+		$idCategorieFiltre=$_SESSION['idCategorie'];
+	}
+	else if (isset($_POST['idCategorie'])){
+		$idCategorieFiltre=$_POST['idCategorie'];
+	}
+	$redirect = 'conditionnements';
 ?>
 
 <table class=olivet width="90%" cellspacing="1" cellspacing="0">
 	<tr>
 		<td>
-		<form name="filtreProduit" id="filtreProduit" method="post" action="?page=conditionnements&action=lister">
-		Produit : <?php affiche_produits_pour_selection($idProduitFiltre,false, null);?>
-		<input type="submit" class="button" name="submitFiltreProduit" value="Filtrer" />
+		<form name="filtreCategorie" id="filtreCategorie" method="post">
+		Catégorie : <?php liste_categories($idCategorieFiltre, $redirect);?>
 		</form></td>
 	</tr>
 	<tr>
@@ -30,7 +36,7 @@
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_TVA; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
-	<?php affich_conditionnements($idProduitFiltre); ?>
+	<?php affich_conditionnements($idCategorieFiltre); ?>
 	<tr>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_ID; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRODUIT; ?></td>

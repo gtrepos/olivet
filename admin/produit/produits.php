@@ -1,3 +1,7 @@
+<?php if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
+	session_start();
+}
+?>
 <font class=olivet><?php echo ADMIN_PRODUIT_GESTION; ?></font>
 
 <?php 
@@ -13,6 +17,9 @@ else {
 
 <?php
 if ($action=='lister') {
+	if (isset($_GET['idCategorie'])){
+		$_SESSION['idCategorie'] = $_GET['idCategorie'];
+	}
 	include("lister_produits.php");
 }
 

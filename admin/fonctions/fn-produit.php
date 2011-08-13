@@ -16,6 +16,9 @@ function affich_produits ($idCategorie)
   $requete = $requete . " ORDER BY categorie_produit_libelle, produit_rang";
   
   $resultats=mysql_query($requete) or die (mysql_error());
+  
+  echo mysql_num_rows($resultats) . " produit(s)" . "<br><br>";
+  
   while ($row = mysql_fetch_array($resultats))
   {
     $idproduit = $row[0];
@@ -100,7 +103,7 @@ function affich_modif_produit ($id)
 	echo "<tr><td colspan='2'>&nbsp;<input type='hidden' id='id' name='id' value='$idproduit'/></tr>";
 	echo "<tr><td colspan='2'><img src='../img/upload/$photo'/></td></tr>";
 	echo "<tr><td>Identifiant : </td><td>$idproduit</td></tr>";
-	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie);echo "</td></tr>";
+	echo "<tr><td>Catégorie : </td><td>";echo liste_categories($idCategorie, null);echo "</td></tr>";
 	echo "<tr><td>Producteur : </td><td>";echo liste_producteurs($idProducteur);echo "</td></tr>";
 	echo "<tr><td>Libellé : </td><td><input type='text' id='libelle' name='libelle' value=\"$libelle\" size=70/></td></tr>";
 	echo "<tr><td valign=\"top\">Descriptif : </td><td><textarea rows=10 cols=70 id='descriptif' name='descriptif'>$descriptif</textarea></td></tr>";

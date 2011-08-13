@@ -70,3 +70,18 @@ function selectionneStock(){
 		$('nb_stock').readOnly = "readonly";
 	}	
 }
+
+function updateNouveauteConditionnement(idcond, nouveaute) {
+	new Ajax.Request("ajax.php", {
+		method : 'post',
+		parameters : {
+			event : 'updateNouveauteConditionnement',
+			idcond : idcond,
+			nouveaute : nouveaute
+		},
+		onComplete : function(transport) {
+			location.href = "./?page=conditionnements&action=lister";
+		}
+	});
+}
+

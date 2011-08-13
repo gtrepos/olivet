@@ -68,3 +68,9 @@ function alerteSuppressionProduit(id, libelle){
 		location.href = 'index.php?page=produits&action=supprimer&id='+id;
 	}
 }
+
+function changeCategorieProduits(select, redirect) {
+	document.filtreCategorie.action='?page='+redirect+'&action=lister&idCategorie='+select;
+	document.filtreCategorie.submit();
+}
+

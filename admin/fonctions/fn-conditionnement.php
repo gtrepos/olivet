@@ -1,5 +1,5 @@
 <?php
-function affich_conditionnements ($idProduit)
+function affich_conditionnements ($idCategorie)
 {
   $requete=
 		"SELECT cond.cond_id, cat.categorie_produit_libelle, prod.produit_libelle, cond.cond_nouveaute, cond.cond_etat, " .
@@ -8,13 +8,16 @@ function affich_conditionnements ($idProduit)
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
 		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit ";
   
-  if ($idProduit != null && $idProduit != -1) {
-  	$requete = $requete . " AND prod.produit_id = '" . $idProduit . "'" ;
+  if ($idCategorie != null && $idCategorie != -1) {
+  	$requete = $requete . " AND cat.categorie_produit_id = '" . $idCategorie . "'" ;
   }
   	
   $requete = $requete . " ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
+  
+  echo mysql_num_rows($resultats) . " conditionnement(s)" . "<br><br>";
+  
   while ($row = mysql_fetch_array($resultats))
   {
     
@@ -41,7 +44,10 @@ function affich_conditionnements ($idProduit)
 	$etatLibelle = ($etat==0) ? 'Inactif' : 'Actif';
 	$etatImage = ($etat==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
 	$stockLibelle = ($condAStock==0) ? 'Aucun' : $condNbStock;
-    $nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
+	$nouveauteLibelle = ($nouveaute==0) ? 'Non' : 'Oui';
+    $nouveauteImage = ($nouveaute==0) ? 'picto_not-ok.gif' : 'picto_ok.gif';
+    $nouveauteSelect0 = ($nouveaute==0) ? 'selected' : '';
+    $nouveauteSelect1 = ($nouveaute==1) ? 'selected' : '';
     $divisibleLibelle = ($divisible==0) ? 'Non' : 'Oui';
     $prixGlobal = number_format($condPrix - $remise, 2, '.', '');
 	
@@ -50,8 +56,13 @@ function affich_conditionnements ($idProduit)
     echo "<td>$idCond</td>";
     echo "<td>$libelleCompletProduit</td>";
     echo "<td>$condNom</td>";
-    /*echo "<td>$stockLibelle</td>";*/
-    echo "<td>$nouveauteLibelle</td>";
+    echo 
+		"<td><img src='images/$nouveauteImage' title='$nouveauteLibelle'/>&nbsp;" .
+    		"<select onChange=\"updateNouveauteConditionnement('$idCond', this.value)\">" .
+    		"<option value=1 $nouveauteSelect1>Oui</option>" .
+    		"<option value=0 $nouveauteSelect0>Non</option>" .
+    		"</select>" .
+    	"</td>";
     echo "<td>$divisibleLibelle</td>";
     echo "<td><img src='images/$etatImage' title='$etatLibelle'/></td>";
     echo "<td>$condPrix €</td>";

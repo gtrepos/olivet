@@ -524,10 +524,31 @@ function bddProducteurs(){
 	return $resultats;
 }
 
+function isCommandePossible(){
+	
+	$requete=
+		"SELECT parametre, valeur from parametrage where parametre = 'commande_possible' and valeur = 'oui' ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	$retour = false;
+	while ($row = mysql_fetch_array($resultats))
+	{
+		$retour = true;
+	}
+	return $retour;
+}
+
+
 function dateUsFr($dateUs) {
 	if ($dateUs != null) {
 		$dateUsExplode = explode("-", $dateUs);
 		return $dateUsExplode[2] . "/" . $dateUsExplode[1] . "/" . $dateUsExplode[0];
+	}
+}
+
+function dateFrUs($dateFr) {
+	if ($dateFr != null) {
+		$dateFrExplode = explode("/", $dateFr);
+		return $dateFrExplode[2] . "-" . $dateFrExplode[1] . "-" . $dateFrExplode[0];
 	}
 }
 

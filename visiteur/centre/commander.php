@@ -1,10 +1,11 @@
 <h3>Conditions</h3>
 <div align=left class="conditions"> 
-	<p>Les commandes sont a récupérer à la ferme d'Olivet. Pour des raisons de temps de préparation des commandes, merci de prendre en compte les contraintes suivantes :</p>
-	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le lundi, la récupération sera possible du mardi au samedi de la semaine en cours.</p>
-	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le mardi, le mercredi, le jeudi ou le vendredi, la récupération sera possible le jour j si la commande est faite <u>avant 16h</u> ou jusqu'au samedi de la semaine en cours.</p>
-	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le samedi ou le dimanche, la récupération sera possible du mardi au samedi de la semaine d'après.</p>
-	<p>Merci pour votre compréhension.</p>
+	<p>Les commandes sont a récupérer à la ferme d'Olivet. Vous pouvez choisir une date de récupération dans un délai de deux mois à compter de la date de commande.</p> 
+	<p>Pour des raisons de logistique, merci de prendre en compte les contraintes suivantes :</p>
+	<p><img src='img/flecheactu.gif'/> Il vous sera <u>impossible</u> de récupérer votre commande pendant les jours de fermeture (dimanche, lundi, mardi, mercredi, jeudi, jours fériés).</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée <u>avant 15h30</u> le vendredi, la récupération sera possible le jour j. Dans le cas contraire la récupération sera possible dès le lendemain.</p>
+	<p><img src='img/flecheactu.gif'/> Si votre commande est passée le samedi, la récupération sera seulement possible le vendredi de la semaine suivante.</p>
+	<p>Merci de votre compréhension.</p>
 </div>
 
 <h3>Récapitulatif de la commande</h3>
@@ -17,5 +18,8 @@
 
 <div style='clear:both;'>&nbsp;</div>
 <p>
-<a href="javascript:clickPasserCommande();" class="bouton">Passer la commande</a> | <a href="javascript:clickNavigation('mesinfos');" class="bouton">Modifier mes informations</a>
+<?php if (isCommandePossible()) {?>
+<a href="javascript:clickPasserCommande();" class="bouton">Passer la commande</a> |
+<?php } ?> 
+<a href="javascript:clickNavigation('mesinfos');" class="bouton">Modifier mes informations</a>
 </p>

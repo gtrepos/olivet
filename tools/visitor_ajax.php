@@ -149,15 +149,17 @@ switch($ajax_event){
   			break;
   		}
   		
-  		if($ajax_daterecup_commande == "-1"){
+  		if($ajax_daterecup_commande == ""){
   			echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
   			break;
   		}
   		
   		if($tmpvalid == false) {
-  			echo "Erreur dans le formulaire : le code antispam n'est pas le bon";
+  			echo "Erreur dans le formulaire : le code de sécurité n'est pas le bon";
   			break;
   		}
+  		
+  		$ajax_daterecup_commande = dateFrUs($ajax_daterecup_commande);
   		
   		$messageDateRecupIncompatible = bddCheckDateRecupVsJoursDispos($ajax_daterecup_commande);
   		if($messageDateRecupIncompatible!=null) {
@@ -170,7 +172,6 @@ switch($ajax_event){
   			echo "Erreur dans le formulaire : ".$messageDateRecupIncompatible;
   			break;
   		}
-  		
   		
   		if($addClient){
   			bddAddClient($ajax_nclient_nom, $ajax_nclient_prenom, $ajax_nclient_adresse, $ajax_nclient_postal, 
