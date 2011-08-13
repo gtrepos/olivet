@@ -38,11 +38,7 @@ if ($action=='desactiver') {
 	desactiver_actualite($_GET['id']);
 }
 
-if ($action=='supprimer') {
-	supprimer_actu($_GET['id']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') 
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') 
 	echo "<script type='text/javascript'>window.location='index.php?page=actualites';</script>";
 
 ?>

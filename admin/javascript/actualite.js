@@ -35,6 +35,15 @@ function valideFormActu(){
 
 function alerteSuppressionActu(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer l\'actualité \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=actualites&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimeActualite',
+				id : id,
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=actualites&action=lister";
+			}
+		});
 	}
 }

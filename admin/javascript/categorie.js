@@ -18,6 +18,15 @@ function valideFormCategorie(){
 
 function alerteSuppressionCategorie(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer la catégorie \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=categories&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimeCategorie',
+				id : id,
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=categories";
+			}
+		});
 	}
 }

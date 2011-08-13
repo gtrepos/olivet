@@ -65,7 +65,16 @@ function prepareJoursDispo(){
 
 function alerteSuppressionProduit(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=produits&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimerProduit',
+				id : id
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=produits";
+			}
+		});
 	}
 }
 

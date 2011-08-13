@@ -35,10 +35,6 @@ if ($action=='enregistrer') {
 	enregistrer_categorie($_GET['mode'], $_POST['id'], $_POST['libelle']);	
 }
 
-if ($action=='supprimer') {
-	supprimer_categorie($_GET['id']);
-}
-
 if ($action=='activer') {
 	activer_categorie($_GET['id']);
 }
@@ -47,7 +43,7 @@ if ($action=='desactiver') {
 	desactiver_categorie($_GET['id']);
 }
 
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=categories';</script>";
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=categories';</script>";
 
 ?>
 

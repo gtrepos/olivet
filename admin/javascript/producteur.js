@@ -69,6 +69,15 @@ function valideFormProducteur(){
 
 function alerteSuppressionProducteur(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer le producteur \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=producteurs&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimerProducteur',
+				id : id
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=producteurs";
+			}
+		});
 	}
 }

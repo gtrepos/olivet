@@ -448,11 +448,6 @@ function supprimer_commande($idCommande) {
 	$requeteDeleteCommande = "DELETE FROM commande where commande_id = '$idCommande'";
 	$resultDeleteCommande=mysql_query($requeteDeleteCommande) or die (mysql_error());
 	
-	echo $resultStock;
-	echo $resultDeleteLcc;
-	echo $resultDeleteCommande;
-	echo $resultDeleteLcpr;
-	
 	if ($resultDeleteLcc && $resultDeleteCommande && $resultDeleteLcpr) {
 		commit();
 	}

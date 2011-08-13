@@ -1,7 +1,3 @@
-<?php if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
-	session_start();
-}
-?>
 <font class=olivet><?php echo ADMIN_PRODUIT_GESTION; ?></font>
 
 <?php 
@@ -47,11 +43,7 @@ if ($action=='desactiver') {
 	desactiver_produit($_GET['id']);
 }
 
-if ($action=='supprimer') {
-	supprimer_produit($_GET['id']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') {
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') {
 	
 	$id = "";
 	

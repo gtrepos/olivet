@@ -169,20 +169,47 @@ function valideCommande(){
 }
 
 function alerteSuppressionCommande(idCommande){
-	if (confirm('Ëtes vous sûr de vouloir supprimer la commande '+idCommande+' ?')){
-		location.href = 'index.php?page=commandes&action=supprimer&idCommande='+idCommande;
+	if (confirm("Êtes vous sûr de vouloir supprimer la commande '"+idCommande+"' ?")){
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimerCommande',
+				id : idCommande
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=commandes&action=lister";
+			}
+		});
 	}	
 }
 
 function alerteFacturationCommande(idCommande){
-	if (confirm('Ëtes vous sûr d\'avoir facturé la commande '+idCommande+' ?')){
-		location.href = 'index.php?page=commandes&action=facturer&idCommande='+idCommande;
-	}	
+	if (confirm('Êtes vous sûr d\'avoir facturé la commande '+idCommande+' ?')){
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'facturerCommande',
+				id : idCommande
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=commandes&action=lister";
+			}
+		});
+	}
 }
 
 function alerteDefacturationCommande(idCommande){
-	if (confirm('Ëtes vous sûr de vouloir changer l\'état de la commande '+idCommande+' en \'en cours\' ?')){
-		location.href = 'index.php?page=commandes&action=defacturer&idCommande='+idCommande;
+	if (confirm('Êtes vous sûr de vouloir changer l\'état de la commande '+idCommande+' en \'en cours\' ?')){
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'defacturerCommande',
+				id : idCommande
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=commandes&action=lister";
+			}
+		});
 	}	
 }
 

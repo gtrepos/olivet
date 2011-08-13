@@ -58,7 +58,16 @@ function valideFormConditionnement(){
 
 function alerteSuppressionConditionnement(id, nom){
 	if (confirm('Êtes vous sûr de vouloir supprimer le conditionnement \'' + nom + '\' ('+id+') ?')){
-		location.href = 'index.php?page=conditionnements&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimeConditionnement',
+				idcond : id
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=conditionnements&action=lister";
+			}
+		});
 	}
 }
 
@@ -72,7 +81,7 @@ function selectionneStock(){
 }
 
 function updateNouveauteConditionnement(idcond, nouveaute) {
-	new Ajax.Request("ajax.php", {
+	new Ajax.Request("./fonctions/ajax.php", {
 		method : 'post',
 		parameters : {
 			event : 'updateNouveauteConditionnement',

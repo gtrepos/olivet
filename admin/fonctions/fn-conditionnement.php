@@ -198,11 +198,6 @@ function desactiver_conditionnement($id) {
 	$result=mysql_query($requete) or die (mysql_error());
 }
 
-function supprimer_conditionnement($id) {
-	$requete = "DELETE FROM conditionnement WHERE cond_id = '$id'";
-	$result=mysql_query($requete) or die (mysql_error());
-}
-
 function checkCondInCommande($id) {
 	//on ne peut pas supprimer ou modifier un conditionnement qui a été référencé dans une commande.
 	$requeteCheckInCommande = "SELECT distinct cond.cond_nom, cond.cond_id FROM lien_commande_cond lcc, commande com, conditionnement cond " .
@@ -215,6 +210,16 @@ function checkCondInCommande($id) {
 	}
 	
 	return false;
+}
+
+function updateNouveauteConditionnement($idcond,$nouveaute){
+	$requete=$requete = "UPDATE conditionnement SET cond_nouveaute = $nouveaute WHERE cond_id = '$idcond'";
+	$resultats=mysql_query($requete) or die (mysql_error());
+}
+
+function supprimer_conditionnement($idcond) {
+	$requete = "DELETE FROM conditionnement WHERE cond_id = '$idcond'";
+	$result=mysql_query($requete) or die (mysql_error());
 }
 
 ?>

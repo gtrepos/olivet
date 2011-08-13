@@ -24,19 +24,7 @@ if ($action=='enregistrer' && $_GET['mode']=='modification') {
 	modifier_commande($_POST['recapCommandeCond'], $_POST['recapCommandeProduitResa'], $_POST['idCommande'], $_POST['refClient'], $_POST['daterecup']);
 }
 
-if ($action=='supprimer') {
-	supprimer_commande($_GET['idCommande']);
-}
-
-if ($action=='facturer') {
-	facturer_commande($_GET['idCommande']);
-}
-
-if ($action=='defacturer') {
-	defacturer_commande($_GET['idCommande']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer' || $action=='facturer' || $action=='defacturer') echo "<script type='text/javascript'>window.location='index.php?page=commandes';</script>";
+if ($action=='enregistrer') echo "<script type='text/javascript'>window.location='./?page=commandes';</script>";
 
 ?>
 

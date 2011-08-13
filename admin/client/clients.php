@@ -26,11 +26,7 @@ if ($action=='enregistrer') {
 	enregistrer_client($_GET['mode'], $ref, $_POST['nom'], $_POST['prenom'], $_POST['civilite'], $_POST['adresse'], $_POST['cp'], $_POST['commune'], $_POST['tel'], $_POST['email']);	
 }
 
-if ($action=='supprimer') {
-	supprimer_client($_GET['ref']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer') echo "<script type='text/javascript'>window.location='index.php?page=clients';</script>";
+if ($action=='enregistrer') echo "<script type='text/javascript'>window.location='index.php?page=clients';</script>";
 ?>
 
 

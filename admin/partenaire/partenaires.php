@@ -46,11 +46,7 @@ if ($action=='desactiver') {
 	desactiver_partenaire($_GET['id']);
 }
 
-if ($action=='supprimer') {
-	supprimer_partenaire($_GET['id']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=partenaires';</script>";
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') echo "<script type='text/javascript'>window.location='index.php?page=partenaires';</script>";
 ?>
 
 

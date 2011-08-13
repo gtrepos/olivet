@@ -51,6 +51,15 @@ function valideFormPartenaire(){
 
 function alerteSuppressionPartenaire(id, libelle){
 	if (confirm('Êtes vous sûr de vouloir supprimer le partenaire \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=partenaires&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimerPartenaire',
+				id : id
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=partenaires";
+			}
+		});
 	}
 }

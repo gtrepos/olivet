@@ -1,7 +1,3 @@
-<?php if ( session_id() == '' ) { // no session has been started yet, which is needed for validation
-	session_start();
-}
-?>
 <font class=olivet><?php echo ADMIN_CONDITIONNEMENT_GESTION; ?></font>
 
 <?php 
@@ -76,11 +72,7 @@ if ($action=='desactiver') {
 	desactiver_conditionnement($_GET['id']);
 }
 
-if ($action=='supprimer') {
-	supprimer_conditionnement($_GET['id']);
-}
-
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') { 
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') { 
 	
 	$id = "";
 	

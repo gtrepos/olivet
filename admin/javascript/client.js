@@ -53,7 +53,16 @@ function valideFormClient(){
 
 function alerteSuppressionClient(ref, nom, prenom){
 	if (confirm('Êtes vous sûr de vouloir supprimer le client \'' + nom + ' ' + prenom + '\' ('+ref+') ?')){
-		location.href = 'index.php?page=clients&action=supprimer&ref='+ref;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimeClient',
+				id : ref,
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=clients";
+			}
+		});
 	}	
 }
 

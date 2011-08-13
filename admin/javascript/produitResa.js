@@ -114,6 +114,15 @@ function valideFormProduitResa(){
 
 function alerteSuppressionProduitResa(id, libelle){
 	if (confirm('Ëtes vous sûr de vouloir supprimer le produit \'' + libelle + '\' ('+id+') ?')){
-		location.href = 'index.php?page=produitsresa&action=supprimer&id='+id;
+		new Ajax.Request("./fonctions/ajax.php", {
+			method : 'post',
+			parameters : {
+				event : 'supprimerProduitResa',
+				id : id
+			},
+			onComplete : function(transport) {
+				location.href = "./?page=produitsresa";
+			}
+		});
 	}
 }

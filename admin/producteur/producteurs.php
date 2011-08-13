@@ -51,7 +51,7 @@ if ($action=='supprimer') {
 	supprimer_producteur($_GET['id']);
 }
 
-if ($action=='enregistrer' || $action=='supprimer' || $action=='activer' || $action=='desactiver') {
+if ($action=='enregistrer' || $action=='activer' || $action=='desactiver') {
 	echo "<script type='text/javascript'>window.location='index.php?page=producteurs#ancre_".$_GET['id']."';</script>";
 }
 ?>
