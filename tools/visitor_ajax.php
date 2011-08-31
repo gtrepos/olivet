@@ -149,8 +149,8 @@ switch($ajax_event){
   			break;
   		}
   		
-  		if($ajax_daterecup_commande == ""){
-  			echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande";
+  		if($ajax_daterecup_commande == "" && panierNbProdsCond()>0){
+  			echo "Erreur dans le formulaire : veuillez préciser une date de récupération de la commande '" . $ajax_daterecup_commande . "'";
   			break;
   		}
   		
