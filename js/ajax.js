@@ -258,7 +258,6 @@ function clickValid1() {
 	var nclient_commune = $F('nclient_commune');
 	var nclient_tel = $F('nclient_tel');
 	var daterecup_commande = $('daterecup_commande')!=null ? $F('daterecup_commande') : null;
-	
 	var nclient_civilite = $F('nclient_civilite');
 	
 	new Ajax.Request('tools/visitor_ajax.php', {
@@ -321,9 +320,9 @@ function clickPasserCommande() {
 				var maintenant = new Date(); 
 				minDatePicker = "0";
 				
-				//si commande après 15h30 le vendredi, date de récupération possible seulement le lendemain.
+				//si commande après 12h le vendredi, date de récupération possible seulement le lendemain.
 				if (maintenant.getDay()==5) {
-					if ((maintenant.getHours()==15 && maintenant.getMinutes()>30) || maintenant.getHours()>15) {
+					if (maintenant.getHours()>=12) {
 						minDatePicker = "+1";
 					}
 				}

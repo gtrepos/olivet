@@ -40,19 +40,17 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 	$cond_a_stock = $row1[10];
 	$cond_nb_stock = $row1[11];
 	$cond_divisible = $row1[12];
-	$nbprod++;
-	
-	if ($nbprod%2 == 1) {
-    	$classth = 'specalt';
-    	$classtd = 'alt';    	
-	} else {
-    	$classth = 'spec';
-    	$classtd = '';
-	}
 	
 	$quantite_panier = panierQuantiteProdsCond($cond_id);
 	if($quantite_panier > 0){
-
+		$nbprod++;
+		if ($nbprod%2 == 1) {
+	    	$classth = 'specalt';
+	    	$classtd = 'alt';    	
+		} else {
+	    	$classth = 'spec';
+	    	$classtd = '';
+		}
 		if($cond_a_stock = 1 ){
 			$nbstock = $cond_nb_stock;
 		}else{
@@ -62,7 +60,7 @@ while ($row1 = mysql_fetch_array($tmpres1)){
 		$prixTotalCond = $quantite_panier * $prixUnitaireCond;
 		echo "<tr>";
 		echo "<th class='$classth'><a href='javascript:clickSelectCatProduit($categorie_produit_id)'>"
-		.$produit_libelle."<br>".$cond_nom."</a></td>";
+		.$produit_libelle."<br>".$cond_nom."</a></th>";
 		
 		//echo "<td>".$produit_libelle."[".$cond_nom."]</td>";
 		echo "<td class='$classtd'> $prixUnitaireCond  &euro;</td>";
@@ -119,18 +117,19 @@ while ($row2 = mysql_fetch_array($tmpres2)){
 	$produit_resa_date_recuperation = dateUsFr($row2[9]);
 	$produit_resa_date_limite_recuperation = dateUsFr($row2[10]);
 	$disponibilite = "du ".$produit_resa_date_recuperation." au ".$produit_resa_date_limite_recuperation;
+	$nbresa++;
 	
-	if ($nbresa%2 == 1) {
-    	$classth = 'specalt';
-    	$classtd = 'alt';    	
-	} else {
-    	$classth = 'spec';
-    	$classtd = '';
-	}
-	
-
 	$quantite_panier = panierQuantiteProdsResa($produit_resa_id);
 	if($quantite_panier > 0){
+		
+		if ($nbresa%2 == 1) {
+	    	$classth = 'specalt';
+	    	$classtd = 'alt';    	
+		} else {
+	    	$classth = 'spec';
+	    	$classtd = '';
+		}
+		
 		if($produit_resa_a_stock = 1 ){
 			$nbstock = $produit_resa_nb_stock;
 		}else{
