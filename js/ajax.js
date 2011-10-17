@@ -279,6 +279,8 @@ function clickValid1() {
 			daterecup_commande : daterecup_commande,
 			nclient_civilite : nclient_civilite
 		},
+		//pour empêcher le double click
+		onLoading : function(){$('bouton_valider_commande').href="#"},
 		onComplete : manageClickValid1,
 		onFailure : function() {
 			alert('Something went wrong...')
@@ -320,10 +322,10 @@ function clickPasserCommande() {
 				var maintenant = new Date(); 
 				minDatePicker = "0";
 				
-				//si commande après 12h le vendredi, date de récupération possible seulement le lendemain.
+				//si commande après 12h le vendredi, date de récupération possible seulement le vendredi suivant.
 				if (maintenant.getDay()==5) {
 					if (maintenant.getHours()>=12) {
-						minDatePicker = "+1";
+						minDatePicker = "+7";
 					}
 				}
 				

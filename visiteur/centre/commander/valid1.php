@@ -47,7 +47,7 @@
 <div class='separateurPointille'>&nbsp;</div>
 
 <p>
-  <a href="javascript:clickValid1();" class="bouton">Valider la commande</a>
+  <a href="javascript:clickValid1();" id="bouton_valider_commande" class="bouton">Valider la commande</a>
 </p>
 
 </form>	
