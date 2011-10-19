@@ -149,7 +149,7 @@ function manageClickValid1(transport) {
 			},
 			onComplete : function(transport) {
 				$('commander-captcha').innerHTML = transport.responseText;
-				
+				$('bouton_valider_commande').href="javascript:clickValid1();";
 			},
 			onFailure : function() {
 				alert('Something went wrong...')
