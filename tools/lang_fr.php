@@ -177,6 +177,12 @@ define("ADMIN_PRODUCTEUR_DESACTIVER","Désactiver");
 define("ADMIN_PRODUCTEUR_MODIFIER","Modifier");
 define("ADMIN_PRODUCTEUR_SUPPRIMER","Supprimer");
 
+//gestion des abonnes a la newsletter
+define("ADMIN_ABONNE_NEWSLETTER_GESTION","Gestion des abonnés à la newsletter");
+define("ADMIN_ABONNE_NEWSLETTER_EMAIL","Email");
+define("ADMIN_ABONNE_NEWSLETTER_DATE","Date d'abonnement");
+
+//gestion des images
 define("ADMIN_GESTION_IMAGES","Gestion des images");
 
 ?>

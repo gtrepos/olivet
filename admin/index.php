@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="./javascript/produitResa.js"></script>
 	<script type="text/javascript" src="./javascript/partenaire.js"></script>
 	<script type="text/javascript" src="./javascript/producteur.js"></script>
+	<script type="text/javascript" src="./javascript/abonnes_newsletter.js"></script>
 	<script type="text/javascript" src="./javascript/commande.js"></script>
 	<script type="text/javascript" src="./javascript/conditionnement.js"></script>
 	<script type="text/javascript" src="../js/prototype.js"></script>
@@ -46,6 +47,8 @@ require ("fonctions/fn-produit-resa.php");
 require ("fonctions/fn-producteur.php");
 require ("fonctions/fn-accueil.php");
 require ("fonctions/fn-images.php");
+require ("fonctions/fn-abonnes-newsletter.php");
+
 ?>
 
 <div align="center">
@@ -64,7 +67,8 @@ require ("fonctions/fn-images.php");
       	<a href="?page=conditionnements">Liste des conditionnements</a><br><br>
       	<a href="?page=produitsresa">Liste des produits à la réservation</a><br><br>
       	<a href="?page=partenaires">Partenaires</a><br><br>
-      	<a href="?page=producteurs">Producteurs</a><br><br><br>
+      	<a href="?page=producteurs">Producteurs</a><br><br>
+      	<a href="?page=abonnesNewsletter">Abonnés à la newsletter (via le site web)</a><br><br><br>
       	<a href="?page=gestionImages">Gestion des images</a><br><br>
       </td>
       <td valign="top" colspan="2">
@@ -83,8 +87,10 @@ require ("fonctions/fn-images.php");
 		if ($page=="produitsresa") {include ("produit/produits_resa.php");}
 		if ($page=="partenaires") {include ("partenaire/partenaires.php");}
 		if ($page=="producteurs") {include ("producteur/producteurs.php");}
+		if ($page=="abonnesNewsletter") {include ("newsletter/abonnes.php");}
 		if ($page=="accueil") {include ("accueil/accueil.php");}
 		if ($page=="gestionImages") {include ("gestionImages/gestionImages.php");}
+		
 	  ?>
       </div></td>
       <td  width="1%" style="border-left-style: dashed;border-left-width : 1px; border-color:#3b487f">&nbsp;</td>

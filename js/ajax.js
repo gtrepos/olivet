@@ -307,6 +307,22 @@ function clickCheckClient(){
 
 }	
 
+function clickCheckAbonnementNewsletter(){
+	
+	var email_abonnement = $('email_abonnement').value;
+	
+	new Ajax.Request('tools/visitor_ajax.php', 
+			{ 
+		method: 'post', 
+		parameters: {event: 'clickCheckAbonnementNewsletter', 
+					 email_abonnement: email_abonnement
+		            },
+		onComplete: manageClickCheckAbonnementNewsletter,
+		onFailure : function(){ alert('Something went wrong...') }
+			});
+
+}
+
 function clickPasserCommande() {
 	new Ajax.Request('tools/visitor_ajax.php', {
 		method : 'post',
@@ -401,6 +417,15 @@ function manageClickCheckClient(transport) {
 	}
 }
 
+function manageClickCheckAbonnementNewsletter(transport) {
+	if (transport.responseText.match("Erreur dans le formulaire")) {
+		alert(transport.responseText);
+	} else {
+		$('principal').innerHTML = transport.responseText;
+	}
+}
+
+
 function clickCheckModifClient(){
 	
 	var client_civilite = $F('client_civilite');
@@ -463,6 +488,24 @@ function clickSelectCatProduit(categorie_produit_id) {
 		}
 	});
 }
+
+function clickAbonnementNewsletter(){
+	new Ajax.Request('tools/visitor_ajax.php', {
+
+		method : 'post',
+		parameters : {
+			event : 'clickNavigation',
+			menu : 'abonnement_newsletter'
+		},
+		onComplete : function(transport) {
+			$('principal').innerHTML = transport.responseText;
+		},
+		onFailure : function() {
+			alert('Erreur navigation');
+		}
+	});
+}
+
 
 function clickActualite() {
 	clickNavigation('actualites');

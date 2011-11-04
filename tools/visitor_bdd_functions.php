@@ -154,6 +154,14 @@ function bddAddClient($nom, $prenom, $adresse, $codepostal, $commune, $numerotel
 	$result=mysql_query($requete) or die (mysql_error());
 }
 
+function bddAddAbonnementNewsletter($emailAbonnement){
+	$token = md5 (uniqid());
+	$requete = "INSERT INTO abonnement_newsletter (email_abonnement, token) VALUES ('$emailAbonnement', '$token')";
+	$result=mysql_query($requete) or die (mysql_error());
+	return $token;
+}
+
+
 /**
  * add a command for client which mail is given.
  * The client is required to be already registered.
@@ -496,6 +504,25 @@ function bddCheckExistClient($mail){
 	}
 	return $retour;
 }
+
+/**
+ * return true if a client with given mail is
+ * already registered
+ * @param $mail
+ * @return unknown_type
+ */
+function bddCheckAbonnementExist($email_abonnement){
+	$requete=
+		"SELECT email_abonnement FROM abonnement_newsletter WHERE email_abonnement = '$email_abonnement' ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	$retour = false;
+	while ($row = mysql_fetch_array($resultats))
+	{
+		$retour = true;
+	}
+	return $retour;
+}
+
 
 function bddUpdateClient($reference,$civilite,$nom,$prenom,$mail,$adresse,$codepostal,$commune,$numerotel,$motdepasse){
 	$requete=$requete = "UPDATE client SET client_nom = '$nom', client_prenom = '$prenom', " .

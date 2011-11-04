@@ -89,6 +89,8 @@ require_once('tools/visitor_panier_functions.php');
 <div id='banniere-resume_panier'><?php include('visiteur/droite/resume_panier.php'); ?>
 </div>
 
+<div style='display:none'><h4><a href="#" onclick='clickAbonnementNewsletter()'>Abonnement newsletter</a></h4></div>
+
 <?php
 $tmpres = bddNouveauxProduits();
 if (mysql_num_rows($tmpres)>0) {

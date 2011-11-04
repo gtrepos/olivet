@@ -40,6 +40,9 @@ switch($ajax_event){
 			case 'mesinfos' :
 				include('../visiteur/centre/client/mesinfos.php');
 				break;
+			case 'abonnement_newsletter' :
+				include('../visiteur/centre/abonnement_newsletter.php');
+				break;	
 		}		
 		break;
 	
@@ -224,6 +227,27 @@ switch($ajax_event){
   			echo "Erreur dans le formulaire : vous devez spécifier un mail et un mot de passe";
   			break;
   		}
+		break;
+	case 'clickCheckAbonnementNewsletter' :
+		$ajax_email_abonnement = trim("$_POST[email_abonnement]");
+		if($ajax_email_abonnement != ""){
+			$isAbonne = bddCheckAbonnementExist($ajax_email_abonnement);
+			if (!$isAbonne) {
+				$cleAbonnement = bddAddAbonnementNewsletter($ajax_email_abonnement);
+				envoiMailConfirmAbonnementNewslettter($ajax_email_abonnement, $cleAbonnement);
+			}
+			else {
+				echo "Erreur dans le formulaire : vous êtes déjà abonné avec l'email " . $ajax_email_abonnement;
+				break;
+			}
+		}
+		else {
+			echo "Erreur dans le formulaire : vous devez spécifier un email d'abonnement";
+			break;
+		}
+		
+		include('../visiteur/centre/confirmAbonnementNewsletter.php');
+		
 		break;
 		
 	case 'clickCheckModifClient' :

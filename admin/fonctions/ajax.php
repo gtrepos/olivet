@@ -11,6 +11,7 @@ require_once("fn-conditionnement.php");
 require_once("fn-partenaire.php");
 require_once("fn-produit-resa.php");
 require_once("fn-producteur.php");
+require_once("fn-abonnes-newsletter.php");
 
 ouverture();
 
@@ -66,7 +67,11 @@ switch($ajax_event){
 	case 'supprimerProduitResa' :
   		$id = "$_POST[id]";
   		supprimer_produit_resa($id);
-		break;							
+		break;	
+	case 'supprimerAbonneNewsletter' :
+  		$email = "$_POST[email]";
+  		supprimer_abonne_newsletter($email);
+		break;		
 }
 
 

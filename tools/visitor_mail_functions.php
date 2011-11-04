@@ -309,5 +309,34 @@ function envoiMailRecapCommande($nouveauClient, $email, $idCommande){
 	envoyerMail($nouveauClient, $email, $idCommande, $pdfFilename  );
 }
 
+function envoiMailConfirmAbonnementNewslettter($emailAbonnement, $token){
+	require_once ("../Swift-4.0.4/lib/swift_required.php");
+	
+	$message_body = "Bonjour,\n\n";
+	$message_body .= " Nous vous confirmons votre abonnement à la newsletter de la Ferme d'Olivet. \n";
+	$message_body .= " Vous pourrez à tout moment vous désabonner en en faisant la demande à l'adresse 'fermeolivet@free.fr'. \n\n";
+	$message_body .= " Au nom de la ferme d'Olivet, merci pour votre abonnement.";
+	
+	
+	//MAIL
+	
+	//Create a message
+	$message = Swift_Message::newInstance('Confirmation d\'abonnement à la newsletter');
+	$message->setFrom(array('fermeolivet@free.fr' => 'Ferme d\'Olivet'));
+	$message->setTo(array($emailAbonnement));
+	$message->setBcc(array('fermeolivet@free.fr', 'gwenael.trepos@gmail.com'));
+	$message->setBody($message_body);
+	
+	//Create the Transport
+	$transport = Swift_MailTransport::newInstance();
+	//Create the Mailer using your created Transport
+	$mailer = Swift_Mailer::newInstance($transport);
+	//Send the message
+	$result = $mailer->send($message);
+	//remove tmp
+	if(file_exists('tmpSWIFT')){
+		unlink('tmpSWIFT');
+	}	
+}
 
 ?>
