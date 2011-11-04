@@ -48,6 +48,7 @@ require ("fonctions/fn-producteur.php");
 require ("fonctions/fn-accueil.php");
 require ("fonctions/fn-images.php");
 require ("fonctions/fn-abonnes-newsletter.php");
+require ("fonctions/fn-produitsGAEC.php");
 
 ?>
 
@@ -59,6 +60,7 @@ require ("fonctions/fn-abonnes-newsletter.php");
       <td class="olivet" width="15%" valign="top" style="padding:0.2em; border-right-style: dashed;border-right-width : 1px; border-color:#3b487f">
       	<div><?php ouverture ();?></div>
       	<a href="?page=accueil">Page d'accueil</a><br><br>
+      	<a href="?page=produitsGAEC">Où trouver les produits du GAEC</a><br><br>
       	<a href="?page=commandes">Commandes</a> | <a href="?page=commandes&action=creer"><?php echo ADMIN_COMMANDE_CREER;?></a><br><br>
       	<a href="?page=clients">Clients</a> | <a href="?page=clients&action=creer"><?php echo ADMIN_CLIENT_CREER;?></a><br><br>
       	<a href="?page=actualites">Actualités</a> | <a href="?page=actualites&action=creer"><?php echo ADMIN_ACTUALITE_CREER;?></a><br><br>
@@ -89,6 +91,7 @@ require ("fonctions/fn-abonnes-newsletter.php");
 		if ($page=="producteurs") {include ("producteur/producteurs.php");}
 		if ($page=="abonnesNewsletter") {include ("newsletter/abonnes.php");}
 		if ($page=="accueil") {include ("accueil/accueil.php");}
+		if ($page=="produitsGAEC") {include ("produits_gaec/produitsGAEC.php");}
 		if ($page=="gestionImages") {include ("gestionImages/gestionImages.php");}
 		
 	  ?>

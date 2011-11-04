@@ -105,6 +105,13 @@ function afficheAccueil(){
 	return $row[0];
 }
 
+function afficheProduitsGAEC(){
+	$requete=
+		"SELECT valeur FROM parametrage where parametre='produitsGAEC'";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	$row = mysql_fetch_array($resultats);
+	return $row[0];
+}
 
 function bddNouveauxProduits(){
 	$requete=

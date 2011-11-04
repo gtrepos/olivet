@@ -315,7 +315,7 @@ function envoiMailConfirmAbonnementNewslettter($emailAbonnement, $token){
 	$message_body = "Bonjour,\n\n";
 	$message_body .= " Nous vous confirmons votre abonnement à la newsletter de la Ferme d'Olivet. \n";
 	$message_body .= " Vous pourrez à tout moment vous désabonner en en faisant la demande à l'adresse 'fermeolivet@free.fr'. \n\n";
-	$message_body .= " Au nom de la ferme d'Olivet, merci pour votre abonnement.";
+	$message_body .= " Au nom de la Ferme d'Olivet, merci pour votre abonnement.";
 	
 	
 	//MAIL

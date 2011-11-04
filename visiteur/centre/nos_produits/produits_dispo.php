@@ -7,15 +7,21 @@ foreach ($_POST as $key => $value) {
 		ouverture();
 	}
 }
-?><?php//panierPlot()?>
-<h3>Les produits</h3>
-<p>Vous pouvez consulter et commander nos produits, en cliquant sur une des catégorie présentées ci-dessous.</p>
+?>
+
+<?php 
+echo "<h3>Où trouver les produits du GAEC à 3 voix</h3>";
+echo html_entity_decode(afficheProduitsGAEC()); 
+?>
+
+<h3>Produits actuellement disponibles en magasin</h3>
+<p>Vous pouvez consulter et commander nos produits, en cliquant sur une des catégories présentées ci-dessous.</p>
 <p>Il vous suffit de saisir une quantité pour alimenter votre panier.</p>
-<p>Des produits 'sur réservation' vous seront proposés de manière périodique. Typiquement, les caissettes de viande sont des produits sur réservation. Pour ceux-ci, le GAEC vous informera de leur date de disponibilté directement par mail.</p>  
+<p>Des produits 'sur réservation' vous seront proposés de manière périodique. Typiquement, les caissettes de viande sont des produits sur réservation. Pour ceux-ci, le GAEC vous informera via son site web de leur date de disponibilté.</p>  
 
 <?php
 $globStruc = bddProdsDispo();
-echo "<h3>Produits actuellement disponibles</h3><a href=\"javascript:clickNavigation('nos_produits');\">Voir toutes les catégories.</a>";
+echo "<a href=\"javascript:clickNavigation('nos_produits');\">Voir toutes les catégories.</a>";
 echo "<ul class='menu_deroulant2'>";
 while (list($categorie_produit_id, $catStruct) = each($globStruc)) {
 	echo "<li>";
