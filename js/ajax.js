@@ -2,11 +2,11 @@
 //une fonction $ qui remplace document.getElementById, alors que jQuery la propose également
 jQuery.noConflict();
 
-// Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur, dans la page Infos pratiques
+// Adresse sur laquelle le carte sera centrée et ou sera placé le marqueur, dans la page Infos pratiques
 var cfg_adress = 'Olivet, 35000 Servon Sur Vilaine';
 
-//Adresse sur laquelle le carte sera centrer et ou sera placer le marqueur, dans la page Producteurs
-var cfg_adress_prod = 'Liffré, 35';
+//Adresse sur laquelle le carte sera centrée et ou sera placée le marqueur, dans la page Producteurs
+var cfg_adress_prod = '35340 Liffré';
 
 // Largeur de la carte
 var cfg_largeur = '600px';

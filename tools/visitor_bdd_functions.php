@@ -323,7 +323,8 @@ function bddProdsCondDispo(){
 	"conditionnement.cond_divisible, ".
 	"produit.produit_rang," .
 	"produit.produit_jours_dispos, ".
-	"produit.produit_id_producteur ".
+	"produit.produit_id_producteur, ".
+	"conditionnement.cond_rang ".
 	"FROM produit ".
 	"LEFT JOIN	categorie_produit ".
 	"ON produit.produit_id_categorie = categorie_produit.categorie_produit_id ".
@@ -336,6 +337,7 @@ function bddProdsCondDispo(){
 	"ORDER BY categorie_produit.categorie_produit_libelle, ".
 	"produit.produit_rang, ".
 	"produit.produit_libelle, ".
+	"conditionnement.cond_rang, ".
 	"conditionnement.cond_nom ";
 
 	$resultats=mysql_query($requete) or die (mysql_error());

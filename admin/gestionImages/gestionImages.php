@@ -34,8 +34,6 @@ function popupPick(val) {
 
 <br><br>
 
-<table id=tableau cellspacing="0" cellspacing="0">
-	<?php affich_images(); ?>	
-</table>
+<?php affich_images(); ?>	
 
 <div id="divPopup" style="position: absolute; visibility: hidden; background-color:#E2BAD9; width: 550px; height: 60;"></div>

@@ -34,6 +34,7 @@
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX_GLOBAL; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_TVA; ?></td>
+		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_RANG; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
 	<?php affich_conditionnements($idCategorieFiltre); ?>
@@ -47,6 +48,7 @@
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_PRIX_GLOBAL; ?></td>
 		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_TVA; ?></td>
+		<td class=caption><?php echo ADMIN_CONDITIONNEMENT_RANG; ?></td>
 		<td class=caption>&nbsp;</td>
 	</tr>
 </table>

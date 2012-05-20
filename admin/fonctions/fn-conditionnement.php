@@ -4,7 +4,7 @@ function affich_conditionnements ($idCategorie)
   $requete=
 		"SELECT cond.cond_id, cat.categorie_produit_libelle, prod.produit_libelle, cond.cond_nouveaute, cond.cond_etat, " .
 		"cond.cond_prix, cond.cond_nom, cond.cond_a_stock, cond.cond_nb_stock, cond.cond_divisible, cond.cond_remise, " .
-		"cond.cond_tva, cat.categorie_produit_id, prod.produit_id_producteur " .
+		"cond.cond_tva, cat.categorie_produit_id, prod.produit_id_producteur, cond.cond_rang " .
 		"FROM produit prod, categorie_produit cat, conditionnement cond " .
 		"WHERE prod.produit_id_categorie = cat.categorie_produit_id AND prod.produit_id = cond.cond_id_produit ";
   
@@ -12,7 +12,7 @@ function affich_conditionnements ($idCategorie)
   	$requete = $requete . " AND cat.categorie_produit_id = '" . $idCategorie . "'" ;
   }
   	
-  $requete = $requete . " ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_nom DESC";
+  $requete = $requete . " ORDER by cat.categorie_produit_id DESC, prod.produit_libelle, cond.cond_rang, cond.cond_nom";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
   
@@ -34,6 +34,7 @@ function affich_conditionnements ($idCategorie)
 	$remise = $row[10];
 	$tva = $row[11];
 	$idProducteur = $row[13];
+	$rang = $row[14];
 	$libelleProducteur = getLibelleProducteur($idProducteur);
 	$libelleCompletProduit = $libelleProd;
 	
@@ -69,6 +70,7 @@ function affich_conditionnements ($idCategorie)
     /*echo "<td>$remise €</td>";*/
     echo "<td>$prixGlobal €</td>";
     echo "<td>$tva</td>";
+    echo "<td>$rang</td>";
     echo "<td align=\"right\">";
     
     $isInCommande = checkCondInCommande($idCond);
@@ -95,7 +97,8 @@ function affich_conditionnements ($idCategorie)
 function affich_modif_conditionnement ($id)
 {
   $requete=
-		"SELECT cond_id, cond_id_produit, cond_nouveaute, cond_prix, cond_nom, produit_photo, produit_libelle, cond_a_stock, cond_nb_stock, cond_divisible, cond_remise, cond_tva " .
+		"SELECT cond_id, cond_id_produit, cond_nouveaute, cond_prix, cond_nom, produit_photo, produit_libelle, cond_a_stock, " .
+		"cond_nb_stock, cond_divisible, cond_remise, cond_tva, cond_rang " .
 		"FROM conditionnement, produit " .
 		"WHERE cond_id = '$id' and cond_id_produit = produit_id";
   
@@ -115,6 +118,7 @@ function affich_modif_conditionnement ($id)
   	$divisible = $row[9];
   	$remise = $row[10];
   	$tva = $row[11];
+  	$rang = $row[12];
   	
   	$checkedStock = '';
   	$readOnlyStock = '';
@@ -145,12 +149,14 @@ function affich_modif_conditionnement ($id)
 	echo "<tr><td>Prix vente TTC : </td><td><input type='text' id='prix_cond' name='prix_cond' value='$prixCond'/> &euro; (Exemple : 1.50)</td></tr>";
 	echo "<tr><td>Remise : </td><td><input type='text' id='remise' name='remise' value='$remise'/> &euro; (Exemple : 0.20)</td></tr>";
 	echo "<tr><td>TVA : </td><td>"; echo affiche_tva($tva); echo "</td></tr>";
+	echo "<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' size=10 value=\"$rang\"/></td></tr>";
 	echo "</table>";
   }
   
 }
 
-function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $prix_cond, $aStock, $nbStock, $divisible, $remise, $tva){
+function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $prix_cond, $aStock, $nbStock, 
+	$divisible, $remise, $tva, $rang){
 	
 	if ($aStock == 'on') {
 		$aStock = 1;
@@ -174,14 +180,14 @@ function enregistrer_conditionnement($mode, $id, $idProduit, $nom, $nouveaute, $
 	
 	if ($mode == 'creation'){
 		$requete = "INSERT INTO conditionnement (cond_id_produit, cond_nom, cond_nouveaute, cond_prix, " .
-				   "cond_a_stock, cond_nb_stock, cond_divisible, cond_remise, cond_tva)" . 
-				   "VALUES ($idProduit, '$nom', $nouveaute, $prix_cond, $aStock, $nbStock, $divisible, $remise, $tva)";
+				   "cond_a_stock, cond_nb_stock, cond_divisible, cond_remise, cond_tva, cond_rang)" . 
+				   "VALUES ($idProduit, '$nom', $nouveaute, $prix_cond, $aStock, $nbStock, $divisible, $remise, $tva, $rang)";
 	}
 	
 	else if ($mode == 'modification'){
 		$requete = "UPDATE conditionnement SET cond_id_produit = $idProduit, cond_nom = '$nom', cond_nouveaute = $nouveaute, " . 
 				   "cond_prix = $prix_cond, cond_a_stock = $aStock, cond_nb_stock = $nbStock, " .
-				   "cond_divisible = $divisible, cond_remise = $remise, cond_tva = $tva " .
+				   "cond_divisible = $divisible, cond_remise = $remise, cond_tva = $tva, cond_rang = $rang " .
 				   "WHERE cond_id = '$id'";		
 	}
 	

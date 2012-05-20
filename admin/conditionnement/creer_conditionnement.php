@@ -12,6 +12,7 @@
 			<tr><td>Prix vente TTC : </td><td><input type='text' id='prix_cond' name='prix_cond'/> &euro; (Exemple : 1.50)</td></tr>
 			<tr><td>Remise : </td><td><input type='text' id='remise' name='remise'/> &euro; (Exemple : 0.20)</td></tr>
 			<tr><td>TVA : </td><td><?php affiche_tva('5.50'); ?></td></tr>
+			<tr><td>Rang : </td><td><input type='text' id='rang' name='rang' size=10 value='0'/></td></tr>
 		</table>
 	</div>
 	<br>

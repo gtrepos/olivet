@@ -28,6 +28,7 @@
 	<script type="text/javascript" src="./accueil/accueil.js"></script>
 	<script type="text/javascript" src="./javascript/date.js"></script>
 	<script type="text/javascript" src="./javascript/dateUtilitaire.js"></script>
+	<script type="text/javascript" src="./javascript/image.js"></script>
 </head>
 
 <body class="olivet">
@@ -93,6 +94,15 @@ require ("fonctions/fn-produitsGAEC.php");
 		if ($page=="accueil") {include ("accueil/accueil.php");}
 		if ($page=="produitsGAEC") {include ("produits_gaec/produitsGAEC.php");}
 		if ($page=="gestionImages") {include ("gestionImages/gestionImages.php");}
+		if ($page=="suppressionImage") {
+			if (isset($_GET['nomImage'])){
+				$nomImage = $_GET['nomImage'];
+				supprimeImage($nomImage);
+				echo "suppresion " . $nomImage . " ok.";				
+			}
+			echo "<script>window.location='?page=gestionImages'</script>";
+			
+		}
 		
 	  ?>
       </div></td>

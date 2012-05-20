@@ -122,6 +122,7 @@ define("ADMIN_CONDITIONNEMENT_NOM","Nom conditionnement");
 define("ADMIN_CONDITIONNEMENT_PRIX","Prix conditionnement");
 define("ADMIN_CONDITIONNEMENT_REMISE","Remise");
 define("ADMIN_CONDITIONNEMENT_TVA","T.V.A.");
+define("ADMIN_CONDITIONNEMENT_RANG","Rang");
 define("ADMIN_CONDITIONNEMENT_CREER","Créer un conditionnement");
 define("ADMIN_CONDITIONNEMENT_ACTIVER","Activer");
 define("ADMIN_CONDITIONNEMENT_DESACTIVER","Désactiver");

@@ -1,16 +1,24 @@
 <?php
 
-function affich_produits_resa ()
+function affich_produits_resa ($idCategorie)
 {
   $requete=
 		"SELECT produit_resa_id, produit_resa_libelle, produit_resa_etat, produit_resa_a_stock, produit_resa_nb_stock, produit_resa_nouveaute, " .
 		"categorie_produit_libelle, produit_resa_rang, categorie_produit_id, produit_resa_date_recuperation, produit_resa_date_limite_recuperation, " .
 		"produit_resa_date_limite_commande, produit_resa_id_producteur " .
 		"FROM produit_resa, categorie_produit " .
-		"WHERE produit_resa_id_categorie = categorie_produit_id " .
-		"ORDER BY categorie_produit_libelle, produit_resa_libelle ";
+		"WHERE produit_resa_id_categorie = categorie_produit_id ";
+		
+  if ($idCategorie != null && $idCategorie != -1) {
+  	$requete = $requete . " AND categorie_produit_id = '" . $idCategorie . "'" ;
+  }				
+		
+  $requete = $requete . " ORDER BY categorie_produit_libelle, produit_resa_libelle ";
   		
   $resultats=mysql_query($requete) or die (mysql_error());
+  
+  echo mysql_num_rows($resultats) . " produit(s) à la réservation" . "<br><br>";
+  
   while ($row = mysql_fetch_array($resultats))
   {
     $idproduit = $row[0];
@@ -65,7 +73,7 @@ function affich_produits_resa ()
     	echo " <a href=\"\" onclick=\"alerteSuppressionProduitResa('$idproduit','". addslashes($libelleProduit) ."')\">[".ADMIN_PRODUIT_RESA_SUPPRIMER."]</a>";	
     }
     
-    echo "</td>";
+    echo "<A NAME='ancre_$idproduit'></A></td>";
     echo "</tr>";
   }
 }
