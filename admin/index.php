@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="./accueil/accueil.js"></script>
 	<script type="text/javascript" src="./javascript/date.js"></script>
-	<script type="text/javascript" src="./javascript/dateUtilitaire.js"></script>
+	<script type="text/javascript" src="../js/dateUtilitaire.js"></script>
 	<script type="text/javascript" src="./javascript/image.js"></script>
 </head>
 

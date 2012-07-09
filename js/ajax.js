@@ -333,6 +333,7 @@ function clickPasserCommande() {
 			if (transport.responseText.match("Erreur dans le formulaire")) {
 				alert(transport.responseText);
 			} else {
+				
 				$('principal').innerHTML = transport.responseText;
 				
 				var maintenant = new Date(); 
@@ -363,21 +364,40 @@ function clickPasserCommande() {
 }
 
 /*jour compris entre vendredi et samedi
- * pas un jour ferie */
+ * pas un jour ferie
+ * pas dans l'intervalle de fermeture */
 
-function filtreJoursRecup(datePicker) {
-	var day = datePicker.getDay();
-	var retour = (day>4&&day<=6) && !isJourFerie(datePicker); 
+function filtreJoursRecup(laDate) {
+	var day = laDate.getDay();
+	var retour = (day>4&&day<=6) && !isJourFerie(laDate) && !dansIntervalleFermeture(laDate); 
 	return[retour,""];
 }
 
-function isJourFerie(datePicker){
-	var joursFeries = JoursFeries(datePicker.getFullYear());
+function isJourFerie(laDate){
+	var joursFeries = JoursFeries(laDate.getFullYear());
 	for (i=0;i<joursFeries.length;i++) {
-		if (isDateEquivalente(datePicker,joursFeries[i])) {
+		if (isDateEquivalente(laDate,joursFeries[i])) {
 			return true;
 		}
 	}
+	return false;
+}
+
+function dansIntervalleFermeture(laDate) {
+	var sDateMinFermeture = jQuery("#dateMinFermeture").val();
+	var sDateMaxFermeture = jQuery("#dateMaxFermeture").val();
+	
+	if (sDateMinFermeture!=null && sDateMaxFermeture!=null) {
+		var dateMinFermeture = getDate(sDateMinFermeture);
+		var dateMaxFermeture = getDate(sDateMaxFermeture);
+		//date dans l'intervalle si elle est supérieure à la date min et inférieure ou égale à la date max
+		if (laDate > dateMinFermeture && laDate < dateMaxFermeture) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	return false;
 }
 

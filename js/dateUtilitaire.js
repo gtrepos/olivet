@@ -1,13 +1,13 @@
-function estDateSuperieure(pDateDebut, pDateFin) {
-	debut = getDate(pDateDebut);
-	fin = getDate(pDateFin);
-	return debut > fin;
+function estDateSuperieure(pDate1, pDate2) {
+	date1 = getDate(pDate1);
+	date2 = getDate(pDate2);
+	return date1 > date2;
 }
 
-function estDateInferieure(pDateDebut, pDateFin) {
-	debut = getDate(pDateDebut);
-	fin = getDate(pDateFin);
-	return debut < fin;
+function estDateInferieure(pDate1, pDate2) {
+	date1 = getDate(pDate1);
+	date2 = getDate(pDate2);
+	return date1 < date2;
 }
 
 function getDate(dateString){

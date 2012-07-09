@@ -43,6 +43,7 @@ require_once('tools/visitor_panier_functions.php');
 	<script type="text/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/commun.js"></script>
+	<script type="text/javascript" src="js/dateUtilitaire.js"></script>
 </head>
 
 <body>
@@ -154,7 +155,20 @@ if (mysql_num_rows($tmpres)>0) {
 		echo "<br/>";
 	}
 	echo "</p>";
-}	
+}
+
+$tmpres = bddDatesFermeture();
+if (mysql_num_rows($tmpres)>0) {
+	while ($row = mysql_fetch_array($tmpres)){
+		if ($row[0]=='date_fermeture_min') {
+			echo "<input type='hidden' id='dateMinFermeture' name='dateMinFermeture' value='$row[1]'/>";
+		}
+		else if ($row[0]=='date_fermeture_max') {		
+			echo "<input type='hidden' id='dateMaxFermeture' name='dateMaxFermeture' value='$row[1]'/>";
+		}
+	}
+}
+	
 ?>
 
 <h3>Horaires d'ouverture</h3>

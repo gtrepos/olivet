@@ -282,6 +282,14 @@ function bddCategorieMenu(){
 
 }
 
+function bddDatesFermeture(){
+	$requete=
+		"SELECT parametre, valeur from parametrage where parametre = 'date_fermeture_min' or parametre = 'date_fermeture_max' ";
+	$resultats=mysql_query($requete) or die (mysql_error());
+	return $resultats;
+
+}
+
 
 function bddLigneProdCond($idproduitcond){
 	$requete=
